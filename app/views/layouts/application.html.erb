@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>The MINDBASE</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body style="background: #CCFFFF;">
+<div id="paramsinspect"> <strong>Parameters Inspection:</strong> <%= params.inspect %> <br /><br /></div>
+<%= link_to 'home', root_path %> | 
+<div id="container">
+<div id="user_nav">
+  <% if user_signed_in? %>
+    Signed in as <strong><%= link_to current_user.username, edit_user_registration_path(current_user) %></strong>. Not you?
+    <%= link_to "Sign out", destroy_user_session_path %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+  <% end %>
+</div>
+<br />
+
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+ 	<%= yield %>
+    </div>
+<br />
+<%= link_to 'home', root_path %>
+	</body>
+</html>

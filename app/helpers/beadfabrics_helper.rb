@@ -1,0 +1,2 @@
+module BeadfabricsHelper
+end

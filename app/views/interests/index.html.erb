@@ -1,0 +1,45 @@
+<h1>interests\index.html.erb</h1>
+<h1>Add existing beads to your interests:</h1>
+
+<%= form_for :beadthread,:url => beadthreads_path do |f| %>
+<%= f.label :interest_id %><br />
+<%= f.collection_select :interest_id, current_user.interests, :id, :title %>
+<%= f.label :bead_id %><br />
+<%= f.collection_select :bead_id, Bead.all, :id, :title %>
+<%= f.submit %>
+
+<% end %>
+
+
+<h2>Add new bead </h2><%= link_to 'New bead', new_bead_path %>
+
+<h1>Listing your interests</h1>
+
+<%= render :partial => current_user.interests %>
+
+
+<br />
+
+<%= link_to 'New Interest', new_interest_path %>
+
+<h1>Listing all interests</h1>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @interests.each do |interest| %>
+  <tr>
+    <td><%= interest.user_id %></td>
+    <td><%= interest.title %></td>
+    <td><%= link_to 'Show', interest %></td>
+    <td><%= link_to 'Edit', edit_interest_path(interest) %></td>
+    <td><%= link_to 'Destroy', interest, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,25 @@
+﻿<h1>New Broadcast</h1>
+
+<%= form_for(@post) do |f| %>
+<%= if params[:bead] %><input type="hidden" id="post_bead_id" name="post[bead_id]" >
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+      <p>
+      <%= f.fields_for :beadfabric do |beadfabricate| %>
+        Beads:  <%= beadfabricate.text_field :bead_id %>
+      <% end %>
+    </p>
+  <p>
+    <%= f.submit "Submit" %>
+  </p>
+
+<% end %>
+
+<%= link_to 'Back', posts_path %>

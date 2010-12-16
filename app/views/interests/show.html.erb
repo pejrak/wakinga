@@ -1,0 +1,28 @@
+<h1>interests\show.html.erb</h1>
+<%= render :partial => @interest %>
+
+<h2>Showing connected beads with counts of posts within:</h2>
+  <%= render :partial => @interest.beads %>
+
+<div id="Bead Fabric Render">
+  <%= render :partial => @interest.beadthreads %>
+</div><br>
+
+<h2>Add new post:</h2>
+<%= form_for :post, :url => posts_path do |f| %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </p>
+
+
+  <p><%= f.submit "Add post" %></p>
+<% end %>
+
+<%= link_to 'Edit', edit_interest_path(@interest) %> |
+<%= link_to 'Back', interests_path %>

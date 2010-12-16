@@ -1,0 +1,23 @@
+<%= render :partial => @post %>
+
+
+<p>
+	<%= link_to 'Edit', edit_post_path(@post) %> |
+	<%= link_to 'Delete', @post, :method => :delete, :confirm => "Confirm." %> |
+	<%= link_to 'See All Interests', interests_path %>
+</p>
+<h2>Comments</h2>
+<div id="comments">
+  <%= render :partial => @post.comments %>
+</div>
+
+<%= form_for([@post, @post.comments.build]) do |f| %> 
+  <p>
+    <%= f.label :body, "New Comment" %><br />
+    <%= f.text_area :body %>
+  </p>
+
+  
+  
+  <p><%= f.submit "Add Comment" %></p>
+<% end %>

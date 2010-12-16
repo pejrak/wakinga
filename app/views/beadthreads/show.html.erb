@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Interest:</b>
+  <%= @beadthread.interest_id %>
+</p>
+
+<p>
+  <b>Bead:</b>
+  <%= @beadthread.bead_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_beadthread_path(@beadthread) %> |
+<%= link_to 'Back', beadthreads_path %>

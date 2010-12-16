@@ -1,0 +1,6 @@
+﻿<%= div_for bead do %>
+_beadPartial
+<h3>	<%= link_to_unless_current h(bead.title), bead %> ( posts #: <%= h(bead.posts.count) %> )</h3>
+	<%= simple_format h(bead.description) %>
+	
+<% end %>

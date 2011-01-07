@@ -1,7 +1,6 @@
 class Bead < ActiveRecord::Base
-has_many :beadfabrics
-has_many :beadthreads
 has_and_belongs_to_many :interests
-has_and_belongs_to_many :users
-has_many :posts, :through => :beadfabrics
+has_and_belongs_to_many :posts
+accepts_nested_attributes_for :interests, :allow_destroy => true
+accepts_nested_attributes_for :posts, :allow_destroy => true
 end

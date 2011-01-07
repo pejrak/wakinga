@@ -1,9 +1,8 @@
 class Interest < ActiveRecord::Base
-has_many :beadthreads
-has_many :beads, :through => :beadthreads
-has_and_belongs_to_many :beadfabrics
-has_and_belongs_to_many :posts
+has_and_belongs_to_many :beads, :include => [ :posts ]
+
 belongs_to :user
-validates_associated :beadfabrics
+#nested attribute definition
+accepts_nested_attributes_for :beads
 
 end

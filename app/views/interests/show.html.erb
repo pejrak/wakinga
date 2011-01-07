@@ -1,12 +1,9 @@
-<h1>interests\show.html.erb</h1>
-<%= render :partial => @interest %>
 
-<h2>Showing connected beads with counts of posts within:</h2>
-  <%= render :partial => @interest.beads %>
 
-<div id="Bead Fabric Render">
-  <%= render :partial => @interest.beadthreads %>
-</div><br>
+<h2>Showing all posts within the interest:</h2>
+  <%= render :partial => @postcontent %>
+
+
 
 <h2>Add new post:</h2>
 <%= form_for :post, :url => posts_path do |f| %>
@@ -19,8 +16,9 @@
     <%= f.label :content %><br />
     <%= f.text_area :content %>
   </p>
+<%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true %>
 
-
+ <%= debug(@interest.bead_ids) %>
   <p><%= f.submit "Add post" %></p>
 <% end %>
 

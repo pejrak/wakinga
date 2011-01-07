@@ -30,7 +30,6 @@ before_filter :authenticate_user!, :except => [:show, :index]
   # GET /posts/new.xml
   def new
     @post = Post.new
-	  @post.beadfabrics.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -48,16 +47,15 @@ before_filter :authenticate_user!, :except => [:show, :index]
   def create
 
 	@post = Post.new(params[:post])
-  
-  @beadfabric = Beadfabric.new
-  
 	@post.user = current_user
+  @post.rating = 10
+#  @interest = Interest.find(params[:interest_id])
+#  @post.bead_ids = @interest.bead_ids
   respond_to do |format|
 	if @post.save
-        @beadfabric = @post.beadfabrics.create(params[:beadfabric].values)
         flash[:notice] = 'CREATED.'
         
-        format.html { redirect_to(@post) }
+        format.html { redirect_to :back, :params => @params }
         format.xml { render :xml => @post, :status => :created, :location => @post }
         
       else
@@ -97,5 +95,18 @@ before_filter :authenticate_user!, :except => [:show, :index]
     end
   end
   
+  def increase
+   @post = Post.find(params[:id])
+   @post.increment! :rating
+   flash[:notice] = "Thanks for your rating."
+   redirect_to :back, :params => @params
 
+  end
+  def decrease
+   @post = Post.find(params[:id])
+   @post.decrement! :rating
+   flash[:notice] = "Thanks for your rating."
+   redirect_to :back, :params => @params
+
+  end
 end

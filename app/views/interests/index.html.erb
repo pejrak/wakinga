@@ -1,7 +1,9 @@
 <h1>interests\index.html.erb</h1>
 <h1>Add existing beads to your interests:</h1>
 
-<%= form_for :beadthread,:url => beadthreads_path do |f| %>
+<%= @postcount.count %>
+
+<%= form_for :beads_interests do |f| %>
 <%= f.label :interest_id %><br />
 <%= f.collection_select :interest_id, current_user.interests, :id, :title %>
 <%= f.label :bead_id %><br />
@@ -16,6 +18,7 @@
 <h1>Listing your interests</h1>
 
 <%= render :partial => current_user.interests %>
+
 
 
 <br />

@@ -10,14 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101119090251) do
-
-  create_table "beadfabrics", :id => false, :force => true do |t|
-    t.integer  "bead_id"
-    t.integer  "post_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20110104212102) do
 
   create_table "beads", :force => true do |t|
     t.string   "title"
@@ -26,9 +19,16 @@ ActiveRecord::Schema.define(:version => 20101119090251) do
     t.datetime "updated_at"
   end
 
-  create_table "beadthreads", :id => false, :force => true do |t|
+  create_table "beads_interests", :id => false, :force => true do |t|
     t.integer  "interest_id"
     t.integer  "bead_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "beads_posts", :id => false, :force => true do |t|
+    t.integer  "bead_id"
+    t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20101119090251) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "rating"
   end
 
 # Could not dump table "sqlite_stat1" because of following StandardError

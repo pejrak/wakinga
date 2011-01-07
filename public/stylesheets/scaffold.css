@@ -29,6 +29,12 @@ div#paramsinspect {
   color: blue;
 }
 
+div.post {
+  color:indigo;
+  width:450px;
+  font-size: 11px;
+}
+
 #notice {
   color: red;
 }

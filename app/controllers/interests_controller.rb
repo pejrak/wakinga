@@ -3,8 +3,19 @@ before_filter :authenticate_user!
   # GET /interests
   # GET /interests.xml
   def index
-	@interests = Interest.all
-	respond_to do |format|
+	@interests = current_user.interests.all
+	
+    postcounter = []
+    beadcounter = []
+    @interests.each do |ic|
+      ic.beads.each do |bc|
+      bc.posts.each do |pc|
+        postcounter << pc
+      end
+      end
+    end
+    @postcount = postcounter.uniq
+    respond_to do |format|
 	  format.html # index.html.erb
 	  format.xml  { render :xml => @interests }
 	end
@@ -14,11 +25,21 @@ before_filter :authenticate_user!
   # GET /interests/1.xml
   def show
 	@interest = Interest.find(params[:id])
-	@beadfabric = Beadfabric.new
-	for bead_id in @interest.beadthreads
-		bead = Bead.find(bead_id)
-		@beadfabric << bead
-	end
+  @beads = @interest.beads.all
+  postcontentraw = []
+  @interest.beads.each do |fb|
+    fb.posts.each do |fp|
+      postcontentraw << fp
+    end
+  end
+  @postcontent = postcontentraw.uniq
+
+  
+#	bead_ids = @interest.beads.find(:all, :select => 'bead_id')
+
+#	for id in loaded_beads
+#	@interest.bead_idprep << id
+#	end
 	respond_to do |format|
 	  format.html # show.html.erb
 	  format.xml  { render :xml => @interest }
@@ -27,6 +48,31 @@ before_filter :authenticate_user!
 
   # GET /interests/new
   # GET /interests/new.xml
+#beginning of publish injection
+  def publish
+
+	@post = Post.new(params[:post])
+	@post.user = current_user
+  @interest = Interest.find(params[:id])
+  bead_ids = @interest.beads.find(:all, :select => 'bead_id')
+#  @interest = Interest.find(params[:interest_id])
+#  @post.bead_ids = @interest.bead_ids
+  respond_to do |format|
+	if @post.save
+        flash[:notice] = 'CREATED.'
+
+        format.html { redirect_to(@interest) }
+        format.xml { render :xml => @post, :status => :created, :location => @post }
+
+      else
+        flash[:notice] = 'FAILED.'
+        format.html { render :action => "new" }
+        format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+    # end of publish injection
   def new
 	@interest = Interest.new
 
@@ -44,8 +90,6 @@ before_filter :authenticate_user!
   # POST /interests
   # POST /interests.xml
   def create
-#     @user = User.find(params[:user_id])
-#     @bead = Bead.find(params[:bead_id])
 	@interest = Interest.new(params[:interest])
 	@interest.user = current_user
 	respond_to do |format|
@@ -88,8 +132,4 @@ before_filter :authenticate_user!
   end
   
   
-  def bf_prepare
-  	loadedbead = @beadthreads.find {|beadthreads| beadthread.bead_id == bead_id}
-	@beadfabric_prep = Beadfabric.new
-  end
 end

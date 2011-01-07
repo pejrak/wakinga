@@ -1,11 +1,23 @@
 Mindbase::Application.routes.draw do |map|
-  resources :beadfabrics
+  resources :beads_posts
   resources :interests
-  resources :beadthreads
+  resources :beads_interests
   resources :beads
+  resources :users
   devise_for :users
-  resources :posts do resources :comments end 
-# shibby resources :users
+  resources :posts do resources :comments
+  end
+  resources :posts do
+    member do
+      get 'increase'
+    end
+  end 
+  resources :posts do
+    member do
+      get 'decrease'
+    end
+  end
+  # shibby resources :users
   root :to => "home#index" 
 
   # The priority is based upon order of creation:

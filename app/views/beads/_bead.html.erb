@@ -1,6 +1,5 @@
 ﻿<%= div_for bead do %>
-_beadPartial
-<h1>	Bead_ID: <%= h(bead.id) %> <%= h(bead.title) %> ( posts #: <%= h(bead.posts.count) %> )</h1>
-	<%= simple_format h(bead.description) %>
-<%= render :partial => bead.posts %>
+
+<h3>	<%= link_to_unless_current bead.title, bead %> ( <%= h(bead.posts.count) %> posts )</h3>
+	<%= h(bead.description) %>
 <% end %>

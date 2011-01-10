@@ -56,7 +56,7 @@ before_filter :authenticate_user!
   # PUT /beads/1
   # PUT /beads/1.xml
   def update
-    @bead = bead.find(params[:id])
+    @bead = Bead.find(params[:id])
 
     respond_to do |format|
       if @bead.update_attributes(params[:bead])

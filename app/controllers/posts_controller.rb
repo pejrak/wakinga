@@ -90,7 +90,7 @@ before_filter :authenticate_user!, :except => [:show, :index]
     @post.destroy
 
     respond_to do |format|
-      format.html { redirect_to(posts_url) }
+      format.html { redirect_to(root_path) }
       format.xml { head :ok }
     end
   end

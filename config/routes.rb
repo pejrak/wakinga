@@ -3,8 +3,8 @@ Mindbase::Application.routes.draw do |map|
   resources :interests
   resources :beads_interests
   resources :beads
-  resources :users
   devise_for :users
+  resources :users
   resources :posts do resources :comments
   end
   resources :posts do

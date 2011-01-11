@@ -1,3 +1,3 @@
 ﻿<%= div_for interest do %>
-<h3>	<%= link_to_unless_current interest.title, interest %> ( <%= interest.beads.count %> beads )</h3>
+<h3>	<%= link_to_unless_current interest.title, interest %> (<%= interest.beads.count.times do '.' end %>) <%= link_to 'e', edit_interest_path(interest) %>|<%= link_to 'x', interest, :confirm => 'Are you sure?', :method => :delete %> </h3>
 <% end %>

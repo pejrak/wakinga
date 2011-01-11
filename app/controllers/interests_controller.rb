@@ -74,7 +74,9 @@ before_filter :authenticate_user!
 
     # end of publish injection
   def new
+
 	@interest = Interest.new
+  @interest.title = 'new interest'
 
 	respond_to do |format|
 	  format.html # new.html.erb

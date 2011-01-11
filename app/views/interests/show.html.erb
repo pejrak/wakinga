@@ -1,10 +1,12 @@
 
-<h2>beads included in <%= @interest.title %> are: <% @interest.beads.each do |beader| %>
+interest: <h2><%= @interest.title %></h2> beads:<br /> <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
-  <% end %></h2>
+  <% end %>
+
 <br />
-<h2>Showing all posts within the interest:</h2>
-  <%= render :partial => @postcontent %>
+<br />
+
+<%= render :partial => @postcontent %>
 
 
 

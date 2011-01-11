@@ -11,11 +11,13 @@
     </div>
   <% end %>
   
-  <div class="field">
+  <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
-  </div>
-  
+  </p>
+  <p>
+  <%= f.collection_select :bead_ids, Bead.all, :id, :title, {}, :multiple => true , :prompt => true %>
+  </p>
   <div class="actions">
     <%= f.submit %>
   </div>

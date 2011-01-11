@@ -3,12 +3,10 @@
 
 
 <table>
-  <tr align ="left" >
-    <th width ="40%">interests</th><th width ="40%">what's on</th><th width ="20%">pers info</th>
-  </tr>
+
   <tr valign ="top">
-    <td><%= render :partial => current_user.interests %></td>
-    <td>
+    <td class="interestlist"><%= render :partial => current_user.interests %></td>
+    <td class="trendlist">
       <h2>top beads overall:</h2>
         <%= render :partial => @topbeads %>
       <h2>recently added: </h2>
@@ -16,12 +14,15 @@
         <%= render :partial => @recentbeads %>
 
     </td>
-    <td><%= render :partial => current_user %></td>
+    <td class="profileinfo"><%= render :partial => current_user %></td>
+  </tr>
+  <tr align ="left" height ="30px" valign ="bottom">
+    <td width ="40%">|< add new interest </td><td width ="40%">|< add new bead </td><td width ="20%">|< invite new </td>
   </tr>
 </table>
 
 <%# link_to "My Interests", interests_path %> 
 <%# link_to "All Content", beads_path %>
-
-
-<p>Find me in app/views/home/index.html.erb</p>
+<%# Find me in app/views/home/index.html.erb %>
+<br />
+<p>@copyright 2011 by Pelo Zemina</p>

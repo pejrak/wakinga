@@ -1,28 +1,38 @@
-body { background-color: white; color: #333; }
+td {
+    border-left: lightgrey 1px dotted;
+    padding-left: 13px;
+}
 
-body, p, ol, ul {
+body, ol, ul {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 13px;
+}
+p {
+  font-size: 11px;
 }
 .profileinfo {
   color: black;
 }
 h3 {
-  font-weight: bold;
+  font-size: 16px;
   color: darkgray;
-  padding-bottom: 0;
-  margin-top: 0px;
-  margin-bottom: 4px;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+h2 {
+  color: dimgray ;
+  margin-bottom: 10px;
+  font-size: 24px
 }
 h1 {
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 34px
 }
 div {
   padding-bottom: 0;
   margin-top: 0px;
   margin-bottom: 0px;
+  font-size: 11px;
 }
 
 pre {
@@ -32,8 +42,8 @@ pre {
 }
 
 a { color: #000; text-decoration: none; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; text-decoration: none }
+a:visited { color: black; }
+a:hover { color: #fff; background-color:red; text-decoration: none }
 
 div.field, div.actions {
   margin-bottom: 5px;
@@ -45,10 +55,22 @@ div#paramsinspect {
 
 div.post {
   color:indigo;
-  width:450px;
+  width:500px;
   font-size: 11px;
 }
+div.comment {
+  font-size: 10px;
+  color:indigo;
+  width:500px;
+  border-bottom: black 1px dotted;
+}
 
+div.comment#p {
+  font-size: 10px;
+  color:black;
+  width:500px;
+  border-bottom: black 1px dotted;
+}
 #notice {
   color: red;
 }

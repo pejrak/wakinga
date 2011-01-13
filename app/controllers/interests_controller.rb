@@ -25,16 +25,14 @@ before_filter :authenticate_user!
   # GET /interests/1.xml
   def show
 	@interest = Interest.find(params[:id])
-  @beads = @interest.beads.all
-  postcontentraw = []
-  @interest.beads.each do |fb|
-    fb.posts.each do |fp|
-      postcontentraw << fp
-    end
-  end
-  @postcontent = postcontentraw.uniq
+#loading content for all posts related to the selected interest
+  @postcontent = Post.find_by_sql ["SELECT DISTINCT ps.id, ps.title, content, ps.created_at, ps.updated_at, ps.user_id, ps.rating
+  FROM posts ps
+    INNER JOIN beads_posts bps ON bps.post_id = ps.id
+    INNER JOIN beads_interests bis ON bis.bead_id = bps.bead_id
+    WHERE bis.interest_id = ?
+    ORDER by ps.updated_at DESC", @interest.id]
 
-  
 #	bead_ids = @interest.beads.find(:all, :select => 'bead_id')
 
 #	for id in loaded_beads

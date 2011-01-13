@@ -5,12 +5,13 @@
 <table>
 
   <tr valign ="top">
-    <td class="interestlist"><%= render :partial => current_user.interests %></td>
+    <td class="interestlist">
+      <h2>my interests</h2>
+      <%= render :partial => current_user.interests %></td>
     <td class="trendlist">
-      <h2>top beads overall:</h2>
+      <h2>top beads overall</h2>
         <%= render :partial => @topbeads %>
-      <h2>recently added: </h2>
-      <br />
+      <h2>recently added </h2>
         <%= render :partial => @recentbeads %>
 
     </td>

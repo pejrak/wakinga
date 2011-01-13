@@ -4,7 +4,7 @@ before_filter :authenticate_user!, :except => [:show, :index]
   # GET /posts
   # GET /posts.xml
   def index
-    @posts = Post.find(:all)
+    @posts = Post.find(:all, :order => 'updated_at')
 
 
  #   respond_to do |format|
@@ -48,9 +48,8 @@ before_filter :authenticate_user!, :except => [:show, :index]
 
 	@post = Post.new(params[:post])
 	@post.user = current_user
-  @post.rating = 10
-#  @interest = Interest.find(params[:interest_id])
-#  @post.bead_ids = @interest.bead_ids
+  @post.rating = 0
+
   respond_to do |format|
 	if @post.save
         flash[:notice] = 'CREATED.'

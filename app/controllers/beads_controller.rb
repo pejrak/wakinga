@@ -3,7 +3,7 @@ before_filter :authenticate_user!
   # GET /beads
   # GET /beads.xml
   def index
-    @beads = Bead.all
+    @beads = Bead.search(params[:search])
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @beads }

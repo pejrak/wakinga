@@ -1,5 +1,6 @@
-﻿<%= div_for bead do %>
-
+<%= div_for bead do %>
+<br />
 <h3>	<%= link_to_unless_current bead.title, bead %> ( <%= h(bead.posts.count) %> posts )</h3>
 	<%= h(bead.description) %>
+
 <% end %>

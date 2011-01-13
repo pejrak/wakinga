@@ -1,5 +1,5 @@
 
-interest: <h2><%= @interest.title %></h2> beads:<br /> <% @interest.beads.each do |beader| %>
+<h2>Interest: <%= @interest.title %></h2> beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
 

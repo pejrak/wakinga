@@ -16,9 +16,23 @@
     <%= f.text_field :title %>
   </p>
   <p>
-  <%= f.collection_select :bead_ids, Bead.all, :id, :title, {}, :multiple => true , :prompt => true %>
+  <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true %>
   </p>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+  <h3>Add beads:</h3>
+
+  <% form_tag edit_interest_path(@interest), :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <% end %>
+  <% if @beads.nil? then %>
+  <%= 'enter search criteria' %><br /><br />
+  <% else %>
+  <i><%= 'click the bead to add it to the current interest' %> </i>
+  <%= render :partial => @beads %><br /><br />
+  <% end %>

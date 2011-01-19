@@ -1,0 +1,4 @@
+<%= div_for bead do %>
+<br />
+<h3>	<%= link_to_unless_current bead.title, bead %> ( Rating: <%= h(bead.rating_sum) %> )</h3>
+<% end %>

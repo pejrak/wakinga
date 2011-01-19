@@ -1,0 +1,11 @@
+
+<i><h2><%= h(user.username) %></h2></i><br />
+<%= image_tag avatar_url(user) %><br />
+member since <i><%= time_ago_in_words(user.created_at) %> ago</i><br />
+posts: <i><%= user.posts.count %></i><br />
+rating: <%= @userrating %> <br />
+<h2>rating by beads</h2>
+
+<% @userratingonbeads.each do |printstats| %>
+<strong><%= link_to printstats.title, printstats  %></strong>  earned: <%= printstats.rating_sum %><br />
+<% end %>

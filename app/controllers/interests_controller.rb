@@ -49,6 +49,7 @@ before_filter :authenticate_user!
 
 	@interest = Interest.new
   @interest.title = 'new interest'
+  @beads = Bead.search(params[:search])
 
 
 	respond_to do |format|
@@ -61,6 +62,7 @@ before_filter :authenticate_user!
   def edit
 	@interest = Interest.find(params[:id])
   @beads = Bead.search(params[:search])
+  
   end
 
   # POST /interests
@@ -70,7 +72,7 @@ before_filter :authenticate_user!
 	@interest.user = current_user
 	respond_to do |format|
 	  if @interest.save
-		format.html { redirect_to(interests_path, :notice => 'Interest was successfully created.') }
+		format.html { redirect_to edit_interest_path(@interest) }
 		format.xml  { render :xml => @interest, :status => :created, :location => @interest }
 	  else
 		format.html { render :action => "new" }
@@ -102,17 +104,17 @@ before_filter :authenticate_user!
 	@interest.destroy
 
 	respond_to do |format|
-	  format.html { redirect_to(interests_url) }
+	  format.html { redirect_to(root_path) }
 	  format.xml  { head :ok }
 	end
   end
 
-  def add_single_bead (bead)
+  def add_single_bead
+    @interest = Interest.find(params[:id])
+    bead = Bead.find(params[:bead_id])
     @interest.beads << bead
     respond_to do |format|
-	  format.html { redirect_to :back }
+	  format.html { render(:action => 'edit', :notice => 'Bead was added.')}
     end
   end
 end
-  
-  

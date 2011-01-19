@@ -1,34 +1,36 @@
 td {
     border-left: lightgrey 1px dotted;
     padding-left: 13px;
+    padding-right: 13px;
 }
 
 body, ol, ul {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: arial, helvetica, sans-serif;
 }
 p {
   font-size: 11px;
 }
-.profileinfo {
-  color: black;
+
+h1, h2, h3 {
+  font-family: Palatino Linotype, Book Antiqua3, Palatino, serif;
 }
 h3 {
-  font-size: 12px;
-  color: darkgray;
-  margin-top: 2px;
+  font-size: 14px;
+  margin-top: 7px;
   margin-bottom: 2px;
 }
 h2 {
-  font-family: garamond, times, georgia;
+  
   color: dimgray ;
   margin-bottom: 5px;
+  margin-top: 10px;
   font-size: 32px
 }
 h1 {
-  font-family: garamond, times, georgia;
   margin-top: 5px;
   margin-bottom: 5px;
-  font-size: 40px
+  font-size: 44px;
+  color: crimson;
 }
 div {
   padding-bottom: 0;
@@ -43,8 +45,8 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; text-decoration: none; }
-a:visited { color: black; }
+a { color: darkslategrey ; text-decoration: none; }
+a:visited {  }
 a:hover { color: #fff; background-color:red; text-decoration: none }
 
 div.field, div.actions {

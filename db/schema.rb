@@ -20,17 +20,13 @@ ActiveRecord::Schema.define(:version => 20110113084621) do
   end
 
   create_table "beads_interests", :id => false, :force => true do |t|
-    t.integer  "interest_id"
-    t.integer  "bead_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "interest_id"
+    t.integer "bead_id"
   end
 
   create_table "beads_posts", :id => false, :force => true do |t|
-    t.integer  "bead_id"
-    t.integer  "post_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "bead_id"
+    t.integer "post_id"
   end
 
   create_table "comments", :force => true do |t|
@@ -58,8 +54,12 @@ ActiveRecord::Schema.define(:version => 20110113084621) do
     t.boolean  "private",    :default => false
   end
 
-# Could not dump table "sqlite_stat1" because of following StandardError
-#   Unknown type '' for column 'tbl'
+  create_table "tags", :force => true do |t|
+    t.string   "name"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                               :default => "", :null => false

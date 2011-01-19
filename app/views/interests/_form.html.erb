@@ -22,17 +22,25 @@
     <%= f.submit %>
   </div>
 <% end %>
-  <h3>Add beads:</h3>
 
-  <% form_tag edit_interest_path(@interest), :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-  <% end %>
-  <% if @beads.nil? then %>
-  <%= 'enter search criteria' %><br /><br />
+<% if params[:action] == 'new' then %>
+  <p>Create interest first.</p>
   <% else %>
-  <i><%= 'click the bead to add it to the current interest' %> </i>
-  <%= render :partial => @beads %><br /><br />
-  <% end %>
+    <h3>search and add beads:</h3>
+  <% form_tag edit_interest_path(@interest), :method => 'get' do %>
+    <p>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+    <% end %>
+    <% if @beads.nil? then %>
+      <%= 'enter search criteria' %><br /><br />
+      <% else %>
+      <i><%= 'click the bead to add it to the current interest' %> </i>
+        <% @beads.each do |loadbead| %>
+        <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.posts.count) %> posts )</h3>
+        <%= h(loadbead.description) %>
+
+      <% end %><br /><br />
+    <% end %>
+<%end%>

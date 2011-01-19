@@ -1,8 +1,14 @@
 Mindbase::Application.routes.draw do |map|
   resources :beads_posts
   resources :interests
+  resources :interests do
+      member do
+      get 'add_single_bead'
+    end
+  end
+
   resources :beads_interests
-  resources :beads
+  resources :beads 
   devise_for :users
   resources :users
   resources :posts do resources :comments

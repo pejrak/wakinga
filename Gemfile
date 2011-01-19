@@ -1,9 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails'
 gem 'devise', '1.1.rc0'
 gem 'recaptcha', '0.3.1'
-gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'mysql2'
+# :development do
+#gem 'sqlite3-ruby', :require => 'sqlite3'
+#end
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

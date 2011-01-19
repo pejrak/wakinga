@@ -14,22 +14,33 @@
 </head>
 <body>
 
-<div id="paramsinspect"> <%# params.inspect %> <br /><br /></div>
+<!-- <div id="paramsinspect"> <%# params.inspect %> <br /><br /></div> -->
 <div id="container">
-<h1><%= link_to 'MindBeads.com', root_path %></h1>
-<%= link_to 'home', root_path %> | 
-  <% if user_signed_in? %>
-    Signed in as <strong><%= link_to current_user.username, edit_user_registration_path(current_user) %></strong>. Not you?
-    <%= link_to "Sign out", destroy_user_session_path %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-  <% end %>
-<br />
-<br />
-      <% flash.each do |name, msg| %>
+  <table width = "100%">
+  <tr>
+    <td width="30%" ></td>
+    <td>
+      <h1><%= link_to 'MindBeads.com', root_path %></h1>
+          <%= link_to 'home', root_path %> |
+        <% if user_signed_in? %>
+          Signed in as <strong><%= link_to current_user.username, edit_user_registration_path(current_user) %></strong>. Not you?
+          <%= link_to "Sign out", destroy_user_session_path %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+        <% end %>
+          <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
-      <% end %>
- 	<%= yield %>
-    </div>
+        <% end %>
+
+
+      <br />
+      <br />
+    </td>
+  </tr>
+  </table>
+
+<%= yield %>
+      </div>
+<p align="right">© 2011, Pelo Zemina</p>
 	</body>
 </html>

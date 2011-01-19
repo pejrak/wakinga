@@ -5,4 +5,6 @@ belongs_to :user
 #nested attribute definition
 accepts_nested_attributes_for :beads
 
+
+
 end

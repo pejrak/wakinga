@@ -2,8 +2,20 @@ td {
     border-left: lightgrey 1px dotted;
     padding-left: 13px;
     padding-right: 13px;
+    vertical-align: top;
 }
-
+td.leftside {
+    text-align: right;
+    width: 30%;
+}
+td.middle {
+    text-align: left;
+    width: 40%;
+}
+td.rightside {
+    text-align: left;
+    width: 30%;
+}
 body, ol, ul {
   font-family: arial, helvetica, sans-serif;
 }

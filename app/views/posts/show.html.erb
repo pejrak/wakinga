@@ -1,22 +1,29 @@
-<%= render :partial => @post %>
+<% content_for :leftside do %>
+  <%#should be = render :partial => current_user %>
+<% end %>
+
+<% content_for :middle do %>
+  <%= render :partial => @post %>
 
 
-<p>
-	<%= link_to 'Edit', edit_post_path(@post) %> |
-	<%= link_to 'Delete', @post, :method => :delete, :confirm => "Confirm." %>
-</p>
-<h2>Comments</h2>
-<div id="comments">
-  <%= render :partial => @post.comments %>
-</div>
-
-<%= form_for([@post, @post.comments.build]) do |f| %> 
   <p>
-    <%= f.label :body, "New Comment" %><br />
-    <%= f.text_area :body %>
+          <%= link_to 'Edit', edit_post_path(@post) %> |
+          <%= link_to 'Delete', @post, :method => :delete, :confirm => "Confirm." %>
   </p>
+  <h2>Comments</h2>
+  <div id="comments">
+    <%= render :partial => @post.comments %>
+  </div>
 
-  
-  
-  <p><%= f.submit "Add Comment" %></p>
+  <%= form_for([@post, @post.comments.build]) do |f| %>
+    <p>
+      <%= f.label :body, "New Comment" %><br />
+      <%= f.text_area(:body, :size => "40x6") %>
+    </p>
+    <p><%= f.submit "Add Comment" %></p>
+  <% end %>
+<% end %>
+<%# left side render %>
+<% content_for :rightside do %>
+  <%# will be trendlines for the current interest %>
 <% end %>

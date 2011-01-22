@@ -1,23 +1,18 @@
+<% content_for :leftside do %>
+  <%= render :partial => current_user %>
+<% end %>
 
-<br />
-
-
+<% content_for :middle do %>
+  <h2>interests</h2>
+  <%= render :partial => current_user.interests %>
+<% end %>
+<% content_for :rightside do %>
+  <h2>top beads overall</h2>
+  <%= render :partial => @topbeads %>
+  <h2>recently added </h2>
+  <%= render :partial => @recentbeads %>
+<% end %>
 <table width="100%">
-
-  <tr valign ="top">
-    <td class="profileinfo" align ="right"><%= render :partial => current_user %></td>
-    <td class="interestlist">
-      <h2>interests</h2>
-      <%= render :partial => current_user.interests %></td>
-    <td class="trendlist">
-      <h2>top beads overall</h2>
-        <%= render :partial => @topbeads %>
-      <h2>recently added </h2>
-        <%= render :partial => @recentbeads %>
-
-    </td>
-    
-  </tr>
   <tr align ="left" height ="30px" valign ="bottom">
     <td align ="right" width ="30%"> invite new >| </td><td width ="40%"><%= link_to '|< add new interest', new_interest_path %> </td><td width ="30%"><%= link_to '|< add new bead', new_bead_path %> </td>
   </tr>

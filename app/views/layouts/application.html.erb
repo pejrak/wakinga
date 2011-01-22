@@ -16,9 +16,9 @@
 
 <!-- <div id="paramsinspect"> <%# params.inspect %> <br /><br /></div> -->
 <div id="container">
-  <table width = "100%">
+  <table class="main" width = "100%">
   <tr>
-    <td width="30%" ></td>
+    <td width="30%"></td>
     <td>
       <h1><%= link_to 'MindBeads.com', root_path %></h1>
           <%= link_to 'home', root_path %> |
@@ -37,10 +37,16 @@
       <br />
     </td>
   </tr>
+  <tr>
+    <%# yields for page components, use content_for to fill %>
+    <td class="leftside"><%= yield :leftside %></td>
+    <td class="middle"><%= yield :middle %></td>
+    <td class="rightside"><%= yield :rightside %></td>
+  </tr>
   </table>
-
+<%# main yield for anything without content_for %>
 <%= yield %>
       </div>
-<p align="right">© 2011, Pelo Zemina</p>
+    <p align="left">© 2011, Spontain - Pelo Zemina</p>
 	</body>
 </html>

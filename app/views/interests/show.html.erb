@@ -1,18 +1,18 @@
+<%# left side render %>
+<% content_for :leftside do %>
+  <%#should be: = render :partial => current_user %>
+<% end %>
 
+<%# middle part render %>
+<% content_for :middle do %>
 <h2>Interest: <%= @interest.title %></h2> beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
-
 <br />
 <br />
-
 <%= render :partial => @postcontent %>
-
-
-
 <h2>Add new post:</h2>
 <%= form_for :post, :url => posts_path do |f| %>
-
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
@@ -23,9 +23,17 @@
   </p>
 <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true %>
 
- <%= debug(@interest.bead_ids) %>
+ <%# needed if bead_posts join is not working = debug(@interest.bead_ids) %>
   <p><%= f.submit "Add post" %></p>
 <% end %>
 
 <%= link_to 'Edit', edit_interest_path(@interest) %> |
 <%= link_to 'Back', interests_path %>
+<% end %>
+
+<%# left side render %>
+<% content_for :rightside do %>
+<%# will be trendlines for the current interest %>
+<% end %>
+
+

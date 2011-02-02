@@ -1,4 +1,6 @@
 Mindbase::Application.routes.draw do |map|
+  resources :enrollments
+
   resources :beads_posts
   resources :interests
   resources :interests do

@@ -1,0 +1,12 @@
+<%= form_for @enrollment do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </p>
+  <p>
+    Humanoid check: What month was Albert Einstein born on? (Word in English)<br />
+    <%= f.text_field :ein %>
+  </p>
+  <p><%= f.submit :value => "Enroll" %></p>
+<% end %>

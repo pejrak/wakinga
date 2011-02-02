@@ -21,32 +21,33 @@
     <td width="30%"></td>
     <td>
       <h1><%= link_to 'MindBeads.com', root_path %></h1>
-          <%= link_to 'home', root_path %> |
+
         <% if user_signed_in? %>
-          Signed in as <strong><%= link_to current_user.username, edit_user_registration_path(current_user) %></strong>. Not you?
+          Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
           <%= link_to "Sign out", destroy_user_session_path %>
         <% else %>
-          <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+          <%# link_to "Sign up", new_user_registration_path %>
+          <%= "New registrations are disabled, " %>
+          <%= link_to "see further info or enroll here", new_enrollment_path %>
+
         <% end %>
           <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
         <% end %>
 
 
-      <br />
-      <br />
     </td>
   </tr>
   <tr>
     <%# yields for page components, use content_for to fill %>
     <td class="leftside"><%= yield :leftside %></td>
-    <td class="middle"><%= yield :middle %></td>
+    <td class="middle"><%= yield %></td>
     <td class="rightside"><%= yield :rightside %></td>
   </tr>
   </table>
 <%# main yield for anything without content_for %>
-<%= yield %>
+  <%= yield :bottom %>
       </div>
-    <p align="left">© 2011, Spontain - Pelo Zemina</p>
+    <p class="footer" align="left">© 2011 by Spontain</p>
 	</body>
 </html>

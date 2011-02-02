@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <th>Email</th>
+  </tr>
+  <% for enrollment in @enrollments %>
+    <tr>
+      <td><%= enrollment.email %></td>
+      <td><%= link_to "Show", enrollment %></td>
+      <td><%= link_to "Edit", edit_enrollment_path(enrollment) %></td>
+      <td><%= link_to "Destroy", enrollment, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Enrollment", new_enrollment_path(enrollment) %></p>

@@ -1,9 +1,12 @@
 source 'http://rubygems.org'
 
 gem 'rails'
-gem 'devise', '1.1.rc0'
-gem 'recaptcha', '0.3.1'
-gem 'mysql2'
+gem 'devise'
+gem 'recaptcha'
+gem 'mysql2', :group => :development
+gem "nifty-generators", :group => :development
+gem 'pg', :group => :production
+
 # :development do
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 #end
@@ -33,3 +36,4 @@ gem 'mysql2'
 # group :development, :test do
 #   gem 'webrat'
 # end
+gem "mocha", :group => :test

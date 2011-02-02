@@ -2,23 +2,20 @@
   <%= render :partial => current_user %>
 <% end %>
 
-<% content_for :middle do %>
   <h2>interests</h2>
   <%= render :partial => current_user.interests %>
-<% end %>
 <% content_for :rightside do %>
   <h2>top beads overall</h2>
   <%= render :partial => @topbeads %>
   <h2>recently added </h2>
   <%= render :partial => @recentbeads %>
 <% end %>
-<table width="100%">
+
+<% content_for :bottom do %>
+  <table width="100%">
   <tr align ="left" height ="30px" valign ="bottom">
     <td align ="right" width ="30%"> invite new >| </td><td width ="40%"><%= link_to '|< add new interest', new_interest_path %> </td><td width ="30%"><%= link_to '|< add new bead', new_bead_path %> </td>
   </tr>
 </table>
-
-<%# link_to "My Interests", interests_path %> 
-<%# link_to "All Content", beads_path %>
-<%# Find me in app/views/home/index.html.erb %>
+<% end %>
 <br />

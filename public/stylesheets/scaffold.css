@@ -22,6 +22,10 @@ body, ol, ul {
 p {
   font-size: 11px;
 }
+p.footer {
+    margin-left: 30%;
+    margin-top: 40px;
+}
 
 h1, h2, h3 {
   font-family: Palatino Linotype, Book Antiqua3, Palatino, serif;

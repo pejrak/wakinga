@@ -27,10 +27,10 @@ has_many :beads_posts, :through => :posts
 
   def rating_on_beads
     BeadsPost.find(:all,
-    :select => 'bead_id, beads.title, sum(posts.rating) as rating_sum, posts.user_id',
+    :select => 'bead_id, beads.title, sum(posts.rating) as rating_sum',
     :joins => [:bead, :post],
     :conditions => ["posts.user_id = ?", id],
-    :group => 'bead_id',
+    :group => ['bead_id','beads.title'],
     :order => 'rating_sum DESC',
     :limit => 5)
   end

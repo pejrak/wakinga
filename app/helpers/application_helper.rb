@@ -5,8 +5,17 @@ module ApplicationHelper
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
   end
 
-  def readable_text_area(form, method, options = {})
-    form.text_area(method, "cols" => 40, "rows" => 5)
+  def top_beads_overall
+    Bead.find(:all,
+      :select => 'id, beads_posts.bead_id, title, description, count(beads_posts.post_id) AS post_counter',
+      :joins => :beads_posts,
+      :group => 'beads_posts.bead_id',
+      :order => 'post_counter DESC',
+      :limit => 5
+    )
+  end
+  def recent_beads
+    Bead.order("created_at DESC").limit(3)
   end
   
 end

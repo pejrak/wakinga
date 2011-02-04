@@ -1,5 +1,5 @@
 <%= div_for interest do %>
-<h3><%= link_to_unless_current interest.title, interest %></h3>
+<h3><%= link_to_unless_current interest.title, interest %> (<%= interest.post_count %>)</h3>
 <% interest.beads.each do |beader| %>
    <%= link_to beader.title, beader %> |
   <% end %>  (

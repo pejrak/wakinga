@@ -1,0 +1,12 @@
+<% title "Beads Interest" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @beads_interest.name %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_beads_interest_path(@beads_interest) %> |
+  <%= link_to "Destroy", @beads_interest, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", beads_interests_path %>
+</p>

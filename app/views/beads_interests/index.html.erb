@@ -1,0 +1,17 @@
+<% title "Beads Interests" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  <% for beads_interest in @beads_interests %>
+    <tr>
+      <td><%= beads_interest.name %></td>
+      <td><%= link_to "Show", beads_interest %></td>
+      <td><%= link_to "Edit", edit_beads_interest_path(beads_interest) %></td>
+      <td><%= link_to "Destroy", beads_interest, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Beads Interest", new_beads_interest_path(beads_interest) %></p>

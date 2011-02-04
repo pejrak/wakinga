@@ -1,0 +1,2 @@
+module BeadsInterestsHelper
+end

@@ -1,8 +1,13 @@
 class Bead < ActiveRecord::Base
-has_and_belongs_to_many :interests
-has_and_belongs_to_many :posts
-accepts_nested_attributes_for :interests, :allow_destroy => true
-accepts_nested_attributes_for :posts, :allow_destroy => true
+has_many :beads_interests
+has_many :beads_posts
+has_many :interests, :through => :beads_interests
+has_many :posts, :through => :beads_posts
+has_many :users, :through => :interests
+
+  def post_count
+    "#{posts.count}"
+  end
 
   def self.search(search)
     if search

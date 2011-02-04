@@ -4,17 +4,6 @@ before_filter :authenticate_user!
   # GET /interests.xml
   def index
 	@interests = current_user.interests.all
-	
-    postcounter = []
-    beadcounter = []
-    @interests.each do |ic|
-      ic.beads.each do |bc|
-      bc.posts.each do |pc|
-        postcounter << pc
-      end
-      end
-    end
-    @postcount = postcounter.uniq
     respond_to do |format|
 	  format.html # index.html.erb
 	  format.xml  { render :xml => @interests }
@@ -25,14 +14,6 @@ before_filter :authenticate_user!
   # GET /interests/1.xml
   def show
 	@interest = Interest.find(params[:id])
-#loading content for all posts related to the selected interest
-  @postcontent = Post.find_by_sql ["SELECT DISTINCT ps.id, ps.title, content, ps.created_at, ps.updated_at, ps.user_id, ps.rating
-  FROM posts ps
-    INNER JOIN beads_posts bps ON bps.post_id = ps.id
-    INNER JOIN beads_interests bis ON bis.bead_id = bps.bead_id
-    WHERE bis.interest_id = ?
-    ORDER by ps.updated_at DESC", @interest.id]
-
 	respond_to do |format|
 	  format.html # show.html.erb
 	  format.xml  { render :xml => @interest }
@@ -50,8 +31,6 @@ before_filter :authenticate_user!
 	@interest = Interest.new
   @interest.title = 'new interest'
   @beads = Bead.search(params[:search])
-
-
 	respond_to do |format|
 	  format.html # new.html.erb
 	  format.xml  { render :xml => @interest }

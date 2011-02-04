@@ -1,16 +1,16 @@
 <%# left side render %>
 <% content_for :leftside do %>
-  <%#should be: = render :partial => current_user %>
+  <%= render :partial => current_user %>
 <% end %>
 
 <%# middle part render %>
-<% content_for :middle do %>
 <h2>Interest: <%= @interest.title %></h2> beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
 <br />
 <br />
-<%= render :partial => @postcontent %>
+<%= render :partial => @interest.post_content %>
+<%# debug(@interest.post_content) %>
 <h2>Add new post:</h2>
 <%= form_for :post, :url => posts_path do |f| %>
   <p>
@@ -29,7 +29,6 @@
 
 <%= link_to 'Edit', edit_interest_path(@interest) %> |
 <%= link_to 'Back', interests_path %>
-<% end %>
 
 <%# left side render %>
 <% content_for :rightside do %>

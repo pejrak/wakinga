@@ -73,8 +73,8 @@ div#paramsinspect {
   color: blue;
 }
 
-div.post {
-  color:indigo;
+.post {
+  color:black;
   width:500px;
   font-size: 11px;
 }

@@ -1,0 +1,19 @@
+<% title "Beads Posts" %>
+
+<table>
+  <tr>
+    <th>Bead</th>
+    <th>Post</th>
+  </tr>
+  <% for beads_post in @beads_posts %>
+    <tr>
+      <td><%= beads_post.bead_id %></td>
+      <td><%= beads_post.post_id %></td>
+      <td><%= link_to "Show", beads_post %></td>
+      <td><%= link_to "Edit", edit_beads_post_path(beads_post) %></td>
+      <td><%= link_to "Destroy", beads_post, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Beads Post", new_beads_post_path(beads_post) %></p>

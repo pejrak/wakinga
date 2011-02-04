@@ -7,9 +7,9 @@ module ApplicationHelper
 
   def top_beads_overall
     Bead.find(:all,
-      :select => 'id, beads_posts.bead_id, title, description, count(beads_posts.post_id) AS post_counter',
+      :select => 'id, title, description, count(beads_posts.post_id) AS post_counter',
       :joins => :beads_posts,
-      :group => 'beads_posts.bead_id',
+      :group => ['id','title','description'],
       :order => 'post_counter DESC',
       :limit => 5
     )

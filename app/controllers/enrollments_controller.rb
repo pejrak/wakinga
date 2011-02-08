@@ -1,5 +1,5 @@
 class EnrollmentsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create]
+  before_filter :authenticate_user!, :except => [:new, :create]
   def index
     @enrollments = Enrollment.all
   end

@@ -3,6 +3,7 @@
 <% interest.beads.each do |beader| %>
    <%= link_to beader.title, beader %> |
   <% end %>  (
+
   <%= link_to 'e', edit_interest_path(interest) %> |
   <%= link_to 'x', interest, :confirm => 'Are you sure?', :method => :delete %> )
 

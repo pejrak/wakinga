@@ -2,7 +2,6 @@
   <%#should be = render :partial => current_user %>
 <% end %>
 
-<% content_for :middle do %>
   <%= render :partial => @post %>
 
 
@@ -22,7 +21,6 @@
     </p>
     <p><%= f.submit "Add Comment" %></p>
   <% end %>
-<% end %>
 <%# left side render %>
 <% content_for :rightside do %>
   <%# will be trendlines for the current interest %>

@@ -4,11 +4,9 @@ before_filter :authenticate_user!
   # GET /interests.xml
   def index
 	@interests = current_user.interests.all
-    respond_to do |format|
-	  format.html # index.html.erb
-	  format.xml  { render :xml => @interests }
+    redirect_to root_path
 	end
-  end
+  
 
   # GET /interests/1
   # GET /interests/1.xml

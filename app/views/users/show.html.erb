@@ -1,4 +1,9 @@
+<% if @user == current_user then %>
+<br /><br />
+<h2>< You.</h2>
+<% else %>
 <%= render :partial => @user %>
+<% end %>
 <% content_for :leftside do %>
 <%= render :partial => current_user %>
 <% end %>

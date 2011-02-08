@@ -1,12 +1,13 @@
 ﻿<%= div_for post do %>
 	<strong><%= link_to_unless_current h(post.title), post %></strong>
 
-        <br /><%= h(post.content) %><br />
-        <br /> by <strong><%= link_to post.user.username, post.user %></strong>, in
-        <% post.beads.each do |beadlink| %>
+        <br /><%= h(post.content) %><br /><br />
+
+        <div class="post_foot" >by <strong><%= link_to post.user.username, post.user %></strong>
+        , in <% post.beads.each do |beadlink| %>
           <%= link_to beadlink.title, beadlink %> |
         <% end %>
         <%=h post.comments.count %> comments. Rating: <%= post.rating %> <%= link_to '^', increase_post_path(post) %> | <%= link_to 'v', decrease_post_path(post) %>
         <i>, broadcasted <%= time_ago_in_words(post.updated_at) %> ago</i>
-
+        </div>
 <% end %>

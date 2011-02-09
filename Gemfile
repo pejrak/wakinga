@@ -6,6 +6,7 @@ gem 'recaptcha'
 gem 'mysql2', :group => :development
 gem "nifty-generators", :group => :development
 gem 'pg', :group => :production
+gem 'nokogiri'
 
 # :development do
 #gem 'sqlite3-ruby', :require => 'sqlite3'

@@ -1,4 +1,0 @@
-﻿<%= div_for post do %>
-	<%= link_to_unless_current h(post.title), post %> by <strong><%= post.user.username %></strong> ( Comments: <%= post.comments.count %> )
-	<%= simple_format h(post.content) %>
-<% end %>

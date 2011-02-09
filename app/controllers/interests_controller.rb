@@ -3,7 +3,7 @@ before_filter :authenticate_user!
   # GET /interests
   # GET /interests.xml
   def index
-	@interests = current_user.interests.all
+	@interests = current_user.interests.order(post_count)
     redirect_to root_path
 	end
   
@@ -11,7 +11,7 @@ before_filter :authenticate_user!
   # GET /interests/1
   # GET /interests/1.xml
   def show
-	@interest = Interest.find(params[:id])
+    @interest = Interest.find(params[:id])
 	respond_to do |format|
 	  format.html # show.html.erb
 	  format.xml  { render :xml => @interest }

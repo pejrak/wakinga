@@ -10,9 +10,11 @@
 <br />
 <%= link_to 'Edit', edit_interest_path(@interest) %><br />
 <%= render :partial => @interest.post_content %>
-<%# debug(@interest.post_content) %>
+<%= debug(@interest.post_content) %>
 
 <% content_for :rightside do %>
+<%= include_feed %>
+<%= debug(include_feed) %>
 
 <h2>Add new post:</h2>
 <%= form_for :post, :url => posts_path do |f| %>

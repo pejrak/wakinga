@@ -7,7 +7,7 @@ module ApplicationHelper
 
   def top_beads_overall
     Bead.find(:all,
-      :select => 'id, title, description, count(beads_posts.post_id) AS post_counter',
+      :select => 'id, title, description, count(distinct beads_posts.post_id) AS post_counter',
       :joins => :beads_posts,
       :group => ['id','title','description'],
       :order => 'post_counter DESC',
@@ -18,4 +18,15 @@ module ApplicationHelper
     Bead.order("created_at DESC").limit(3)
   end
   
+  def include_feed
+    require 'open-uri'
+  	doc = Nokogiri::XML(open("http://rss.cnn.com/rss/cnn_tech.rss"))
+    doc.xpath('//item').each do |item|
+      @feedtitle = item.xpath('title').inner_text
+      @feeddescription = item.xpath('description').inner_text
+    
+    end
+    
+  end
+
 end

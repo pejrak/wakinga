@@ -59,7 +59,7 @@ before_filter :authenticate_user!, :except => [:show, :index]
         
       else
         flash[:notice] = 'FAILED.'
-        format.html { render :action => "new" }
+        format.html { render(@interest) }
         format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
       end
     end

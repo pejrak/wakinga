@@ -5,11 +5,19 @@ class Interest < ActiveRecord::Base
   belongs_to :user
 
   #extract all bead ids from beads in the interest
+
+
+
+
   def contain_ids
     container = []
     beads.each do |beader|
       container << beader.id
     end
+  end
+
+  def sorterize
+    "..."
   end
 
   #return number of all posts within the interest,

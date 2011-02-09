@@ -15,6 +15,8 @@ Mindbase::Application.routes.draw do |map|
   resources :users
   resources :posts do resources :comments
   end
+  resources :posts do resources :beads_posts
+  end
   resources :posts do
     member do
       get 'increase'

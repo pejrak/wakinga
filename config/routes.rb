@@ -2,7 +2,9 @@ Mindbase::Application.routes.draw do |map|
   resources :enrollments
 
   resources :beads_posts
-  resources :interests
+  resources :interests do resources :beads_interests
+    
+  end
   resources :interests do
       member do
       get 'add_single_bead'
@@ -19,15 +21,10 @@ Mindbase::Application.routes.draw do |map|
   end
   resources :posts do
     member do
-      get 'increase'
+      get 'memorize', 'erase'
     end
   end 
-  resources :posts do
-    member do
-      get 'decrease'
-    end
-  end
-  # shibby resources :users
+
   root :to => "home#index" 
 
   # The priority is based upon order of creation:

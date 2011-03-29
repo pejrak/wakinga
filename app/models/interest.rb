@@ -1,14 +1,11 @@
 class Interest < ActiveRecord::Base
 
   has_many :beads, :through => :beads_interests
-  has_many :beads_interests
+  has_many :beads_interests, :dependent => :delete_all
   belongs_to :user
 
+ 
   #extract all bead ids from beads in the interest
-
-
-
-
   def contain_ids
     container = []
     beads.each do |beader|
@@ -29,7 +26,6 @@ class Interest < ActiveRecord::Base
   #load all posts within beads of the current interest
   #refers to bead ids that were extracted in the bead_ids
   
-  
   def post_content
     Post.find(:all,
         :select => 'DISTINCT id, title, content, created_at, updated_at, user_id, rating',
@@ -38,4 +34,16 @@ class Interest < ActiveRecord::Base
         :group => :id,
         :order => 'created_at DESC' )
   end
+  def dynamic_post_content(time_at)
+    Post.find(:all,
+        :select => 'DISTINCT id, title, content, created_at, updated_at, user_id, rating',
+        :joins => :beads_posts,
+        :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ?",beads, time_at], :having => ['count(distinct bead_id) = ?', beads.count],
+        :group => :id,
+        :order => 'created_at DESC' )
+  end
+
+#  def posts
+#  end
+
 end

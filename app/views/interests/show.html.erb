@@ -2,39 +2,24 @@
 <% content_for :leftside do %>
   <%= render :partial => current_user %>
 <% end %>
-
+<div id="interest" data-id="<%= @interest.id %>">
 <%# middle part render %>
 <h2>Interest: <%= @interest.title %></h2> beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
-<br />
-<%= link_to 'Edit', edit_interest_path(@interest) %><br />
-<%= render :partial => @interest.post_content %>
-<%= debug(@interest.post_content) %>
+ ( <%= link_to 'Edit', edit_interest_path(@interest) %> )<br /><br />
 
-<% content_for :rightside do %>
-<%= include_feed %>
-<%= debug(include_feed) %>
+<%= render 'posts/form' %>
 
-<h2>Add new post:</h2>
-<%= form_for :post, :url => posts_path do |f| %>
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title, :size => "20"%>
-  </p>
-  <p>
-    <%= f.label :content %><br />
-    <%= f.text_area :content, :size => "40x6"%>
-  </p>
-<%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true %>
+  <h2><%= pluralize(@interest.post_content.size, 'post') %></h2>
+<%#= render :partial => @interest.post_content %>
+  <div class="dynamic" id="buffer" style="display: none">
+  </div>
+<% unless @interest.post_content.empty? %>
 
- <%# needed if bead_posts join is not working = debug(@interest.bead_ids) %>
-  <p><%= f.submit "Add post" %></p>
+  <div class="dynamic" id="post_content">
+    <%= render :partial => @interest.post_content %>
+  </div>
 <% end %>
-
-
-
-
-<% end %>
-
+</div>
 

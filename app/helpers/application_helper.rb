@@ -18,15 +18,11 @@ module ApplicationHelper
     Bead.order("created_at DESC").limit(3)
   end
   
-  def include_feed
-    require 'open-uri'
-  	doc = Nokogiri::XML(open("http://rss.cnn.com/rss/cnn_tech.rss"))
-    doc.xpath('//item').each do |item|
-      @feedtitle = item.xpath('title').inner_text
-      @feeddescription = item.xpath('description').inner_text
-    
-    end
-    
-  end
+
+
+  #character count method declaration, from: http://snippets.dzone.com/posts/show/2875
+
+
+
 
 end

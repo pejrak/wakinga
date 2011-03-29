@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110202161735) do
+ActiveRecord::Schema.define(:version => 20110214205102) do
 
   create_table "beads", :force => true do |t|
     t.string   "title"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20110202161735) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
+    t.string   "feed_url"
   end
 
   create_table "posts", :force => true do |t|

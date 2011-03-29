@@ -1,0 +1,14 @@
+<%= form_for Post.new, :remote => true do |f| %>
+  <%= f.error_messages %>
+  <%#*<p>%>
+    <%#= f.label :title %><%# f.text_field :title, :size => "20"%>
+  <%#*</p>%>
+  <p>
+    <%= f.text_area :content, :size => "60x5"%>
+    <%#= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true %>
+  </p>
+  <%= fields_for :beads_posts do |bead_fields| %>
+    <%= bead_fields.hidden_field(:interest_id, :value => @interest.id) %>
+  <% end %>
+  <p><%= f.submit "Add post" %></p>
+<% end %>

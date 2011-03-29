@@ -1,0 +1,7 @@
+<% unless @dynamic_posts.empty? %>
+$(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'post'), '#', :remote => true, :class => 'post_show')) %>").show();
+$('.post_show').click(function() {
+      $(".dynamic#post_content").prepend("<div class='posts_new_dynamic'><%=raw escape_javascript(render(@dynamic_posts)) %></div>");
+      $(".dynamic#buffer").slideUp();
+      });
+<% end %>

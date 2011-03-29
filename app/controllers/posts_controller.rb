@@ -1,22 +1,11 @@
 class PostsController < ApplicationController
-before_filter :authenticate_user!, :except => [:show, :index]
+before_filter :authenticate_user! #, :except => [:show, :index]
 
-  # GET /posts
-  # GET /posts.xml
   def index
-    @posts = Post.find(:all, :order => 'updated_at')
-
-
- #   respond_to do |format|
- #     format.html # index.html.erb
- #     format.xml { render :xml => @posts }
- #     format.json { render :json => @posts }
- #     format.atom
- #   end
+    @interest = Interest.find(params[:interest_id])
+    @dynamic_posts = @interest.dynamic_post_content(Time.at(params[:after].to_i + 1))
   end
 
-  # GET /posts/1
-  # GET /posts/1.xml
   def show
     @post = Post.find(params[:id])
 	
@@ -25,11 +14,9 @@ before_filter :authenticate_user!, :except => [:show, :index]
       format.xml { render :xml => @post }
     end
   end
-
-  # GET /posts/new
-  # GET /posts/new.xml
   def new
-    @post = Post.new
+    @interest = Interest.find(params[:id])
+    @post = Post.new(:bead_ids => @interest.beads.all)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,36 +24,28 @@ before_filter :authenticate_user!, :except => [:show, :index]
     end
   end
 
-  # GET /posts/1/edit
   def edit
     @post = Post.find(params[:id])
   end
 
-  # POST /posts
-  # POST /posts.xml
   def create
-
-	@post = Post.new(params[:post])
-	@post.user = current_user
-  @post.rating = 0
-
-  respond_to do |format|
-	if @post.save
+    @post = Post.create!(params[:post])
+    @post.user = current_user
+    @interest = Interest.find(params[:beads_posts][:interest_id])
+    @post.beads = @interest.beads
+#    @dynamic_posts = @interest.dynamic_post_content(Time.at(params[:after].to_i + 1))
+    respond_to do |format|
+      if @post.save
         flash[:notice] = 'CREATED.'
-        
-        format.html { redirect_to :back, :params => @params }
-        format.xml { render :xml => @post, :status => :created, :location => @post }
-        
+        format.html {redirect_to @interest}
+        format.js
       else
         flash[:notice] = 'FAILED.'
-        format.html { render(@interest) }
-        format.xml { render :xml => @post.errors, :status => :unprocessable_entity }
+        render :action => 'new'
       end
     end
   end
 
-  # PUT /posts/1
-  # PUT /posts/1.xml
   def update
     @post = Post.find(params[:id])
 
@@ -82,8 +61,6 @@ before_filter :authenticate_user!, :except => [:show, :index]
     end
   end
 
-  # DELETE /posts/1
-  # DELETE /posts/1.xml
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
@@ -94,14 +71,14 @@ before_filter :authenticate_user!, :except => [:show, :index]
     end
   end
   
-  def increase
+  def memorize
    @post = Post.find(params[:id])
    @post.increment! :rating
    flash[:notice] = "Thanks for your rating."
    redirect_to :back, :params => @params
 
   end
-  def decrease
+  def erase
    @post = Post.find(params[:id])
    @post.decrement! :rating
    flash[:notice] = "Thanks for your rating."

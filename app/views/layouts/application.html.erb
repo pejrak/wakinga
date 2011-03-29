@@ -1,20 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title> MindBeads.com
-    <% if @interest.nil? then %>
-    <%= '- Concept based messaging platform' %>
-    <% else %>
-    <%= '- ' + @interest.title %>
-    <% end %>
-  </title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-</head>
+<%= render 'shared/head' %>
 <body>
 
-<!-- <div id="paramsinspect"> <%# params.inspect %> <br /><br /></div> -->
+<div id="paramsinspect"> <%= params.inspect %></div>
 <div id="container">
   <table class="main" width = "100%">
   <tr>

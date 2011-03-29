@@ -1,6 +1,6 @@
 class Bead < ActiveRecord::Base
 has_many :beads_interests
-has_many :beads_posts
+has_many :beads_posts, :dependent => :delete_all
 has_many :interests, :through => :beads_interests
 has_many :posts, :through => :beads_posts, :order => 'posts.updated_at DESC'
 has_many :users, :through => :interests

@@ -11,7 +11,16 @@ before_filter :authenticate_user!
   # GET /interests/1
   # GET /interests/1.xml
   def show
+#    require 'open-uri'
     @interest = Interest.find(params[:id])
+#feed inclusion
+#if @interest.feed_url.present?
+#  doc = Nokogiri::XML(open(@interest.feed_url))
+#    @interest_feed = doc.xpath('//item').map do |i|
+#      {'title' => i.xpath('title').inner_text, 'description' => i.xpath('description').text}
+#    end
+#else @interest_feed = []
+#end
 	respond_to do |format|
 	  format.html # show.html.erb
 	  format.xml  { render :xml => @interest }
@@ -78,7 +87,7 @@ before_filter :authenticate_user!
   # DELETE /interests/1.xml
   def destroy
 	@interest = Interest.find(params[:id])
-	@interest.destroy
+  @interest.destroy
 
 	respond_to do |format|
 	  format.html { redirect_to(root_path) }

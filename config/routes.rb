@@ -1,4 +1,6 @@
 Mindbase::Application.routes.draw do |map|
+  resources :memorizations
+
   resources :enrollments
 
   resources :beads_posts
@@ -21,7 +23,7 @@ Mindbase::Application.routes.draw do |map|
   end
   resources :posts do
     member do
-      get 'memorize', 'erase'
+      post 'memorize', 'forget'
     end
   end 
 

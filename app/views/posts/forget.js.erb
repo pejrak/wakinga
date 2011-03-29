@@ -1,0 +1,1 @@
+$("#memory_operator_"+<%= escape_javascript(@post.id.to_s) %>).html("<%= escape_javascript(link_to('SAVE', memorize_post_path(@post), :remote => true, :method => 'post' )) %>");

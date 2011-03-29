@@ -67,22 +67,34 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
     respond_to do |format|
       format.html { redirect_to(root_path) }
-      format.xml { head :ok }
     end
   end
   
   def memorize
    @post = Post.find(params[:id])
    @post.increment! :rating
-   flash[:notice] = "Thanks for your rating."
-   redirect_to :back, :params => @params
-
+   if Memorization.where(:post_id => @post, :user_id => current_user).empty?
+     @memorization = Memorization.new
+     @memorization.post_id = @post.id
+     @memorization.user_id = current_user.id
+     respond_to do | format |
+       if @memorization.save
+          format.js {render :layout => false}
+       end
+     end
+   end
   end
-  def erase
-   @post = Post.find(params[:id])
-   @post.decrement! :rating
-   flash[:notice] = "Thanks for your rating."
-   redirect_to :back, :params => @params
 
+  
+  def forget
+    @post = Post.find(params[:id])
+    @post.decrement! :rating
+    @memorization = Memorization.find_by_user_id_and_post_id(current_user, @post)
+      if @memorization.present?
+        @memorization.delete
+        respond_to do | format |
+         format.js {render :layout => false}
+      end
+    end
   end
 end

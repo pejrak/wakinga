@@ -16,7 +16,7 @@ function updatePosts () {
   } else {
     var after = "0";
   }
-  $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after)
+  $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after);
   setTimeout(updatePosts, 10000);
 }
 
@@ -34,5 +34,4 @@ jQuery.fn.submitWithAjax = function() {
 
 $(document).ready(function() {
   $("#new_post").submitWithAjax();
-  
 });

@@ -1,7 +1,9 @@
 <% unless @dynamic_posts.empty? %>
 $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'post'), '#', :remote => true, :class => 'post_show')) %>").show();
 $('.post_show').click(function() {
-      $(".dynamic#post_content").prepend("<div class='posts_new_dynamic'><%=raw escape_javascript(render(@dynamic_posts)) %></div>");
+      $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content)) %>");
+      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content)) %>");
+      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");
       $(".dynamic#buffer").slideUp();
       });
 <% end %>

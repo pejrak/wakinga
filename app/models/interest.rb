@@ -32,15 +32,25 @@ class Interest < ActiveRecord::Base
         :joins => :beads_posts,
         :conditions => ["beads_posts.bead_id IN (?)",beads], :having => ['count(distinct bead_id) = ?', beads.count],
         :group => :id,
+        :order => 'created_at DESC' ) - memorized_post_content
+  end
+
+  def memorized_post_content
+    Post.find(:all,
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
+        :joins => [:beads_posts, :memorizations],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ?", beads, user], :having => ['count(distinct bead_id) = ?', beads.count],
+        :group => :id,
         :order => 'created_at DESC' )
   end
+
   def dynamic_post_content(time_at)
     Post.find(:all,
         :select => 'DISTINCT id, title, content, created_at, updated_at, user_id, rating',
         :joins => :beads_posts,
         :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ?",beads, time_at], :having => ['count(distinct bead_id) = ?', beads.count],
         :group => :id,
-        :order => 'created_at DESC' )
+        :order => 'created_at DESC' ) - memorized_post_content
   end
 
 #  def posts

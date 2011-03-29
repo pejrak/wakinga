@@ -5,6 +5,11 @@ module ApplicationHelper
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=#{CGI.escape(default_url)}"
   end
 
+  def check_memory(user, content)
+    Memorization.where(:user_id => user, :post_id => content).empty?
+  end
+
+
   def top_beads_overall
     Bead.find(:all,
       :select => 'id, title, description, count(distinct beads_posts.post_id) AS post_counter',

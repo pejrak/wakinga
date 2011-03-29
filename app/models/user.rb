@@ -4,6 +4,7 @@ has_many :comments
 has_many :interests, :dependent => :destroy
 has_many :beads_interests, :through => :interests
 has_many :beads_posts, :through => :posts
+has_many :memorizations
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable

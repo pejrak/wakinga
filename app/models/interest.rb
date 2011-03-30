@@ -2,6 +2,7 @@ class Interest < ActiveRecord::Base
 
   has_many :beads, :through => :beads_interests
   has_many :beads_interests, :dependent => :delete_all
+  has_many :beads_posts, :through => :beads
   belongs_to :user
 
  
@@ -28,10 +29,11 @@ class Interest < ActiveRecord::Base
   
   def post_content
     Post.find(:all,
-        :select => 'DISTINCT id, title, content, created_at, updated_at, user_id, rating',
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
         :joins => :beads_posts,
-        :conditions => ["beads_posts.bead_id IN (?)",beads], :having => ['count(distinct bead_id) = ?', beads.count],
-        :group => :id,
+        :conditions => ["beads_posts.bead_id IN (?)", beads],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
         :order => 'created_at DESC' ) - memorized_post_content
   end
 
@@ -39,21 +41,20 @@ class Interest < ActiveRecord::Base
     Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
         :joins => [:beads_posts, :memorizations],
-        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ?", beads, user], :having => ['count(distinct bead_id) = ?', beads.count],
-        :group => :id,
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ?", beads, user],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
         :order => 'created_at DESC' )
   end
 
   def dynamic_post_content(time_at)
     Post.find(:all,
-        :select => 'DISTINCT id, title, content, created_at, updated_at, user_id, rating',
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
         :joins => :beads_posts,
-        :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ?",beads, time_at], :having => ['count(distinct bead_id) = ?', beads.count],
-        :group => :id,
+        :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ?",beads, time_at],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
         :order => 'created_at DESC' ) - memorized_post_content
   end
-
-#  def posts
-#  end
 
 end

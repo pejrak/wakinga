@@ -11,7 +11,7 @@
 
 <%= render 'posts/form' %>
 
-  <h2 class="post_size"><%= pluralize(@interest.post_content.size, 'post') %></h2>
+  <h2 class="post_size"><%= pluralize(@interest.post_content.size.to_s + ' new ', 'post') %></h2>
 <%#= render :partial => @interest.post_content %>
   <div class="dynamic" id="buffer" style="display: none">
   </div>
@@ -22,9 +22,8 @@
 </div>
 </div>
 <% content_for :rightside do %>
-  <%= @interest.memorized_post_content.empty? ? "No memories in this interest" : content_tag(:h2, 'Memories') %>
+  <%= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
   <div class="dynamic" id="memories">
     <%= render :partial => @interest.memorized_post_content %>
   </div>
 <% end %>
-

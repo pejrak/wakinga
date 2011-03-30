@@ -9,14 +9,14 @@ $(function() {
   }
 });
 
-function updatePosts () {
+function updatePosts() {
   var interest_id = $("#interest").attr("data-id");
   if ($(".post").length > 0) {
     var after = $(".post:first-child").attr("data-time");
   } else {
     var after = "0";
   }
-  $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after);
+  $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false");
   setTimeout(updatePosts, 10000);
 }
 
@@ -31,6 +31,11 @@ jQuery.fn.submitWithAjax = function() {
   })
   return this;
 };
+
+function prepPosts() {
+  var interest_id = $("#interest").attr("data-id");
+  $.getScript("/posts.js?interest_id=" + interest_id + "&full_refresh=true");
+}
 
 $(document).ready(function() {
   $("#new_post").submitWithAjax();

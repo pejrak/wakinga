@@ -3,7 +3,12 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def index
     @interest = Interest.find(params[:interest_id])
-    @dynamic_posts = @interest.dynamic_post_content(Time.at(params[:after].to_i + 1))
+    if params[:full_refresh] == 'true'
+      @dynamic_posts = []
+    elsif params[:full_refresh] == 'false'
+      (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 1
+      @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at))
+    end
   end
 
   def show
@@ -79,7 +84,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
      @memorization.user_id = current_user.id
      respond_to do | format |
        if @memorization.save
-          format.js {render :layout => false}
+          format.js
        end
      end
    end
@@ -93,7 +98,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       if @memorization.present?
         @memorization.delete
         respond_to do | format |
-         format.js {render :layout => false}
+         format.js
       end
     end
   end

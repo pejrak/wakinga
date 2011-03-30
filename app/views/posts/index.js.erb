@@ -6,4 +6,8 @@ $('.post_show').click(function() {
       $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");
       $(".dynamic#buffer").slideUp();
       });
+<% else %>
+      $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content)) %>");
+      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content)) %>");
+      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");
 <% end %>

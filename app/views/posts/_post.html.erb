@@ -2,7 +2,7 @@
   <h3><%= link_to_unless_current h(post.title), post %></h3>
   <%= simple_format(post.content) %>
     <div class="post_foot" >
-      <span id="<%= 'memory_operator_'+post.id.to_s %>"><%= check_memory(current_user, post) ? link_to('SAVE', memorize_post_path(post), :remote => true, :method => 'post') : link_to('FORGET', forget_post_path(post), :remote => true, :method => 'post') %></span>
+      <span id="<%= 'memory_operator_'+post.id.to_s %>"><%= check_memory(current_user, post) ? link_to('SAVE', memorize_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ) : link_to('FORGET', forget_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ) %></span>
       <i>, posted <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong></i> in
       <% post.beads.each do |beadlink| %>
         <%= link_to beadlink.title, beadlink %>,

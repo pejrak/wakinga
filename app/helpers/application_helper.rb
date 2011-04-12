@@ -23,11 +23,8 @@ module ApplicationHelper
     Bead.order("created_at DESC").limit(3)
   end
   
-
-
-  #character count method declaration, from: http://snippets.dzone.com/posts/show/2875
-
-
-
+  def current_user_post_owner?(post)
+    (current_user == post.user)? true : false
+  end
 
 end

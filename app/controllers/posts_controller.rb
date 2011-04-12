@@ -43,7 +43,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       if @post.save
         flash[:notice] = 'CREATED.'
         format.html {redirect_to @interest}
-        format.js
+        format.js {render :layout => false}
       else
         flash[:notice] = 'FAILED.'
         render :action => 'new'
@@ -69,7 +69,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-
+    flash[:notice] = 'Removed.'
     respond_to do |format|
       format.html { redirect_to(root_path) }
     end
@@ -81,10 +81,12 @@ before_filter :authenticate_user! #, :except => [:show, :index]
    if Memorization.where(:post_id => @post, :user_id => current_user).empty?
      @memorization = Memorization.new
      @memorization.post_id = @post.id
+     @memorization.memorable = true
      @memorization.user_id = current_user.id
      respond_to do | format |
        if @memorization.save
-          format.js
+         flash[:notice] = 'Memorized.'
+          format.js {render :layout => false}
        end
      end
    end
@@ -93,13 +95,31 @@ before_filter :authenticate_user! #, :except => [:show, :index]
   
   def forget
     @post = Post.find(params[:id])
-    @post.decrement! :rating
     @memorization = Memorization.find_by_user_id_and_post_id(current_user, @post)
       if @memorization.present?
-        @memorization.delete
+        @memorization.destroy
+        flash[:notice] = 'Forgotten.'
         respond_to do | format |
-         format.js
+         format.js {render :layout => false}
       end
     end
   end
+
+  def burn
+   @post = Post.find(params[:id])
+   @post.decrement! :rating
+   if Memorization.where(:post_id => @post, :user_id => current_user).empty?
+     @memorization = Memorization.new
+     @memorization.post_id = @post.id
+     @memorization.memorable = false
+     @memorization.user_id = current_user.id
+     respond_to do | format |
+       if @memorization.save
+         flash[:notice] = 'Burned.'
+          format.js {render :layout => false}
+       end
+     end
+   end
+  end
+
 end

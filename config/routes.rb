@@ -23,7 +23,7 @@ Mindbase::Application.routes.draw do |map|
   end
   resources :posts do
     member do
-      post 'memorize', 'forget'
+      post 'memorize', 'forget', 'burn'
     end
   end 
 

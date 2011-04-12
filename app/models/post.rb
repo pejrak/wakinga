@@ -6,7 +6,7 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => 3
 has_many :comments, :dependent => :destroy
 has_many :beads_posts, :dependent => :delete_all
 has_many :beads, :through => :beads_posts
-has_many :memorizations
+has_many :memorizations, :dependent => :delete_all
 belongs_to :user
 
 end

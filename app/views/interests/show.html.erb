@@ -22,8 +22,9 @@
 </div>
 </div>
 <% content_for :rightside do %>
-  <%= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
+  <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true).size.to_s, 'memory') %></h2>
+  <%#= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
   <div class="dynamic" id="memories">
-    <%= render :partial => @interest.memorized_post_content %>
+    <%= render :partial => @interest.memorized_post_content(true) %>
   </div>
 <% end %>

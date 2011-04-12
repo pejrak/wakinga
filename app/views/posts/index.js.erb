@@ -2,12 +2,27 @@
 $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'post'), '#', :remote => true, :class => 'post_show')) %>").show();
 $('.post_show').click(function() {
       $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content)) %>");
-      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content)) %>");
+      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true))) %>");
       $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");
       $(".dynamic#buffer").slideUp();
       });
 <% else %>
       $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content)) %>");
-      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content)) %>");
+      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true))) %>");
       $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");
+      $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@interest.memorized_post_content(true).size.to_s, 'memory')) %>");
 <% end %>
+$(document).ready(function() {
+    $(".beads_slot").hover(
+      function () {
+        var id = $(this).attr("id")
+        $(".bead_spot_preview_" + id).toggle();
+        $(".bead_spot_full_" + id).toggle();
+      },
+      function () {
+        var id = $(this).attr("id")
+        $(".bead_spot_preview_" + id).toggle();
+        $(".bead_spot_full_" + id).toggle();
+      }
+    );
+});

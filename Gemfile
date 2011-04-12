@@ -7,6 +7,7 @@ gem 'mysql2', :group => :development
 gem "nifty-generators", :group => :development
 gem 'pg', :group => :production
 gem 'nokogiri'
+gem 'kaminari'
 
 # :development do
 #gem 'sqlite3-ruby', :require => 'sqlite3'

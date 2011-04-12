@@ -1,8 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-
-
 $(function() {
   if ($(".dynamic#post_content").length > 0) {
     setTimeout(updatePosts, 10000);
@@ -37,6 +35,7 @@ function prepPosts() {
   $.getScript("/posts.js?interest_id=" + interest_id + "&full_refresh=true");
 }
 
-$(document).ready(function() {
-  $("#new_post").submitWithAjax();
-});
+$("#new_post").submitWithAjax();
+
+
+

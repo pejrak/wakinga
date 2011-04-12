@@ -3,15 +3,16 @@
 <%= render 'shared/head' %>
 <body>
 
-<div id="paramsinspect"> <%= params.inspect %></div>
+
 <div id="container">
   <table class="main" width = "100%">
-  <tr>
+  <tr class="top_stripe">
     <td width="30%"></td>
     <td>
-      <h1><%= link_to 'MindBeads.com', root_path %></h1>
-
-        <% if user_signed_in? %>
+      <h1><%= link_to 'mindbeads', root_path %></h1>
+    </td>
+    <td>
+              <% if user_signed_in? %>
           Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
           <%= link_to "Sign out", destroy_user_session_path %>
         <% else %>
@@ -23,8 +24,7 @@
           <% flash.each do |name, msg| %>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
         <% end %>
-
-
+      
     </td>
   </tr>
   <tr>
@@ -38,5 +38,6 @@
   <%= yield :bottom %>
       </div>
     <p class="footer" align="left">© 2011 by Spontain</p>
+    <div id="paramsinspect"><%= params.inspect %></div>
 	</body>
 </html>

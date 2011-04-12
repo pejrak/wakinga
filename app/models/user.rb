@@ -17,11 +17,9 @@ has_many :memorizations
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  validates :login, :email, :presence => true
-  validates_length_of :login, :within => 3..40
-  validates_uniqueness_of :login, :case_sensitive => false
-
-  validates_length_of :name, :maximum => 100
+  validates :username, :email, :presence => true
+  validates_length_of :username, :within => 3..40
+  validates_uniqueness_of :username, :case_sensitive => false
 
   validates_length_of :email, :within => 6..100 #r@a.wk
   validates_uniqueness_of :email, :case_sensitive => false
@@ -34,6 +32,22 @@ has_many :memorizations
     :group => ['bead_id','beads.title'],
     :order => 'rating_sum DESC',
     :limit => 5)
+  end
+
+  def good_memories
+    memorizations.where(:memorable => true)
+  end
+
+  def burned_memories
+    memorizations.where(:memorable => false)
+  end
+
+  def good_memories_by_others
+    Memorization.where(:post_id => posts, :memorable => true)
+  end
+
+  def burned_memories_by_others
+    Memorization.where(:post_id => posts, :memorable => false)
   end
 
   def rating_total

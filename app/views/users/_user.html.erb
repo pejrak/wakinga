@@ -1,10 +1,6 @@
 <i><h2><%= h(user.username) %></h2></i><br />
 <%= image_tag avatar_url(user) %><br />
-member since <i><%= time_ago_in_words(user.created_at) %> ago</i><br />
+member since: <i><%= time_ago_in_words(user.created_at) %> ago</i><br />
 posts: <i><%= user.posts.count %></i><br />
-rating: <%= user.rating_total %> <br />
-<h2>rating by beads</h2>
-
-<% user.rating_on_beads.each do |printstats| %>
-<strong><%= printstats.title %></strong>  earned: <%= printstats.rating_sum %><br />
-<% end %>
+memorized/(by others): <i><%= user.good_memories.count %>/<%= user.good_memories_by_others.count %></i><br />
+burnt/(by others): <i><%= user.burned_memories.count %>/<%= user.burned_memories_by_others.count %></i><br />

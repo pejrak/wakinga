@@ -1,4 +1,4 @@
-$("#flash_notice").html('<%= escape_javascript(flash.delete(:notice)) %>');
+$("#new_post").after('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content)) %>");
 $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true))) %>");
 $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");

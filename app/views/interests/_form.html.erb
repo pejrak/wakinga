@@ -31,7 +31,7 @@
   <p>Create interest first.</p>
   <% else %>
     <h3>search and add beads:</h3>
-  <% form_tag edit_interest_path(@interest), :method => 'get' do %>
+  <%= form_tag edit_interest_path(@interest), :method => 'get' do %>
     <p>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Search", :name => nil %>
@@ -42,7 +42,7 @@
       <% else %>
       <i><%= 'click the bead to add it to the current interest' %> </i>
         <% @beads.each do |loadbead| %>
-        <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.posts.count) %> posts )</h3>
+        <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.beads_posts_count) %> posts )</h3>
         <%= h(loadbead.description) %>
 
       <% end %><br /><br />

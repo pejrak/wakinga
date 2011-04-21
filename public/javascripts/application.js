@@ -1,6 +1,31 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+$(document).ready(function() {
+    $("#new_post").submitWithAjax();
+
+    //initiate sliders and hiders for content effects
+    $('.slider').click(function() {
+      $('.content_'+$(this).attr('id')).slideToggle('slow');});
+
+    $('.hider').click(function() {
+      $('.content_'+$(this).attr('id')).toggle();});
+    $(".beads_slot").hover(
+      function () {
+        var id = $(this).attr("id")
+        $(".bead_spot_preview_" + id).toggle();
+        $(".bead_spot_full_" + id).toggle();
+      },
+      function () {
+        var id = $(this).attr("id")
+        $(".bead_spot_preview_" + id).toggle();
+        $(".bead_spot_full_" + id).toggle();
+      }
+    );
+    $("#flash_notice, #flash_error").fadeOut(10000);
+});
+
+
 $(function() {
   if ($(".dynamic#post_content").length > 0) {
     setTimeout(updatePosts, 10000);
@@ -16,6 +41,8 @@ function updatePosts() {
   }
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false");
   setTimeout(updatePosts, 10000);
+
+
 }
 
 jQuery.ajaxSetup({
@@ -32,10 +59,6 @@ jQuery.fn.submitWithAjax = function() {
 
 function prepPosts() {
   var interest_id = $("#interest").attr("data-id");
+  $("#flash_notice, #flash_error").fadeOut(10000);
   $.getScript("/posts.js?interest_id=" + interest_id + "&full_refresh=true");
 }
-
-$("#new_post").submitWithAjax();
-
-
-

@@ -1,7 +1,5 @@
 <%# left side render %>
-<% content_for :leftside do %>
-  <%= render :partial => current_user %>
-<% end %>
+
 <div id="interest" data-id="<%= @interest.id %>">
 <%# middle part render %>
 <h2>Interest: <%= @interest.title %></h2> beads: <% @interest.beads.each do |beader| %>

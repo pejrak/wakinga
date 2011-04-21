@@ -7,11 +7,11 @@
 <div id="container">
   <table class="main" width = "100%">
   <tr class="top_stripe">
-    <td width="30%"></td>
+    <td><%= link_to image_tag('/images/mindbeads_logo4.png', :border => 0, :class => 'mindbeads_logo'), root_path %></td>
     <td>
-      <h1><%= link_to 'mindbeads', root_path %></h1>
+      <%= yield :middletop %>
     </td>
-    <td>
+    <td class="top_right">
               <% if user_signed_in? %>
           Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
           <%= link_to "Sign out", destroy_user_session_path %>
@@ -27,7 +27,7 @@
       
     </td>
   </tr>
-  <tr>
+  <tr class="mid_stripe">
     <%# yields for page components, use content_for to fill %>
     <td class="leftside"><%= yield :leftside %></td>
     <td class="middle"><%= yield %></td>

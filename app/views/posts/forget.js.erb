@@ -1,1 +1,2 @@
 prepPosts();
+$("#new_post").after('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice)) %></div>');

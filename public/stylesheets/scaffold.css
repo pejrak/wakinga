@@ -12,25 +12,39 @@ td {
 td.leftside {
     text-align: right;
     vertical-align: top;
-    width: 30%;
+    width: 90px;
 
 }
 td.middle {
     text-align: left;
     vertical-align: top;
-    width: 40%;
-    border-left: lightgrey 1px dotted;
+    width: 50%;
+/*    border-left: lightgrey 1px dotted;*/
 }
 
 td.rightside {
     text-align: left;
     vertical-align: top;
-    width: 30%;
-    border-left: lightgrey 1px dotted;
+    width: 50%;
+/*    border-left: lightgrey 1px dotted;*/
 }
+.top_right {
+    vertical-align: top;
+}
+
 .top_stripe {
-    background-color: #B0001C;
-    color: white;
+/*        background-color: #313e41;*/
+        color: black;
+}
+.top_stripe img {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+.mid_stripe {
+    background-image: url(/images/bg_grey_fade_vert.png);
+    background-position: top;
+    background-repeat: repeat-x;
+    border-top: lightgray solid 1px;
 }
 /*other basic elements, with associated classes*/
 body, ol, ul {
@@ -46,19 +60,23 @@ p.footer {
 }
 
 h1, h2, h3 {
-  font-family: 'Palatino Linotype', 'Book Antiqua3', Palatino, serif;
+  font-family: arial, helvetica, sans-serif;
 }
 h3 {
   font-size: 14px;
   margin-top: 5px;
   margin-bottom: 0px;
+  font-weight: normal;
+  font-style: italic;
 }
 h2 {
   
   color: dimgray ;
   margin-bottom: 5px;
   margin-top: 10px;
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: normal;
+/*  font-style: italic;*/
 }
 h1 {
   margin-top: 0px;
@@ -88,18 +106,25 @@ pre {
   font-size: 11px;
 }
 
-a { color: #011d62  ; text-decoration: none; }
+a { color: #2CA200  ; text-decoration: none; }
 a:visited {  }
 a:hover { color: #fff; background-color:red; text-decoration: none; }
 
 /*specific classes*/
-.rightside h2 {
-    font-size: 22px;
+.leftside h2 {
+    color: #FF0000;
+
 }
-.leftside i h2 {
-    color: darkred;
-    font-size: 32px;
-    margin-top: 4px;
+.mindbeads_logo {
+
+}
+
+.user_avatar {
+    float: right;
+}
+
+.user_details {
+    float: right;
 }
 
 /*post styling*/

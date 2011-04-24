@@ -34,7 +34,8 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?)", beads],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
-        :order => 'created_at DESC' ) - memorized_post_content(true) - memorized_post_content(false)
+        :order => 'created_at DESC',
+        :limit => 50) - memorized_post_content(true) - memorized_post_content(false)
   end
 
   def memorized_post_content(memorability)
@@ -44,7 +45,8 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ?", beads, user, memorability],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
-        :order => 'created_at DESC' )
+        :order => 'created_at DESC',
+        :limit => 50)
   end
 
   def dynamic_post_content(time_at)
@@ -54,7 +56,8 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ?",beads, time_at],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
-        :order => 'created_at DESC' ) - memorized_post_content(true) - memorized_post_content(false)
+        :order => 'created_at DESC',
+        :limit => 50) - memorized_post_content(true) - memorized_post_content(false)
   end
 
 end

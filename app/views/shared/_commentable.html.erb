@@ -1,0 +1,6 @@
+<div class="comments_form_container">
+    <%= form_for([commentable, commentable.comments.build], :remote => true) do |f| %>
+          <%= f.text_field(:body, :size => "25x2") %>
+        <%# f.submit "add" %>
+    <% end %>
+</div>

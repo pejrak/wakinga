@@ -7,25 +7,24 @@
 td {
     
     padding-left: 13px;
-    padding-right: 13px;
 }
-td.leftside {
-    text-align: right;
+.leftside {
     vertical-align: top;
-    width: 90px;
+    width: 30%;
 
 }
 td.middle {
     text-align: left;
     vertical-align: top;
-    width: 50%;
+    width: 35%;
+
 /*    border-left: lightgrey 1px dotted;*/
 }
 
 td.rightside {
     text-align: left;
     vertical-align: top;
-    width: 50%;
+    width: 35%;
 /*    border-left: lightgrey 1px dotted;*/
 }
 .top_right {
@@ -81,8 +80,12 @@ h2 {
 h1 {
   margin-top: 0px;
   margin-bottom: 0px;
-  font-size: 26px;
-  color: crimson;
+  font-size: 22px;
+  color: #F40026;
+  font-style: italic;
+}
+.heading_subtelize {
+    color: gray;
 }
 h1 a {
     color: white;
@@ -112,20 +115,24 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 
 /*specific classes*/
 .leftside h2 {
-    color: #FF0000;
+    color: #F83251;
 
 }
 .mindbeads_logo {
-
+    float: left;
 }
 
 .user_avatar {
-    float: right;
+    margin-top: 40px;
 }
+.text_emphasizer {
+    color: #F40026;
+}
+/*
 
 .user_details {
     float: right;
-}
+}*/
 
 /*post styling*/
 .post {
@@ -133,7 +140,10 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
         margin-bottom: 3px;
         color:black;
         font-size: 11px;
-        border-bottom: lightgray 1px groove;
+        border-bottom: lightgray 1px solid;
+/*    background-image: url(/images/bg_grey_fade_vert.png);
+    background-position: top;
+    background-repeat: repeat-x;*/
 }
 .post_foot {
     color: lightslategray;
@@ -143,9 +153,60 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 .posts_new_dynamic {
     background-color: aliceblue;
 }
+.post_activator {
+    background-color: lightgray;
+    font-size: 20px;
+    padding: 4px 2px;
+    float: left;
+    margin-right: 8px;
+}
+.activated_post_container {
+/*    background-color: #7FED56;*/
+    
+
+}
+.activated_post {
+    padding: 6px;
+}
+.activated_post p {
+    font-size: 12px;
+}
+
+.comments_placeholder {
+    border-top: #F40026 solid 1px;
+    color: #F40026;
+}
+.comments_frame {
+/*    padding: 10px;*/
+    background-image: url(/images/bg_grey_fade_vert.png);
+    background-position: top;
+    background-repeat: repeat-x;    
+}
+.comments_content_container {
+    
+}
+
+.comment {
+  font-size: 11px;
+  padding: 5px;
+/*  background-color: #b7ffb4;*/
+/*  border-bottom: black 1px dotted;*/
+}
+.comments_form_container {
+    padding: 5px;
+/*    background-color: #b7ffb4;*/
+}
+.comment_indentor {
+    background-color: #F40026;
+    width: 10px;
+    height: 10px;
+    float: left;
+    margin-right: 10px;
+}
+
 /*bead dot styling within post*/
 .beads_slot {
-    float: right;
+
 }
 
 .bead_spot {
@@ -169,19 +230,6 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     color: white;
 }
 
-div.comment {
-  font-size: 10px;
-  color:indigo;
-  width:500px;
-  border-bottom: black 1px dotted;
-}
-
-div.comment#p {
-  font-size: 10px;
-  color:black;
-  width:500px;
-  border-bottom: black 1px dotted;
-}
 #notice {
   color: red;
 }

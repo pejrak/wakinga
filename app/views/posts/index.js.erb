@@ -12,3 +12,6 @@ $('.post_show').click(function() {
       $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content.size.to_s + ' new ', 'post')) %>");
       $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@interest.memorized_post_content(true).size.to_s, 'memory')) %>");
 <% end %>
+  if ($(".activated_post").length > 0) {
+    $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
+  }

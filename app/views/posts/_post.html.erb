@@ -1,23 +1,12 @@
 <div class="post" data-time="<%= post.created_at.to_i %>" id="<%= post.id %>">
   <h3><%= link_to_unless_current h(post.title), post %></h3>
-    <span class="beads_slot" id="p<%= post.id %>">
-      <span class="bead_spot_preview_p<%= post.id %>">
-      <% (post.beads.count).times do %><%= 'o' %><% end %>
-      </span>
-      <span class="bead_spot_full_p<%= post.id %>" style="display: none">
-      <% post.beads.each do |beadlink| %>
-        o <%= link_to beadlink.title, beadlink %>
-      <% end %>
-      </span>
-    </span>
-  <br />
-  
+  <%= content_tag(:div, :class => 'post_activator', :id => 'post_activator_' + post.id.to_s) do %><%= link_to( activate_post_path(post), :remote => true)  do %> &infin; <% end %><% end %>
+
   <%= simple_format(post.content) %>
     <div class="post_foot" >
       <span id="<%= 'memory_operator_'+post.id.to_s %>">
         <% unless @interest.nil? %><%= (current_user_post_owner?(post))? (link_to('DELETE', post, :method => :delete, :confirm => "Do you want to delete your post?")) : ((check_memory(current_user, post) ? link_to('BURN', burn_post_path(post), :remote => true, :method => 'post', :confirm => "Do you want to burn this post? - it will no longer appear", :interest_id => @interest.id) + ', ' + link_to('SAVE', memorize_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ) : link_to('FORGET', forget_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ))) %>, <% end %>
       </span>
-      <i>posted <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong></i> 
-        
+      <i>posted <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong> <%= (post.comments.present?)? content_tag(:span, ', ' + post.comments.size.to_s + ' reactions', :class => 'text_emphasizer') : '' %></i>
     </div>
 </div>

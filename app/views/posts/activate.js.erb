@@ -1,0 +1,5 @@
+<% if @refresh_indicator == false %>
+  $(".activated_post_container").html("<%=raw escape_javascript(render(:partial => 'activated_post', :object => @post)) %>");
+<% elsif @refresh_indicator == true %>
+  $(".comments_content_container").html("<%=raw escape_javascript(render(:partial => @post.comments)) %>");
+<% end %>

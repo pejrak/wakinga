@@ -16,11 +16,15 @@ module ApplicationHelper
       :joins => :beads_posts,
       :group => ['id','title','description'],
       :order => 'post_counter DESC',
-      :limit => 5
+      :limit => 10
     )
   end
   def recent_beads
-    Bead.order("created_at DESC").limit(3)
+    Bead.order("created_at DESC").limit(10)
+  end
+
+  def active_beads
+    Bead.joins(:posts).order("posts.created_at DESC").limit(10).uniq
   end
   
   def current_user_post_owner?(post)

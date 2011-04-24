@@ -122,4 +122,15 @@ before_filter :authenticate_user! #, :except => [:show, :index]
    end
   end
 
+  def activate
+    @post = Post.find(params[:id])
+    if params.has_key?(:indicator) 
+      @refresh_indicator = true
+    else  @refresh_indicator = false
+    end
+    respond_to do | format |
+      format.js
+    end
+  end
+
 end

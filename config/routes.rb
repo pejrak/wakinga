@@ -24,6 +24,7 @@ Mindbase::Application.routes.draw do |map|
   resources :posts do
     member do
       post 'memorize', 'forget', 'burn'
+      get 'activate'
     end
   end 
 

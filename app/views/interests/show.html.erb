@@ -1,15 +1,19 @@
 <%# left side render %>
 
+<%= content_for :middletop do %>
+  <h1><span class="heading_subtelize">Interest:</span> <%= @interest.title %></h1>
+<% end %>
+
 <div id="interest" data-id="<%= @interest.id %>">
-<%# middle part render %>
-<h2>Interest: <%= @interest.title %></h2> beads: <% @interest.beads.each do |beader| %>
+<h2 class="post_size"><%= pluralize(@interest.post_content.size.to_s + ' new ', 'post') %></h2>
+beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
- ( <%= link_to 'Edit', edit_interest_path(@interest) %> )<br /><br />
+ ( <%= link_to 'Edit', edit_interest_path(@interest) %> )<br />
 
 <%= render 'posts/form' %>
 
-  <h2 class="post_size"><%= pluralize(@interest.post_content.size.to_s + ' new ', 'post') %></h2>
+  
 <%#= render :partial => @interest.post_content %>
   <div class="dynamic" id="buffer" style="display: none">
   </div>
@@ -20,9 +24,12 @@
 </div>
 </div>
 <% content_for :rightside do %>
+  
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true).size.to_s, 'memory') %></h2>
   <%#= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
   <div class="dynamic" id="memories">
     <%= render :partial => @interest.memorized_post_content(true) %>
   </div>
 <% end %>
+
+<% content_for :leftside do %><div class="activated_post_container"></div><% end %>

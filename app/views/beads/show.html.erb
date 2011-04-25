@@ -1,7 +1,5 @@
-<%# left side render %>
-<% content_for :leftside do %>
-  <%= render :partial => current_user %>
-<% end %>
+<% content_for :leftside do %><div class="activated_post_container"></div><% end %>
+
 <h2><%= @bead.title %>
 <span class="main_operators">
 <%= link_to 'Edit', edit_bead_path(@bead) %> |

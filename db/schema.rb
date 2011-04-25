@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110413080915) do
+ActiveRecord::Schema.define(:version => 20110425151752) do
 
   create_table "beads", :force => true do |t|
     t.string   "title"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110413080915) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "beads_posts_count", :default => 0
+    t.boolean  "parent_bead"
   end
 
   create_table "beads_interests", :id => false, :force => true do |t|
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20110413080915) do
     t.datetime "updated_at"
     t.string   "title"
     t.string   "feed_url"
+    t.datetime "last_visit_at"
   end
 
   create_table "memorizations", :force => true do |t|

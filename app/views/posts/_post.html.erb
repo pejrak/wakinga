@@ -7,6 +7,6 @@
       <span id="<%= 'memory_operator_'+post.id.to_s %>">
         <% unless @interest.nil? %><%= (current_user_post_owner?(post))? (link_to('DELETE', post, :method => :delete, :confirm => "Do you want to delete your post?")) : ((check_memory(current_user, post) ? link_to('BURN', burn_post_path(post), :remote => true, :method => 'post', :confirm => "Do you want to burn this post? - it will no longer appear", :interest_id => @interest.id) + ', ' + link_to('SAVE', memorize_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ) : link_to('FORGET', forget_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ))) %>, <% end %>
       </span>
-      <i>posted <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong> <%= (post.comments.present?)? content_tag(:span, ', ' + post.comments.size.to_s + ' reactions', :class => 'text_emphasizer') : '' %></i>
+      <i>posted <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong><%= (post.comments.present?)? content_tag(:span, ', ' + post.comments.size.to_s + ' reactions', :class => 'text_emphasizer') : '' %></i>
     </div>
 </div>

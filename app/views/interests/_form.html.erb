@@ -1,24 +1,9 @@
 <%= form_for(@interest) do |f| %>
-  <% if @interest.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@interest.errors.count, "error") %> prohibited this interest from being saved:</h2>
-
-      <ul>
-      <% @interest.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>
-  <p>
-    <%= f.label :feed_url %><br />
-    <%= f.text_field :feed_url %>
-  </p><br />
+
   <p>
   <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true %>
   </p>
@@ -30,21 +15,26 @@
 <% if params[:action] == 'new' then %>
   <p>Create interest first.</p>
   <% else %>
+  <h2>parent beads</h2>
+    <% @parent_beads.each do |pb| %>
+        <h3><%= link_to(pb.title, :action => 'add_single_bead', :bead_id => pb.id) %> ( <%= h(pb.beads_posts_count) %> posts )</h3>
+        <%= h(pb.description) %>
+    <% end %>
     <h3>search and add beads:</h3>
   <%= form_tag edit_interest_path(@interest), :method => 'get' do %>
     <p>
-      <%= text_field_tag :search, params[:search] %>
+      <%= text_field_tag :search %>
       <%= submit_tag "Search", :name => nil %>
     </p>
     <% end %>
     <% if @beads.nil? then %>
       <%= 'enter search criteria' %><br /><br />
-      <% else %>
+    <% else %>
       <i><%= 'click the bead to add it to the current interest' %> </i>
         <% @beads.each do |loadbead| %>
         <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.beads_posts_count) %> posts )</h3>
         <%= h(loadbead.description) %>
 
-      <% end %><br /><br />
-    <% end %>
+    <% end %><br /><br />
+  <% end %>
 <%end%>

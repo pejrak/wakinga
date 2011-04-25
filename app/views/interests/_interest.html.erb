@@ -1,8 +1,8 @@
 <%= div_for interest do %>
-<h3><%= link_to_unless_current interest.title, interest %> (<%= interest.post_count %>)</h3>
+<h3><%= link_to_unless_current interest.title, interest %> (<%= (interest.post_count_unread > 0)? h(interest.post_count_unread.to_s + ' new / ') : '' %><%= interest.post_count %>)</h3>
 ( <%= link_to 'e', edit_interest_path(interest) %> |
   <%= link_to 'x', interest, :confirm => 'Are you sure?', :method => :delete %> )
   <% interest.beads.each do |beader| %>
-   <%= beader.title %>,
+  o <span class="text_emphasizer"><%= beader.title %></span>
   <% end %>
 <br /><% end %>

@@ -28,7 +28,7 @@ td.rightside {
 /*    border-left: lightgrey 1px dotted;*/
 }
 .top_right {
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .top_stripe {
@@ -67,6 +67,7 @@ h3 {
   margin-bottom: 0px;
   font-weight: normal;
   font-style: italic;
+  color: #F40026;
 }
 h2 {
   
@@ -198,7 +199,14 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 }
 .comment_indentor {
     background-color: #F40026;
-    width: 10px;
+    width: 7px;
+    height: 10px;
+    float: left;
+    margin-right: 10px;
+}
+.comment_indentor_new {
+    background-color: #F40026;
+    width: 7px;
     height: 10px;
     float: left;
     margin-right: 10px;

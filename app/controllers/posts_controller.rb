@@ -41,6 +41,11 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 #    @dynamic_posts = @interest.dynamic_post_content(Time.at(params[:after].to_i + 1))
     respond_to do |format|
       if @post.save
+        @memorization = Memorization.new
+        @memorization.post_id = @post.id
+        @memorization.memorable = true
+        @memorization.user_id = current_user.id
+        @memorization.save
         flash[:notice] = 'CREATED.'
         format.html {redirect_to @interest}
         format.js {render :layout => false}

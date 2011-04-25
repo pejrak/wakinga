@@ -13,6 +13,9 @@ before_filter :authenticate_user!
   def show
 #    require 'open-uri'
     @interest = Interest.find(params[:id])
+    @previous_visit_record = @interest.last_visit_at
+    @interest.update_attribute(:last_visit_at, Time.now)
+
 #feed inclusion
 #if @interest.feed_url.present?
 #  doc = Nokogiri::XML(open(@interest.feed_url))
@@ -21,6 +24,7 @@ before_filter :authenticate_user!
 #    end
 #else @interest_feed = []
 #end
+
 	respond_to do |format|
 	  format.html # show.html.erb
 	  format.xml  { render :xml => @interest }
@@ -35,20 +39,21 @@ before_filter :authenticate_user!
     # end of publish injection
   def new
 
-	@interest = Interest.new
-  @interest.title = 'new interest'
-  @beads = Bead.search(params[:search])
-	respond_to do |format|
-	  format.html # new.html.erb
-	  format.xml  { render :xml => @interest }
-	end
+    @interest = Interest.new
+    @interest.title = 'new interest'
+    @parent_beads = Bead.where(:parent_bead => true)
+    @beads = Bead.search(params[:search]) - @parent_beads
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @interest }
+    end
   end
 
   # GET /interests/1/edit
   def edit
-	@interest = Interest.find(params[:id])
-  @beads = Bead.search(params[:search])
-  
+    @interest = Interest.find(params[:id])
+    @parent_beads = Bead.where(:parent_bead => true)
+    @beads = Bead.search(params[:search]) - @parent_beads
   end
 
   # POST /interests
@@ -59,10 +64,8 @@ before_filter :authenticate_user!
 	respond_to do |format|
 	  if @interest.save
 		format.html { redirect_to edit_interest_path(@interest) }
-		format.xml  { render :xml => @interest, :status => :created, :location => @interest }
 	  else
 		format.html { render :action => "new" }
-		format.xml  { render :xml => @interest.errors, :status => :unprocessable_entity }
 	  end
 	end
   end
@@ -98,9 +101,14 @@ before_filter :authenticate_user!
   def add_single_bead
     @interest = Interest.find(params[:id])
     bead = Bead.find(params[:bead_id])
-    @interest.beads << bead
+    if @interest.beads.include?(bead)
+      flash[:notice] = 'The bead is already added.'
+    else
+      @interest.beads << bead
+    end
+   
     respond_to do |format|
-	  format.html { render(:action => 'edit', :notice => 'Bead was added.')}
+	  format.html { redirect_to edit_interest_path(@interest) }
     end
   end
 end

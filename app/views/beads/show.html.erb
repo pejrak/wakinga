@@ -1,5 +1,9 @@
 <% content_for :leftside do %><div class="activated_post_container"></div><% end %>
 
+<%= content_for :middletop do %>
+  <h1><span class="heading_subtelize">Bead:</span> <%= @bead.title %></h1>
+<% end %>
+
 <h2><%= @bead.title %>
 <span class="main_operators">
 <%= link_to 'Edit', edit_bead_path(@bead) %> |

@@ -22,7 +22,7 @@ $(document).ready(function() {
         $(".bead_spot_full_" + id).toggle();
       }
     );
-    $("#flash_notice, #flash_error").fadeOut(10000);
+    $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
 });
 
 

@@ -5,6 +5,9 @@ has_many :interests, :through => :beads_interests
 has_many :posts, :through => :beads_posts, :order => 'posts.updated_at DESC'
 has_many :users, :through => :interests
 
+  #validations
+  validates_uniqueness_of :title, :case_sensitive => false
+
   def post_count
     "#{beads_posts.count}"
   end

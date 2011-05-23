@@ -76,7 +76,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @post.destroy
     flash[:notice] = 'Removed.'
     respond_to do |format|
-      format.html { redirect_to(root_path) }
+      format.html { redirect_to :back }
     end
   end
   

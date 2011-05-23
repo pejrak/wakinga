@@ -32,8 +32,8 @@ td.rightside {
 }
 
 .top_stripe {
-/*        background-color: #313e41;*/
-        color: black;
+        background-color: #262626;
+        color: white;
 }
 .top_stripe img {
     margin-top: 2px;
@@ -114,13 +114,18 @@ a { color: #2CA200  ; text-decoration: none; }
 a:visited {  }
 a:hover { color: #fff; background-color:red; text-decoration: none; }
 
-/*specific classes*/
+.bottom_stripe {
+    margin-top: 15px;
+}
+
 .leftside h2 {
     color: #F83251;
 
+/*specific classes*/
 }
-.mindbeads_logo {
+.wakinga_logo {
     float: left;
+    margin-top: 5px;
 }
 
 .user_avatar {
@@ -135,6 +140,11 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     float: right;
 }*/
 
+/*interest styling*/
+.adopt_interest {
+    margin-top: 5px;
+    margin-right: 5px;
+}
 /*post styling*/
 .post {
         margin-top: 0px;
@@ -156,7 +166,8 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 }
 .post_activator {
     background-color: lightgray;
-    font-size: 20px;
+    color: #262626;
+    font-size: 15px;
     padding: 4px 2px;
     float: left;
     margin-right: 8px;
@@ -198,8 +209,8 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 /*    background-color: #b7ffb4;*/
 }
 .comment_indentor {
-    background-color: #F40026;
-    width: 7px;
+    background-color:lightgray;
+    width: 4px;
     height: 10px;
     float: left;
     margin-right: 10px;
@@ -241,6 +252,9 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 #notice {
   color: red;
 }
+#flash_notice {
+    color: #F40026;
+}
 
 .field_with_errors {
   padding: 2px;
@@ -271,4 +285,12 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+
+/*form styling*/
+
+input, select, textarea {
+  border: 1px solid gray;
+  background-color: white;
 }

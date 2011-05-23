@@ -31,12 +31,6 @@ before_filter :authenticate_user!
 	end
   end
 
-  # GET /interests/new
-  # GET /interests/new.xml
-#beginning of publish injection
-  
-
-    # end of publish injection
   def new
 
     @interest = Interest.new
@@ -49,15 +43,12 @@ before_filter :authenticate_user!
     end
   end
 
-  # GET /interests/1/edit
   def edit
     @interest = Interest.find(params[:id])
     @parent_beads = Bead.where(:parent_bead => true)
     @beads = Bead.search(params[:search]) - @parent_beads
   end
 
-  # POST /interests
-  # POST /interests.xml
   def create
 	@interest = Interest.new(params[:interest])
 	@interest.user = current_user
@@ -70,31 +61,33 @@ before_filter :authenticate_user!
 	end
   end
 
-  # PUT /interests/1
-  # PUT /interests/1.xml
   def update
-	@interest = Interest.find(params[:id])
+    @interest = Interest.find(params[:id])
 
-	respond_to do |format|
-	  if @interest.update_attributes(params[:interest])
-		format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
-		format.xml  { head :ok }
-	  else
-		format.html { render :action => "edit" }
-		format.xml  { render :xml => @interest.errors, :status => :unprocessable_entity }
-	  end
-	end
+    respond_to do |format|
+    if @interest.beads.present?
+      if @interest.update_attributes(params[:interest])
+      format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
+      format.xml  { head :ok }
+      else
+      format.html { render :action => "edit" }
+      format.xml  { render :xml => @interest.errors, :status => :unprocessable_entity }
+      end
+    else
+      format.html { redirect_to(:action => "edit") }
+      flash[:notice] = 'You will need to select some beads.'
+    end
+    end
   end
 
-  # DELETE /interests/1
-  # DELETE /interests/1.xml
   def destroy
 	@interest = Interest.find(params[:id])
   @interest.destroy
 
 	respond_to do |format|
 	  format.html { redirect_to(root_path) }
-	  format.xml  { head :ok }
+
+    flash[:notice] = 'Interest removed.'
 	end
   end
 
@@ -104,11 +97,31 @@ before_filter :authenticate_user!
     if @interest.beads.include?(bead)
       flash[:notice] = 'The bead is already added.'
     else
-      @interest.beads << bead
+      #here I am limiting the number of allowed beads in interest... to 4
+      if @interest.beads.size < 4
+        @interest.beads << bead
+      else
+
+        flash[:notice] = 'You can only add up to 4 beads to an interest.'
+      end
+      
     end
    
     respond_to do |format|
 	  format.html { redirect_to edit_interest_path(@interest) }
     end
   end
+
+   def adopt
+     @interest = Interest.find(params[:id])
+     @adopted_interest = Interest.new(:user_id => current_user.id, :title => @interest.title + ' - ADOPTED')
+     @adopted_interest.beads = @interest.beads
+     if @adopted_interest.save
+       flash[:notice] = 'The interest was adopted.'
+     else flash[:notice] = 'Something went wrong.'
+     end
+     redirect_to root_path
+     
+   end
+
 end

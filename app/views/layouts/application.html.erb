@@ -7,7 +7,7 @@
 <div id="container">
   <table class="main" width = "100%">
   <tr class="top_stripe">
-    <td><%= link_to image_tag('/images/mindbeads_logo4.png', :border => 0, :class => 'mindbeads_logo'), root_path %></td>
+    <td><%= link_to image_tag('/images/wakinga_logo.png', :border => 0, :class => 'wakinga_logo'), root_path %></td>
     <td>
       <%= yield :middletop %>
     </td>
@@ -21,16 +21,18 @@
           <%= link_to "see further info or enroll here", new_enrollment_path %>
 
         <% end %>
-          <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        <% end %>
+
       
     </td>
   </tr>
   <tr class="mid_stripe">
     <%# yields for page components, use content_for to fill %>
     <td class="leftside"><%= yield :leftside %></td>
-    <td class="middle"><%= yield %></td>
+    <td class="middle">
+          <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
+<%= yield %></td>
     <td class="rightside"><%= yield :rightside %></td>
   </tr>
   </table>

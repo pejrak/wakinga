@@ -8,7 +8,7 @@ development:
   encoding: utf8
   reconnect: false
   pool: 5
-  database: mindbeads_development
+  database: wakinga_development
   username: deploy
   password: pe5ruQac
   host: localhost
@@ -24,7 +24,7 @@ test:
   encoding: utf8
   reconnect: false
   pool: 5
-  database: mindbeads_test
+  database: wakinga_test
   username: deploy
   password: pe5ruQac
   host: localhost
@@ -34,7 +34,7 @@ production:
   encoding: utf8
   reconnect: false
   pool: 5
-  database: mindbeads_production
+  database: wakinga_production
   username: deploy
   password: pe5ruQac
   host: localhost

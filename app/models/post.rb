@@ -9,4 +9,7 @@ has_many :beads, :through => :beads_posts
 has_many :memorizations, :dependent => :delete_all
 belongs_to :user
 
+  def new_comments_since_last_login(user)
+    comments.where('created_at > ?', user.last_sign_in_at)
+  end
 end

@@ -54,6 +54,10 @@ has_many :memorizations
     posts.sum('rating')
   end
 
+  def to_param
+    "#{id}-#{username}"
+  end
+
   protected
 
    def self.find_for_database_authentication(conditions)

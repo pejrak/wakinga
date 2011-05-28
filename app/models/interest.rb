@@ -5,7 +5,11 @@ class Interest < ActiveRecord::Base
   has_many :beads_posts, :through => :beads
   belongs_to :user
 
- 
+
+  #creating named url of /interests/id-name
+  def to_param
+    "#{id}-#{title}"
+  end
   #extract all bead ids from beads in the interest
   def contain_ids
     container = []

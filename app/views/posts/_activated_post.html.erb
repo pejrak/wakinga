@@ -20,6 +20,7 @@
     <div class="comments_form_container">
     <%= form_for([activated_post, activated_post.comments.build], :remote => true) do |f| %>
           <%= f.text_field(:body, :size => "25x2") %>
+      <%= character_count('comment_body', Comment::MAX_BODY_LENGTH, Comment::MAX_BODY_LENGTH - 20) %>
         <%# f.submit "add" %>
     <% end %>
   </div>

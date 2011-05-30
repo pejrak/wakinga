@@ -5,11 +5,16 @@ class Interest < ActiveRecord::Base
   has_many :beads_posts, :through => :beads
   belongs_to :user
 
+  MAX_TITLE_LENGTH = 50
+  #validations
+  validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
+
 
   #creating named url of /interests/id-name
-  def to_param
-    "#{id}-#{title}"
-  end
+  #  def to_param
+  #    "#{id}-#{title}"
+  #  end
+
   #extract all bead ids from beads in the interest
   def contain_ids
     container = []

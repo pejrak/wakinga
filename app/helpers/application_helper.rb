@@ -31,4 +31,19 @@ module ApplicationHelper
     (current_user == post.user)? true : false
   end
 
+  def character_count(field_id, max_chars, max_char_warning)
+    function = "$('##{field_id}').jqEasyCounter({
+    'maxChars': #{max_chars},
+    'maxCharsWarning': #{max_char_warning},
+    'msgFontSize': '10px',
+    'msgFontColor': '#000',
+    'msgFontFamily': 'Arial',
+    'msgTextAlign': 'left',
+    'msgWarningColor': '#F00',
+    'msgAppendMethod': 'insertAfter'
+    });"
+    content_for(:head, javascript_include_tag("jquery.jqEasyCharCounter.min")) #append the jquery cc plugin to the head
+    return javascript_tag(function) # append the function as script tag
+  end
+
 end

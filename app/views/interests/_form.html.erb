@@ -1,7 +1,9 @@
 <%= form_for(@interest) do |f| %>
+<%= f.error_messages %>
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
+    <%= character_count('interest_title', Interest::MAX_TITLE_LENGTH, Interest::MAX_TITLE_LENGTH - 5) %>
   </p>
 
   <p>
@@ -14,27 +16,46 @@
 
 <% if params[:action] == 'new' then %>
   <p>Create interest first.</p>
-  <% else %>
+<% else %>
   <h2>parent beads</h2>
-    <% @parent_beads.each do |pb| %>
+
+  <% @parent_beads.each do |pb| %>
         <h3><%= link_to(pb.title, :action => 'add_single_bead', :bead_id => pb.id) %> ( <%= h(pb.beads_posts_count) %> posts )</h3>
         <%= h(pb.description) %>
-    <% end %>
-    <h3>search and add beads:</h3>
+  <% end %>
+
+  <h3>search and add beads:</h3>
+
   <%= form_tag edit_interest_path(@interest), :method => 'get' do %>
     <p>
       <%= text_field_tag :search %>
       <%= submit_tag "Search", :name => nil %>
     </p>
-    <% end %>
-    <% if @beads.nil? then %>
+  <% end %>
+
+  <% if @beads.nil? then %>
       <%= 'enter search criteria' %><br /><br />
-    <% else %>
-      <i><%= 'click the bead to add it to the current interest' %> </i>
+  <% else %>
+    <i><%= 'click the bead to add it to the current interest' %> </i>
         <% @beads.each do |loadbead| %>
         <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.beads_posts_count) %> posts )</h3>
         <%= h(loadbead.description) %>
 
     <% end %><br /><br />
   <% end %>
+
+  <% if @interest.beads.present? %>
+    <%= content_for :leftside do %>
+      <h2>suggestions</h2>
+      <p>based on your bead selection, you could adopt some of these popular combinations</p>
+      <% if @interest.beads.size == 1 %>
+        <h3>top 2 bead combinations containing <%= @interest.beads.first.title %> </h3>
+        <%= render :partial => @interest.beads.first.nearest_match %>
+
+        <%# debug(@interest.beads.first.nearest_beads_ranks) %>
+      <% end %>
+
+    <% end %>
+  <% end %>
+
 <%end%>

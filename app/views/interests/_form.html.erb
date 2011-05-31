@@ -53,6 +53,9 @@
         <%= render :partial => @interest.beads.first.nearest_match %>
 
         <%# debug(@interest.beads.first.nearest_beads_ranks) %>
+      <% elsif @interest.beads.size == 2 %>
+        <h3>top 3 bead combinations containing <%= @interest.beads.first.title %> and <%= @interest.beads.last.title %> </h3>
+        <%# render :partial => @interest.beads.nearest_match %>
       <% end %>
 
     <% end %>

@@ -9,7 +9,7 @@ Mindbase::Application.routes.draw do |map|
   end
   resources :interests do
       member do
-      get 'add_single_bead', 'adopt'
+      get 'add_single_bead', 'adopt', 'remove_single_bead'
     end
   end
 

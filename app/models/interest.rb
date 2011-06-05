@@ -73,4 +73,9 @@ class Interest < ActiveRecord::Base
         :limit => 50) - memorized_post_content(true) - memorized_post_content(false)
   end
 
+	def nearest_beads
+		nearest_beads_ranks = BeadsPost.find(:all, :select => 'distinct beads_posts.bead_id, count(beads_posts.post_id) as post_count', :conditions => ['beads_posts.post_id IN (?) and beads_posts.bead_id <> ?', post_content.map(&:id), self], :order => 'post_count DESC', :group => :bead_id, :limit => 7)
+		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id))
+	end
+
 end

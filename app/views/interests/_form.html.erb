@@ -6,12 +6,16 @@
     <%= character_count('interest_title', Interest::MAX_TITLE_LENGTH, Interest::MAX_TITLE_LENGTH - 5) %>
   </p>
 
-  <p>
-  <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true %>
-  </p>
-  <div class="actions">
+  <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true, :style => 'display:none' %>
+	<p>
+	<h2>selected beads</h2>
+	<p>with <%= @interest.post_count %> posts</p>
+	<% @interest.beads.each do |added_bead| %>
+        <h3><%= link_to(image_tag('/images/delete.png', :border => 0), :action => 'remove_single_bead', :bead_id => added_bead.id) %> <%= h(added_bead.title) %></h3>
+        <%= h(added_bead.description) %>
+    	<% end %>
+	</p>
     <%= f.submit %>
-  </div>
 <% end %>
 
 <% if params[:action] == 'new' then %>
@@ -50,9 +54,13 @@
       <p>based on your bead selection, you could adopt some of these popular combinations</p>
       <% if @interest.beads.size == 1 %>
         <h3>top 2 bead combinations containing <%= @interest.beads.first.title %> </h3>
-        <%= render :partial => @interest.beads.first.nearest_match %>
+        <%# render :partial => @interest.beads.first.nearest_match %>
+	<% @interest.nearest_beads.each do |matching_bead| %>
+		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
+		and <%= h(matching_bead.title) %></h3>
+	<% end %>
 
-        <%# debug(@interest.beads.first.nearest_beads_ranks) %>
+        <%# debug(@interest.nearest_beads) %>
       <% elsif @interest.beads.size == 2 %>
         <h3>top 3 bead combinations containing <%= @interest.beads.first.title %> and <%= @interest.beads.last.title %> </h3>
         <%# render :partial => @interest.beads.nearest_match %>

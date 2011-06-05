@@ -112,6 +112,16 @@ before_filter :authenticate_user!
     end
   end
 
+  def remove_single_bead
+    @interest = Interest.find(params[:id])
+    bead = Bead.find(params[:bead_id])
+    @interest.beads.delete(bead)
+	flash[:notice] = 'Bead removed.'
+    respond_to do |format|
+	  format.html { redirect_to edit_interest_path(@interest) }
+    end
+  end
+
    def adopt
      @interest = Interest.find(params[:id])
      @adopted_interest = Interest.new(:user_id => current_user.id, :title => @interest.title + ' - ADOPTED')

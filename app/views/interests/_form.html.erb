@@ -14,7 +14,7 @@
         <h3><%= link_to(image_tag('/images/delete.png', :border => 0), :action => 'remove_single_bead', :bead_id => added_bead.id) %> <%= h(added_bead.title) %></h3>
         <%= h(added_bead.description) %>
     	<% end %>
-	</p>
+	</p><br />
     <%= f.submit %>
 <% end %>
 
@@ -57,13 +57,24 @@
         <%# render :partial => @interest.beads.first.nearest_match %>
 	<% @interest.nearest_beads.each do |matching_bead| %>
 		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
-		and <%= h(matching_bead.title) %></h3>
+		and <%= h(matching_bead.title) %> <span class="text_emphasizer">(<%= @interest.estimated_post_count(matching_bead) %>)</span></h3>
 	<% end %>
 
         <%# debug(@interest.nearest_beads) %>
       <% elsif @interest.beads.size == 2 %>
         <h3>top 3 bead combinations containing <%= @interest.beads.first.title %> and <%= @interest.beads.last.title %> </h3>
-        <%# render :partial => @interest.beads.nearest_match %>
+	<% @interest.nearest_beads.each do |matching_bead| %>
+		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
+		and <%= h(matching_bead.title) %> <span class="text_emphasizer">(<%= @interest.estimated_post_count(matching_bead) %>)</span></h3>
+	<% end %>
+      <% elsif @interest.beads.size == 3 %>
+        <h3>top 4 bead combinations containing 
+        <% @interest.beads.each do |ib| %> <%= ib.title %> and
+        <% end %> </h3>
+	<% @interest.nearest_beads.each do |matching_bead| %>
+		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
+		<%= h(matching_bead.title) %> <span class="text_emphasizer">(<%= @interest.estimated_post_count(matching_bead) %>)</span></h3>
+	<% end %>
       <% end %>
 
     <% end %>

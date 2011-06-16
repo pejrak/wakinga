@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110425151752) do
+ActiveRecord::Schema.define(:version => 20110606010256) do
 
   create_table "beads", :force => true do |t|
     t.string   "title"
@@ -72,10 +72,21 @@ ActiveRecord::Schema.define(:version => 20110425151752) do
     t.boolean  "private",    :default => false
   end
 
+  create_table "requests", :force => true do |t|
+    t.string   "r_type"
+    t.string   "r_title"
+    t.text     "r_description"
+    t.string   "r_priority"
+    t.string   "r_status"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                       :default => "", :null => false
+    t.string   "email",                                              :null => false
+    t.string   "encrypted_password",   :limit => 128,                :null => false
+    t.string   "password_salt",                                      :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"

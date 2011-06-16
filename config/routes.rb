@@ -1,4 +1,6 @@
 Mindbase::Application.routes.draw do |map|
+  resources :requests
+
   resources :memorizations
 
   resources :enrollments

@@ -1,0 +1,27 @@
+<% title "Requests" %>
+
+<table>
+  <tr>
+    <th>R Type</th>
+    <th>R Title</th>
+    <th>R Description</th>
+    <th>R Priority</th>
+    <th>R Status</th>
+    <th>User</th>
+  </tr>
+  <% for request in @requests %>
+    <tr>
+      <td><%= request.r_type %></td>
+      <td><%= request.r_title %></td>
+      <td><%= request.r_description %></td>
+      <td><%= request.r_priority %></td>
+      <td><%= request.r_status %></td>
+      <td><%= request.user_id %></td>
+      <td><%= link_to "Show", request %></td>
+      <td><%= link_to "Edit", edit_request_path(request) %></td>
+      <td><%= link_to "Destroy", request, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Request", new_request_path(request) %></p>

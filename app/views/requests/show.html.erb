@@ -1,0 +1,32 @@
+<% title "Request" %>
+
+<p>
+  <strong>R Type:</strong>
+  <%= @request.r_type %>
+</p>
+<p>
+  <strong>R Title:</strong>
+  <%= @request.r_title %>
+</p>
+<p>
+  <strong>R Description:</strong>
+  <%= @request.r_description %>
+</p>
+<p>
+  <strong>R Priority:</strong>
+  <%= @request.r_priority %>
+</p>
+<p>
+  <strong>R Status:</strong>
+  <%= @request.r_status %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%= @request.user_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_request_path(@request) %> |
+  <%= link_to "Destroy", @request, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", requests_path %>
+</p>

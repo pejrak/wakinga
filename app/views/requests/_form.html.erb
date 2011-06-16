@@ -1,0 +1,28 @@
+<%= form_for @request do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :r_type %><br />
+    <%= f.text_field :r_type %>
+  </p>
+  <p>
+    <%= f.label :r_title %><br />
+    <%= f.text_field :r_title %>
+  </p>
+  <p>
+    <%= f.label :r_description %><br />
+    <%= f.text_area :r_description %>
+  </p>
+  <p>
+    <%= f.label :r_priority %><br />
+    <%= f.text_field :r_priority %>
+  </p>
+  <p>
+    <%= f.label :r_status %><br />
+    <%= f.text_field :r_status %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

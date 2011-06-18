@@ -9,6 +9,7 @@ gem 'pg', :group => :production
 gem 'nokogiri'
 gem 'kaminari'
 gem 'taps'
+gem 'omniauth'
 
 # :development do
 #gem 'sqlite3-ruby', :require => 'sqlite3'

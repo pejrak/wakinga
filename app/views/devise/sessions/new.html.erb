@@ -1,6 +1,8 @@
-<h2>Sign in</h2>
-<%= params[:controller] %>
-
+<div class="no_top">
+<%= render :partial => 'shared/select_external_authentication' %>
+</div>
+<div class="no_top">
+<h2>or use your wakinga.com login</h2>
 <%= form_for(resource_name, resource, :url => session_path(resource_name)) do |f| %>
   <p><%= f.label :login %></p>
   <p><%= f.text_field :login %></p>
@@ -16,3 +18,5 @@
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
+
+</div>

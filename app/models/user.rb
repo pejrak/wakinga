@@ -5,10 +5,11 @@ has_many :interests, :dependent => :destroy
 has_many :beads_interests, :through => :interests
 has_many :beads_posts, :through => :posts
 has_many :memorizations
+has_many :authentications
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :login, :remember_me
@@ -17,7 +18,6 @@ has_many :memorizations
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  validates :username, :email, :presence => true
   validates_length_of :username, :within => 3..40
   validates_uniqueness_of :username, :case_sensitive => false
 
@@ -57,6 +57,17 @@ has_many :memorizations
   def to_param
     "#{id}-#{username.parameterize}"
   end
+
+  def apply_omniauth(omniauth)
+    self.email = omniauth['user_info']['email'] if email.blank?
+    authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'])
+  end
+
+  def password_required?
+    (authentications.empty? || !password.blank?) && super
+  end
+
+
 
   protected
 

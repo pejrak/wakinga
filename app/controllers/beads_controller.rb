@@ -1,44 +1,40 @@
 class BeadsController < ApplicationController
 before_filter :authenticate_user!
-  # GET /beads
-  # GET /beads.xml
+
   def index
     @beads = Bead.search(params[:search])
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @beads }
     end
   end
 
-  # GET /beads/1
-  # GET /beads/1.xml
+
   def show
     @bead = Bead.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml  { render :xml => @bead }
     end
   end
 
-  # GET /beads/new
-  # GET /beads/new.xml
+
   def new
     @bead = Bead.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml  { render :xml => @bead }
     end
   end
 
-  # GET /beads/1/edit
+
   def edit
     @bead = Bead.find(params[:id])
   end
 
-  # POST /beads
-  # POST /beads.xml
+
   def create
     @bead = Bead.new(params[:bead])
 
@@ -53,8 +49,7 @@ before_filter :authenticate_user!
     end
   end
 
-  # PUT /beads/1
-  # PUT /beads/1.xml
+
   def update
     @bead = Bead.find(params[:id])
 
@@ -69,8 +64,7 @@ before_filter :authenticate_user!
     end
   end
 
-  # DELETE /beads/1
-  # DELETE /beads/1.xml
+
   def destroy
     @bead = Bead.find(params[:id])
     @bead.destroy

@@ -13,14 +13,12 @@
       <%= yield :middletop %>
     </td>
     <td class="top_right">
-      <% if user_signed_in? %>
-          Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
-          <%= link_to "Sign out", destroy_user_session_path %>
+              <% if admin_signed_in? %>
+          Administrator signed on as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_admin.email %></strong>. Not you?
+          <%= link_to "Sign out", destroy_admin_session_path %>
         <% else %>
           <%# link_to "Sign up", new_user_registration_path %>
-          <%= "New registrations are disabled, let me know at " %>
-          <%= link_to "spontain@gmail.com", 'mailto:spontain@gmail.com' %> if you are interested
-
+          <%= "Admin registration is disabled." %>
         <% end %>
 
       

@@ -55,7 +55,7 @@ has_many :memorizations
   end
 
   def to_param
-    "#{id}-#{username}"
+    "#{id}-#{username.parameterize}"
   end
 
   protected

@@ -1,4 +1,10 @@
 Mindbase::Application.routes.draw do |map|
+  devise_for :admins
+  devise_for :users
+  resources :users
+  resources :admins
+
+  
   resources :requests
 
   resources :memorizations
@@ -17,8 +23,8 @@ Mindbase::Application.routes.draw do |map|
 
   resources :beads_interests
   resources :beads 
-  devise_for :users
-  resources :users
+
+
   resources :posts do resources :comments
   end
   resources :posts do resources :beads_posts
@@ -28,7 +34,16 @@ Mindbase::Application.routes.draw do |map|
       post 'memorize', 'forget', 'burn'
       get 'activate'
     end
-  end 
+  end
+
+  namespace :user do
+    root :to => "home#index"
+  end
+
+  namespace :admin do
+    root :to => "home#admin"
+  end
+
 
   root :to => "home#index" 
 

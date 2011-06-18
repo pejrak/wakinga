@@ -1,5 +1,6 @@
 class BeadsController < ApplicationController
-before_filter :authenticate_user!
+before_filter :authenticate_admin!, :except => [:show, :index]
+before_filter :authenticate_user!, :except => [:new, :edit, :create, :update, :destroy]
 
   def index
     @beads = Bead.search(params[:search])

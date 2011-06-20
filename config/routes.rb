@@ -44,7 +44,7 @@ Mindbase::Application.routes.draw do |map|
   end
 
   namespace :admin do
-    root :to => "home#admin"
+    root :to => "home#administrative"
   end
 
 

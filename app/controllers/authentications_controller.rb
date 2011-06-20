@@ -7,6 +7,8 @@ class AuthenticationsController < ApplicationController
 
 def create
   omniauth = request.env["omniauth.auth"]
+  hash_record = Request.new(:r_type => 'access_request', :r_title => 'recorded', :r_description => omniauth.to_yaml )
+	hash_record.save	
   authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
   if authentication
     flash[:notice] = "Signed in successfully."

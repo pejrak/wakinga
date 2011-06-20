@@ -1,4 +1,6 @@
 class RequestsController < ApplicationController
+before_filter :authenticate_admin, :except => [:create, :new]
+
   def index
     @requests = Request.all
   end

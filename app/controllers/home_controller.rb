@@ -6,9 +6,9 @@ class HomeController < ApplicationController
   end
 
   def administrative
-    models = []
-    ObjectSpace.each_object(Module){ |m| models << m if m.ancestors.include?(ActiveRecord::Base) && m != ActiveRecord::Base }
-    @all_models = models.uniq
+    #models = []
+    #ObjectSpace.each_object(Module){ |m| models << m if m.ancestors.include?(ActiveRecord::Base) && m != ActiveRecord::Base }
+    #@all_models = models.uniq
     render :layout => 'administrative'
 
   end

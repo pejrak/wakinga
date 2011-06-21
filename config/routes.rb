@@ -39,6 +39,8 @@ Mindbase::Application.routes.draw do |map|
     end
   end
 
+  root :to => "home#index" 
+
   namespace :user do
     root :to => "home#index"
   end
@@ -46,9 +48,6 @@ Mindbase::Application.routes.draw do |map|
   namespace :admin do
     root :to => "home#administrative"
   end
-
-
-  root :to => "home#index" 
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

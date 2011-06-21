@@ -6,6 +6,7 @@ Mindbase::Application.routes.draw do |map|
 
   resources :users
   resources :admins
+	match "/admin" => "home#admin"
 
   
   resources :requests
@@ -46,7 +47,7 @@ Mindbase::Application.routes.draw do |map|
   end
 
   namespace :admin do
-    root :to => "home#administrative"
+    root :to => "home#admin"
   end
 
   # The priority is based upon order of creation:

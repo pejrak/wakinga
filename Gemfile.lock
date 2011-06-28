@@ -31,9 +31,12 @@ GEM
     addressable (2.2.4)
     arel (1.0.1)
       activesupport (~> 3.0.0)
+    bcrypt-ruby (2.1.4)
     builder (2.1.2)
-    devise (1.1.rc0)
-      warden (~> 0.10.3)
+    devise (1.4.0)
+      bcrypt-ruby (~> 2.1.2)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.0.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.6.1)
@@ -98,6 +101,7 @@ GEM
       oa-more (= 0.2.6)
       oa-oauth (= 0.2.6)
       oa-openid (= 0.2.6)
+    orm_adapter (0.0.5)
     pg (0.10.1)
     polyglot (0.3.1)
     pyu-ruby-sasl (0.0.3.3)
@@ -148,15 +152,15 @@ GEM
     treetop (1.4.8)
       polyglot (>= 0.3.1)
     tzinfo (0.3.23)
-    warden (0.10.7)
-      rack (>= 1.0.0)
+    warden (1.0.4)
+      rack (>= 1.0)
 
 PLATFORMS
   ruby
   x86-mingw32
 
 DEPENDENCIES
-  devise
+  devise (~> 1.4.0)
   kaminari
   mocha
   mysql2

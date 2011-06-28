@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails'
-gem 'devise'
+gem 'devise', "~>1.4.0"
 gem 'recaptcha'
 gem 'mysql2', :group => :development
 gem "nifty-generators", :group => :development

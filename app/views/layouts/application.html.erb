@@ -17,9 +17,9 @@
           Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
           <%= link_to "Sign out", destroy_user_session_path %>
         <% else %>
-          <%# link_to "Sign up", new_user_registration_path %>
-          <%= "New registrations are disabled, let me know at " %>
-          <%= link_to "spontain@gmail.com", 'mailto:spontain@gmail.com' %> if you are interested
+          <%= link_to "Sign up", new_user_registration_path %>
+          <%# "New registrations are disabled, let me know at " %>
+          <%# link_to "spontain@gmail.com", 'mailto:spontain@gmail.com' %>
 
         <% end %>
 

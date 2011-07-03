@@ -45,8 +45,13 @@ before_filter :authenticate_user!
 
   def edit
     @interest = Interest.find(params[:id])
-    @parent_beads = Bead.where(:parent_bead => true)
-    @beads = Bead.search(params[:search]) - @parent_beads
+    if @interest.user == current_user
+      @parent_beads = Bead.where(:parent_bead => true)
+      @beads = Bead.search(params[:search]) - @parent_beads
+    else
+        redirect_to :back
+        flash[:notice] = 'That is not your interest.'
+    end
   end
 
   def create

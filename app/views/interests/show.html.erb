@@ -7,7 +7,7 @@
 beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
- ( <%= link_to 'Edit', edit_interest_path(@interest) %> )<br />
+<h3><%= (current_user == @interest.user)? link_to('Edit', edit_interest_path(@interest)) : simple_format(@interest.user.username + "'s interest, #{link_to('adpopt', adopt_interest_path(@interest))}")  %></h3>
 
 <%= render 'posts/form' %>
 

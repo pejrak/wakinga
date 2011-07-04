@@ -1,0 +1,16 @@
+<% title "Trust" %>
+
+<p>
+  <strong>Trustee:</strong>
+  <%= @trust.trustee_id %>
+</p>
+<p>
+  <strong>Interest:</strong>
+  <%= @trust.interest_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_trust_path(@trust) %> |
+  <%= link_to "Destroy", @trust, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", trusts_path %>
+</p>

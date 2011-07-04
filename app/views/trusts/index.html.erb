@@ -1,0 +1,19 @@
+<% title "Trusts" %>
+
+<table>
+  <tr>
+    <th>Trustee</th>
+    <th>Interest</th>
+  </tr>
+  <% for trust in @trusts %>
+    <tr>
+      <td><%= trust.trustee_id %></td>
+      <td><%= trust.interest_id %></td>
+      <td><%= link_to "Show", trust %></td>
+      <td><%= link_to "Edit", edit_trust_path(trust) %></td>
+      <td><%= link_to "Destroy", trust, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Trust", new_trust_path(trust) %></p>

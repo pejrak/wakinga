@@ -1,0 +1,12 @@
+<%= form_for @trust do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :trustee_id %><br />
+    <%= f.text_field :trustee_id %>
+  </p>
+  <p>
+    <%= f.label :interest_id %><br />
+    <%= f.text_field :interest_id %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

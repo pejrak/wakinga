@@ -1,4 +1,6 @@
 Mindbase::Application.routes.draw do |map|
+  resources :trusts
+
   resources :authentications
   match '/auth/:provider/callback' => 'authentications#create'
   devise_for :users, :controllers => { :registrations => 'registrations' }

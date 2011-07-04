@@ -3,6 +3,7 @@ class Interest < ActiveRecord::Base
   has_many :beads, :through => :beads_interests
   has_many :beads_interests, :dependent => :delete_all
   has_many :beads_posts, :through => :beads
+  has_many :trusts
   belongs_to :user
 
   MAX_TITLE_LENGTH = 50

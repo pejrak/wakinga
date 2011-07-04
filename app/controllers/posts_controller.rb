@@ -31,6 +31,10 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def edit
     @post = Post.find(params[:id])
+    if @post.user != current_user
+        redirect_to @post
+        flash[:notice] = 'This is not your post.'
+    end
   end
 
   def create
@@ -41,10 +45,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 #    @dynamic_posts = @interest.dynamic_post_content(Time.at(params[:after].to_i + 1))
     respond_to do |format|
       if @post.save
-        @memorization = Memorization.new
-        @memorization.post_id = @post.id
-        @memorization.memorable = true
-        @memorization.user_id = current_user.id
+        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id)
         @memorization.save
         flash[:notice] = 'CREATED.'
         format.html {redirect_to @interest}
@@ -73,6 +74,10 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def destroy
     @post = Post.find(params[:id])
+    if @post.user != current_user
+        redirect_to @post
+        flash[:notice] = 'This is not your post.'
+    end
     @post.destroy
     flash[:notice] = 'Removed.'
     respond_to do |format|

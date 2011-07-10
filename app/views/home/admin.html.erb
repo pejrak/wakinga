@@ -36,6 +36,11 @@
 <p>
   <%= link_to '|< add new bead', new_bead_path %> 
 </p>
+
+<p>
+  <%= link_to '|< reset counts', reset_counts_admin_path %>
+</p>
+
 <h2>requests</h2>
 <p>
   for beads #: <%= Request.find_all_by_r_type('bead_request').size %>

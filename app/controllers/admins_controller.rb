@@ -9,11 +9,7 @@ class AdminsController < ApplicationController
   def reset_counts
     @beads = Bead.all
     @beads.each do |bead|
-      bead.update_attributes(:beads_posts_count => bead.beads_posts.size)
-      bead.save
-      if bead.save
-        flash[:notice] = 'succesful.'
-      end
+      Bead.reset_counters(bead.id, :beads_posts)
     end
     render '/home/admin'
   end

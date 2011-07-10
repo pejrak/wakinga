@@ -1,13 +1,17 @@
 <% if @user == current_user then %>
-<br /><br />
-<h2>< You.</h2>
+  <br /><br />
+  <h2>< You.</h2>
 <% else %>
-
-<%= render :partial => @user %>
-<br />
-<h2>List of <%= @user.username %>'s interests:</h2>
+  <h2>build trust with <%= h(@user.username) %></h2>
+  <p>when you build trusts on the same interest with other users, you will then be able to see each other's private posts</p>
+  <%= render 'trusts/form' %>
+  <%= render :partial => @user %>
+  <br />
+  <h2>List of <%= @user.username %>'s interests:</h2>
+  <p>you can adopt this user's interests</p>
   <%= render :partial => @user.interests %>
 <% end %>
+
 <% content_for :leftside do %>
-<%= render :partial => current_user %>
+  <%= render :partial => current_user %>
 <% end %>

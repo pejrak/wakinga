@@ -1,12 +1,12 @@
-<%= form_for @trust do |f| %>
+<%= form_for :trust do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :trustee_id %><br />
-    <%= f.text_field :trustee_id %>
+    
+    <%= f.hidden_field :trustee_id, :value => @user.id %>
   </p>
   <p>
     <%= f.label :interest_id %><br />
-    <%= f.text_field :interest_id %>
+    <%= f.collection_select :interest_id, current_user.interests, :id, :title %>
   </p>
-  <p><%= f.submit %></p>
+  <p><%= f.submit 'build trust with '+ @user.username %></p>
 <% end %>

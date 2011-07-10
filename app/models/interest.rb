@@ -48,44 +48,99 @@ class Interest < ActiveRecord::Base
   #refers to bead ids that were extracted in the bead_ids
 
   #this is content that shows in the middle area, that is not memorized or burned
-  def post_content
-    post_content_all - memorized_post_content(true) - memorized_post_content(false)
+  def post_content(selected_user)
+    post_content_all(selected_user) - memorized_post_content(true,selected_user) - memorized_post_content(false,selected_user)
   end
 
   #this is all post content within the interest
 
-  def post_content_all
+  def trustors(selected_user)
+    prot_trustors = []
+    prot_trustors << selected_user
+    all_trusts_for_selected_user = Trust.find_all_by_trustee_id(selected_user.id)
+    all_trusts_for_selected_user.each do |t|
+      if t.interest.beads.include?(self.beads) == true
+        prot_trustors << t.interest.user
+      end
+    end
+    return prot_trustors.uniq
+  end
+
+  def post_content_all(selected_user)
+    #load trusts that are associated with interests containing the same beads combination as the current interest
+    loaded_trustors = trustors(selected_user)
     Post.find(:all,
-        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => :beads_posts,
-        :conditions => ["beads_posts.bead_id IN (?)", beads],
+        :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private <> ?", beads, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
-        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :order => 'created_at DESC') +
+    Post.find(:all,
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :joins => :beads_posts,
+        :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", beads, true, loaded_trustors],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'created_at DESC')
   end
 
-  def memorized_post_content(memorability)
+  def memorized_post_content(memorability,selected_user)
+    memorized_post_content_public(memorability,user) + memorized_post_content_private(memorability,selected_user)
+  end
+
+  def memorized_post_content_public(memorability,user)
     Post.find(:all,
-        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => [:beads_posts, :memorizations],
-        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ?", beads, user, memorability],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.p_private <> ?", beads, user, memorability, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
-        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'created_at DESC')
   end
 
-  def dynamic_post_content(time_at)
+  def memorized_post_content_private(memorability,selected_user)
+    loaded_trustors = trustors(selected_user)
     Post.find(:all,
-        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
-        :joins => :beads_posts,
-        :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ?",beads, time_at],
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :joins => [:beads_posts, :memorizations],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.p_private = ? AND posts.user_id IN (?)", beads, selected_user, memorability, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
-        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.rating',
-        :order => 'created_at DESC') - memorized_post_content(true) - memorized_post_content(false)
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :order => 'created_at DESC')
+  end
+
+
+  def dynamic_post_content(time_at, selected_user)
+    loaded_trustors = trustors(selected_user)
+    Post.find(:all,
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :joins => :beads_posts,
+        :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ? AND posts.p_private <> ?",beads, time_at, true],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :order => 'created_at DESC') +
+    Post.find(:all,
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :joins => :beads_posts,
+        :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ? AND posts.p_private = ? AND posts.user_id IN (?)",beads, time_at, true, loaded_trustors],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :order => 'created_at DESC') - memorized_post_content(true,user) - memorized_post_content(false,user)
+  end
+
+  def conditional_post_content(user,beads,time_at,memorability)
+    Post.find(:all,
+        :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :joins => [:beads_posts, :memorizations],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.created_at > ?", beads, user, memorability, time_at],
+        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
+        :order => 'created_at DESC')
   end
 
 	def nearest_beads
-		nearest_beads_ranks = BeadsPost.find(:all, :select => 'distinct beads_posts.bead_id, count(beads_posts.post_id) as post_count', :conditions => ['beads_posts.post_id IN (?)', post_content_all.map(&:id)], :order => 'post_count DESC', :group => :bead_id, :limit => 10)
+		nearest_beads_ranks = BeadsPost.find(:all, :select => 'distinct beads_posts.bead_id, count(beads_posts.post_id) as post_count', :conditions => ['beads_posts.post_id IN (?)', post_content_all(user).map(&:id)], :order => 'post_count DESC', :group => :bead_id, :limit => 10)
 		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
 	end
 

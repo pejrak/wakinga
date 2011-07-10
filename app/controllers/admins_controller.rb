@@ -11,8 +11,11 @@ class AdminsController < ApplicationController
     @beads.each do |bead|
       bead.update_attributes(:beads_posts_count => bead.beads_posts.size)
       bead.save
+      if bead.save
+        flash[:notice] = 'succesful.'
+      end
     end
-    render :controller => :home, :action => :admin
+    render '/home/admin'
   end
 
 end

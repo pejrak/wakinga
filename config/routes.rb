@@ -7,9 +7,10 @@ Mindbase::Application.routes.draw do |map|
   devise_for :admins
 
   resources :users
-  resources :admins do
-    get 'reset_counts'
-  end
+
+  resources :admins
+
+  match "/reset_counts" => "admins#reset_counts"
   
 	match "/admin" => "home#admin"
 

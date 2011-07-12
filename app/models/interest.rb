@@ -49,7 +49,8 @@ class Interest < ActiveRecord::Base
 
   #this is content that shows in the middle area, that is not memorized or burned
   def post_content(selected_user)
-    post_content_all(selected_user) - memorized_post_content(true,selected_user) - memorized_post_content(false,selected_user)
+    content = post_content_all(selected_user) - memorized_post_content(true,selected_user) - memorized_post_content(false,selected_user)
+	return content.sort_by{|p| - p.created_at.to_i}
   end
 
   #this is all post content within the interest
@@ -86,7 +87,8 @@ class Interest < ActiveRecord::Base
   end
 
   def memorized_post_content(memorability,selected_user)
-    memorized_post_content_public(memorability,user) + memorized_post_content_private(memorability,selected_user)
+    content = memorized_post_content_public(memorability,user) + memorized_post_content_private(memorability,selected_user)
+	return content.sort_by{|p| - p.created_at.to_i}
   end
 
   def memorized_post_content_public(memorability,user)

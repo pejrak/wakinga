@@ -15,7 +15,7 @@ class TrustsController < ApplicationController
     @trust = Trust.new(params[:trust])
     if @trust.save
       flash[:notice] = "Successfully created trust."
-      redirect_to @trust
+      redirect_to @trust.interest.user
     else
       render :action => 'new'
     end
@@ -29,7 +29,7 @@ class TrustsController < ApplicationController
     @trust = Trust.find(params[:id])
     if @trust.update_attributes(params[:trust])
       flash[:notice] = "Successfully updated trust."
-      redirect_to trust_url
+      redirect_to home_path
     else
       render :action => 'edit'
     end

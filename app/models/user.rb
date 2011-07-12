@@ -55,9 +55,9 @@ has_many :trusts, :as => :trustee
     posts.sum('rating')
   end
 
-  def to_param
-    "#{id}-#{username.parameterize}"
-  end
+#  def to_param
+#    "#{id}-#{username.parameterize}"
+#  end
 
   def apply_omniauth(omniauth)
     self.email = omniauth['user_info']['email'] if email.blank?

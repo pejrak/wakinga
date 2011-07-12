@@ -1,4 +1,4 @@
-<%= form_for :trust do |f| %>
+<%= form_for Trust.new do |f| %>
   <%= f.error_messages %>
   <p>
     
@@ -8,5 +8,5 @@
     <%= f.label :interest_id %><br />
     <%= f.collection_select :interest_id, current_user.interests, :id, :title %>
   </p>
-  <p><%= f.submit 'build trust with '+ @user.username %></p>
+  <p><%= f.submit 'build trust with ' + @user.username %></p>
 <% end %>

@@ -46,4 +46,12 @@ module ApplicationHelper
     return javascript_tag(function) # append the function as script tag
   end
 
+	def outgoing_trusts
+		Trust.where(:interest_id => current_user.interests)
+	end
+
+	def incoming_trusts
+		Trust.where(:trustee_id => current_user)
+	end
+
 end

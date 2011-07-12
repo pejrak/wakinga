@@ -6,9 +6,9 @@ has_many :beads_interests, :through => :interests
 has_many :beads_posts, :through => :posts
 has_many :memorizations
 has_many :authentications
-has_many :trusts, :as => :trustee
+has_many :trusts
 
-  # Include default devise modules. Others available are:
+# Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable
 

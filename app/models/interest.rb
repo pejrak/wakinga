@@ -146,4 +146,16 @@ class Interest < ActiveRecord::Base
 		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
 	end
 
+	def compare_beads_with_other_interests(interests)
+		matching_interests = []
+		interests.each do |i|
+			b1 = i.beads.map(&:id).sort
+			b2 = beads.map(&:id).sort
+			if b1.eql?(b2)
+				matching_interests << i
+			end
+		end
+		return matching_interests
+	end
+
 end

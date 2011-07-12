@@ -1,0 +1,7 @@
+	<h3>from <%= link_to(incoming_trust.interest.user.username, user_path(incoming_trust.interest.user.username)) %></h3>
+
+<% incoming_trust.interest.beads.each do |beader| %>
+  o <span class="text_emphasizer"><%= beader.title %></span>
+<% end %>
+
+<%= (incoming_trust.shared?)? 'confirmed' : 'not confirmed' %></h3>

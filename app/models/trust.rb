@@ -1,6 +1,27 @@
 class Trust < ActiveRecord::Base
     attr_accessible :trustee_id, :interest_id
 
-  belongs_to :interest
-  belongs_to :trustee, :class_name => "User"
+	belongs_to :interest
+  	belongs_to :trustee, :class_name => "User"
+
+	def trustor
+		self.interest.user
+	end
+
+	def shared?
+		interests_collection = []
+		for t in trusts_by_trustee_to_me do interests_collection << t.interest end
+		return (self.interest.compare_beads_with_other_interests(interests_collection)).present?
+	end
+
+	def matching_interests
+		interests_collection = []
+		for t in trusts_by_trustee_to_me do interests_collection << t.interest end
+		return (self.interest.compare_beads_with_other_interests(interests_collection))
+	end
+
+	def trusts_by_trustee_to_me
+		Trust.where(:trustee_id => trustee)
+	end
+
 end

@@ -148,11 +148,10 @@ class Interest < ActiveRecord::Base
 
 	def compare_beads_with_other_interests(interests)
 		matching_interests = []
+    b2 = beads.map(&:id).sort
 		interests.each do |i|
 			b1 = i.beads.map(&:id).sort
-			b2 = beads.map(&:id).sort
-			bdiff = b1 - b2
-			if b1.size >= b2.size and (b1.size - b2.size) == bdiff.size
+			if b1 == b2
 				matching_interests << i
 			end
 		end

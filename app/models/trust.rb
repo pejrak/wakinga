@@ -14,14 +14,14 @@ class Trust < ActiveRecord::Base
 		return (self.interest.compare_beads_with_other_interests(interests_collection)).present?
 	end
 
-	def matching_interests
+	def trusted_interests
 		interests_collection = []
 		for t in trusts_by_trustee_to_me do interests_collection << t.interest end
-		return (self.interest.compare_beads_with_other_interests(interests_collection))
+		return interests_collection
 	end
 
 	def trusts_by_trustee_to_me
-		Trust.where(:trustee_id => trustee)
+		Trust.where(:trustee_id => trustor)
 	end
 
 end

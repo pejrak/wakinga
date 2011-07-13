@@ -5,6 +5,6 @@
   o <span class="text_emphasizer"><%= beader.title %></span>
 <% end %>
 
-<%= (trust.shared?)? 'confirmed' : 'not confirmed' %> (<%= link_to 'x', trust, :confirm => 'Are you sure?', :method => :delete %>)
-<%= debug(trust.trusts_by_trustee_to_me) %>
+<%= (trust.confirmed?)? 'confirmed' : 'not confirmed' %> (<%= link_to 'x', trust, :confirm => 'Are you sure?', :method => :delete %>)
+<%# debug(trust.trusts_by_trustee_to_me) %>
 <% end %>

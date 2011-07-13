@@ -8,7 +8,7 @@ class Trust < ActiveRecord::Base
 		self.interest.user
 	end
 
-	def shared?
+	def confirmed?
 		interests_collection = []
 		for t in trusts_by_trustee_to_me do interests_collection << t.interest end
 		return (self.interest.compare_beads_with_other_interests(interests_collection)).present?

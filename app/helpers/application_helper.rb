@@ -51,7 +51,14 @@ module ApplicationHelper
 	end
 
 	def incoming_trusts
-		Trust.where(:trustee_id => current_user)
+		unconfirmed_incoming_trusts = []
+    all_incoming_trusts = Trust.where(:trustee_id => current_user)
+    all_incoming_trusts.each do |t|
+      if t.confirmed? == false
+        unconfirmed_incoming_trusts << t
+      end
+    end
+    return unconfirmed_incoming_trusts
 	end
 
 end

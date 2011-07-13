@@ -4,5 +4,5 @@
   o <span class="text_emphasizer"><%= beader.title %></span>
 <% end %>
 
-<%= (incoming_trust.shared?)? 'confirmed' : 'not confirmed' %>
- (<%= link_to 'x', incoming_trust, :confirm => 'Are you sure?', :method => :delete %>)
+<%= (incoming_trust.confirmed?)? 'confirmed' : link_to('confirm?', confirm_trust_path(incoming_trust)) %>
+ (<%= link_to 'x', incoming_trust, :confirm => "Are you sure you don't want to trust #{incoming_trust.trustor.username} on this interest? \n\r -confirm", :method => :delete %>)

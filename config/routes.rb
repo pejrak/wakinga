@@ -1,5 +1,10 @@
 Mindbase::Application.routes.draw do |map|
-  resources :trusts
+  resources :trusts do
+    member do
+      get 'confirm'
+    end
+  end
+
 
   resources :authentications
   match '/auth/:provider/callback' => 'authentications#create'

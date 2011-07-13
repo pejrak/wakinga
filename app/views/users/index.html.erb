@@ -1,0 +1,7 @@
+<h2>Showing all users</h2>
+	<%= render :partial => @users %>
+
+<%= content_for :leftside do %>
+	<h2>Showing all admins</h2>	
+	<%= render :partial => @admins %>
+<% end %>

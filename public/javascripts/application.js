@@ -10,16 +10,16 @@ $(document).ready(function() {
 
     $('.hider').click(function() {
       $('.content_'+$(this).attr('id')).toggle();});
-    $(".beads_slot").hover(
+    $(".preview_slot").hover(
       function () {
-        var id = $(this).attr("id")
-        $(".bead_spot_preview_" + id).toggle();
-        $(".bead_spot_full_" + id).toggle();
+        var id = $(this).attr("id");
+	var interest_id = $("#interest").attr("data-id");
+        $(".slot_full").show();
+	$.getScript("/interests/preview.js?interest_id=" + interest_id + "&full_refresh=true");
       },
       function () {
-        var id = $(this).attr("id")
-        $(".bead_spot_preview_" + id).toggle();
-        $(".bead_spot_full_" + id).toggle();
+        var id = $(this).attr("id");
+        $(".slot_full").hide();
       }
     );
     $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);

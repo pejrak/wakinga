@@ -139,4 +139,13 @@ before_filter :authenticate_user!
      
    end
 
+#preview action enables you to view the interest details with javascript
+
+  def preview
+    @interest = Interest.find(params[:id])
+    respond_to do | format |
+      format.js
+    end
+  end
+
 end

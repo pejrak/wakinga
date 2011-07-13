@@ -1,9 +1,9 @@
 <h2>dashboard</h2>
 <h3>minds</h3>
 <p>
-  users #: <%= User.all.size %>
+  users #: <%= link_to(User.all.size, users_path) %>
 <br />
-  admins #: <%= Admin.all.size %>
+  admins #: <%= link_to(Admin.all.size, users_path) %>
 </p>
 <h3>content</h3>
 <p>

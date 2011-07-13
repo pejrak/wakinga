@@ -132,6 +132,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
    end
   end
 
+#activate action enables you to view the post details with javascript
   def activate
     @post = Post.find(params[:id])
     if params.has_key?(:indicator) 

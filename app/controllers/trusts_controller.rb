@@ -37,8 +37,9 @@ class TrustsController < ApplicationController
 
   def destroy
     @trust = Trust.find(params[:id])
+	@user = @trust.interest.user
     @trust.destroy
     flash[:notice] = "Successfully destroyed trust."
-    redirect_to trusts_url
+    redirect_to @user
   end
 end

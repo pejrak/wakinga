@@ -151,7 +151,8 @@ class Interest < ActiveRecord::Base
 		interests.each do |i|
 			b1 = i.beads.map(&:id).sort
 			b2 = beads.map(&:id).sort
-			if b1.eql?(b2)
+			bdiff = b1 - b2
+			if b1.size >= b2.size and (b1.size - b2.size) == bdiff.size
 				matching_interests << i
 			end
 		end

@@ -13,7 +13,6 @@
 
 <% content_for :leftside do %>
 		
-	<h2><i><%= current_user.username %></i></h2>  
 	<%= render :partial => current_user %>
 	<% if outgoing_trusts.present? %>	
 		<h2>List of your trusts</h2>

@@ -1,9 +1,15 @@
 one:
   bead_id: 1
   post_id: 1
-  id: 
 
 two:
-  bead_id: 1
+  bead_id: 2
+  post_id: 2
+
+three:
+  bead_id: 2
   post_id: 1
-  id: 
+
+four:
+  bead_id: 1
+  post_id: 2

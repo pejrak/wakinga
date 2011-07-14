@@ -1,9 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  user_id: 1
-  bead_id: 1
+ user_id: 1
+ title: interest_1
 
 two:
-  user_id: 1
-  bead_id: 1
+ user_id: 2
+ title: interest_2
+

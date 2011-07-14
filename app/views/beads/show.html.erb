@@ -12,7 +12,7 @@
 </h2>
 
 <div>
-  <%= render :partial => @bead.posts.limit(50) %>
+  <%= render :partial => @bead.posts.where(:p_private => false).limit(50) %>
 </div>
 <br />
 <% content_for :rightside do %>

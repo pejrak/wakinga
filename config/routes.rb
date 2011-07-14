@@ -1,4 +1,4 @@
-Mindbase::Application.routes.draw do |map|
+Mindbase::Application.routes.draw do
   resources :trusts do
     member do
       get 'confirm'

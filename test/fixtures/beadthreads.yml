@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  interest_id: 1
-  bead_id: 1
-
-two:
-  interest_id: 1
-  bead_id: 1

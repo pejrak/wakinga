@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  commenter: MyString
-  body: MyText
-  post: 
+  user: test_user_1
+  body: My comment Text 2
+  post_id: 1
 
 two:
-  commenter: MyString
-  body: MyText
-  post: 
+  user: test_user_2
+  body: My comment Text 2
+  post_id: 2

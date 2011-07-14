@@ -1,11 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
-  title: MyString
-  content: MyText
+ user_id: 1
+ title: public post test
+ content: MyText
+ p_private: 0
+ rating: 0
 
 two:
-  name: MyString
-  title: MyString
-  content: MyText
+ user_id: 2
+ title: private post test
+ content: MyText
+ p_private: 1
+ rating: 0

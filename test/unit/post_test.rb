@@ -5,4 +5,9 @@ class PostTest < ActiveSupport::TestCase
   test "the truth" do
     assert true
   end
+
+	test "should not save without content" do
+		post = Post.new
+		assert !post.save, "Saved the post without content"
+	end
 end

@@ -4,8 +4,13 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+
+one:
+ title: test_bead_1
+ description: test \n\r bead\n\r 2
+ parent_bead: 1
+
+two:
+ title: test_bead_2
+ description: test \n\r bead\n\r 2
+ parent_bead: 0

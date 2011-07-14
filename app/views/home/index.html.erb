@@ -1,5 +1,9 @@
 <% content_for :leftside do %>
   <%= render :partial => current_user %>
+	<% if incoming_trusts.present? %>
+		<h2>incoming trusts</h2>
+		<%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
+	<% end %>
 <% end %>
 
   <h2>interests</h2>

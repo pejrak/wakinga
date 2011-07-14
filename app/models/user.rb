@@ -6,7 +6,7 @@ has_many :beads_interests, :through => :interests
 has_many :beads_posts, :through => :posts
 has_many :memorizations
 has_many :authentications
-has_many :trusts
+has_many :trusts, :dependent => :destroy
 
 # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable
@@ -34,6 +34,13 @@ has_many :trusts
     :order => 'rating_sum DESC',
     :limit => 5)
   end
+
+#take all interests of current user
+#selected user is the trustee
+#do not offer interests that are already trusted to the trustee
+	def interests_for_trust(trustee)
+		return interests - interests.joins(:trusts).where('trusts.trustee_id = ?',trustee)
+	end
 
   def good_memories
     memorizations.where(:memorable => true)

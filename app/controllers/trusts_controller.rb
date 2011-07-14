@@ -15,7 +15,7 @@ class TrustsController < ApplicationController
     @trust = Trust.new(params[:trust])
     if @trust.save
       flash[:notice] = "Successfully created trust."
-      redirect_to @trust.interest.user
+      redirect_to @trust.trustee
     else
       render :action => 'new'
     end
@@ -29,7 +29,7 @@ class TrustsController < ApplicationController
       binding_interest = @offered_trust.interest.compare_beads_with_other_interests(current_user.interests).first
     else
       binding_interest = Interest.new(:title => interest_offered.title + " - from trust with #{@offered_trust.trustor.username}", :user_id => @offered_trust.trustee_id)
-      interest_offered.beads = binding_interest.beads
+      binding_interest.beads = interest_offered.beads
       if binding_interest.save
         flash[:notice] = "Adopted interest #{binding_interest.title} through the newly confirmed trust."
       else

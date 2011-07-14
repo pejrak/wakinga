@@ -1,12 +1,14 @@
-<%= form_for Trust.new do |f| %>
-  <%= f.error_messages %>
-  <p>
-    
-    <%= f.hidden_field :trustee_id, :value => @user.id %>
-  </p>
-  <p>
-    <%= f.label :interest_id %><br />
-    <%= f.collection_select :interest_id, current_user.interests, :id, :title %>
-  </p>
-  <p><%= f.submit 'build trust with ' + @user.username %></p>
+<% if current_user.interests_for_trust(@user).present? %>
+	<%= form_for Trust.new do |f| %>
+	  <%= f.error_messages %>
+	  <p>
+	    
+	    <%= f.hidden_field :trustee_id, :value => @user.id %>
+	  </p>
+	  <p>
+	    <%= f.label 'Interests for trust to '+@user.username %><br />
+	    <%= f.collection_select :interest_id, current_user.interests_for_trust(@user), :id, :title_with_beads %>
+	  </p>
+	  <p><%= f.submit 'build trust with ' + @user.username %></p>
+	<% end %>
 <% end %>

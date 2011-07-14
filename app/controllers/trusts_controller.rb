@@ -14,7 +14,10 @@ class TrustsController < ApplicationController
   def create
     @trust = Trust.new(params[:trust])
     if @trust.save
-      flash[:notice] = "Successfully created trust."
+	if @trust.confirmed? == true
+      flash[:notice] = "Successfully bound trust."
+	else flash[:notice] = "Trust proposed."
+	end
       redirect_to @trust.trustee
     else
       render :action => 'new'

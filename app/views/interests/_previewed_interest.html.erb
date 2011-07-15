@@ -1,10 +1,13 @@
-<%= div_for previewed_interest do |interest| %>
-<h3><%= (interest.user == current_user)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %><%= link_to_unless_current interest.title, interest %> (<%= (interest.post_count_unread > 0)? h(interest.post_count_unread.to_s + ' new / ') : '' %><%= interest.post_count %>)</h3>
-<% if interest.user == current_user %>
-( <%= link_to 'e', edit_interest_path(interest) %> |
-  <%= link_to 'x', interest, :confirm => 'Are you sure?', :method => :delete %> )
+<h3><%= link_to_unless_current @interest.title, @interest %> (<%= (@interest.post_count_unread > 0)? h(@interest.post_count_unread.to_s + ' new / ') : '' %><%= @interest.post_count %>)</h3>
+<% if @interest.user == current_user %>
+( <%= link_to 'e', edit_interest_path(@interest) %> |
+  <%= link_to 'x', @interest, :confirm => 'Are you sure?', :method => :delete %> )
 <% end %>
-  <% interest.beads.each do |beader| %>
+  <% @interest.beads.each do |beader| %>
   o <span class="text_emphasizer"><%= beader.title %></span>
   <% end %>
-<br /><% end %>
+
+<% if current_user == @interest.user and @interest.trusts.present? %>
+	<h2>You trust this interest to</h2>
+	<%= render :partial => @interest.trusts %>
+<% end %>

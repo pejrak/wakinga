@@ -12,10 +12,9 @@ $(document).ready(function() {
       $('.content_'+$(this).attr('id')).toggle();});
     $(".preview_slot").hover(
       function () {
-        var id = $(this).attr("id");
-	var interest_id = $("#interest").attr("data-id");
+        var interest_id = $(this).attr("data-id");
         $(".slot_full").show();
-	$.getScript("/interests/preview.js?interest_id=" + interest_id + "&full_refresh=true");
+	$.getScript("/interests/" + interest_id + "/preview.js?full_refresh=true");
       },
       function () {
         var id = $(this).attr("id");

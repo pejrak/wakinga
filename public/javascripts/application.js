@@ -6,21 +6,37 @@ $(document).ready(function() {
 
     //initiate sliders and hiders for content effects
     $('.slider').click(function() {
-      $('.content_'+$(this).attr('id')).slideToggle('slow');});
+      $('.content_'+$(this).attr('id')).slideToggle('slow');
+  });
 
     $('.hider').click(function() {
-      $('.content_'+$(this).attr('id')).toggle();});
+      $('.content_'+$(this).attr('id')).toggle();
+  });
+  //interest preview effects
     $(".preview_slot").hover(
       function () {
-        var interest_id = $(this).attr("data-id");
+        var identificator = $(this).attr("data-id");
         $(".slot_full").show();
-	$.getScript("/interests/" + interest_id + "/preview.js?full_refresh=true");
+        $("#interest_operators_"+identificator).show();
+        $(".slot_full").html("<p>Loading...</p>");
+	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
       function () {
-        var id = $(this).attr("id");
         $(".slot_full").hide();
+        $(".interest_operators").hide();
       }
     );
+    //generic operator preview
+    $(".item_with_operators").hover(
+      function () {
+        var identificator = $(this).attr("data-id");
+        $("#operators_" + identificator).show();
+      },
+      function () {
+        $(".operators").hide();
+      }
+    );
+
     $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
 });
 

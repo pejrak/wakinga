@@ -51,11 +51,11 @@ has_many :trusts, :dependent => :destroy
   end
 
   def good_memories_by_others
-    Memorization.where(:post_id => posts, :memorable => true)
+    Memorization.where('memorizations.post_id IN (?) AND memorizations.memorable = ? AND memorizations.user_id <> ?', posts, true, self)
   end
 
   def burned_memories_by_others
-    Memorization.where(:post_id => posts, :memorable => false)
+    Memorization.where('memorizations.post_id IN (?) AND memorizations.memorable = ? AND memorizations.user_id <> ?', posts, false, self)
   end
 
   def rating_total

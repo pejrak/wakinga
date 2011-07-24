@@ -14,13 +14,6 @@
     <%= render :partial => @post.comments %>
   </div>
 
-  <%= form_for([@post, @post.comments.build]) do |f| %>
-    <p>
-      <%= f.label :body, "New Comment" %><br />
-      <%= f.text_area(:body, :size => "40x6") %>
-    </p>
-    <p><%= f.submit "Add Comment" %></p>
-  <% end %>
 <%# left side render %>
 <% content_for :rightside do %>
   <%# will be trendlines for the current interest %>

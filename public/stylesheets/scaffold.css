@@ -131,9 +131,15 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 .user_avatar {
     margin-top: 10px;
 }
+.text_deemphasizer {
+    color: #262626;
+}
+
 .text_emphasizer {
     color: #F40026;
 }
+
+
 /*
 
 .user_details {
@@ -183,6 +189,12 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 .activated_post p {
     font-size: 12px;
 }
+.private_activated_post {
+/*    background-image: url(/images/bg_red_fade_vert.png);
+    background-position: top;
+    background-repeat: repeat-x;*/
+}
+
 
 .comments_placeholder {
     border-top: #F40026 solid 1px;

@@ -32,7 +32,7 @@ beads: <% @interest.beads.each do |beader| %>
 
 <% content_for :leftside do %><div class="activated_post_container"></div>
 <% if current_user == @interest.user and @interest.trusts.present? %>
-	<h2>You trust this interest to</h2>
-	<%= render :partial => @interest.trusts %>
+	<h2>You trust this interest to</h2><br />
+	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.trusts %>
 <% end %>
 <% end %>

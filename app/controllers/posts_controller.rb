@@ -13,10 +13,14 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def show
     @post = Post.find(params[:id])
-	
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml { render :xml => @post }
+
+    if current_user == @post.user
+      respond_to do |format|
+        format.html # show.html.erb
+        format.xml { render :xml => @post }
+      end
+    else flash[:notice] = 'View posts through the interests.'
+      redirect_to :back
     end
   end
   def new

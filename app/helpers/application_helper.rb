@@ -9,6 +9,11 @@ module ApplicationHelper
     Memorization.where(:user_id => user, :post_id => content).empty?
   end
 
+#function to retrieve interests of users other than the selected user, useful for displaying properties of other interests
+  def retrieve_others_interests(selected_user)
+    Interest.where('interests.user_id <> ?',selected_user)
+  end
+
 
   def top_beads_overall
     Bead.find(:all,

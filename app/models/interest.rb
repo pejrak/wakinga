@@ -16,6 +16,7 @@ class Interest < ActiveRecord::Base
   #    "#{id}-#{title}"
   #  end
 
+
   #extract all bead ids from beads in the interest
 
 	def title_with_beads
@@ -27,14 +28,13 @@ class Interest < ActiveRecord::Base
 	end
 
   def contain_ids
-    container = []
-    beads.each do |beader|
-      container << beader.id
-    end
+    beads.map(&:id)
   end
 
-  def sorterize
-    "..."
+  #function to find interests with the same beads
+
+  def users_sharing_the_same_interest(interests)
+    compare_beads_with_other_interests(interests).map(&:user_id)
   end
 
   #return number of all posts within the interest,
@@ -68,19 +68,19 @@ class Interest < ActiveRecord::Base
     prot_trustors = []
     prot_trustors << selected_user
     all_trusts_for_selected_user = Trust.find_all_by_trustee_id(selected_user)
-	if all_trusts_for_selected_user.present?
-	interest_beads_load = self.beads.map(&:id).sort
-    	all_trusts_for_selected_user.each do |t|
-		trusted_beads_load = t.interest.beads.map(&:id).sort
-      		if trusted_beads_load == interest_beads_load
-        		prot_trustors << t.interest.user
-      		end
+    if all_trusts_for_selected_user.present?
+    interest_beads_load = self.beads.map(&:id).sort
+        all_trusts_for_selected_user.each do |t|
+      trusted_beads_load = t.interest.beads.map(&:id).sort
+            if trusted_beads_load == interest_beads_load
+              prot_trustors << t.interest.user
+            end
 
-    	end
-	return prot_trustors.uniq
-	else return nil
-    
-	end
+        end
+    return prot_trustors.uniq
+    else return nil
+
+    end
 
   end
 
@@ -168,6 +168,8 @@ class Interest < ActiveRecord::Base
 		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
 	end
 
+  #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads
+  #this function is reused across trust building as well as displaying preview of interests
 	def compare_beads_with_other_interests(interests)
 		matching_interests = []
     b2 = beads.map(&:id).sort
@@ -179,5 +181,4 @@ class Interest < ActiveRecord::Base
 		end
 		return matching_interests
 	end
-
 end

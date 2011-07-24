@@ -14,8 +14,10 @@ before_filter :authenticate_user!
 #    require 'open-uri'
     @interest = Interest.find(params[:id])
     @previous_visit_record = @interest.last_visit_at
-    @interest.update_attribute(:last_visit_at, Time.now)
-
+    if current_user == @interest.user
+      @interest.update_attribute(:last_visit_at, Time.now)
+    end
+    
 #feed inclusion
 #if @interest.feed_url.present?
 #  doc = Nokogiri::XML(open(@interest.feed_url))
@@ -143,6 +145,10 @@ before_filter :authenticate_user!
 
   def preview
     @interest = Interest.find(params[:id])
+    others_interests = Interest.where('interests.user_id <> ?',current_user)
+    @sharing_user_ids = @interest.users_sharing_the_same_interest(others_interests).uniq
+    @shared_by_this_many_users = @sharing_user_ids.size
+
     respond_to do | format |
       format.js
     end

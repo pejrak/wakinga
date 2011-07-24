@@ -4,6 +4,7 @@ class Interest < ActiveRecord::Base
   has_many :beads_interests, :dependent => :delete_all
   has_many :beads_posts, :through => :beads
   has_many :trusts
+  has_many :trustees, :through => :trusts
   belongs_to :user
 
   MAX_TITLE_LENGTH = 50
@@ -62,7 +63,7 @@ class Interest < ActiveRecord::Base
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 
-  #this is all post content within the interest
+  #this function finds all trustors for the selected user
 
   def trustors(selected_user)
     prot_trustors = []
@@ -83,6 +84,38 @@ class Interest < ActiveRecord::Base
     end
 
   end
+
+  #find all offered trusts for the current interest
+
+  def incoming_unconfirmed_trusts
+    #load all incoming trusts for owner of this interest
+    all_incoming_trusts = Trust.find_all_by_trustee_id(self.user_id)
+    #load the interests on which the trusts are build
+    all_trusted_interests = Interest.where(:id => all_incoming_trusts.map(&:interest_id))
+    #compare each interest with the current interest and return the ones that are matching
+    identical_trusted_interests = compare_beads_with_other_interests(all_trusted_interests)
+    if trustees.present?
+      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?) AND trusts.trustor_id NOT IN (?)', self.user_id, identical_trusted_interests.map(&:id), trustees)
+    else
+      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?)', self.user_id, identical_trusted_interests.map(&:id))
+    end
+
+  end
+
+  #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads
+  #this function is reused across trust building as well as displaying preview of interests
+	def compare_beads_with_other_interests(interests)
+		matching_interests = []
+    b2 = beads.map(&:id).sort
+		interests.each do |i|
+			b1 = i.beads.map(&:id).sort
+			if b1 == b2
+				matching_interests << i
+			end
+		end
+		return matching_interests
+	end
+
 
   def post_content_all(selected_user)
     #load trusts that are associated with interests containing the same beads combination as the current interest
@@ -168,17 +201,4 @@ class Interest < ActiveRecord::Base
 		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
 	end
 
-  #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads
-  #this function is reused across trust building as well as displaying preview of interests
-	def compare_beads_with_other_interests(interests)
-		matching_interests = []
-    b2 = beads.map(&:id).sort
-		interests.each do |i|
-			b1 = i.beads.map(&:id).sort
-			if b1 == b2
-				matching_interests << i
-			end
-		end
-		return matching_interests
-	end
 end

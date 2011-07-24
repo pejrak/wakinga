@@ -15,3 +15,26 @@ $('.post_show').click(function() {
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
+
+  $(document).ready(function() {
+
+    $(".post").hover(
+      function () {
+        var identificator = $(this).attr("id");
+        $("#post_operators_"+identificator).show();
+        $(this).css("background-color","#d1ffc0")
+      },
+      function () {
+        $(".post_operators").hide();
+        $(this).css("background-color","white")
+      }
+    );
+
+    //post activate effect
+    $('.post').click(function() {
+        var identificator = $(this).attr("id");
+      $(".activated_post_container").html("<p>Loading...</p>");
+      $.getScript("/posts/" + identificator + "/activate.js");
+    });
+
+  });

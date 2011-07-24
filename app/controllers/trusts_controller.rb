@@ -13,6 +13,7 @@ class TrustsController < ApplicationController
 
   def create
     @trust = Trust.new(params[:trust])
+    @trust.trustor = current_user
     if @trust.save
 	if @trust.confirmed? == true
       flash[:notice] = "Successfully bound trust."
@@ -39,7 +40,7 @@ class TrustsController < ApplicationController
         flash[:notice] = "Something went wrong when adopting interest."
       end
     end
-    @my_trust = Trust.new(:trustee_id => @offered_trust.trustor.id, :interest_id => binding_interest.id)
+    @my_trust = Trust.new(:trustee_id => @offered_trust.trustor.id, :interest_id => binding_interest.id, :trustor_id => current_user.id)
     if @my_trust.save
         flash[:notice] = "Trust was confirmed."
         redirect_to binding_interest

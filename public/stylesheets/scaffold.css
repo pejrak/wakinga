@@ -154,9 +154,10 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 /*post styling*/
 .post {
         margin-top: 0px;
-        margin-bottom: 3px;
+        margin-bottom: 0px;
         color:black;
         font-size: 11px;
+        padding: 5px;
         border-bottom: lightgray 1px solid;
 /*    background-image: url(/images/bg_grey_fade_vert.png);
     background-position: top;

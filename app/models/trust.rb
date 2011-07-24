@@ -1,12 +1,9 @@
 class Trust < ActiveRecord::Base
-    attr_accessible :trustee_id, :interest_id
+    attr_accessible :trustee_id, :interest_id, :trustor_id
 
 	belongs_to :interest
   	belongs_to :trustee, :class_name => "User"
-
-	def trustor
-		self.interest.user
-	end
+    belongs_to :trustor, :class_name => "User"
 
 	def confirmed?
 		interests_collection = []

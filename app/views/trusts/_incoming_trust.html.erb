@@ -1,4 +1,4 @@
-	<h3>from <%= link_to(incoming_trust.interest.user.username, user_path(incoming_trust.trustor)) %></h3>
+	<h3>from <%= link_to(incoming_trust.trustor.username, user_path(incoming_trust.trustor)) %></h3>
 
 <% incoming_trust.interest.beads.each do |beader| %>
   o <span class="text_emphasizer"><%= beader.title %></span>

@@ -20,7 +20,7 @@ $(document).ready(function() {
 	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
       function () {
-        $(".slot_full").hide();
+        setTimeout(hideSlot, 10000);
         $(".interest_operators").hide();
       }
     );
@@ -31,12 +31,15 @@ $(document).ready(function() {
         $("#operators_" + identificator).show();
       },
       function () {
-        $(".operators").hide();
+          $(".operators").hide();
       }
     );
 
     $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
 });
 
+function hideSlot() {
+    $(".slot_full").hide();
+}
 
 

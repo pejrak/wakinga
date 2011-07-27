@@ -19,7 +19,7 @@ class TrustsController < ApplicationController
       flash[:notice] = "Successfully bound trust."
 	else flash[:notice] = "Trust proposed."
 	end
-      redirect_to @trust.trustee
+      redirect_to @trust.interest
     else
       render :action => 'new'
     end

@@ -3,13 +3,7 @@
 
 $(document).ready(function() {
     $("#new_post").submitWithAjax();
-
-
-
       //post preview effects
-
-
-
     $(function() {
       if ($(".dynamic#post_content").length > 0) {
         setTimeout(updatePosts, 0);

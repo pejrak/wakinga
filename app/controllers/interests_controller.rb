@@ -145,8 +145,8 @@ before_filter :authenticate_user!
 
   def preview
     @interest = Interest.find(params[:id])
-    others_interests = Interest.where('interests.user_id <> ?',current_user)
-    @sharing_user_ids = @interest.users_sharing_the_same_interest(others_interests).uniq
+    
+    @sharing_user_ids = @interest.users_sharing_the_same_interest.uniq
     @shared_by_this_many_users = @sharing_user_ids.size
 
     respond_to do | format |

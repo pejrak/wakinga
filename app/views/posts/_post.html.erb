@@ -1,12 +1,14 @@
 <div class="post" data-time="<%= post.created_at.to_i %>" id="<%= post.id %>">
-  <h3><%= link_to_unless_current h(post.title), post %></h3>
+  <h3><%= link_to_unless_current h(post.title), post %>
+       <span class="post_operators" id="<%= 'post_operators_'+post.id.to_s %>" style="display: none">
+        <% unless @interest.nil? %><%= (current_user_post_owner?(post))? (link_to(image_tag('/images/remove.png', :border => 0, :title => 'delete message'), post, :method => :delete, :confirm => "Do you want to delete your post?")) : ((check_memory(current_user, post) ? link_to(image_tag('/images/remove.png', :border => 0, :title => 'burn message'), burn_post_path(post), :remote => true, :method => 'post', :confirm => "Do you want to burn this post? - it will no longer appear", :interest_id => @interest.id) + link_to(image_tag('/images/memorize.png', :border => 0, :title => 'memorize message'), memorize_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ) : link_to(image_tag('/images/remove.png', :border => 0, :title => 'forget message'), forget_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ))) %><% end %>
+      </span>
+  </h3>
   <%= content_tag(:div, :class => 'post_activator', :id => 'post_activator_' + post.id.to_s, :style => 'display: none') do %><%= link_to( activate_post_path(post), :remote => true)  do %> &lt; <% end %><% end %>
 
   <%= simple_format(post.content) %>
-    <div class="post_foot" >
-      <span class="post_operators" id="<%= 'post_operators_'+post.id.to_s %>" style="display: none">
-        <% unless @interest.nil? %><%= (current_user_post_owner?(post))? (link_to('DELETE', post, :method => :delete, :confirm => "Do you want to delete your post?")) : ((check_memory(current_user, post) ? link_to('BURN', burn_post_path(post), :remote => true, :method => 'post', :confirm => "Do you want to burn this post? - it will no longer appear", :interest_id => @interest.id) + ', ' + link_to('SAVE', memorize_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ) : link_to('FORGET', forget_post_path(post), :remote => true, :method => 'post', :interest_id => @interest.id ))) %>, <% end %>
-      </span>
-      <i>posted <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong><%= (post.comments.present?)? content_tag(:span, ', ' + post.comments.size.to_s  + ( (post.new_comments_since_last_login(current_user).size > 0)? ' (' + post.new_comments_since_last_login(current_user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (post.p_private == true)? image_tag('/images/bullet_red.png', :border => 0):'' %>
+    <div class="post_foot">
+
+      <i>sent <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong><%= (post.comments.present?)? content_tag(:span, ', ' + post.comments.size.to_s  + ( (post.new_comments_since_last_login(current_user).size > 0)? ' (' + post.new_comments_since_last_login(current_user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (post.p_private == true)? image_tag('/images/bullet_red.png', :border => 0):'' %>
     </div>
 </div>

@@ -2,7 +2,6 @@
 .main {
     border: none;
     border-collapse: collapse;
-
 }
 td {
     
@@ -11,7 +10,6 @@ td {
 .leftside {
     vertical-align: top;
     width: 30%;
-
 }
 td.middle {
     text-align: left;
@@ -163,6 +161,12 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     background-position: top;
     background-repeat: repeat-x;*/
 }
+
+.post_operators {
+    float: right;
+    display: block;
+}
+
 .post_foot {
     color: lightslategray;
     margin-bottom: 0px;

@@ -4,8 +4,9 @@
     <%= f.label :title %><br />
     <%= f.text_field :title %>
     <%= character_count('interest_title', Interest::MAX_TITLE_LENGTH, Interest::MAX_TITLE_LENGTH - 5) %>
+    <%= f.check_box :i_private %><%= f.label 'Private interest' %>
   </p>
-
+  <% if params[:action] != 'new' then %>
   <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true, :style => 'display:none' %>
 	<p>
 	<h2>selected beads</h2>
@@ -15,6 +16,7 @@
         <%= h(added_bead.description) %>
     	<% end %>
 	</p><br />
+  <% end %>
     <%= f.submit %>
 <% end %>
 
@@ -48,7 +50,7 @@
     <% end %><br /><br />
   <% end %>
 
-  <% if @interest.beads.present? %>
+<% if @interest.beads.present? %>
     <%= content_for :leftside do %>
       <h2>suggestions</h2>
       <p>based on your bead selection, you could adopt some of these popular combinations</p>
@@ -77,7 +79,18 @@
 	<% end %>
       <% end %>
 
+        
+    <% end %>
+  <%= content_for :rightside do %>
+    <% if @interest.other_matching_interests.present? %>
+        <h2>you already have it!</h2>
+        <%= render :partial => @interest.other_matching_interests %>
+    <% end %>
+
+    <% if @interest.users_sharing_the_same_interest.present? %>
+        <h2>there is <%= pluralize(@interest.users_sharing_the_same_interest.size, 'mind') %> sharing this interest</h2>
     <% end %>
   <% end %>
+<% end %>
 
 <%end%>

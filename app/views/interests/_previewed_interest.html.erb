@@ -7,9 +7,9 @@
   with <%= current_user.good_memories.size %> memories<br />
   you share it with <%= pluralize(@shared_by_this_many_users, 'mind') %>
   <% if @shared_by_this_many_users > 0 %>
-    <% @sharing_user_ids.each do |uid| %>
-      (<%= User.find_by_id(uid).username %><%= (@shared_by_this_many_users > 1)? ', ':''  %>)
-    <% end %>
+    (<% @sharing_user_ids.each do |uid| %>
+      <%= User.find_by_id(uid).username %><%= (@shared_by_this_many_users > 1)? ', ':''  %>
+    <% end %>)
   <% end %>
   </p>
 <% if current_user == @interest.user and @interest.trusts.present? %>

@@ -11,6 +11,10 @@
     <td><%= link_to image_tag('/images/wakinga_logo.png', :border => 0, :class => 'wakinga_logo'), root_path %></td>
     <td>
       <%= yield :middletop %>
+
+                <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <% end %>
     </td>
     <td class="top_right">
       <% if user_signed_in? %>
@@ -30,9 +34,7 @@
     <%# yields for page components, use content_for to fill %>
     <td class="leftside"><%= yield :leftside %></td>
     <td class="middle">
-          <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        <% end %>
+
 <%= yield %></td>
     <td class="rightside"><%= yield :rightside %></td>
   </tr>

@@ -20,6 +20,10 @@ class Interest < ActiveRecord::Base
 
   #extract all bead ids from beads in the interest
 
+  def self.that_are_public
+    self.where(:i_private => false)
+  end
+
 	def title_with_beads
 		title_concat = title + " ("
 		self.beads.each do |b|
@@ -28,14 +32,18 @@ class Interest < ActiveRecord::Base
 		return title_concat + ")"
 	end
 
+  def other_matching_interests
+    self.compare_beads_with_other_interests(Interest.where('interests.user_id = ? AND interests.id <> ?', user.id, self.id))
+  end
+
   def contain_ids
     beads.map(&:id)
   end
 
   #function to find interests with the same beads
 
-  def users_sharing_the_same_interest(interests)
-    compare_beads_with_other_interests(interests).map(&:user_id)
+  def users_sharing_the_same_interest
+    compare_beads_with_other_interests(Interest.where('interests.user_id <> ?', user.id)).map(&:user_id)
   end
 
   #return number of all posts within the interest,

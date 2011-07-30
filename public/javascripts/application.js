@@ -20,8 +20,8 @@ $(document).ready(function() {
 	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
       function () {
-        setTimeout(hideSlot, 10000);
-        $(".interest_operators").hide();
+        $(".slot_full").hide();
+        $(".interest_operators").fadeOut();
       }
     );
     //generic operator preview
@@ -31,7 +31,7 @@ $(document).ready(function() {
         $("#operators_" + identificator).show();
       },
       function () {
-          $(".operators").hide();
+          $(".operators").fadeOut();
       }
     );
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
 });
 
 function hideSlot() {
-    $(".slot_full").hide();
+    
 }
 
 

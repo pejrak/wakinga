@@ -1,11 +1,11 @@
 <%= javascript_include_tag "interest_ops" %>
 
 <%= content_for :middletop do %>
-  <h1><span class="heading_subtelize">Interest:</span> <%= @interest.title %></h1>
+  <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
 <% end %>
 
 <div id="interest" data-id="<%= @interest.id %>">
-<h2 class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'post') %></h2>
+<h2 class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'message') %></h2>
 beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>

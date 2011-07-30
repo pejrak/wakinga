@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110724140628) do
+ActiveRecord::Schema.define(:version => 20110727092426) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20110724140628) do
     t.string   "title"
     t.string   "feed_url"
     t.datetime "last_visit_at"
+    t.boolean  "i_private"
   end
 
   create_table "memorizations", :force => true do |t|
@@ -120,8 +121,8 @@ ActiveRecord::Schema.define(:version => 20110724140628) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                                              :null => false
+    t.string   "encrypted_password",   :limit => 128,                :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"

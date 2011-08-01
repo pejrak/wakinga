@@ -7,8 +7,12 @@
   <%= render 'trusts/form' %>
   <%= render :partial => @user %>
   <h2>List of <%= @user.username %>'s interests:</h2>
+  <% if @user.interests.that_are_public.present? %>
   <p>you can adopt this user's interests</p>
   <%= render :partial => @user.interests.that_are_public %>
+  <% else %>
+    <p>no more public interests from this user to adopt</p>
+  <% end %>
 <% end %>
 
 <% content_for :leftside do %>

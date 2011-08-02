@@ -16,3 +16,5 @@
 	<br /><h3>You trust this interest to</h3>
 	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.trusts %>
 <% end %>
+
+<%= debug(@interest.nearest_beads_combination(3)) %>

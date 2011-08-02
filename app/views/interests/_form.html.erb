@@ -55,13 +55,34 @@
       <h2>suggestions</h2>
       <p>based on your bead selection, you could adopt some of these popular combinations</p>
       <% if @interest.beads.size == 1 %>
-        <h3>top 2 bead combinations containing <%= @interest.beads.first.title %> </h3>
-        <%# render :partial => @interest.beads.first.nearest_match %>
+        <h3><%= link_to ('top 2 bead combinations', '#', :remote => true, :class => 'slider', :id => 'two_bead_combinations') %></h3>
+	<div class="content_two_bead_combinations" style="display:none">
+	<p>containing: <%= @interest.beads.first.title %></p>	
 	<% @interest.nearest_beads.each do |matching_bead| %>
 		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
 		and <%= h(matching_bead.title) %> <span class="text_emphasizer">(<%= @interest.estimated_post_count(matching_bead) %>)</span></h3>
+	
 	<% end %>
+	</div>
+	<h3><%= link_to ('top 3 bead combinations', '#', :remote => true, :class => 'slider', :id => 'three_bead_combinations') %></h3>
+	<div class="content_three_bead_combinations" style="display:none">
+	<p>containing: <%= @interest.beads.first.title %></p>
+	<% @interest.nearest_beads_combination(3).each do |match_combo| %>
+		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_beads', :bead_ids => match_combo - match_combo.fetch(0).to_a) %>
+		and <%= h(Bead.find_by_id(match_combo.fetch(1)).title) %> <span class="text_emphasizer"> with <%= h(Bead.find_by_id(match_combo.fetch(2)).title) %> <span class="text_emphasizer">(<%= match_combo.fetch(0) %>)</span></h3>
+	<% end %>
+	</div>
 
+<%# 4beads %>
+
+	<h3><%= link_to ('top 4 bead combinations', '#', :remote => true, :class => 'slider', :id => 'four_bead_combinations') %></h3>
+	<div class="content_four_bead_combinations" style="display:none">
+	<p>containing: <%= @interest.beads.first.title %></p>
+	<% @interest.nearest_beads_combination(4).each do |match_combo| %>
+		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_beads', :bead_ids => match_combo - match_combo.fetch(0).to_a) %>
+		and <%= h(Bead.find_by_id(match_combo.fetch(1)).title) %> + <%= h(Bead.find_by_id(match_combo.fetch(2)).title) %> + <%= h(Bead.find_by_id(match_combo.fetch(3)).title) %> <span class="text_emphasizer">(<%= match_combo.fetch(0) %>)</span></h3>
+	<% end %>
+	</div>
         <%# debug(@interest.nearest_beads) %>
       <% elsif @interest.beads.size == 2 %>
         <h3>top 3 bead combinations containing <%= @interest.beads.first.title %> and <%= @interest.beads.last.title %> </h3>

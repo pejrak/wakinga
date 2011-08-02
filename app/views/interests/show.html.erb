@@ -25,7 +25,7 @@ beads: <% @interest.beads.each do |beader| %>
 </div>
 </div>
 <% content_for :rightside do %>
-  
+  <%= debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>
   <%#= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
   <div class="dynamic" id="memories">

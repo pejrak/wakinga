@@ -8,6 +8,8 @@ class Interest < ActiveRecord::Base
   belongs_to :user
 
   MAX_TITLE_LENGTH = 50
+  COMBINATION_SUGGESTION_SIZE = 10
+
   #validations
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
 
@@ -208,5 +210,17 @@ class Interest < ActiveRecord::Base
 		nearest_beads_ranks = BeadsPost.find(:all, :select => 'distinct beads_posts.bead_id, count(beads_posts.post_id) as post_count', :conditions => ['beads_posts.post_id IN (?)', post_content_all(user).map(&:id)], :order => 'post_count DESC', :group => :bead_id, :limit => 10)
 		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
 	end
+
+  def nearest_beads_combination(c_size)
+    if beads.size == 1
+      available_beads = Bead.all.map(&:id) - beads.map(&:id)
+      combinations_of_available_beads = available_beads.combination(c_size-beads.size).to_a
+      combinations_with_rankings = combinations_of_available_beads.each {|c| c.insert(0,BeadsPost.find(:all, :select => ['DISTINCT post_id'], :group => 'post_id', :conditions => ["bead_id IN (?)", c + beads.map(&:id)], :having => ['count(distinct bead_id) = ?', c_size]).count)}
+      sorted_combinations = combinations_with_rankings.sort_by {|c| -c.first}
+      top_sorted_combinations = sorted_combinations.shift(COMBINATION_SUGGESTION_SIZE)
+      return top_sorted_combinations
+    else return nil
+    end   
+  end
 
 end

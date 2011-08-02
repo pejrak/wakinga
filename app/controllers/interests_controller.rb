@@ -48,8 +48,8 @@ before_filter :authenticate_user!
   def edit
     @interest = Interest.find(params[:id])
     if @interest.user == current_user
-      @parent_beads = Bead.where(:parent_bead => true)
-      @beads = Bead.search(params[:search]) - @parent_beads
+      @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
+      @beads = Bead.search(params[:search]) - @parent_beads - @interest.beads
     else
         redirect_to :back
         flash[:notice] = 'That is not your interest.'
@@ -118,6 +118,16 @@ before_filter :authenticate_user!
 	  format.html { redirect_to edit_interest_path(@interest) }
     end
   end
+
+  def add_beads
+    @interest = Interest.find(params[:id])
+    beads = Bead.where(:id => params[:bead_ids])
+    @interest.beads << beads
+    respond_to do |format|
+	  format.html { redirect_to edit_interest_path(@interest) }
+    end
+  end
+
 
   def remove_single_bead
     @interest = Interest.find(params[:id])

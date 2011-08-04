@@ -2,6 +2,7 @@
 <%= render :partial => 'shared/select_external_authentication' %>
 </div>
 <div class="no_top">
+<div class="clean_from_top">
 <h2>or use your wakinga.com login</h2>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <p><%= f.label :login %></p>

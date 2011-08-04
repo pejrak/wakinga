@@ -308,7 +308,7 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 /*form styling*/
 
 input, select, textarea {
-  border: 1px solid gray;
+  border: 1px solid lightgray;
   background-color: white;
 }
 
@@ -382,3 +382,8 @@ input, select, textarea {
     margin-top: 20px;
     position: relative;
 }
+
+.clean_from_top {
+    float: both;
+}
+

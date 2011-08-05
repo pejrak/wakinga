@@ -9,7 +9,7 @@ td {
 }
 .leftside {
     vertical-align: top;
-    width: 30%;
+    width: 50%;
 }
 td.middle {
     text-align: left;
@@ -325,13 +325,12 @@ input, select, textarea {
 }
 
 .authentication {
-  width: 130px;
   float: left;
   background-color: #EEE;
   border: solid 1px #999;
-  padding: 5px 10px;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
+  padding: 2px 4px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   position: relative;
   margin-right: 10px;
 }
@@ -339,18 +338,18 @@ input, select, textarea {
 .authentication .remove {
   text-decoration: none;
   position: absolute;
-  top: 3px;
-  right: 3px;
+  top: 2px;
+  right: 2px;
   color: #333;
-  padding: 2px 4px;
+  padding: 1px 2px;
   font-size: 10px;
 }
 
 .authentication .remove:hover {
   color: #CCC;
   background-color: #777;
-  -moz-border-radius: 6px;
-  -webkit-border-radius: 6px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
 }
 
 .authentication img {
@@ -378,7 +377,7 @@ input, select, textarea {
   text-decoration: none;
   margin-right: 10px;
   text-align: center;
-  margin-bottom: 10px;
+
 }
 .no_top {
     float: left;
@@ -388,7 +387,8 @@ input, select, textarea {
 }
 
 .clean_from_top {
-    float: left;
-	margin-top: 0;
+    clear: both;
+	margin-top: 100px;
+	margin-bottom: 10px;
 }
 

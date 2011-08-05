@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
     if session[:omniauth] or verify_recaptcha
       super
       session[:omniauth] = nil unless @user.new_record?
-      @default_user = User.find_by_username('spontain')
+      @default_user = User.find_by_username('default')
       @user.interests << @default_user.interests.collect { |interest| interest.clone }
       @default_user.interests.each do |i|
         matchup = @user.interests.where(:title => i.title).first

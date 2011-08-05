@@ -4,7 +4,10 @@
   users #: <%= link_to(User.all.size, users_path) %>
 <br />
   admins #: <%= link_to(Admin.all.size, users_path) %>
+<br />
+  online minds #: <%# @online_minds_count %>
 </p>
+
 <h3>content</h3>
 <p>
   posts #: <%= Post.all.size %>

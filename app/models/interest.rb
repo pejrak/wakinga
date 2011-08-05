@@ -45,7 +45,7 @@ class Interest < ActiveRecord::Base
   #function to find interests with the same beads
 
   def users_sharing_the_same_interest
-    compare_beads_with_other_interests(Interest.where('interests.user_id <> ?', user.id)).map(&:user_id)
+    compare_beads_with_other_interests(Interest.where('interests.user_id <> ? AND i_private <> ?', user.id, true)).map(&:user_id)
   end
 
   #return number of all posts within the interest,
@@ -77,14 +77,14 @@ class Interest < ActiveRecord::Base
 
   def trustors(selected_user)
     prot_trustors = []
-    prot_trustors << selected_user
-    all_trusts_for_selected_user = Trust.find_all_by_trustee_id(selected_user)
+    prot_trustors << selected_user.id
+    all_trusts_for_selected_user = Trust.find_all_by_trustee_id(selected_user.id)
     if all_trusts_for_selected_user.present?
     interest_beads_load = self.beads.map(&:id).sort
         all_trusts_for_selected_user.each do |t|
       trusted_beads_load = t.interest.beads.map(&:id).sort
             if trusted_beads_load == interest_beads_load
-              prot_trustors << t.interest.user
+              prot_trustors << t.trustor.id
             end
         end
     return prot_trustors.uniq
@@ -129,24 +129,25 @@ class Interest < ActiveRecord::Base
   def post_content_all(selected_user)
     #load trusts that are associated with interests containing the same beads combination as the current interest
     loaded_trustors = trustors(selected_user)
-    if loaded_trustors.present?
-	private_posts = Post.find(:all,
+    
+    public_posts = Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => :beads_posts,
         :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private <> ?", beads, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'created_at DESC')
-	else private_posts = []
-	end
-    public_posts = Post.find(:all,
+    if loaded_trustors.present?
+      private_posts = Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => :beads_posts,
         :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", beads, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'created_at DESC')
-	return private_posts + public_posts
+    else private_posts = []
+    end
+    return private_posts + public_posts
 
   end
 

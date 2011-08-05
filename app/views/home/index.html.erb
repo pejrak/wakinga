@@ -10,6 +10,9 @@
   <h2>interests</h2>
   <%= render :partial => @interests %>
 <% content_for :rightside do %>
+  <h2><%= link_to "#{live_messages(current_user).size} live messages", '#', :remote => true, :class => 'slider', :id => 'live_messages' %></h2>
+  <div class="content_live_messages" style="display: none"><%= render :partial => 'posts/activated_post', :collection => live_messages(current_user.id) %></div>
+
   <h2>beads</h2>
   <h2><%= link_to 'recent activity', '#', :remote => true, :class => 'slider', :id => 'active_beads' %></h2>
   <div class="content_active_beads" style="display: none"><%= render :partial => active_beads %></div>

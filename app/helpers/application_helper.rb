@@ -14,6 +14,10 @@ module ApplicationHelper
     Interest.where('interests.user_id <> ?',selected_user)
   end
 
+  def live_messages(selected_user_id)
+    Post.find(:all, :include => [:comments, :memorizations], :conditions => ['memorizations.updated_at < comments.updated_at AND posts.user_id = ?', selected_user_id])
+  end
+
 
   def top_beads_overall
     Bead.find(:all,

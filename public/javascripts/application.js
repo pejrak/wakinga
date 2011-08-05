@@ -15,12 +15,13 @@ $(document).ready(function() {
       function () {
         var identificator = $(this).attr("data-id");
         $(".slot_full").show();
+	$(".preview_slot").css("background-color","white");
+        $(this).css("background-color","#E6E6E6");
         $("#interest_operators_"+identificator).show();
         $(".slot_full").html("<p>Loading...</p>");
 	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
       function () {
-        $(".slot_full").hide();
         $(".interest_operators").fadeOut();
       }
     );

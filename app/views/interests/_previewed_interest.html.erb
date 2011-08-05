@@ -2,9 +2,10 @@
   <% @interest.beads.each do |beader| %>
   o <span class="text_emphasizer"><%= beader.title %></span>
   <% end %>
+  <h3><br><%= (@interest.i_private == true)? 'private interest' : '' %></h3>
   <p>
   last visit <%= time_ago_in_words(@interest.last_visit_at) %> ago<br />
-  with <%= current_user.good_memories.size %> memories<br />
+  with <%= @interest.memorized_post_content(true,current_user).size %> memories<br />
   you share it with <%= pluralize(@shared_by_this_many_users, 'mind') %>
   <% if @shared_by_this_many_users > 0 %>
     (<% @sharing_user_ids.each do |uid| %>

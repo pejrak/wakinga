@@ -252,6 +252,11 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     -moz-border-radius: 3px;*/
     line-height: 4px;
 }
+
+.preview_slot {
+    padding: 2px 3px 4px;
+}
+
 .main_operators {
     float: right;
     font-size: 15px;

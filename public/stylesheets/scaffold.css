@@ -388,6 +388,7 @@ input, select, textarea {
 }
 
 .clean_from_top {
-    float: both;
+    float: left;
+	margin-top: 0;
 }
 

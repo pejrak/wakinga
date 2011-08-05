@@ -256,6 +256,10 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     float: right;
     font-size: 15px;
 }
+.user_trusts {
+	margin-bottom: 15px;
+}
+
 .dynamic#buffer {
     background-color: #011d62;
     padding: 5px;

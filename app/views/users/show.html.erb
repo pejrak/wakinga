@@ -16,7 +16,7 @@
 <% end %>
 
 <% content_for :leftside do %>
-		
+<div class="user_trusts">		
 	<%= render :partial => current_user %>
 
 
@@ -28,6 +28,7 @@
 		<h2>List of incoming trusts</h2>
 		<%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
 	<% end %>
+</div>
 
 <div class="clean_from_top">
 	<% if current_user.authentications %>
@@ -40,6 +41,7 @@
         </div>		
 		<% end %>
 </div>
+
 <div class="clean_from_top">
 	<p>Add another service to sign in with:</p>
 	<% end %>

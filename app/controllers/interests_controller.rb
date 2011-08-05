@@ -59,6 +59,7 @@ before_filter :authenticate_user!
   def create
 	@interest = Interest.new(params[:interest])
 	@interest.user = current_user
+	@interest.last_visit_at = Time.now
 	respond_to do |format|
 	  if @interest.save
 		format.html { redirect_to edit_interest_path(@interest) }
@@ -141,7 +142,7 @@ before_filter :authenticate_user!
 
    def adopt
      @interest = Interest.find(params[:id])
-     @adopted_interest = Interest.new(:user_id => current_user.id, :title => @interest.title + ' - ADOPTED')
+     @adopted_interest = Interest.new(:user_id => current_user.id, :title => @interest.title + ' - ADOPTED', :last_visit_at => Time.now)
      @adopted_interest.beads = @interest.beads
      if @adopted_interest.save
        flash[:notice] = 'The interest was adopted.'

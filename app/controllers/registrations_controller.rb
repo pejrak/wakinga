@@ -1,7 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
-    super
-    session[:omniauth] = nil unless @user.new_record?
+    if session[:omniauth] or verify_recaptcha
+      super
+      session[:omniauth] = nil unless @user.new_record?
+    else
+      flash[:alert] = "There was an error with the details provided below."
+      render_with_scope :new
+    end
   end
 
   private
@@ -10,7 +15,9 @@ class RegistrationsController < Devise::RegistrationsController
     super
     if session[:omniauth]
       @user.apply_omniauth(session[:omniauth])
-      @user.valid?
+      @no_need_for_recaptcha = true
+      #no need to validate the user yet, this is a fresh new user form, with omniauth session variables added in order to create authentication later
+      #@user.valid?
     end
   end
 end

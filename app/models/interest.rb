@@ -86,7 +86,6 @@ class Interest < ActiveRecord::Base
             if trusted_beads_load == interest_beads_load
               prot_trustors << t.interest.user
             end
-
         end
     return prot_trustors.uniq
     else return nil

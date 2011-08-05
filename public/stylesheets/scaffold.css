@@ -312,8 +312,14 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 /*form styling*/
 
 input, select, textarea {
-  border: 1px solid lightgray;
+  border: 2px solid lightgray;
   background-color: white;
+}
+
+input#user_submit {
+  color: darkgray;
+
+  font-size: 120%;
 }
 
 

@@ -3,6 +3,14 @@ class RegistrationsController < Devise::RegistrationsController
     if session[:omniauth] or verify_recaptcha
       super
       session[:omniauth] = nil unless @user.new_record?
+      @default_user = User.find_by_username('spontain')
+      @user.interests << @default_user.interests.collect { |interest| interest.clone }
+      @default_user.interests.each do |i|
+        matchup = @user.interests.where(:title => i.title).first
+        matchup.beads = i.beads
+        matchup.last_visit_at = Time.now
+      end
+
     else
       flash[:alert] = "There was an error with the details provided below."
       render_with_scope :new

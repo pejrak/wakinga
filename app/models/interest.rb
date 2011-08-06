@@ -151,6 +151,11 @@ class Interest < ActiveRecord::Base
 
   end
 
+  def live_message_content(selected_user)
+    loaded_post_ids = memorized_post_content(true,selected_user).map(&:id)
+    return Post.find(:all, :include => [:comments,:memorizations], :conditions => ['comments.updated_at > memorizations.updated_at AND memorizations.memorable = ? AND posts.id IN (?)', true, loaded_post_ids])
+  end
+
   def memorized_post_content(memorability,selected_user)
     content = memorized_post_content_public(memorability,user) + memorized_post_content_private(memorability,selected_user)
 	return content.sort_by{|p| - p.created_at.to_i}

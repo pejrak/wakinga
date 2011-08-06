@@ -10,6 +10,9 @@ $(document).ready(function() {
     $('.hider').click(function() {
       $('.content_'+$(this).attr('id')).toggle();
   });
+    $(function() {
+      $(".scroll").jScroll();
+    });
   //interest preview effects
     $(".preview_slot").hover(
       function () {
@@ -18,7 +21,7 @@ $(document).ready(function() {
 	$(".preview_slot").css("background-color","white");
         $(this).css("background-color","#E6E6E6");
         $("#interest_operators_"+identificator).show();
-        $(".slot_full").html("<p>Loading...</p>");
+        $(".slot_full").html("<p><img src='/images/loader.gif'/> Loading...</p>");
 	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
       function () {

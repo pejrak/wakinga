@@ -1,4 +1,5 @@
 <%= javascript_include_tag "interest_ops" %>
+<%= javascript_include_tag "jscroll" %>
 
 <%= content_for :middletop do %>
   <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
@@ -20,7 +21,7 @@ beads: <% @interest.beads.each do |beader| %>
 <div class="dynamic" id="post_content">
 <% unless @interest.post_content(@interest.user).empty? %>
     <%# render :partial => @interest.post_content(@interest.user) %>
-  <div class="post" data-time="<%= Time.now.to_i %>">Loading messages...</div>
+  <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading messages...</div>
 <% end %>
 </div>
 </div>
@@ -29,7 +30,7 @@ beads: <% @interest.beads.each do |beader| %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>
   <%#= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
   <div class="dynamic" id="memories">
-    <div class="post" data-time="<%= Time.now.to_i %>">Loading memories...</div>
+    <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading memories...</div>
   </div>
 <% end %>
 

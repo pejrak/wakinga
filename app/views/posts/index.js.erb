@@ -33,8 +33,10 @@ $('.post_show').click(function() {
     //post activate effect
     $('.post').click(function() {
         var identificator = $(this).attr("id");
-      $(".activated_post_container").html("<p>Loading...</p>");
+      $(".activated_post_container").html("<p><img src='/images/loader.gif'/> Loading...</p>");
       $.getScript("/posts/" + identificator + "/activate.js");
     });
+    
 
+    
   });

@@ -162,6 +162,10 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     background-repeat: repeat-x;*/
 }
 
+.live_message {
+    border-left: #F83251 3px solid;
+}
+
 .post_operators {
     float: right;
     display: block;

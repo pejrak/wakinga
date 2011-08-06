@@ -9,7 +9,9 @@ $(document).ready(function() {
         setTimeout(updatePosts, 0);
       }
     });
-
+    $(function() {
+      $(".activated_post_container").jScroll();
+    });
 });
 
 function updatePosts() {

@@ -19,6 +19,14 @@ module ApplicationHelper
   end
 
 
+  def interests_with_live_messages(selected_user_id)
+    loaded_live_messages = live_messages(selected_user_id)
+    loaded_interests = Interest.find_all_by_user_id(selected_user_id) 
+    loaded_live_messages.each do |lm|
+      puts "here goes the magic"
+    end
+  end
+
   def top_beads_overall
     Bead.find(:all,
       :select => 'id, title, description, count(distinct beads_posts.post_id) AS post_counter',

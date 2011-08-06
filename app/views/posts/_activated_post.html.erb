@@ -1,3 +1,4 @@
+<div class="scroll">
 <h2><span class="heading_subtelize">sent <%= time_ago_in_words(activated_post.created_at) %> ago by </span><strong><%= link_to activated_post.user.username, activated_post.user %></strong></h2>
 <div class="activated_post" data-id="<%= activated_post.id %>">
 <div class="<%= (activated_post.p_private == true)? 'private' : 'public' %>_activated_post" data-time="<%= activated_post.created_at.to_i %>" data-id="<%= activated_post.id %>" id="activated_post_<%= activated_post.id.to_s %>">
@@ -25,4 +26,4 @@
         <%# f.submit "add" %>
     <% end %>
   </div>
-
+</div>

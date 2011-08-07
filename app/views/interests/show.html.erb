@@ -2,11 +2,13 @@
 <%= javascript_include_tag "jscroll" %>
 
 <%= content_for :middletop do %>
+
   <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
 <% end %>
 
 <div id="interest" data-id="<%= @interest.id %>">
-<h2 class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'message') %></h2>
+  <%= debug(@previous_visit_record) %>
+  <h2 class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'message') %></h2>
 beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
@@ -18,7 +20,7 @@ beads: <% @interest.beads.each do |beader| %>
 <%#= render :partial => @interest.post_content %>
   <div class="dynamic" id="buffer" style="display: none">
   </div>
-<div class="dynamic" id="post_content">
+<div class="dynamic" id="post_content" data-time="<%= @previous_visit_record.to_i %>">
 <% unless @interest.post_content(@interest.user).empty? %>
     <%# render :partial => @interest.post_content(@interest.user) %>
   <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading messages...</div>

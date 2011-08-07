@@ -21,26 +21,30 @@
 
 
 	<% if outgoing_trusts.present? %>	
-		<h2>List of your trusts</h2>
+		<h2>list of your trusts</h2>
 		<%= render :partial => outgoing_trusts %>
 	<% end %>
 	<% if incoming_trusts.present? %>
-		<h2>List of incoming trusts</h2>
+		<h2>list of incoming trusts</h2>
 		<%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
 	<% end %>
 </div>
 
 	<% if current_user.authentications %>
+          <%= content_tag(:h2, 'linked connections') %>
 		<% for authentication in current_user.authentications %>
 			<div class="authentication">
           		<%= image_tag "#{authentication.provider}_32.png", :size => "32x32" %>
-          <%= link_to "X", authentication, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" %>
+          <%= link_to image_tag('/images/remove.png', :border => 0, :title => 'remove connection'), authentication, :confirm => 'Are you sure you want to remove this authentication option?', :method => :delete, :class => "remove" %>
         </div>		
 		<% end %>
+        <% end %>
 
 <div class="clean_from_top">
-	<p>Add another service to sign in with:</p>
-	<% end %>
+
+  <% if current_user.authentications.count < 2 %>
+  <%= content_tag(:h2, 'link another connection') %>
+  <% end %>
 <div class="auths">
 <% unless current_user.authentications.where(:provider => 'twitter').present? %>
 <a href="/auth/twitter" class="auth_provider">

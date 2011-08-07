@@ -45,7 +45,8 @@ class Interest < ActiveRecord::Base
   #function to find interests with the same beads
 
   def users_sharing_the_same_interest
-    compare_beads_with_other_interests(Interest.where('interests.user_id <> ? AND i_private <> ?', user.id, true)).map(&:user_id)
+    other_interests = Interest.where('interests.user_id <> ? AND interests.i_private <> ?', self.user_id, true)
+    self.compare_beads_with_other_interests(other_interests).map(&:user_id)
   end
 
   #return number of all posts within the interest,
@@ -125,6 +126,10 @@ class Interest < ActiveRecord::Base
 		return matching_interests
 	end
 
+  def live_message_content(selected_user)
+    loaded_post_ids = memorized_post_content(true,selected_user).map(&:id)
+    return Post.find(:all, :include => [:comments,:memorizations], :conditions => ['comments.updated_at > memorizations.updated_at AND memorizations.memorable = ? AND memorizations.user_id = ? AND posts.id IN (?)', true, selected_user.id, loaded_post_ids])
+  end
 
   def post_content_all(selected_user)
     #load trusts that are associated with interests containing the same beads combination as the current interest
@@ -149,11 +154,6 @@ class Interest < ActiveRecord::Base
     end
     return private_posts + public_posts
 
-  end
-
-  def live_message_content(selected_user)
-    loaded_post_ids = memorized_post_content(true,selected_user).map(&:id)
-    return Post.find(:all, :include => [:comments,:memorizations], :conditions => ['comments.updated_at > memorizations.updated_at AND memorizations.memorable = ? AND memorizations.user_id = ? AND posts.id IN (?)', true, selected_user.id, loaded_post_ids])
   end
 
   def memorized_post_content(memorability,selected_user)

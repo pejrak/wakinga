@@ -3,6 +3,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def index
     @interest = Interest.find(params[:interest_id])
+    @previous_visit_record = Time.at(params[:previous_visit_record].to_i)
     if params[:full_refresh] == 'true'
       @dynamic_posts = []
     elsif params[:full_refresh] == 'false'

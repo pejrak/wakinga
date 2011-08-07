@@ -7,7 +7,7 @@
 <% end %>
 
 <div id="interest" data-id="<%= @interest.id %>">
-  <%= debug(@previous_visit_record) %>
+  <%# debug(@previous_visit_record) %>
   <h2 class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'message') %></h2>
 beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>

@@ -156,7 +156,7 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
         color:black;
         font-size: 11px;
         padding: 5px;
-        border-bottom: lightgray 1px solid;
+        border-bottom: lightgray 2px solid;
 /*    background-image: url(/images/bg_grey_fade_vert.png);
     background-position: top;
     background-repeat: repeat-x;*/
@@ -204,6 +204,9 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     background-repeat: repeat-x;*/
 }
 
+.private_true {
+    margin-left: 4px
+}
 
 .comments_placeholder {
     border-top: #F40026 solid 1px;

@@ -5,17 +5,25 @@
 <% end %>
 
 <h2><%= @bead.title %>
-<span class="main_operators">
-<%= link_to 'Edit', edit_bead_path(@bead) %> |
-<%= link_to 'Back', beads_path %>
-</span>
-</h2>
 
+<% if current_admin %>
+<span class="main_operators">
+<%= link_to 'Edit', edit_bead_path(@bead) %>
+</span>
+<% end %>
+</h2>
+<h3><%= @bead.description %></h3>
+<br />
+<%= link_to 'View or search all beads', beads_path %>
 <div>
-  <%= render :partial => @bead.posts.where(:p_private => false).limit(50) %>
+  <%# render :partial => @bead.posts.where(:p_private => false).limit(50) %>
 </div>
 <br />
 <% content_for :rightside do %>
-
+<h2>bead information</h2>
+<p>
+Associated messages: <%= @bead.beads_posts_count %> <br />
+Associated interests: <%= @bead.interests.count %> <br />
+</p>
 <% end %>
 

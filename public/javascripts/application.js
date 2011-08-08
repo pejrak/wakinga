@@ -10,9 +10,7 @@ $(document).ready(function() {
     $('.hider').click(function() {
       $('.content_'+$(this).attr('id')).toggle();
   });
-    $(function() {
-      $(".scroll").jScroll();
-    });
+
   //interest preview effects
     $(".preview_slot").hover(
       function () {

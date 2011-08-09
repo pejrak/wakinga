@@ -65,6 +65,7 @@ class Interest < ActiveRecord::Base
     BeadsPost.find(:all, :select => ['DISTINCT post_id'], :joins => :post, :group => 'post_id', :conditions => ["bead_id IN (?) AND posts.created_at > ?", beads, last_visit_at], :having => ['count(distinct bead_id) = ?', beads.count]).count
   end
 
+
   #load all posts within beads of the current interest
   #refers to bead ids that were extracted in the bead_ids
 

@@ -1,15 +1,26 @@
 <p>Hello <%= @user.username %>!</p>
 
-<p>There new messages in your interests at wakinga.com:</p>
+<p>There are unread messages in your interests at wakinga.com:</p>
 <% @user.interests.each do |i| %>
-  <% if i.live_message_content(@user) %>
+  <% if i.live_message_content(@user).size > 0 || i.dynamic_post_content(1.day.ago, @user).size > 0 %>
     <%# render :partial => i %>
-    <h2><%= link_to(i.title, interest_path(i), :host => "wakinga.com") %></h2>
-    <% i.live_message_content(@user).each do |m| %>
+    <h2><%= link_to(i.title, url_for(:controller => "interests", :action => "show", :id => i.id)) %></h2>
+    <% if i.live_message_content(@user).size > 0 %>
+    <h3>live messages with reactions</h3>
+      <% i.live_message_content(@user).each do |m| %>
       <p><%= truncate(m.content, :length => 170, :omission => "...") %></p>
-      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to m.user.username, m.user %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? image_tag('/images/bullet_red.png', :class => 'private_'+m.p_private.to_s, :border => 0, :title => 'this message is private'):'' %></p>
+      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to m.user.username, m.user %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? ' *private':'' %></p>
+    <% end %>
     <% end %>
   <% end %>
+  <% if i.dynamic_post_content(1.day.ago, @user).size > 0 %>
+    <h3>new messages</h3>
+    <% i.dynamic_post_content(1.day.ago, @user).each do |m| %>
+      <p><%= truncate(m.content, :length => 170, :omission => "...") %></p>
+      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to m.user.username, m.user %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? ' *private':'' %></p>
+    <% end %>
+  <% end %>
+
 <% end %>
 
 <p>You can <strong>unsubscribe</strong> from this email.</p>

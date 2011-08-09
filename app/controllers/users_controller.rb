@@ -12,4 +12,11 @@ class UsersController < ApplicationController
 		@admins = Admin.all
 	end
 
+  def send_summary
+    @user = User.find(params[:id])
+    CustomUserMailer.send_summary(@user).deliver
+    flash[:notice] = "sent daily summary to #{@user.email}"
+    render '/home/admin'
+  end
+
 end

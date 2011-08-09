@@ -25,14 +25,14 @@ class Interest < ActiveRecord::Base
   def self.that_are_public
     self.where(:i_private => false)
   end
-
-	def title_with_beads
-		title_concat = title + " ("
-		self.beads.each do |b|
-			title_concat = title_concat + "/" + b.title
-		end
-		return title_concat + ")"
-	end
+  
+  def title_with_beads
+    title_concat = title + " ("
+    self.beads.each do |b|
+      title_concat = title_concat + "/" + b.title
+    end
+    return title_concat + ")"
+  end
 
   def other_matching_interests
     self.compare_beads_with_other_interests(Interest.where('interests.user_id = ? AND interests.id <> ?', user.id, self.id))

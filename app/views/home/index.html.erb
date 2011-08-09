@@ -14,7 +14,7 @@
   <%# render :partial => 'posts/activated_post', :collection => live_messages(current_user.id) %>
 
   <h2>beads</h2>
-  <h2><%= link_to 'recent activity', '#', :remote => true, :class => 'slider', :id => 'active_beads' %></h2>
+  <h2><%= link_to 'recent activity', "#", :remote => true, :class => 'slider', :id => 'active_beads' %></h2>
   <div class="content_active_beads" style="display: none"><%= render :partial => active_beads %></div>
   <h2><%= link_to 'top beads overall', '#', :remote => true, :class => 'slider', :id => 'top_beads' %></h2>
   <div class="content_top_beads" style="display: none"><%= render :partial => top_beads_overall %></div>

@@ -1,0 +1,15 @@
+<p>Hello <%= @user.username %>!</p>
+
+<p>There new messages in your interests at wakinga.com:</p>
+<% @user.interests.each do |i| %>
+  <% if i.live_message_content(@user) %>
+    <%# render :partial => i %>
+    <h2><%= link_to(i.title, interest_path(i), :host => "wakinga.com") %></h2>
+    <% i.live_message_content(@user).each do |m| %>
+      <p><%= truncate(m.content, :length => 170, :omission => "...") %></p>
+      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to m.user.username, m.user %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? image_tag('/images/bullet_red.png', :class => 'private_'+m.p_private.to_s, :border => 0, :title => 'this message is private'):'' %></p>
+    <% end %>
+  <% end %>
+<% end %>
+
+<p>You can <strong>unsubscribe</strong> from this email.</p>

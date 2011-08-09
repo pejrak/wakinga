@@ -11,7 +11,11 @@ Mindbase::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
   devise_for :admins
 
-  resources :users
+  resources :users do
+    member do
+    get 'send_summary'
+    end
+  end
 
   resources :admins
 

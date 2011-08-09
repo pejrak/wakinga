@@ -2,7 +2,14 @@
 
 <p>There new messages in your interests at wakinga.com:</p>
 <% @user.interests.each do |i| %>
-
+  <% if i.live_message_content(@user) %>
+    <%# render :partial => i %>
+    <h2><%= link_to(i.title, interest_path(i), :host => 'wakinga.com') %></h2>
+    <% i.live_mesage_content(@user).each do |m| %>
+      <p><%= truncate(m.content, 150, "...") %></p>
+      <p>by <%= @user %></p>
+    <% end %>
+  <% end %>
 <% end %>
 
 <p>You can <strong>unsubscribe</strong> from this email.</p>

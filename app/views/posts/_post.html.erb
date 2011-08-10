@@ -7,7 +7,7 @@
     </h3>
     <%= content_tag(:div, :class => 'post_activator', :id => 'post_activator_' + post.id.to_s, :style => 'display: none') do %><%= link_to( activate_post_path(post), :remote => true)  do %> &lt; <% end %><% end %>
 
-    <%= auto_link(simple_format(post.content), :target => "_blank") %>
+    <%= simple_format(auto_link(post.content, :target => "_blank")) %>
       <div class="post_foot">
 
         <i>sent <%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong><%= (post.comments.present?)? content_tag(:span, ', ' + post.comments.size.to_s  + ( (post.new_comments_since_last_login(current_user).size > 0)? ' (' + post.new_comments_since_last_login(current_user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (post.p_private == true)? image_tag('/images/bullet_red.png', :class => 'private_'+post.p_private.to_s, :border => 0, :title => 'this message is private'):'' %>

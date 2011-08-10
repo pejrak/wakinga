@@ -9,6 +9,8 @@ class Interest < ActiveRecord::Base
 
   MAX_TITLE_LENGTH = 50
   COMBINATION_SUGGESTION_SIZE = 10
+  MAX_INITIAL_DISPLAYED_MESSAGES = 50
+  MAX_MEMORY = 500
 
   #validations
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH

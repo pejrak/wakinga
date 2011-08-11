@@ -1,0 +1,21 @@
+<% title "User Preferences" %>
+
+<table>
+  <tr>
+    <th>Subscription Preference</th>
+    <th>Messages Per Page</th>
+    <th>User</th>
+  </tr>
+  <% for user_preference in @user_preferences %>
+    <tr>
+      <td><%= user_preference.subscription_preference %></td>
+      <td><%= user_preference.messages_per_page %></td>
+      <td><%= user_preference.user_id %></td>
+      <td><%= link_to "Show", user_preference %></td>
+      <td><%= link_to "Edit", edit_user_preference_path(user_preference) %></td>
+      <td><%= link_to "Destroy", user_preference, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New User Preference", new_user_preference_path %></p>

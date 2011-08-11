@@ -1,0 +1,12 @@
+<%= form_for @user_preference do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :subscription_preference %><br />
+    <%= f.collection_select :subscription_preference, UserPreference::SUBSCRIPTION_PREFERENCE_OPTIONS, :to_s, :to_s %>
+  </p>
+  <p>
+    <%= f.label :messages_per_page %><br />
+    <%= f.collection_select :messages_per_page, UserPreference::MESSAGE_PER_PAGE_OPTIONS, :to_i, :to_i %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,4 +1,6 @@
 Mindbase::Application.routes.draw do
+  resources :user_preferences
+
   resources :trusts do
     member do
       get 'confirm'
@@ -11,9 +13,9 @@ Mindbase::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
   devise_for :admins
 
-  resources :users do
+  resources :users do 
     member do
-    get 'send_summary'
+      get 'send_summary'
     end
   end
 

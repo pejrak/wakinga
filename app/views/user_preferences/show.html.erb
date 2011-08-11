@@ -1,0 +1,12 @@
+<p>
+  <strong>Subscription Preference:</strong>
+  <%= @user_preference.subscription_preference %>
+</p>
+<p>
+  <strong>Messages Per Page:</strong>
+  <%= @user_preference.messages_per_page %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_user_preference_path(@user_preference) %>
+</p>

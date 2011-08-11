@@ -7,6 +7,7 @@ has_many :beads_posts, :through => :posts
 has_many :memorizations
 has_many :authentications
 has_many :trusts, :dependent => :destroy
+has_one :user_preference, :dependent => :destroy
 
 # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable

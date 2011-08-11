@@ -1,0 +1,9 @@
+one:
+  subscription_preference: MyString
+  messages_per_page: 1
+  user_id: 1
+
+two:
+  subscription_preference: MyString
+  messages_per_page: 1
+  user_id: 1

@@ -1,5 +1,6 @@
 class CustomUserMailer < ActionMailer::Base
-  default :from => "wakingamail@gmail.com"
+  default :from => "admin@wakinga.com"
+  #default_url_options[:host] = request.host
 
   def send_summary(user)
     @user = user

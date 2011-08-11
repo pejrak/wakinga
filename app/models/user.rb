@@ -75,7 +75,20 @@ has_many :trusts, :dependent => :destroy
     (authentications.empty? || !password.blank?) && super
   end
 
+  def outgoing_trusts
+    Trust.where(:interest_id => interests)
+  end
 
+  def incoming_trusts
+    unconfirmed_incoming_trusts = []
+    all_incoming_trusts = Trust.where(:trustee_id => self.id)
+    all_incoming_trusts.each do |t|
+      if t.confirmed? == false
+        unconfirmed_incoming_trusts << t
+      end
+    end
+    return unconfirmed_incoming_trusts
+  end
 
   protected
 

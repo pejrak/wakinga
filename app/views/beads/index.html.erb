@@ -1,6 +1,6 @@
 <h1>Listing beads</h1>
 
-<% form_tag beads_path, :method => 'get' do %>
+<%= form_tag beads_path, :method => 'get' do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>

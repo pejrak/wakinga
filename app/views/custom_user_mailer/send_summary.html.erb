@@ -4,12 +4,12 @@
 <% @user.interests.each do |i| %>
   <% if i.live_message_content(@user).size > 0 || i.dynamic_post_content(1.day.ago, @user).size > 0 %>
     <%# render :partial => i %>
-    <h2><%= link_to(i.title, url_for(:controller => "interests", :action => "show", :id => i.id)) %></h2>
+    <h2><%= link_to(i.title, url_for(:controller => "interests", :action => "show", :id => i.id, :host => 'wakinga.com')) %></h2>
     <% if i.live_message_content(@user).size > 0 %>
     <h3>live messages with reactions</h3>
       <% i.live_message_content(@user).each do |m| %>
       <p><%= truncate(m.content, :length => 170, :omission => "...") %></p>
-      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to m.user.username, m.user %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? ' *private':'' %></p>
+      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to (m.user.username, url_for(:controller => "users", :action => "show", :id => m.user.id, :host => 'wakinga.com')) %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? ' *private':'' %></p>
     <% end %>
     <% end %>
   <% end %>
@@ -17,10 +17,24 @@
     <h3>new messages</h3>
     <% i.dynamic_post_content(1.day.ago, @user).each do |m| %>
       <p><%= truncate(m.content, :length => 170, :omission => "...") %></p>
-      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= link_to m.user.username, m.user %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? ' *private':'' %></p>
+      <p><i>sent <%= time_ago_in_words(m.created_at) %> ago by <strong><%= m.user.username %></strong><%= (m.comments.present?)? content_tag(:span, ', ' + m.comments.size.to_s  + ( (m.new_comments_since_last_login(@user).size > 0)? ' (' + m.new_comments_since_last_login(@user).size.to_s + ' new) ' : '' ) +  ' reactions', :class => 'text_emphasizer') : '' %></i><%= (m.p_private == true)? ' *private':'' %></p>
     <% end %>
   <% end %>
-
 <% end %>
 
-<p>You can <strong>unsubscribe</strong> from this email.</p>
+<% if @user.incoming_trusts.present? %>
+  <h2>incoming trusts</h2>
+  <% @user.incoming_trusts.first(10).each do |t| %>
+    <h3>from <%= t.trustor.username %>, on </h3> 
+    <% t.interest.beads.each do |beader| %>
+      o <span class="text_emphasizer"><%= beader.title %></span>
+    <% end %>
+    <br />
+  <% end %>
+  <% if @user.incoming_trusts.count > 10 %>
+    <br /> and <%= @user.incoming_trusts.count - 10 %> more...
+  <% end %>
+<% end %>
+
+
+<p>*** You can <strong>unsubscribe</strong> from this email. ***</p>

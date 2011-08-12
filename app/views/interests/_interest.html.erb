@@ -10,5 +10,5 @@
   <% interest.beads.each do |beader| %>
   <span class="text_emphasizer">o </span><span class="text_deemphasizer"><%= beader.title %></span>
   <% end %>
-  <%= (interest.live_message_content(current_user).size > 0)? content_tag(:p, pluralize(interest.live_message_content(current_user).size, 'live message'), :class => 'text_deemphasizer') : '' %>
+  <%= (interest.live_message_content(current_user).size > 0)? content_tag(:p, pluralize(interest.live_message_content(current_user).size, 'live message'), :class => 'text_emphasizer') : '' %>
 </div>

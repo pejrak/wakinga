@@ -22,8 +22,8 @@ Mindbase::Application.routes.draw do
   resources :admins
 
   match "/reset_counts" => "admins#reset_counts"
-  
-	match "/admin" => "home#admin"
+  match "/load_with_ajax" => "home#load_with_ajax"
+  match "/admin" => "home#admin"
 
   
   resources :requests
@@ -66,6 +66,8 @@ Mindbase::Application.routes.draw do
   namespace :admin do
     root :to => "home#admin"
   end
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

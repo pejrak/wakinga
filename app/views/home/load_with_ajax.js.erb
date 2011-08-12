@@ -1,0 +1,8 @@
+var identifier = '#content_<%=raw escape_javascript(@load_type) %>'
+$(identifier).slideToggle();
+$(identifier).html("<p><img src='/images/loader.gif'/> Loading...</p>");
+// $(function() {
+  if ($(identifier).is(":visible")) {
+    $(identifier).html("<%=raw escape_javascript(render(:partial => @loaded_content)) %>");
+  }
+// });

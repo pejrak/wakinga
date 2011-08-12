@@ -1,54 +1,93 @@
-/*table classes and elements*/
-.main {
-    border: none;
-    border-collapse: collapse;
-}
-td {
-    
-    padding-left: 13px;
-}
-.leftside {
-    vertical-align: top;
-    width: 30%;
-}
-td.middle {
-    text-align: left;
-    vertical-align: top;
-    width: 35%;
+/*division classes and elements*/
+	body {
+		margin:0;
+		padding:0;
+		border:0;			/* This removes the border around the viewport in old versions of IE */
+		width:100%;
+                height: 100%;
+		background:#fff;
+		min-width:600px;		/* Minimum width of layout - remove line if not required */
+		font-family: arial, helvetica, sans-serif;
+	}
 
-/*    border-left: lightgrey 1px dotted;*/
-}
 
-td.rightside {
-    text-align: left;
-    vertical-align: top;
-    width: 35%;
-/*    border-left: lightgrey 1px dotted;*/
-}
-.top_right {
-    vertical-align: middle;
-}
+	/* Header styles */
+	#header {
+		clear:both;
+		float:left;
+		width:100%;
+	}
+	#header {
+                background-color: #262626;
+        }
+	#header p {
+		padding:.4em 0 0 0;
+                color: white;
+		margin:0;
+                vertical-align: middle;
+	}
+	.colmask {
+		position:relative;	/* This fixes the IE7 overflow hidden bug */
+		clear:both;
+		float:left;
+		width:100%;			/* width of whole page */
+		overflow:hidden;		/* This chops off any overhanging divs */
+                height: 100%
+	}
+	/* common column settings */
+	.colright,
+	.colmid,
+	.colleft {
+		float:left;
+		width:100%;			/* width of page */
+		position:relative;
+	}
+	.col1,
+	.col2,
+	.col3 {
+		float:left;
+		position:relative;
+		padding:0 0 5px 0;	/* no left and right padding on columns, we just make them narrower instead
+						only padding top and bottom is included here, make it whatever value you need */
+		overflow:hidden;
 
-.top_stripe {
-        background-color: #262626;
-        color: white;
-}
-.top_stripe img {
-    margin-top: 2px;
-    margin-bottom: 0px;
-}
-.mid_stripe {
-    background-image: url(/images/bg_grey_fade_vert.png);
-    background-position: top;
-    background-repeat: repeat-x;
-    border-top: lightgray solid 1px;
-}
+	}
+	/* 3 Column settings */
+	.threecol {
+				/* right column background colour */
+	}
+	.threecol .colmid {
+		right:25%;			/* width of the right column */
+				/* center column background colour */
+	}
+	.threecol .colleft {
+		right:50%;			/* width of the middle column */
+			/* left column background colour */
+	}
+	.threecol .col1 {
+		width:46%;			/* width of center column content (column width minus padding on either side) */
+		left:102%;			/* 100% plus left padding of center column */
+	}
+	.threecol .col2 {
+		width:21%;			/* Width of left column content (column width minus padding on either side) */
+		left:31%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+	}
+	.threecol .col3 {
+		width:21%;			/* Width of right column content (column width minus padding on either side) */
+		left:85%;			/* Please make note of the brackets here:
+						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
+	}
+	/* Footer styles */
+	#footer {
+		clear:both;
+		float:left;
+		width:100%;
+	}
+	#footer p {
+		padding:10px;
+		margin:0;
+	}
 /*other basic elements, with associated classes*/
-body, ol, ul {
-  font-family: arial, helvetica, sans-serif;
-  background-color: white;
-      margin: 0px;
-}
 p {
   font-size: 11px;
 }
@@ -135,6 +174,11 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
 
 .text_emphasizer {
     color: #F40026;
+}
+
+.title_operator {
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 
@@ -415,4 +459,3 @@ input#user_submit {
     padding-top: 5px;
 	margin-bottom: 10px;
 }
-

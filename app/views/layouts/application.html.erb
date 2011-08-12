@@ -15,45 +15,58 @@
 	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-
-<div id="container">
-  <table class="main" width = "100%">
-  <tr class="top_stripe">
-    <td><%= link_to image_tag('/images/wakinga_logo.png', :border => 0, :class => 'wakinga_logo'), root_path %></td>
-    <td>
-      <%= yield :middletop %>
-
-                <% flash.each do |name, msg| %>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
-        <% end %>
-    </td>
-    <td class="top_right">
-      <% if user_signed_in? %>
-          Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
-          <%= link_to "Sign out", destroy_user_session_path %>
-        <% else %>
-          <%= link_to "Sign up", new_user_registration_path %>
-          <%# "New registrations are disabled, let me know at " %>
-          <%# link_to "spontain@gmail.com", 'mailto:spontain@gmail.com' %>
-
-        <% end %>
-
-      
-    </td>
-  </tr>
-  <tr class="mid_stripe">
-    <%# yields for page components, use content_for to fill %>
-    <td class="leftside"><%= yield :leftside %></td>
-    <td class="middle">
-
-<%= yield %></td>
-    <td class="rightside"><%= yield :rightside %></td>
-  </tr>
-  </table>
-<%# main yield for anything without content_for %>
-  <%= yield :bottom %>
-      </div>
-    <p class="footer" align="left">© 2011 by Spontain</p>
-    <div id="paramsinspect"><%# params.inspect %></div>
-	</body>
+<div class="colmask threecol" id="header">
+	<div class="colmid">
+		<div class="colleft">
+			<div class="col1">
+				<!-- Column 1 start -->
+                                  <%= yield :middletop %>
+                                  <% flash.each do |name, msg| %>
+                                    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+                                  <% end %>
+				<!-- Column 1 end -->
+			</div>
+			<div class="col2">
+				<!-- Column 2 start -->
+                                <%= link_to image_tag('/images/wakinga_logo.png', :border => 0, :class => 'wakinga_logo'), root_path %>
+				<!-- Column 2 end -->
+			</div>
+			<div class="col3">
+				<!-- Column 3 start -->
+                                <% if user_signed_in? %>
+                                  <p>Signed in as <strong><%# link_to current_user.email, edit_user_registration_path(current_user) %><%= current_user.email %></strong>. Not you?
+                                  <%= link_to "Sign out", destroy_user_session_path %></p>
+                                <% else %>
+                                  <p><%= link_to "Sign up", new_user_registration_path %></p>
+                                <% end %>
+				<!-- Column 3 end -->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="colmask threecol">
+	<div class="colmid">
+		<div class="colleft">
+			<div class="col1">
+				<!-- Column 1 start -->
+                                <%= yield %>
+				<!-- Column 1 end -->
+			</div>
+			<div class="col2">
+				<!-- Column 2 start -->
+                                <%= yield :leftside %>
+				<!-- Column 2 end -->
+			</div>
+			<div class="col3">
+				<!-- Column 3 start -->
+                                <%= yield :rightside %>
+				<!-- Column 3 end -->
+			</div>
+		</div>
+	</div>
+</div>
+<div id="footer">
+	<p>@2011</p>
+</div>
+</body>
 </html>

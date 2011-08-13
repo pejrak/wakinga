@@ -1,6 +1,15 @@
 show all interests without fabric
 SELECT * FROM interests where not exists (select * from beads_interests where interests.id = beads_interests.interest_id)
 
+show all beads without beadfabric
+SELECT * FROM beads where not exists (select * from beads_interests where beads.id = beads_interests.bead_id)
+
+show all beads with incorrect beadfabric
+SELECT * FROM beads_interests where not exists (select * from beads where beads.id = beads_interests.bead_id)
+
+show all beads with incorrect beadfabric
+SELECT * FROM beads_posts where not exists (select * from beads where beads.id = beads_posts.bead_id)
+
 
 DELETE FROM interests where not exists (select * from beads_interests where interests.id = beads_interests.interest_id)
 

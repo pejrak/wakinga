@@ -142,8 +142,8 @@ before_filter :authenticate_user!
 
    def adopt
      @interest = Interest.find(params[:id])
-     @adopted_interest = Interest.new(:user_id => current_user.id, :title => "Adopted interest - rename", :last_visit_at => Time.now)
-#     @adopted_interest.beads = @interest.beads
+     @adopted_interest = Interest.new(:user_id => current_user.id, :title => "Adopted interest - rename", :last_visit_at => Time.now, :i_private => false)
+     @adopted_interest.beads = @interest.beads
      if @adopted_interest.save
        flash[:notice] = 'The interest was adopted.'
      else flash[:notice] = 'Something went wrong.'
@@ -156,7 +156,6 @@ before_filter :authenticate_user!
 
   def preview
     @interest = Interest.find(params[:id])
-    
     @sharing_user_ids = @interest.users_sharing_the_same_interest.uniq
     @shared_by_this_many_users = @sharing_user_ids.size
 

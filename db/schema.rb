@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110811164836) do
+ActiveRecord::Schema.define(:version => 20110813183142) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(:version => 20110811164836) do
     t.boolean  "parent_bead"
   end
 
-  create_table "beads_interests", :id => false, :force => true do |t|
+  create_table "beads_interests", :force => true do |t|
     t.integer "interest_id"
     t.integer "bead_id"
   end

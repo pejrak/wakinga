@@ -32,9 +32,9 @@ class TrustsController < ApplicationController
     if @offered_trust.interest.compare_beads_with_other_interests(current_user.interests).present?
       binding_interest = @offered_trust.interest.compare_beads_with_other_interests(current_user.interests).first
     else
-      binding_interest = Interest.new(:title => interest_offered.title + " - from trust with #{@offered_trust.trustor.username}", :user_id => @offered_trust.trustee_id)
+      binding_interest = Interest.new(:title => "Trusted to: #{@offered_trust.trustor.username}", :user_id => @offered_trust.trustee_id)
       binding_interest.beads = interest_offered.beads
-      if binding_interest.save
+      if binding_interest.save(false)
         flash[:notice] = "Adopted interest #{binding_interest.title} through the newly confirmed trust."
       else
         flash[:notice] = "Something went wrong when adopting interest."

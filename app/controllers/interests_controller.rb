@@ -3,7 +3,7 @@ before_filter :authenticate_user!
   # GET /interests
   # GET /interests.xml
   def index
-	@interests = current_user.interests.order(post_count)
+#	@interests = current_user.interests.order(post_count)
     redirect_to root_path
 	end
   
@@ -142,7 +142,7 @@ before_filter :authenticate_user!
 
    def adopt
      @interest = Interest.find(params[:id])
-     @adopted_interest = Interest.new(:user_id => current_user.id, :title => @interest.title + ' - ADOPTED', :last_visit_at => Time.now)
+     @adopted_interest = Interest.new(:user_id => current_user.id, :title => "Adopted from #{@interest.user.username}", :last_visit_at => Time.now)
      @adopted_interest.beads = @interest.beads
      if @adopted_interest.save
        flash[:notice] = 'The interest was adopted.'

@@ -1,0 +1,8 @@
+show all interests without fabric
+SELECT * FROM interests where not exists (select * from beads_interests where interests.id = beads_interests.interest_id)
+
+
+DELETE FROM interests where not exists (select * from beads_interests where interests.id = beads_interests.interest_id)
+
+show all trusts without interests assigned
+select * FROM trusts where not exists (select * from interests where interests.id = trusts.interest_id)

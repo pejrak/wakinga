@@ -10,6 +10,12 @@ $(document).ready(function() {
     $('.hider').click(function() {
       $('.content_'+$(this).attr('id')).toggle();
   });
+
+  $("#search").keyup(function() {
+    var search_criteria = $("#search").serialize()
+    $.getScript("/beads.js?"+search_criteria);
+  });
+
   //interest preview effects
     $(".preview_slot").hover(
       function () {
@@ -40,8 +46,5 @@ $(document).ready(function() {
 });
 
 $(function() {
-  $("#beads_search input").keyup(function() {
-    var search_criteria = $("#beads_search").serialize()
-    $.getScript("/beads.js?search="+search_criteria)
-  });
+
 });

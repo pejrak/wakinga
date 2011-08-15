@@ -5,7 +5,9 @@ before_filter :authenticate_user!, :except => [:new, :edit, :create, :update, :d
   def index
     @beads = Bead.search(params[:search])
     respond_to do |format|
+
       format.html
+      format.js
       format.xml  { render :xml => @beads }
     end
   end

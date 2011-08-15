@@ -32,7 +32,7 @@
 
   <h3>search and add beads:</h3>
 
-  <%= form_tag @search, :method => 'get', :id => 'beads_search' do %>
+  <%= form_for edit_interest_path, :method => 'get', :id => 'beads_search' do %>
     <p>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Search", :name => nil %>

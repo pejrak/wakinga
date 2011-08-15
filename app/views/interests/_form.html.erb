@@ -32,22 +32,26 @@
 
   <h3>search and add beads:</h3>
 
-  <%= form_tag edit_interest_path(@interest), :method => 'get' do %>
+  <%= form_tag @search, :method => 'get', :id => 'beads_search' do %>
     <p>
-      <%= text_field_tag :search %>
+      <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Search", :name => nil %>
     </p>
+	<div id="dynamic_beads"></div>
   <% end %>
 
   <% if @beads.nil? then %>
-      <%= 'enter search criteria' %><br /><br />
+      <%= 'enter search criteria' %>
+    <br />
   <% else %>
+    
     <i><%= 'click the bead to add it to the current interest' %> </i>
-        <% @beads.each do |loadbead| %>
+    <div id="dynamic_beads">    
+    <% @beads.each do |loadbead| %>
         <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.beads_posts_count) %> posts )</h3>
         <%= h(loadbead.description) %>
 
-    <% end %><br /><br />
+    <% end %><br /></div>
   <% end %>
 
 <% if @interest.beads.present? %>

@@ -30,7 +30,7 @@
 	<% end %>
 </div>
 
-	<% if current_user.authentications %>
+	<% if current_user.authentications.present? %>
           <%= content_tag(:h2, 'linked connections') %>
 		<% for authentication in current_user.authentications %>
 			<div class="authentication">

@@ -34,11 +34,8 @@ before_filter :authenticate_user!
   end
 
   def new
-
     @interest = Interest.new
     @interest.title = 'new interest'
-    @parent_beads = Bead.where(:parent_bead => true)
-    @beads = Bead.search(params[:search]) - @parent_beads
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @interest }
@@ -49,7 +46,8 @@ before_filter :authenticate_user!
     @interest = Interest.find(params[:id])
     if @interest.user == current_user
       @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
-      @beads = Bead.search(params[:search]) - @parent_beads - @interest.beads
+      @search = Bead.search(params[:search])
+      @beads = @search - (@parent_beads + @interest.beads)
     else
         redirect_to :back
         flash[:notice] = 'That is not your interest.'

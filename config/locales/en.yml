@@ -3,9 +3,11 @@
 
 en:
   hello: "Hello world"
-
+  note:
+    user_preference_options: "<i>Options</i>\n Notifications will contain information on the new and live messages per interest you have under your mind profile. There will be no email when there are not new or live messages in your interest. \n <strong>Daily:</strong> Means you will get a daily email.\n <strong>Weekly:</strong> Means you will get a weekly email on Tuesday."
 activemodel:
   attributes:
     user:
       login: "Username or email"
+  
 

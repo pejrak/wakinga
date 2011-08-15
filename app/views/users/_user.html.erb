@@ -3,10 +3,15 @@
 <span class="user_details">member since: <i><%= time_ago_in_words(user.created_at) %> ago</i><br />
 posts: <i><%= user.posts.count %></i><br />
 memorized/(by others): <i><%= user.good_memories.count %>/<%= user.good_memories_by_others.count %></i><br />
-burnt/(by others): <i><%= user.burned_memories.count %>/<%= user.burned_memories_by_others.count %></i><br />
+burnt/(by others): <i><%= user.burned_memories.count %>/<%= user.burned_memories_by_others.count %></i>
+<br />
+<% if user == current_user %>
+
 <% if current_user.user_preference %>
   <%= link_to('update preferences', current_user.user_preference) %>
 <% else %>
   <%= link_to('create preferences', new_user_preference_path) %>
+<% end %>
+
 <% end %>
 </span>

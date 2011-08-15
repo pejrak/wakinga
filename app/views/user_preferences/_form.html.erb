@@ -8,5 +8,7 @@
     <%= f.label :messages_per_page %><br />
     <%= f.collection_select :messages_per_page, UserPreference::MESSAGE_PER_PAGE_OPTIONS, :to_i, :to_i %>
   </p>
-  <p><%= f.submit %></p>
+  <p><%= f.submit 'Update' %></p>
 <% end %>
+
+<%= simple_format(t("note.user_preference_options")) %>

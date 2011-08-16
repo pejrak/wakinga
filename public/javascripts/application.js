@@ -12,8 +12,12 @@ $(document).ready(function() {
   });
 
   $("#search").keyup(function() {
-    var search_criteria = $("#search").serialize()
-    $.getScript("/beads.js?"+search_criteria);
+    var search_criteria = $("#search").serialize();
+    var key_count = (search_criteria.length - 7);
+    var interest_id = $("#dynamic_beads").attr("data-id")
+    if (key_count > 1) {
+        $.getScript("/beads.js?"+search_criteria+"&interest_id="+interest_id);
+    }
   });
 
   //interest preview effects
@@ -43,8 +47,4 @@ $(document).ready(function() {
     );
 
     $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
-});
-
-$(function() {
-
 });

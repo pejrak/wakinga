@@ -333,6 +333,11 @@ a:hover { color: #fff; background-color:red; text-decoration: none; }
     background-color: #011d62;
     color: white;
 }
+#dynamic_beads {
+    margin-bottom: 20px;
+    background-color: #b0f097;
+    padding: 3px;
+}
 
 #notice {
   color: red;

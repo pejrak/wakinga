@@ -35,31 +35,21 @@
   <%= form_for edit_interest_path, :method => 'get', :id => 'beads_search' do %>
     <p>
       <%= text_field_tag :search, params[:search] %>
-      <%= submit_tag "Search", :name => nil %>
+      <%# submit_tag "Search", :name => nil %>
     </p>
-	<div id="dynamic_beads"></div>
+    <div id="dynamic_beads" data-id="<%= @interest.id %>"><%= 'enter search criteria' %></div>
   <% end %>
 
-  <% if @beads.nil? then %>
-      <%= 'enter search criteria' %>
-    <br />
-  <% else %>
     
-    <i><%= 'click the bead to add it to the current interest' %> </i>
-    <div id="dynamic_beads">    
-    <% @beads.each do |loadbead| %>
-        <h3><%= link_to(loadbead.title, :action => 'add_single_bead', :bead_id => loadbead.id) %> ( <%= h(loadbead.beads_posts_count) %> posts )</h3>
-        <%= h(loadbead.description) %>
 
-    <% end %><br /></div>
-  <% end %>
+
 
 <% if @interest.beads.present? %>
     <%= content_for :leftside do %>
       <h2>suggestions</h2>
       <p>based on your bead selection, you could adopt some of these popular combinations</p>
       <% if @interest.beads.size == 1 %>
-        <h3><%= link_to ('top 2 bead combinations', '#', :remote => true, :class => 'slider', :id => 'two_bead_combinations') %></h3>
+        <h3><%= link_to('top 2 bead combinations', '#', :remote => true, :class => 'slider', :id => 'two_bead_combinations') %></h3>
 	<div class="content_two_bead_combinations" style="display:none">
 	<p>containing: <%= @interest.beads.first.title %></p>	
 	<% @interest.nearest_beads.each do |matching_bead| %>
@@ -68,7 +58,7 @@
 	
 	<% end %>
 	</div>
-	<h3><%= link_to ('top 3 bead combinations', '#', :remote => true, :class => 'slider', :id => 'three_bead_combinations') %></h3>
+	<h3><%= link_to('top 3 bead combinations', '#', :remote => true, :class => 'slider', :id => 'three_bead_combinations') %></h3>
 	<div class="content_three_bead_combinations" style="display:none">
 	<p>containing: <%= @interest.beads.first.title %></p>
 	<% @interest.nearest_beads_combination(3).each do |match_combo| %>
@@ -79,7 +69,7 @@
 
 <%# 4beads %>
 
-	<h3><%= link_to ('top 4 bead combinations', '#', :remote => true, :class => 'slider', :id => 'four_bead_combinations') %></h3>
+	<h3><%= link_to('top 4 bead combinations', '#', :remote => true, :class => 'slider', :id => 'four_bead_combinations') %></h3>
 	<div class="content_four_bead_combinations" style="display:none">
 	<p>containing: <%= @interest.beads.first.title %></p>
 	<% @interest.nearest_beads_combination(4).each do |match_combo| %>

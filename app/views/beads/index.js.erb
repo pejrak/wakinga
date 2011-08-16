@@ -1,1 +1,6 @@
-$("#dynamic_beads").html("<p>Loading...</p>")
+<% unless @beads.empty? %>
+$("#dynamic_beads").html("<i><%=raw escape_javascript('click the bead to add it to the current interest') %></i>");
+$("#dynamic_beads").append("<%=raw escape_javascript(render(:partial => 'shared/searched_bead', :collection => @beads, :locals => {:interest_id => @interest.id})) %>");
+<% else %>
+$("#dynamic_beads").html("<i><%=raw escape_javascript('no result found') %></i>");
+<% end %>

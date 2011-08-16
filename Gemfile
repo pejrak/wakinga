@@ -3,11 +3,11 @@ source 'http://rubygems.org'
 gem 'rails'
 gem 'devise', "~>1.4.2"
 gem 'recaptcha', :require => 'recaptcha/rails'
-gem 'mysql2', "0.2.7", :group => :development
+gem 'mysql2', "0.2.6", :group => :development
 gem "nifty-generators", :group => :development
 gem 'pg', :group => :production
 #gem 'kaminari'
-gem 'taps'
+gem 'taps', :group => :development
 gem 'omniauth'
 
 # :development do

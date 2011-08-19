@@ -8,5 +8,5 @@ Mindbase::Application.initialize! do |config|
 # config.gem 'warden'
 # config.gem 'devise'
 
-  config.gem 'nokogiri'
+  #config.gem 'nokogiri'
 end

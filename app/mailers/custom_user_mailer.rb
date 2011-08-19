@@ -1,7 +1,7 @@
 class CustomUserMailer < ActionMailer::Base
-  #default :reply_to => "admin@wakinga.com"
-  #default :from => 'admin@wakinga.com'
-  #default_url_options[:host] = request.host
+  default :reply_to => 'admin@wakinga.com'
+  default :from => 'admin@wakinga.com'
+  #default_url_options[:host] = 'wakinga.com'
 
   def send_summary(user)
     @user = user
@@ -11,8 +11,8 @@ class CustomUserMailer < ActionMailer::Base
       @preload_messages << i.dynamic_post_content(1.day.ago, @user).map(&:id)
     end
     @messages = Post.find_all_by_id(@preload_messages.uniq)
-    if @messages.present?
-      mail(:to => @user.email, :subject => 'Wakinga daily.', :reply_to => 'admin@wakinga.com', :from => 'admin@wakinga.com')
+    if @messages.size > 0
+      mail(:to => @user.email, :subject => 'Wakinga daily.')
     end
   end
 

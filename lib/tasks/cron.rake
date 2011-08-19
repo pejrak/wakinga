@@ -1,6 +1,7 @@
 desc "Task for distribution of wakinga daily"
 task :cron => :environment do
   User.all.each do |u|
+    if u.user_preference && u.memorizations
     if u.memorizations.count > 0 && u.user_preference.subscription_preference != 'None'
       if u.user_preference.subscription_preference == 'Daily'
         CustomUserMailer.send_summary(u).deliver
@@ -10,5 +11,6 @@ task :cron => :environment do
         end
       end
     end
+  end
   end
 end

@@ -15,18 +15,16 @@ beads: <% @interest.beads.each do |beader| %>
 <h3><%= (current_user == @interest.user)? link_to('Edit', edit_interest_path(@interest)) : (link_to('adpopt', adopt_interest_path(@interest)))  %></h3>
 
 <%= render 'posts/form' %>
-
+</div>
   
 <%#= render :partial => @interest.post_content %>
   <div class="dynamic" id="buffer" style="display: none">
   </div>
 <div class="dynamic" id="post_content" data-time="<%= @previous_visit_record.to_i %>">
-<% unless @interest.post_content(@interest.user).empty? %>
-    <%# render :partial => @interest.post_content(@interest.user) %>
+
   <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading messages...</div>
-<% end %>
 </div>
-</div>
+
 <% content_for :rightside do %>
   <%# debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>

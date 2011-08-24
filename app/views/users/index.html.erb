@@ -2,10 +2,20 @@
 	<%# render :partial => @users %>
 <% @users.each do |u| %>
   <h2><%= link_to(u.username, user_path(u)) %></h2>
-  <h3><%= link_to(u.email, 'mailto:'+u.email) %>, summary <%= link_to('send', send_summary_user_path(u))%></h3>
+  <h3><%= link_to(u.email, 'mailto:'+u.email) %>, summary <%= link_to('send', send_summary_user_path(u))%> | <%= link_to('remove', u, :method => :delete, :confirm => "Confirm.")%></h3>
+
 <% end %>
 
 <%= content_for :leftside do %>
 	<h2>Showing all admins</h2>	
 	<%= render :partial => @admins %>
+<% end %>
+
+<%= content_for :rightside do %>
+	<h2>Orphan remover</h2>
+  <%= form_for remove_user_orphans_path, :method => :put do %>
+    <%= text_field_tag :user_id %>
+    <%= submit_tag %>
+  <% end %>
+	
 <% end %>

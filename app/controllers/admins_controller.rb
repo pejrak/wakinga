@@ -14,4 +14,17 @@ class AdminsController < ApplicationController
     render '/home/admin'
   end
 
+  def remove_user_orphans
+    Interest.where(:user_id => params[:user_id]).destroy
+    Post.where(:user_id => params[:user_id]).destroy
+    Trust.where(:user_id => params[:user_id]).destroy
+    UserPreference.where(:user_id => params[:user_id]).destroy
+    Memorization.where(:user_id => params[:user_id]).destroy
+    Comment.where(:user_id => params[:user_id]).destroy
+    Registration.where(:user_id => params[:user_id]).destroy
+    Authentication.where(:user_id => params[:user_id]).destroy
+    redirect_to 'home/admin'
+  end
+
+
 end

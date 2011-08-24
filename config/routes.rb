@@ -22,6 +22,7 @@ Mindbase::Application.routes.draw do
   resources :admins
 
   match "/reset_counts" => "admins#reset_counts"
+  match "/remove_user_orphans" => "admins#remove_user_orphans"
   match "/load_with_ajax" => "home#load_with_ajax"
   match "/admin" => "home#admin"
 

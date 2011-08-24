@@ -18,7 +18,7 @@ class Trust < ActiveRecord::Base
 	end
 
 	def trusts_by_trustee_to_me
-		Trust.where(:trustee_id => trustor)
+		Trust.where(:trustor_id => trustee)
 	end
 
 end

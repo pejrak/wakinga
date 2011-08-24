@@ -3,13 +3,13 @@ $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_p
 $('.post_show').click(function() {
       $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content(@interest.user))) %>");
       $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true,@interest.user))) %>");
-      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'message')) %>");
+      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
       $(".dynamic#buffer").slideUp();
       });
 <% else %>
       $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content(@interest.user))) %>");
       $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true,@interest.user))) %>");
-      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s + ' new ', 'message')) %>");
+      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
       $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory')) %>");
 <% end %>
   if ($(".activated_post").length > 0) {

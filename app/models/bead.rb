@@ -21,7 +21,7 @@ has_many :users, :through => :interests
 
   def self.search(search)
     if search
-      find(:all, :limit => 30, :conditions => ['title LIKE ? or description LIKE ?', "%#{search}%", "%#{search}%"], :order => 'beads_posts_count DESC')
+      find(:all, :limit => 30, :conditions => ['UPPER(beads.title) = UPPER(?) or UPPER(beads.description) = UPPER(?)', "%#{search}%", "%#{search}%"], :order => 'beads_posts_count DESC')
     else
       find(:all, :limit => 10, :order => 'beads_posts_count DESC' )
     end

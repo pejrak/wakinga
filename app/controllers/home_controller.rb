@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   end
 
   def admin
-    render :layout => 'administrative'
+
   end
 
   def load_with_ajax
@@ -18,9 +18,9 @@ class HomeController < ApplicationController
       @loaded_content = Bead.order("created_at DESC").limit(10)
     elsif @load_type == 'top_beads_overall'
       @loaded_content = Bead.find(:all,
-      :select => 'id, title, description, count(distinct beads_posts.post_id) AS post_counter',
+      :select => 'beads.id, title, description, count(distinct beads_posts.post_id) AS post_counter',
       :joins => :beads_posts,
-      :group => ['id','title','description'],
+      :group => ['beads.id','title','description'],
       :order => 'post_counter DESC',
       :limit => 10
     )

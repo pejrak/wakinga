@@ -19,4 +19,11 @@ class UsersController < ApplicationController
     render '/home/admin'
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = "Removed user."
+    redirect_to users_url
+  end
+
 end

@@ -5,9 +5,9 @@ $(document).ready(function() {
     $("#new_post").submitWithAjax();
       //post preview effects
     $(function() {
-      if ($(".dynamic#post_content").length > 0) {
-        setTimeout(updatePosts, 0);
-      }
+//      if ($(".dynamic#post_content").length > 0) {
+        setTimeout(updatePosts, 1000);
+//      }
     });
     $(function() {
       $(".activated_post_container").jScroll();
@@ -17,11 +17,11 @@ $(document).ready(function() {
 function updatePosts() {
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#post_content").attr("data-time");
-  if ($(".post").length > 0) {
-    var after = $(".post:first-child").attr("data-time");
-  } else {
-    var after = "0";
-  }
+//  if ($(".post").length > 0) {
+    var after = $(".post:first").attr("data-time");
+//  } else {
+//    var after = "0";
+//  }
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false" + "&previous_visit_record=" + previous_visit);
   setTimeout(updatePosts, 10000);
 

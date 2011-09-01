@@ -9,6 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
         matchup = @user.interests.where(:title => i.title).first
         matchup.beads = i.beads
         matchup.last_visit_at = Time.now
+	matchup.save
       end
 
     else

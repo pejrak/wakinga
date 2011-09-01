@@ -18,10 +18,8 @@ beads: <% @interest.beads.each do |beader| %>
 </div>
   
 <%#= render :partial => @interest.post_content %>
-  <div class="dynamic" id="buffer" style="display: none">
-  </div>
+  <div class="dynamic" id="buffer" style="display: none"></div>
 <div class="dynamic" id="post_content" data-time="<%= @previous_visit_record.to_i %>">
-
   <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading messages...</div>
 </div>
 

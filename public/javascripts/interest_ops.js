@@ -16,7 +16,7 @@ $(document).ready(function() {
 
 function updatePosts() {
   var interest_id = $("#interest").attr("data-id");
-  var previous_visit = $(".dynamic#post_content").attr("data-time");
+  var previous_visit = $(".dynamic#postcontent").attr("data-time");
 //  if ($(".post").length > 0) {
     var after = $(".post:first").attr("data-time");
 //  } else {
@@ -42,7 +42,7 @@ jQuery.fn.submitWithAjax = function() {
 
 function prepPosts() {
   var interest_id = $("#interest").attr("data-id");
-  var previous_visit = $(".dynamic#post_content").attr("data-time");
+  var previous_visit = $(".dynamic#postcontent").attr("data-time");
   $("#flash_notice, #flash_error").fadeOut(10000);
   $.getScript("/posts.js?interest_id=" + interest_id + "&full_refresh=true&previous_visit_record=" + previous_visit);
 }

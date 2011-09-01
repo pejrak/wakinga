@@ -36,9 +36,9 @@ $('.post_show').click(function() {
 
     
   });
-  
+// function for refresh of the message contents  
 function refreshPosts() {
-      $(".dynamic#post_content").html("<%=raw escape_javascript(render(@interest.post_content(@interest.user))) %>");
+      $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@interest.post_content(@interest.user))) %>");
       $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true,@interest.user))) %>");
       $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
 }

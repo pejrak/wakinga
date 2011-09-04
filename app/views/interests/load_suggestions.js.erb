@@ -1,0 +1,6 @@
+$(".suggestions").toggle();
+
+
+<% if @single_suggestions.present? %>
+	$(".suggestions").html('<%=raw escape_javascript(@single_suggestions.to_s) %>');
+<% end %>

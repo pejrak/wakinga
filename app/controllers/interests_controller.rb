@@ -161,5 +161,15 @@ before_filter :authenticate_user!
       format.js
     end
   end
+  
+  def load_suggestions
+    @interest = Interest.find(params[:id])
+    if @interest.beads.size == 1
+      @single_suggestions = @interest.nearest_beads_combination(2)
+    end
+    respond_to do | format |
+      format.js
+    end
+  end
 
 end

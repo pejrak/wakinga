@@ -214,10 +214,11 @@ class Interest < ActiveRecord::Base
         :order => 'created_at DESC')
   end
 
-	def nearest_beads
-		nearest_beads_ranks = BeadsPost.find(:all, :select => 'distinct beads_posts.bead_id, count(beads_posts.post_id) as post_count', :conditions => ['beads_posts.post_id IN (?)', post_content_all(user).map(&:id)], :order => 'post_count DESC', :group => :bead_id, :limit => 10)
-		return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
-	end
+  def nearest_beads
+    nearest_beads_ranks = BeadsPost.find(:all, :select => 'distinct beads_posts.bead_id, count(beads_posts.post_id) as post_count', :conditions => ['beads_posts.post_id IN (?)', post_content_all(user).map(&:id)], :order => 'post_count DESC', :group => :bead_id, :limit => 10)
+    return Bead.where(:id => nearest_beads_ranks.map(&:bead_id)) - beads
+  end
+    
 
   def nearest_beads_combination(c_size)
     if beads.size == 1

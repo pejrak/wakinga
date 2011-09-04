@@ -4,7 +4,9 @@ before_filter :authenticate_user!, :except => [:new, :edit, :create, :update, :d
 
   def index
     @beads = Bead.search(params[:search])
-    @interest = Interest.find(params[:interest_id])
+    if params[:interest_id]
+      @interest = Interest.find(params[:interest_id])
+    end
     respond_to do |format|
 
       format.html

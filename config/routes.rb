@@ -39,7 +39,7 @@ Mindbase::Application.routes.draw do
   end
   resources :interests do
       member do
-      get 'add_single_bead', 'adopt', 'remove_single_bead', 'preview', 'add_beads'
+      get 'add_single_bead', 'adopt', 'remove_single_bead', 'preview', 'add_beads', 'load_suggestions'
     end
   end
 

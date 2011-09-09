@@ -221,7 +221,7 @@ class Interest < ActiveRecord::Base
     
 
   def nearest_beads_combination(c_size)
-    if beads.size == 1
+    if beads.size > 0
       available_beads = Bead.all.map(&:id) - beads.map(&:id)
       combinations_of_available_beads = available_beads.combination(c_size-beads.size).to_a
       combinations_with_rankings = combinations_of_available_beads.each {|c| c.insert(0,BeadsPost.find(:all, :select => ['DISTINCT post_id'], :group => 'post_id', :conditions => ["bead_id IN (?)", c + beads.map(&:id)], :having => ['count(distinct bead_id) = ?', c_size]).count)}

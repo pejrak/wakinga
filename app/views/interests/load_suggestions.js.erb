@@ -1,6 +1,4 @@
 $(".suggestions").toggle();
-
-
 <% if @single_suggestions.present? %>
-	$(".suggestions").html('<%=raw escape_javascript(@single_suggestions.to_s) %>');
+	$(".suggestions").html("<h2>+1 suggestions</h2><% @single_suggestions.drop(1).each do |match_combo| %><h3><%=raw escape_javascript link_to(image_tag('/images/add.png', :border => 0), :action => 'add_beads', :bead_ids => match_combo.drop(1)) %>	and <%= h(Bead.find_by_id(match_combo.fetch(1)).title) %><span class='text_emphasizer'>(<%= match_combo.fetch(0) %>)</span></h3><% end %>");
 <% end %>

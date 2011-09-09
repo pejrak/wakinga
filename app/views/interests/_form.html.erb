@@ -46,44 +46,20 @@
 
 <% if @interest.beads.present? %>
     <%= content_for :leftside do %>
-    <h2>suggestions</h2>
-      <p>based on your bead selection, you could adopt some of these popular combinations</p>
-      <% if @interest.beads.size == 1 %>
-        <h3><%= link_to('top 2 bead combinations', load_suggestions_interest_path(@interest), :remote => true) %></h3>
-
-		<h3><%= link_to('top 3 bead combinations', load_suggestions_interest_path(@interest), :remote => true) %></h3>
-		<div class="suggestions" style="display:none;">
-		</div>
-
-<%# 4beads %>
-
-	<h3><%= link_to('top 4 bead combinations', '#', :remote => true, :class => 'slider', :id => 'four_bead_combinations') %></h3>
-	<div class="content_four_bead_combinations" style="display:none">
-
-	</div>
-      <% elsif @interest.beads.size == 2 %>
-        <h3>top 3 bead combinations containing <%= @interest.beads.first.title %> and <%= @interest.beads.last.title %> </h3>
-	<% @interest.nearest_beads.each do |matching_bead| %>
-		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
-		and <%= h(matching_bead.title) %> <span class="text_emphasizer">(<%= @interest.estimated_post_count(matching_bead) %>)</span></h3>
-	<% end %>
-      <% elsif @interest.beads.size == 3 %>
-        <h3>top 4 bead combinations containing 
-        <% @interest.beads.each do |ib| %> <%= ib.title %> and
-        <% end %> </h3>
-	<% @interest.nearest_beads.each do |matching_bead| %>
-		<h3><%= link_to(image_tag('/images/add.png', :border => 0), :action => 'add_single_bead', :bead_id => matching_bead.id) %>
-		<%= h(matching_bead.title) %> <span class="text_emphasizer">(<%= @interest.estimated_post_count(matching_bead) %>)</span></h3>
-	<% end %>
-      <% end %>
-
-        
-    <% end %>
-  <%= content_for :rightside do %>
-    <% if @interest.other_matching_interests.present? %>
+      <% if @interest.other_matching_interests.present? %>
         <h2>you already have it!</h2>
         <%= render :partial => @interest.other_matching_interests %>
+      <% end %>
+
+
+  <% if @interest.beads.size > 0 && @interest.beads.size < 4 %>
+    <h3><%= link_to('show suggestions', load_suggestions_interest_path(@interest), :remote => true) %></h3>
+      <p>based on your bead selection, you could adopt some of these popular combinations</p>      
+      <% end %>
+    <div class="suggestions" style="display:none;"><img src='/images/loader.gif'/> Loading suggestions...</div>        
     <% end %>
+  <%= content_for :rightside do %>
+
 
     <% if @interest.users_sharing_the_same_interest.present? %>
         <h2>there is <%= pluralize(@interest.users_sharing_the_same_interest.size, 'mind') %> sharing this interest</h2>

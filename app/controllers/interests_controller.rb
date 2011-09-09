@@ -164,8 +164,11 @@ before_filter :authenticate_user!
   
   def load_suggestions
     @interest = Interest.find(params[:id])
-    if @interest.beads.size == 1
-      @single_suggestions = @interest.nearest_beads_combination(2)
+    selection_size = @interest.beads.size
+    if selection_size > 0
+      (selection_size < 4)? @single_suggestions = @interest.nearest_beads_combination(selection_size + 1) : @single_suggestions = nil
+      (selection_size < 3)? @double_suggestions = @interest.nearest_beads_combination(selection_size + 2) : @double_suggestions = nil
+      (selection_size < 2)? @triple_suggestions = @interest.nearest_beads_combination(selection_size + 3) : @triple_suggestions = nil
     end
     respond_to do | format |
       format.js

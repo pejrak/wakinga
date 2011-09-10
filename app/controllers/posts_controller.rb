@@ -8,7 +8,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @dynamic_posts = []
     elsif params[:full_refresh] == 'false'
       (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 1
-      @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
+      @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user).paginate(:per_page=> 30, :page => params[:page])
     end
   end
 

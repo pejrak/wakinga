@@ -6,6 +6,7 @@ gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'mysql2', "0.2.6", :group => :development
 gem "nifty-generators", :group => :development
 gem 'pg', :group => :production
+gem 'will_paginate', "~>3.0.0"
 #gem 'kaminari'
 gem 'taps', :group => :development
 gem 'omniauth'

@@ -2,7 +2,7 @@
 	<%# render :partial => @users %>
 <% @users.each do |u| %>
   <h2><%= link_to(u.username, user_path(u)) %></h2>
-  <h3><%= link_to(u.email, 'mailto:'+u.email) %>, summary <%= link_to('send', send_summary_user_path(u))%> | <%= link_to('remove', u, :method => :delete, :confirm => "Confirm.")%></h3>
+  <h3><%= link_to(u.email, 'mailto:'+u.email) %>, summary <%= link_to('send', send_summary_user_path(u))%> | <%= link_to('remove', u, :method => :delete, :confirm => "Confirm.") %></h3>
 
 <% end %>
 

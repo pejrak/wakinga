@@ -3,9 +3,11 @@
 <%= content_for :middletop do %>
   <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
 <% end %>
-
+<%= debug(session) %>
 <%= content_for :tabs do %>
-<div class="interest_tab"><span class="interest_tab_title"><%= link_to_unless_current @interest.title, @interest %></span></div>
+  <% session[:loaded_interests].each do |i| %>
+    <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to_unless_current Interest.find(i).title, Interest.find(i) %></span></div>
+  <% end %>
 <% end %>
 
 

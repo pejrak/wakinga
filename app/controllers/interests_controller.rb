@@ -17,7 +17,16 @@ before_filter :authenticate_user!
     if current_user == @interest.user
       @interest.update_attribute(:last_visit_at, Time.now)
     end
-    
+    if session[:loaded_interests].present?
+      session[:loaded_interests].each {|i| (Interest.where(:id=>i)==nil)? (session[:loaded_interests].delete(i)):"" }
+      (session[:loaded_interests].size > 5)? session[:loaded_interests].drop(1) : ""
+      unless session[:loaded_interests].include?(@interest.id)
+        session[:loaded_interests] << @interest.id
+      end
+    else
+      session[:loaded_interests] = []
+      session[:loaded_interests] << @interest.id
+    end
 #feed inclusion
 #if @interest.feed_url.present?
 #  doc = Nokogiri::XML(open(@interest.feed_url))

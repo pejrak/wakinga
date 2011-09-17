@@ -3,7 +3,7 @@
 <%= content_for :middletop do %>
   <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
 <% end %>
-<%= debug(session) %>
+<%# debug(session) %>
 <%= content_for :tabs do %>
   <% session[:loaded_interests].each do |i| %>
     <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to_unless_current Interest.find(i).title, Interest.find(i) %></span></div>
@@ -13,12 +13,12 @@
 
 <div id="interest" data-id="<%= @interest.id %>">
   <%# debug(@previous_visit_record) %>
-  <h2 class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s, 'message') %></h2>
+<br />  
 <%= (current_user == @interest.user)? link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(@interest)) : (link_to('adpopt', adopt_interest_path(@interest)))  %> beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
 
-<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %></h2>
+<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <%= pluralize(@interest.post_content(@interest.user).size.to_s, 'message') %></h2>
   <div class="content_create_message" style="display:none">
     <%= render 'posts/form' %>
   </div>

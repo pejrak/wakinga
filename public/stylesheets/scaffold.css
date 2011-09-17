@@ -22,7 +22,7 @@
         }
 	#header p {
 		padding:.4em 0 0 0;
-                color: white;
+                color: #FFF;
 		margin:0;
                 vertical-align: middle;
 	}
@@ -115,7 +115,7 @@ h3 {
 }
 h2 {
   
-  color: dimgray ;
+  color: #585858;
   margin-bottom: 5px;
   margin-top: 10px;
   font-size: 18px;
@@ -130,10 +130,10 @@ h1 {
   font-style: italic;
 }
 .heading_subtelize {
-    color: gray;
+    color: #585858;
 }
 h1 a {
-    color: white;
+    color: #FFF;
 }
 div {
   padding-bottom: 0;
@@ -146,7 +146,7 @@ div.field, div.actions {
 }
 
 div#paramsinspect {
-  color: blue;
+  color: #013ADF;
 }
 pre {
   background-color: #eee;
@@ -243,15 +243,15 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 .post_foot {
-    color: lightslategray;
+    color: #BDBDBD;
     margin-bottom: 0px;
     margin-top: 10px;
 }
 .posts_new_dynamic {
-    background-color: aliceblue;
+    background-color: #BDBDBD;
 }
 .post_activator {
-    background-color: lightgray;
+    background-color: #BDBDBD;
     color: #262626;
     font-size: 15px;
     padding: 4px 2px;
@@ -309,7 +309,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 /*    background-color: #b7ffb4;*/
 }
 .comment_indentor {
-    background-color:lightgray;
+    background-color:#BDBDBD;
     width: 4px;
     height: 10px;
     float: left;
@@ -367,7 +367,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 #notice {
-  color: red;
+  color: #F40026;
 }
 #flash_notice {
     color: #F40026;
@@ -375,13 +375,13 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .field_with_errors {
   padding: 2px;
-  background-color: red;
+  background-color: #F83251;
   display: table;
 }
 
 #error_explanation {
   width: 450px;
-  border: 2px solid red;
+  border: 2px solid #F83251;
   padding: 7px;
   padding-bottom: 0;
   margin-bottom: 20px;
@@ -408,8 +408,8 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 /*form styling*/
 
 input, select, textarea {
-  border: 2px solid lightgray;
-  background-color: white;
+  border: 2px solid #BDBDBD;
+  background-color: #FFF;
 }
 
 input#user_submit {

@@ -12,14 +12,19 @@ before_filter :authenticate_user!
   # GET /interests/1.xml
   def show
 #    require 'open-uri'
+
     @interest = Interest.find(params[:id])
     @previous_visit_record = @interest.last_visit_at
     if current_user == @interest.user
       @interest.update_attribute(:last_visit_at, Time.now)
     end
     if session[:loaded_interests].present?
-      session[:loaded_interests].each {|i| (Interest.where(:id=>i)==nil)? (session[:loaded_interests].delete(i)):"" }
-      (session[:loaded_interests].size > 5)? session[:loaded_interests].drop(1) : ""
+    #put cookie stored interests 
+    inter_load = session[:loaded_interests]
+    session[:loaded_interests] = []
+    # purify the cookied interests that are not found
+    inter_load.each {|i| (Interest.where(:id=>i)==[])? (inter_load.delete(i)) : ""}
+    (inter_load.size > 5)? (session[:loaded_interests] = inter_load.drop(1)) : (session[:loaded_interests] = inter_load)
       unless session[:loaded_interests].include?(@interest.id)
         session[:loaded_interests] << @interest.id
       end
@@ -55,8 +60,8 @@ before_filter :authenticate_user!
     @interest = Interest.find(params[:id])
     if @interest.user == current_user
       @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
-      @search = Bead.search(params[:search])
-      @beads = @search - (@parent_beads + @interest.beads)
+#      @search = Bead.search(params[:search]) - (@parent_beads + @interest.beads)
+#      @beads = @search - (@parent_beads + @interest.beads)
     else
         redirect_to :back
         flash[:notice] = 'That is not your interest.'
@@ -108,7 +113,13 @@ before_filter :authenticate_user!
 
   def add_single_bead
     @interest = Interest.find(params[:id])
-    bead = Bead.find(params[:bead_id])
+    if params[:bead_id]
+      bead = Bead.find(params[:bead_id])
+    elsif params[:noun_id]
+      @noun = Noun.find(params[:noun_id])
+      (Bead.where('UPPER(beads.title) = UPPER(?)',@noun.title)==[])? (bead = Bead.create(:title => @noun.title.titleize, :description => 'Newly activated bead.', :parent_bead => 0)) && (@noun.update_attributes(:b_active => 1)) : (bead = Bead.where('UPPER(beads.title) = UPPER(?)',@noun.title).first)
+    end
+    
     if @interest.beads.include?(bead)
       flash[:notice] = 'The bead is already added.'
     else

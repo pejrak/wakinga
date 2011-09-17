@@ -3,10 +3,11 @@ before_filter :authenticate_admin!, :except => [:show, :index]
 before_filter :authenticate_user!, :except => [:new, :edit, :create, :update, :destroy]
 
   def index
-    @beads = Bead.search(params[:search])
     if params[:interest_id]
       @interest = Interest.find(params[:interest_id])
     end
+    @beads = Bead.search(params[:search]) - @interest.beads
+    @nouns = Noun.search(params[:search])
     respond_to do |format|
 
       format.html

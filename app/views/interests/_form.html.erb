@@ -26,7 +26,7 @@
   <h2>parent beads</h2>
 
   <% @parent_beads.each do |pb| %>
-        <h3><%= link_to(pb.title, :action => 'add_single_bead', :bead_id => pb.id) %> ( <%= h(pb.beads_posts_count) %> posts )</h3>
+        <h3><%= link_to(pb.title, :action => 'add_single_bead', :bead_id => pb.id) %> ( <%= pluralize h(pb.beads_posts_count), 'message' %> )</h3>
         <%= h(pb.description) %>
   <% end %>
 
@@ -38,6 +38,7 @@
       <%# submit_tag "Search", :name => nil %>
     </p>
     <div id="dynamic_beads" data-id="<%= @interest.id %>"><%= 'enter search criteria' %></div>
+    <div id="dynamic_nouns"></div>
   <% end %>
 
     

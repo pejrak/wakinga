@@ -16,6 +16,7 @@ class Interest < ActiveRecord::Base
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
 
 
+
   #creating named url of /interests/id-name
   #  def to_param
   #    "#{id}-#{title}"

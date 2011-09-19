@@ -12,6 +12,16 @@ $(document).ready(function() {
     $(function() {
       $(".activated_post_container").jScroll();
     });
+
+  $("#memorysearch").keyup(function() {
+    var search_criteria = $("#memorysearch").serialize();
+    var key_count = (search_criteria.length - 13);
+    var interest_id = $("#interest").attr("data-id")
+    if (key_count > 1) {
+        $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
+    }
+  });
+
 });
 
 function updatePosts() {
@@ -23,7 +33,7 @@ function updatePosts() {
 //    var after = "0";
 //  }
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
-  setTimeout(updatePosts, 10000);
+  setTimeout(updatePosts, 40000);
 
 
 }

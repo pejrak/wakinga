@@ -32,14 +32,7 @@ before_filter :authenticate_user!
       session[:loaded_interests] = []
       session[:loaded_interests] << @interest.id
     end
-#feed inclusion
-#if @interest.feed_url.present?
-#  doc = Nokogiri::XML(open(@interest.feed_url))
-#    @interest_feed = doc.xpath('//item').map do |i|
-#      {'title' => i.xpath('title').inner_text, 'description' => i.xpath('description').text}
-#    end
-#else @interest_feed = []
-#end
+
 
 	respond_to do |format|
 	  format.html # show.html.erb
@@ -191,6 +184,16 @@ before_filter :authenticate_user!
       #(selection_size < 2)? @triple_suggestions = @interest.nearest_beads_combination(selection_size + 3) : @triple_suggestions = nil
     end
     respond_to do | format |
+      format.js
+    end
+  end
+  
+  def memory_search
+    @interest = Interest.find(params[:id])
+    memory_array = @interest.memorized_post_content(true,current_user).map(&:id)
+    @search_results = Post.search(params[:memorysearch],memory_array)
+    @previous_visit_record = @interest.last_visit_at
+    respond_to do |format|
       format.js
     end
   end

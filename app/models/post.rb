@@ -11,6 +11,11 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   has_many :beads, :through => :beads_posts
   has_many :memorizations, :dependent => :destroy
   belongs_to :user
+  
+# memory search called here:
+  def self.search(search,memory_array)
+    find(:all, :limit => 11, :conditions => ['posts.id IN (?) AND UPPER(posts.content) LIKE UPPER(?)', memory_array, "%#{search}%"], :order => 'posts.updated_at DESC')
+  end
 
   def new_comments_since_last_login(user)
     comments.where('created_at > ?', user.last_sign_in_at)

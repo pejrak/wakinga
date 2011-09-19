@@ -33,7 +33,12 @@
 <% content_for :rightside do %>
   <%# debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>
-  <%#= @interest.memorized_post_content.empty? ? content_tag(:p, "No memories in this interest", :class => 'side_note') : content_tag(:h2, 'Memories') %>
+
+  <p>
+    <%= text_field_tag :memorysearch, params[:search] %>
+  </p>
+  <div class="dynamic" id="recalls">
+  </div>
   <div class="dynamic" id="memories">
     <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading memories...</div>
   </div>

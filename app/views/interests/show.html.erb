@@ -34,6 +34,7 @@
   <%# debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>
 
+  <p><i> quick memory search</i></p>
   <p>
     <%= text_field_tag :memorysearch, params[:search] %>
   </p>

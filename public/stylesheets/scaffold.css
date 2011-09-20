@@ -365,6 +365,9 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     background-color: #b0f097;
     padding: 3px;
 }
+.dynamic#recalls {
+    background-color: #F2F2F2;
+}
 
 #notice {
   color: #F40026;

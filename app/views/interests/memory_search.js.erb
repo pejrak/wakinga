@@ -2,7 +2,7 @@
 	$(".dynamic#memories").html("<i><%=raw escape_javascript('...') %></i>");
 	$(".dynamic#recalls").html("<%=raw escape_javascript(render(@search_results)) %>");
 	$(".dynamic#recalls").prepend("<i><%=raw escape_javascript('click to preview, found ') %><%= escape_javascript(pluralize(@search_results.size,'result')) %></i>");
-	$(".dynamic#recalls").append("<i><%=raw escape_javascript('end of results') %></i>");
+	$(".dynamic#recalls").append("<i><%=raw escape_javascript('end of results<br />') %></i>");
 <% else %>
 	$(".dynamic#recalls").html("<i><%=raw escape_javascript('no memory found') %></i>");
 <% end %>

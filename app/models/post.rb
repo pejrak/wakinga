@@ -14,7 +14,7 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   
 # memory search called here:
   def self.search(search,memory_array)
-    find(:all, :limit => 11, :conditions => ['posts.id IN (?) AND UPPER(posts.content) LIKE UPPER(?)', memory_array, "%#{search}%"], :order => 'posts.updated_at DESC')
+    find(:all, :include => :comments, :limit => 11, :conditions => ['posts.id IN (?) AND (UPPER(posts.content) LIKE UPPER(?) OR  UPPER(comments.body) LIKE UPPER(?))', memory_array, "%#{search}%", "%#{search}%"], :order => 'posts.updated_at DESC')
   end
 
   def new_comments_since_last_login(user)

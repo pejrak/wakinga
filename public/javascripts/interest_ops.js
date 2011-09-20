@@ -17,7 +17,7 @@ $(document).ready(function() {
     var search_criteria = $("#memorysearch").serialize();
     var key_count = (search_criteria.length - 13);
     var interest_id = $("#interest").attr("data-id")
-    if (key_count > 1) {
+    if (key_count > 2) {
         $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });

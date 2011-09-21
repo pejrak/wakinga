@@ -1,4 +1,17 @@
 module ApplicationHelper
+
+  def pageless(total_pages, url=nil, container=nil)
+    opts = {
+      :totalPages => total_pages,
+      :url => url,
+      :loaderMsg => 'loading more messages'
+    }
+    
+    container && opts[:container] ||= container
+    
+    javascript_tag("$('#results').pageless(#{opts.to_json});")
+  end
+
   def avatar_url(user)
     default_url = "#{root_url}images/guest.png"
     gravatar_id = Digest::MD5.hexdigest(user.email.downcase)

@@ -1,18 +1,11 @@
 class InterestsController < ApplicationController
 before_filter :authenticate_user!
-  # GET /interests
-  # GET /interests.xml
+
   def index
-#	@interests = current_user.interests.order(post_count)
     redirect_to root_path
 	end
-  
 
-  # GET /interests/1
-  # GET /interests/1.xml
   def show
-#    require 'open-uri'
-
     @interest = Interest.find(params[:id])
     @previous_visit_record = @interest.last_visit_at
     if current_user == @interest.user
@@ -32,8 +25,6 @@ before_filter :authenticate_user!
       session[:loaded_interests] = []
       session[:loaded_interests] << @interest.id
     end
-
-
 	respond_to do |format|
 	  format.html # show.html.erb
 	  format.xml  { render :xml => @interest }

@@ -16,9 +16,11 @@ $(document).ready(function() {
   $("#memorysearch").keyup(function() {
     var search_criteria = $("#memorysearch").serialize();
     var key_count = (search_criteria.length - 13);
+
     var interest_id = $("#interest").attr("data-id")
     if (key_count > 2) {
-        $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
+      $(".slot_full").html("<p><img src='/images/loader.gif'/> Searching...</p>");
+      $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });
 

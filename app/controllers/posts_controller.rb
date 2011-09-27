@@ -8,11 +8,16 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @dynamic_posts = []
     elsif params[:full_refresh] == 'false'
       (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 1
-      @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user).paginate(:per_page=> 30, :page => params[:page])
+      @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
     if @interest
-      @memorized_content = @interest.memorized_post_content(true,@interest.user)
-      @message_content = @interest.post_content(current_user)
+      @memorized_content = @interest.memorized_post_content(true,@interest.user).paginate(:per_page => 10, :page => params[:page])
+      @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
+    end
+    if request.xhr?
+      respond_to do | format |
+         format.js {render :layout => false}
+      end
     end
   end
 

@@ -6,7 +6,7 @@ $('.post_show').click(function() {
       });
 <% else %>
       refreshPosts();
-      $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory')) %>");
+      $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@memorized_content.size.to_s, 'memory')) %>");
 <% end %>
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
@@ -38,7 +38,7 @@ $('.post_show').click(function() {
   });
 // function for refresh of the message contents  
 function refreshPosts() {
-      $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@interest.post_content(@interest.user))) %>");
-      $(".dynamic#memories").html("<%=raw escape_javascript(render(@interest.memorized_post_content(true,@interest.user))) %>");
-      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
+      $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
+      $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
+      $(".post_size").html("<%=raw escape_javascript(pluralize(@message_content.size.to_s, 'message')) %>");
 }

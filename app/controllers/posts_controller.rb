@@ -10,6 +10,10 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 1
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
+    if @interest
+      @memorized_content = @interest.memorized_post_content(true,@interest.user)
+      @message_content = @interest.post_content(current_user)
+    end
   end
 
   def show

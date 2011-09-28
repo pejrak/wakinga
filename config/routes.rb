@@ -25,7 +25,7 @@ Mindbase::Application.routes.draw do
   match "/remove_user_orphans" => "admins#remove_user_orphans"
   match "/load_with_ajax" => "home#load_with_ajax"
   match "/admin" => "home#admin"
-
+  match "/dynamic_load" => "posts#dynamic_load"
   
   resources :requests
 

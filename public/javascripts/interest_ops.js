@@ -35,7 +35,7 @@ function updatePosts() {
 //    var after = "0";
 //  }
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
-  setTimeout(updatePosts, 10000);
+  setTimeout(updatePosts, 20000);
 
 
 }

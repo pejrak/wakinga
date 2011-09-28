@@ -38,7 +38,7 @@ $('.post_show').click(function() {
   });
 // function for refresh of the message contents  
 function refreshPosts() {
-      $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %><%=raw escape_javascript(pageless(@message_content.total_pages,posts_path,".dynamic#postcontent")) %>");
-      $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %><%=raw escape_javascript(pageless(@memorized_content.total_pages,posts_path,".dynamic#memories")) %>");
+      $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %><%=raw escape_javascript(pageless(@message_content.total_pages,('/dynamic_load'+'?interest_id='+@interest.id.to_s))) %>");
+      $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
       $(".post_size").html("<%=raw escape_javascript(pluralize(@message_content.size.to_s, 'message')) %>");
 }

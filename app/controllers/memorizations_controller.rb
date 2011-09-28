@@ -44,11 +44,22 @@ class MemorizationsController < ApplicationController
 
   def mark_for_action
     @memorization = Memorization.find(params[:id])
-    if @memorization.update_attributes(:status_indication => 'action')
+    if @memorization.update_attribute(:status_indication, 'action')
       flash[:notice] = 'Marked for future action.'
       respond_to do | format |
         format.js {render :layout => false}
       end
     end
-  end  
+  end
+
+  def mark_for_completion
+    @memorization = Memorization.find(params[:id])
+    if @memorization.update_attribute(:status_indication, 'complete')
+      flash[:notice] = 'Marked as completed.'
+      respond_to do | format |
+        format.js {render :layout => false}
+      end
+    end
+  end
+ 
 end

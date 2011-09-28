@@ -36,4 +36,7 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
     end
   end
 
+  def good_memory(selected_user)
+    memorizations.where(:memorable=>1,:user_id=>selected_user.id).first
+  end
 end

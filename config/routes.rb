@@ -31,7 +31,7 @@ Mindbase::Application.routes.draw do
 
   resources :memorizations do
     member do
-      get 'mark_for_action'
+      get 'mark_for_action', 'mark_for_completion'
     end
   end
   resources :enrollments

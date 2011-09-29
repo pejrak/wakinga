@@ -9,7 +9,7 @@
 <%# debug(session) %>
 <%= content_for :tabs do %>
   <% session[:loaded_interests].each do |i| %>
-    <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to_unless_current Interest.find(i).title, Interest.find(i) %></span></div>
+    <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to_unless_current Interest.find(i).title, Interest.find(i) %></span><%= link_to(image_tag('/images/remove.png',:border => 0),(remove_tab_interest_path(i)+'?current_interest_id='+@interest.id.to_s),:class=>'tab_remove') %></div>
   <% end %>
 <% end %>
 

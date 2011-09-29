@@ -3,7 +3,7 @@ before_filter :authenticate_user!
 
   def index
     redirect_to root_path
-	end
+  end
 
   def show
     @interest = Interest.find(params[:id])
@@ -186,6 +186,16 @@ before_filter :authenticate_user!
     @previous_visit_record = @interest.last_visit_at
     respond_to do |format|
       format.js
+    end
+  end
+  
+  def remove_tab
+    @interest = Interest.find(params[:id])
+    session[:loaded_interests] = session[:loaded_interests].delete(params[:id])
+    if params[:current_interest_id] == params[:id] || session[:loaded_interests] == []
+      redirect_to root_path
+    else 
+      redirect_to @interest
     end
   end
 

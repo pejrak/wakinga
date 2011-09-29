@@ -1,15 +1,12 @@
 <%= javascript_include_tag "interest_ops", "jscroll", "jquery.pageless" %>
 <%= content_for :middletop do %>
-
-
-
-
   <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
 <% end %>
+
 <%# debug(session) %>
 <%= content_for :tabs do %>
   <% session[:loaded_interests].each do |i| %>
-    <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to_unless_current Interest.find(i).title, Interest.find(i) %></span><%= link_to(image_tag('/images/remove.png',:border => 0),(remove_tab_interest_path(i)+'?current_interest_id='+@interest.id.to_s),:class=>'tab_remove') %></div>
+    <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to_unless_current Interest.find(i).title, Interest.find(i) %></span><%= link_to(image_tag('/images/remove.png',:border => 0,:title=>'remove tab'),(remove_tab_interest_path(i)+'?current_interest_id='+@interest.id.to_s),:class=>'tab_remove') %></div>
   <% end %>
 <% end %>
 
@@ -36,16 +33,18 @@
 <% content_for :rightside do %>
   <%# debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>
-
+<% if @interest.memorized_post_content(true,@interest.user).size > 10 %>
   <p><i> quick memory search</i></p>
   <p>
     <%= text_field_tag :memorysearch, params[:search] %>
   </p>
   <div class="dynamic" id="recalls">
   </div>
+<% end %>
   <div class="dynamic" id="memories">
     <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading memories...</div>
   </div>
+
 <% end %>
 
 <% content_for :leftside do %><div class="activated_post_container"></div>

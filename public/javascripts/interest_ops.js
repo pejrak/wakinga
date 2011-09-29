@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     var interest_id = $("#interest").attr("data-id")
     if (key_count > 2) {
-      $(".slot_full").html("<p><img src='/images/loader.gif'/> Searching...</p>");
+      $(".dynamic#recalls").html("<p><img src='/images/loader.gif'/> Searching...</p>");
       $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });
@@ -43,6 +43,10 @@ $(document).ready(function() {
       $(".activated_post_container").html("<p><img src='/images/loader.gif'/> Loading...</p>");
       $.getScript("/posts/" + identificator + "/activate.js");
     });
+    //clear search results for memory recall
+    $('.clear_recalls').click(function() {
+      $(".dynamic#recalls").html("<p>Cleared.</p>");
+    });
 
 
 });
@@ -56,7 +60,7 @@ function updatePosts() {
 //    var after = "0";
 //  }
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
-  setTimeout(updatePosts, 20000);
+  setTimeout(updatePosts, 10000);
 
 
 }

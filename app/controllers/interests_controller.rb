@@ -190,12 +190,12 @@ before_filter :authenticate_user!
   end
   
   def remove_tab
-    @interest = Interest.find(params[:id])
-    session[:loaded_interests] = session[:loaded_interests].delete(params[:id])
+    @current_interest = Interest.find(params[:current_interest_id])
+    session[:loaded_interests].delete(params[:id].to_i)
     if params[:current_interest_id] == params[:id] || session[:loaded_interests] == []
       redirect_to root_path
     else 
-      redirect_to @interest
+      redirect_to @current_interest
     end
   end
 

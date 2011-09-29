@@ -145,7 +145,7 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private <> ?", beads, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :order => 'created_at DESC')
+        :order => 'posts.updated_at DESC')
     if loaded_trustors.present?
       private_posts = Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
@@ -153,7 +153,7 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", beads, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :order => 'created_at DESC')
+        :order => 'posts.updated_at DESC')
     else private_posts = []
     end
     return private_posts + public_posts
@@ -172,7 +172,7 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.p_private <> ?", beads, user, memorability, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :order => 'created_at DESC')
+        :order => 'posts.updated_at DESC')
   end
 
   def memorized_post_content_private(memorability,selected_user)
@@ -183,7 +183,7 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.p_private = ? AND posts.user_id IN (?)", beads, selected_user, memorability, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :order => 'created_at DESC')
+        :order => 'posts.updated_at DESC')
   end
 
 

@@ -18,7 +18,7 @@
   | <%= link_to beader.title, beader %>
   <% end %>
 
-<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <%= pluralize(@interest.post_content(@interest.user).size.to_s, 'message') %></h2>
+<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <span class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s, 'message') %></span></h2>
   <div class="content_create_message" style="display:none">
     <%= render 'posts/form' %>
   </div>
@@ -26,8 +26,16 @@
   
 <%#= render :partial => @interest.post_content %>
   <div class="dynamic" id="buffer" style="display: none"></div>
+<span class="timestamp" id="lastmessage" data-time="<%=  %>"></span>
 <div class="dynamic" id="postcontent" data-time="<%= @previous_visit_record.to_i %>">
   <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading messages...</div>
+</div>
+
+<div class="dynamic" id="pagedmessages">
+<% if @message_content.total_pages > 1 %>
+  <%= pageless(@message_content.total_pages,('/dynamic_load'+'?interest_id='+@interest.id.to_s)) %>
+<% end %>
+
 </div>
 
 <% content_for :rightside do %>

@@ -24,25 +24,7 @@ $(document).ready(function() {
     }
   });
 
-    //message hover effects
-    $(".post").hover(
-      function () {
-        var identificator = $(this).attr("id");
-        $("#post_operators_"+identificator).show();
-        $(this).css("background-color","#d1ffc0")
-      },
-      function () {
-        $(".post_operators").hide();
-        $(this).css("background-color","transparent")
-      }
-    );
 
-    //post activate effect
-    $('.post').click(function() {
-        var identificator = $(this).attr("id");
-      $(".activated_post_container").html("<p><img src='/images/loader.gif'/> Loading...</p>");
-      $.getScript("/posts/" + identificator + "/activate.js");
-    });
     //clear search results for memory recall
     $('.clear_recalls').click(function() {
       $(".dynamic#recalls").html("<p>Cleared.</p>");
@@ -60,6 +42,7 @@ function updatePosts() {
 //    var after = "0";
 //  }
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
+  $.getScript("/javascripts/message_ops.js");
   setTimeout(updatePosts, 10000);
 
 

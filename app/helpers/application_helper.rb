@@ -9,7 +9,7 @@ module ApplicationHelper
     
     container && opts[:container] ||= container
     
-    javascript_tag("$('.dynamic#postcontent').pageless(#{opts.to_json});")
+    javascript_tag("$('.dynamic#pagedmessages').pageless(#{opts.to_json});")
   end
 
   def avatar_url(user)

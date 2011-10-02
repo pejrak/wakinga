@@ -1,7 +1,7 @@
 <div class="preview_slot" data-id="<%= interest.id %>">
 <h3><%= (interest.user == current_user || interest.compare_beads_with_other_interests(current_user.interests).present?)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %>
   <%= link_to_unless_current interest.title, interest %>
-  (<%= (interest.post_count_unread > 0)? h(interest.post_count_unread.to_s + ' new / ') : '' %><%= interest.post_count %>)
+  (<%= (interest.post_count_unread > 0)? h(interest.post_count_unread.to_s + ' new / ') : '' %><%= pluralize(interest.memorized_post_content(true,current_user).size, 'memory') %>)
   <%= (interest.i_private == true)? image_tag('/images/private.png') : '' %>
   <% if interest.user == current_user %>
     <span class="interest_operators" id="interest_operators_<%= interest.id %>" style="display:none">[ <%= link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(interest)) %> | <%= link_to(image_tag('/images/remove.png',:border => 0, :title => 'remove'), interest, :confirm => 'Are you sure?', :method => :delete) %> ]</span>

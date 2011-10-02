@@ -8,6 +8,7 @@ before_filter :authenticate_user!
   def show
     @interest = Interest.find(params[:id])
     @previous_visit_record = @interest.last_visit_at
+    @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
     if current_user == @interest.user
       @interest.update_attribute(:last_visit_at, Time.now)
     end

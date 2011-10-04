@@ -36,15 +36,7 @@ $(document).ready(function() {
       }
     );
     //generic operator preview
-    $(".item_with_operators").hover(
-      function () {
-        var identificator = $(this).attr("data-id");
-        $("#operators_" + identificator).show();
-      },
-      function () {
-          $(".operators").fadeOut();
-      }
-    );
+    $.getScript("/javascripts/preview_ops.js");
 
     $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
 });

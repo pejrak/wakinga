@@ -1,2 +1,3 @@
-  $(".slot_full").html("<%=raw escape_javascript(render(:partial => 'previewed_interest', :object => @interest)) %>");
+$(".slot_full").html("<%=raw escape_javascript(render(:partial => 'previewed_interest', :object => @interest)) %>");
+$.getScript("/javascripts/preview_ops.js");
 

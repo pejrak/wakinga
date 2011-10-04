@@ -23,24 +23,12 @@ $(document).ready(function() {
       $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });
-
-
-    //clear search results for memory recall
-    $('.clear_recalls').click(function() {
-      $(".dynamic#recalls").html("<p>Cleared.</p>");
-    });
-
-
 });
 
 function updatePosts() {
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
-//  if ($(".post").length > 0) {
-    var after = $(".post:first").attr("data-time");
-//  } else {
-//    var after = "0";
-//  }
+  var after = $(".post:first").attr("data-time");
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
   $.getScript("/javascripts/message_ops.js");
   setTimeout(updatePosts, 10000);

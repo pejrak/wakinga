@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_filter :authenticate_user!, :except => [:admin]
   before_filter :authenticate_admin!, :except => [:index, :load_with_ajax]
   def index
-    current_user.interests.each { |i| (i.beads == nil)? i.destroy : i}    
+    current_user.interests.each { |i| (i.beads == [])? i.destroy : i}    
     @interests = current_user.interests.order('interests.title ASC')
   end
 

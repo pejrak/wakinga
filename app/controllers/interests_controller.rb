@@ -34,10 +34,16 @@ before_filter :authenticate_user!
 
   def new
     @interest = Interest.new
+    @interest.user = current_user
     @interest.title = 'new interest'
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @interest }
+    @interest.last_visit_at = Time.now
+    if @interest.save
+      redirect_to edit_interest_path(@interest)
+    else
+      respond_to do |format|
+        format.html
+        format.xml  { render :xml => @interest }
+      end
     end
   end
 
@@ -73,10 +79,8 @@ before_filter :authenticate_user!
     if @interest.beads.present?
       if @interest.update_attributes(params[:interest])
       format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
-      format.xml  { head :ok }
       else
       format.html { render :action => "edit" }
-      format.xml  { render :xml => @interest.errors, :status => :unprocessable_entity }
       end
     else
       format.html { redirect_to(:action => "edit") }

@@ -25,7 +25,7 @@ $(document).ready(function() {
       function () {
         var identificator = $(this).attr("data-id");
         $(".slot_full").show();
-	$(".preview_slot").css("background-color","white");
+	$(".preview_slot").css("background-color","transparent");
         $(this).css("background-color","#E6E6E6");
         $("#interest_operators_"+identificator).show();
         $(".slot_full").html("<p><img src='/images/loader.gif'/> Loading...</p>");

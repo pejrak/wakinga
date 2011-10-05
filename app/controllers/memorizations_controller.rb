@@ -41,4 +41,14 @@ class MemorizationsController < ApplicationController
     flash[:notice] = "Successfully destroyed memorization."
     redirect_to memorizations_url
   end
+
+  def mark_for_action
+    @memorization = Memorization.find(params[:id])
+    if @memorization.update_attributes(:status_indication => 'action')
+      flash[:notice] = 'Marked for future action.'
+      respond_to do | format |
+        format.js {render :layout => false}
+      end
+    end
+  end  
 end

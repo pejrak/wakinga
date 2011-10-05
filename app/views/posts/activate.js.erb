@@ -3,3 +3,7 @@
 <% elsif @refresh_indicator == true %>
   $(".comments_content_container").html("<%=raw escape_javascript(render(:partial => @post.comments)) %>");
 <% end %>
+  if ($(".activated_post").length > 0) {
+    var postid = $('.activated_post').attr('data-id');
+    $(".post#"+postid).css("border-left","#2CA200 solid 2px");
+  }

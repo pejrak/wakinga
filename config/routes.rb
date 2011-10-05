@@ -29,8 +29,11 @@ Mindbase::Application.routes.draw do
   
   resources :requests
 
-  resources :memorizations
-
+  resources :memorizations do
+    member do
+      get 'mark_for_action'
+    end
+  end
   resources :enrollments
 
   resources :beads_posts

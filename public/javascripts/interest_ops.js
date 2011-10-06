@@ -5,8 +5,9 @@ $(document).ready(function() {
     $("#new_post").submitWithAjax();
       //post preview effects
     $(function() {
+        var c=0;
 //      if ($(".dynamic#post_content").length > 0) {
-        setTimeout(updatePosts, 1000);
+        setTimeout("updatePosts(0)", 1000);
 //      }
     });
     $(function() {
@@ -25,15 +26,24 @@ $(document).ready(function() {
   });
 });
 
-function updatePosts() {
+function updatePosts(c) {
+  var t;
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
   var after = $(".post:first").attr("data-time");
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
   $.getScript("/javascripts/message_ops.js");
-  setTimeout(updatePosts, 10000);
-
-
+  //iterating timeout count
+  if (c == undefined) {
+    var c = 0;
+  }
+  c=c+1;
+  if (c<10) {
+    t=setTimeout("updatePosts("+c+")", c*10000);
+  }
+  else {
+    clearTimeout(t);
+  }
 }
 
 jQuery.ajaxSetup({

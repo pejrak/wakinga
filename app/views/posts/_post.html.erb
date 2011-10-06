@@ -1,4 +1,4 @@
-<div class="<%= (post.live_message(current_user,@previous_visit_record))? 'live_message' : 'regular_message' %>">
+<div class="<%= (post.live_message(current_user,@previous_visit_record))? 'live_message' : 'regular_message' %><% if post.good_memory(current_user) %><%= (post.good_memory(current_user).status_indication == 'action')? ' actionable' : '' %><%= (post.good_memory(current_user).status_indication == 'complete')? ' complete' : '' %><% end %>">
   <div class="post" data-time="<%= post.created_at.to_i %>" id="<%= post.id %>">
     <h3><%= link_to_unless_current h(post.title), post %>
          <span class="post_operators" id="<%= 'post_operators_'+post.id.to_s %>" style="display: none">

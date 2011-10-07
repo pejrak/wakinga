@@ -46,9 +46,14 @@
 //  * www.unspace.ca/discover/pageless/
 //  * famspam.com/facebox
 // =======================================================================
+  //custom function
+function reloadOps() {
+  $.getScript("/javascripts/message_ops.js");
+}
 
 (function($) {
-  
+
+
   var FALSE = !1
     , TRUE = !FALSE
     , element
@@ -64,6 +69,7 @@
                  , params: {}
                  , url: location.href
                  , loaderImage: "/images/loader.gif"
+                 , complete: reloadOps()
                  }
     , container
     , $container;

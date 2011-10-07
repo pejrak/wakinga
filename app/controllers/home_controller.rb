@@ -30,4 +30,8 @@ class HomeController < ApplicationController
     end
   end
 
+  def memory_browser
+    
+  end
+
 end

@@ -1,21 +1,20 @@
 <% unless @dynamic_posts.empty? %>
-$(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'message'), '#', :remote => true, :class => 'post_show')) %>").show();
-$('.post_show').click(function() {
-      refreshPosts();
-      $(".dynamic#buffer").slideUp();
-      });
+  $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'message'), '#', :remote => true, :class => 'post_show')) %>").show();
+  $('.post_show').click(function() {
+    refreshPosts();
+    $(".dynamic#buffer").slideUp();
+  });
 <% else %>
-      refreshPosts();
-      $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@memorized_content.size.to_s, 'memory')) %>");
+  refreshPosts();
+  $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@interest.memorized_post_content(true,current_user).size.to_s, 'memory')) %>");
 <% end %>
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
-
 // function for refresh of the message contents  
 function refreshPosts() {
-      $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
-      $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
-      $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
-      $.getScript("/javascripts/message_ops.js");
+  $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
+  $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
+  $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
+  $.getScript("/javascripts/message_ops.js");
 }

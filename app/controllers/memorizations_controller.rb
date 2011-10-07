@@ -13,6 +13,7 @@ class MemorizationsController < ApplicationController
 
   def create
     @memorization = Memorization.new(params[:memorization])
+    @memorization.change_record = "#{Time.now.to_s}: Memorized\n"
     if @memorization.save
       flash[:notice] = "Successfully created memorization."
       redirect_to @memorization
@@ -55,11 +56,22 @@ class MemorizationsController < ApplicationController
   def mark_for_completion
     @memorization = Memorization.find(params[:id])
     if @memorization.update_attribute(:status_indication, 'complete')
-      flash[:notice] = 'Marked as completed.'
+      (@memorization.change_record)? @memorization.change_record += "#{Time.now.to_s}: Marked complete \n" : @memorization.change_record = "Memory ad hoc start... \n #{Time.now.to_s}: Marked complete \n"
+      flash[:notice] = 'Marked as complete.'
       respond_to do | format |
         format.js {render :layout => false}
       end
     end
   end
  
+  def mark_for_archival
+    @memorization = Memorization.find(params[:id])
+    if @memorization.update_attribute(:status_indication, 'archive')
+      flash[:notice] = 'Archived.'
+      respond_to do | format |
+        format.js {render :layout => false}
+      end
+    end
+  end
+
 end

@@ -19,10 +19,6 @@
       $(".activated_post_container").html("<p><img src='/images/loader.gif'/> Loading...</p>");
       $.getScript("/posts/" + identificator + "/activate.js");
     });
-
 //fade out for notices after actions
 $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
-    
-
-    
   });

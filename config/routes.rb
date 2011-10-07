@@ -24,6 +24,7 @@ Mindbase::Application.routes.draw do
   match "/reset_counts" => "admins#reset_counts"
   match "/remove_user_orphans" => "admins#remove_user_orphans"
   match "/load_with_ajax" => "home#load_with_ajax"
+  match "/memory_browser" => "home#memory_browser"
   match "/admin" => "home#admin"
   match "/dynamic_load" => "posts#dynamic_load"
   
@@ -31,7 +32,7 @@ Mindbase::Application.routes.draw do
 
   resources :memorizations do
     member do
-      get 'mark_for_action', 'mark_for_completion'
+      get 'mark_for_action', 'mark_for_completion', 'mark_for_archival'
     end
   end
   resources :enrollments

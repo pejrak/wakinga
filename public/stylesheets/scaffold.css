@@ -234,15 +234,15 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 .live_message {
-    border-left: #F83251 3px solid;
+    border-left: #F83251 2px solid;
 }
 
 .actionable {
-    border-right: #282828 3px solid;
+    border-right: #282828 2px solid;
 }
 
 .complete {
-    border-right: #D8D8D8 3px solid;
+    border-right: #D8D8D8 2px solid;
 }
 
 .post_operators {
@@ -278,6 +278,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 .activated_post {
     padding: 6px;
+    border-left: #2CA200 solid 2px;
 }
 .activated_post p {
     font-size: 12px;

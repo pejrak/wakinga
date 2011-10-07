@@ -5,5 +5,8 @@
 <% end %>
   if ($(".activated_post").length > 0) {
     var postid = $('.activated_post').attr('data-id');
-    $(".post#"+postid).css("border-left","#2CA200 solid 3px");
+    //first clear left border on all posts
+    $(".post").css("border-left","none");
+    //display indicating border on the activated post
+    $(".post#"+postid).css("border-left","#2CA200 solid 2px");
   }

@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_filter :authenticate_user!, :except => [:admin]
-  before_filter :authenticate_admin!, :except => [:index, :load_with_ajax]
+  before_filter :authenticate_admin!, :except => [:index, :load_with_ajax, :bead_point_load]
   def index
     current_user.interests.each { |i| (i.beads == [])? i.destroy : i}    
     @interests = current_user.interests.order('interests.title ASC')
@@ -13,6 +13,10 @@ class HomeController < ApplicationController
     #now I load the beads that are associated to the selected bead in the users interests
     @users_interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['interests.user_id = ? AND beads.id = ?', current_user.id, @bead.id]).map(&:interest_id)
     @related_beads_array = BeadsInterest.find(:all, :conditions => ['beads_interests.interest_id IN (?)', @users_interests_containing_selected_bead_array]).map(&:bead_id).uniq
+    if params[:beads_in_path]
+      @beads_in_path = (params[:beads_in_path].split(",").map {|s| s.to_i}).uniq
+      @related_beads_array -= @beads_in_path
+    end
     respond_to do | format |
       format.js
     end

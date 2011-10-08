@@ -344,11 +344,15 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .bead_point {
   /*float: left;*/
-  height: 30px;
+/*  height: 30px; */
   width: 120px;
   border: 1px solid #FFF;
-  
+  padding-left: 10px;
   /*background-color: #D8D8D8;*/
+}
+
+.bead_group {
+  padding-left: 10px;
 }
 
 .bead_live {

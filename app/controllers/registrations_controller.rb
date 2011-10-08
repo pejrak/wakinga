@@ -4,12 +4,14 @@ class RegistrationsController < Devise::RegistrationsController
       super
       session[:omniauth] = nil unless @user.new_record?
       @default_user = User.find_by_username('default')
+      if @default_user
       @user.interests << @default_user.interests.collect { |interest| interest.clone }
       @default_user.interests.each do |i|
         matchup = @user.interests.where(:title => i.title).first
         matchup.beads = i.beads
         matchup.last_visit_at = Time.now
 	matchup.save
+      end
       end
 
     else

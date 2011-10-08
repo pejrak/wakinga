@@ -3,12 +3,10 @@
 
 $(document).ready(function() {
     $("#new_post").submitWithAjax();
-      //post preview effects
     $(function() {
         var c=0;
-//      if ($(".dynamic#post_content").length > 0) {
         setTimeout("updatePosts(0)", 1000);
-//      }
+        $.getScript("/javascripts/message_ops.js");
     });
     $(function() {
       $(".activated_post_container").jScroll();
@@ -35,10 +33,8 @@ function updatePosts(c) {
   if ($("#messagerefresh").length > 0) {
     $("#messagerefresh").remove();
   }
-  
   $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
-  $.getScript("/javascripts/message_ops.js");
   //iterating timeout count
   if (c == undefined) {
     var c = 0;
@@ -49,7 +45,7 @@ function updatePosts(c) {
   }
   else {
     clearTimeout(t);
-    $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>")
+    $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>");
   }
 }
 
@@ -63,11 +59,11 @@ jQuery.fn.submitWithAjax = function() {
     return false;
   })
   return this;
-};
+}
 
 function prepPosts() {
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
-  $("#flash_notice, #flash_error").fadeOut(6000);
+  $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
   $.getScript("/posts.js?interest_id=" + interest_id + "&full_refresh=true&previous_visit_record=" + previous_visit);
 }

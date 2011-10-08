@@ -63,7 +63,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 #    @dynamic_posts = @interest.dynamic_post_content(Time.at(params[:after].to_i + 1))
     respond_to do |format|
       if @post.save
-        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id)
+        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id, :change_record => Memorization::MEMORY_START)
         @memorization.save
         flash[:notice] = 'CREATED.'
         format.html {redirect_to @interest}
@@ -111,6 +111,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
      @memorization.post_id = @post.id
      @memorization.memorable = true
      @memorization.user_id = current_user.id
+     @memorization.change_record = Memorization::MEMORY_START
      respond_to do | format |
        if @memorization.save
          flash[:notice] = 'Memorized.'
@@ -138,6 +139,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
    @post.decrement! :rating
    if Memorization.where(:post_id => @post, :user_id => current_user).empty?
      @memorization = Memorization.new
+     @memorization.change_record = Memorization::MEMORY_BURN
      @memorization.post_id = @post.id
      @memorization.memorable = false
      @memorization.user_id = current_user.id

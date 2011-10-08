@@ -47,9 +47,6 @@
 //  * famspam.com/facebox
 // =======================================================================
   //custom function
-function reloadOps() {
-  $.getScript("/javascripts/message_ops.js");
-}
 
 (function($) {
 
@@ -69,7 +66,6 @@ function reloadOps() {
                  , params: {}
                  , url: location.href
                  , loaderImage: "/images/loader.gif"
-                 , complete: reloadOps()
                  }
     , container
     , $container;

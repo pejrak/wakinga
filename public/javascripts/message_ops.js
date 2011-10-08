@@ -1,24 +1,25 @@
   $(document).ready(function() {
 
-    //message hover effects
-    $(".post").hover(
-      function () {
+    //message hover and activate effects
+    $(".post").live({
+      mouseover: function () {
         var identificator = $(this).attr("id");
         $("#post_operators_"+identificator).show();
-        $(this).css("background-color","#d1ffc0")
+        $(this).css("background-color","#d1ffc0");
       },
-      function () {
+      mouseout: function () {
         $(".post_operators").hide();
-        $(this).css("background-color","transparent")
-      }
-    );
-
-    //post activate effect
-    $('.post').click(function() {
+        $(this).css("background-color","transparent");
+      },
+      click: function() {
         var identificator = $(this).attr("id");
-      $(".activated_post_container").html("<p><img src='/images/loader.gif'/> Loading...</p>");
-      $.getScript("/posts/" + identificator + "/activate.js");
+        $(".activated_post_container").html("<p><img src='/images/loader.gif'/> Loading...</p>");
+        $.getScript("/posts/" + identificator + "/activate.js");
+      }
     });
+
+
 //fade out for notices after actions
-$("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
-  });
+  $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(10000);
+
+});

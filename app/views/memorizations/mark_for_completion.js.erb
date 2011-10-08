@@ -1,3 +1,3 @@
+prepPosts();
 $("#interest").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js");
-prepPosts();

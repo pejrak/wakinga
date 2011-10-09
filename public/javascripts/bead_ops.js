@@ -25,8 +25,8 @@
     $(".bead_point_container").live({
       mouseenter: function () {
         var identificator = $(this).attr("data-id");
-        $(this).data("beadpoints", [identificator]);
-        $(this).append("<p>node: "+$(this).data("beadpoints")+"</p>") 
+        $(this).data("beadpoints", identificator);
+        //$(this).append("<p>node: "+$(this).data("beadpoints")+"</p>") 
       },
       mouseleave: function () {
         var identificator = $(this).attr("data-id");

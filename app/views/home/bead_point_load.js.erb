@@ -2,6 +2,6 @@ var identifier = '#beadpoint<%=raw escape_javascript(@bead.id.to_s) %>'
 var parent_bead_point_data = $(identifier).parent().data("beadpoints");
 var parent_identifier = $(identifier).parent().attr("data-id")
 $(identifier).html("<div id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>'><%=raw escape_javascript(render :partial => 'shared/bead', :collection => Bead.find(@related_beads_array)) %></div>");
-$("#"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>").data("beadpoints", "<%=raw escape_javascript(@beads_in_path.to_s) %>");
+$("#"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>").data("beadpoints", "<%=raw escape_javascript(@beads_in_path.to_json) %>");
 $(identifier).append("<%=raw escape_javascript(debug(@beads_in_path)) %>");
 

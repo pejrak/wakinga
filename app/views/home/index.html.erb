@@ -13,7 +13,7 @@
 
 <% content_for :experiment do %>                
 <p><%# debug(@user_parent_beads_array) %></p>
-<h2>parent bead components</h2>
+<h2>interest browser</h2>
   <% @parent_beads_array.each do |bead| %>
     <div class="bead_point_container" data-id="<%= bead.id %>"><%= render :partial => 'shared/bead', :object => bead %></div>
   <% end %>

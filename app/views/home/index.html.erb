@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag "bead_ops" %>
+<% end %>
+
 <% content_for :leftside do %>
   <%= render :partial => current_user %>
 	<% if incoming_trusts.present? %>
@@ -8,6 +12,12 @@
 <% end %>
 
                 <h2>my interests<span class="title_operator"><%= link_to image_tag('add.png', :border => false) + ' add new', new_interest_path %></span></h2>
+<p><%= debug(@user_parent_beads_array) %></p>
+<h2>parent bead components</h2>
+  <% @parent_beads_array.each do |bead| %>
+    <%= render :partial => 'shared/bead', :object => bead %>
+  <% end %>
+
   <%= render :partial => @interests %>
 <% content_for :rightside do %>
   <h2>beads</h2>

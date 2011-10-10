@@ -24,6 +24,7 @@ Mindbase::Application.routes.draw do
   match "/reset_counts" => "admins#reset_counts"
   match "/remove_user_orphans" => "admins#remove_user_orphans"
   match "/load_with_ajax" => "home#load_with_ajax"
+  match "/bead_point_load" => "home#bead_point_load"
   match "/memory_browser" => "home#memory_browser"
   match "/admin" => "home#admin"
   match "/dynamic_load" => "posts#dynamic_load"

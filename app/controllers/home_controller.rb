@@ -4,7 +4,20 @@ class HomeController < ApplicationController
   def index
     current_user.interests.each { |i| (i.beads == [])? i.destroy : i}    
     @interests = current_user.interests.order('interests.title ASC')
+    @user_parent_beads_array = BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['beads.parent_bead = true AND interests.user_id = ?', current_user.id]).map(&:bead_id).uniq
+    @parent_beads_array = Bead.find_all_by_parent_bead(true)
   end
+
+  def bead_point_load
+    @bead = Bead.find(params[:bead_id])
+    #now I load the beads that are associated to the selected bead in the users interests
+    @users_interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['interests.user_id = ? AND beads.id = ?', current_user.id, @bead.id]).map(&:interest_id)
+    @related_beads_array = BeadsInterest.find(:all, :conditions => ['beads_interests.interest_id IN (?)', @users_interests_containing_selected_bead_array]).map(&:bead_id).uniq
+    respond_to do | format |
+      format.js
+    end
+  end
+
 
   def admin
 

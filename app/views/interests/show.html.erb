@@ -1,4 +1,8 @@
-<%= javascript_include_tag "interest_ops", "jscroll", "jquery.pageless" %>
+<% content_for :head %>
+  <%= javascript_include_tag "interest_ops", "jscroll", "jquery.pageless" %>
+<% end %>
+
+
 <%= content_for :middletop do %>
   <h1><span class="heading_subtelize"><%= (@interest.i_private)? 'Private interest:' : 'Interest:' %></span> <%= @interest.title %></h1>
 <% end %>

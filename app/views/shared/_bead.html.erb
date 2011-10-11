@@ -1,6 +1,6 @@
 <div class = "bead_point<% if @user_parent_beads_array %><%= (@user_parent_beads_array.include?(bead.id))? ' bead_live' : '' %><% end %>" data-id = "<%= bead.id %>" >
 
-  <span class="bead_title">o <%= bead.title %><%# bead.beads_posts.size %></span>
+  <span class="bead_title"><span class="text_emphasizer">o </span><%= bead.title %><%# bead.beads_posts.size %></span>
   <%# h(bead.description) %>
 
 </div>

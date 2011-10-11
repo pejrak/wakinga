@@ -1,2 +1,13 @@
 add new interest with <%= @bead.title %><br />
 <span>search</span> | <span>view suggestions</span>
+
+<div class=''>
+  <h3>search and add beads:</h3>
+
+  
+    <p>
+      <%= text_field_tag :search, params[:search] %>
+    </p>
+
+    <div id="dynamic_beads" data-id="<%# @interest.id %>"><%= 'enter search criteria' %></div>
+    <div id="dynamic_nouns"></div>

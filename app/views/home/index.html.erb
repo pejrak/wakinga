@@ -11,12 +11,14 @@
                 <div class="slot_full"></div>
 <% end %>
 
-                
+<% content_for :experiment do %>                
 <p><%# debug(@user_parent_beads_array) %></p>
 <h2>parent bead components</h2>
-  <% Bead.find(@user_parent_beads_array).each do |bead| %>
+  <% @parent_beads_array.each do |bead| %>
     <div class="bead_point_container" data-id="<%= bead.id %>"><%= render :partial => 'shared/bead', :object => bead %></div>
   <% end %>
+<% end %>
+
 <h2>my interests<span class="title_operator"><%= link_to image_tag('add.png', :border => false) + ' add new', new_interest_path %></span></h2>
   <%# render :partial => @interests %>
 <% content_for :rightside do %>

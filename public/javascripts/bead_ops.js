@@ -13,12 +13,18 @@
       click: function() {
       var identificator = $(this).attr("data-id");
         $(this).after("<div class='bead_group' id='beadpoint"+identificator+"' data-id="+identificator+"></div>");
-        $("#beadpoint"+identificator).append("<p><img src='/images/loader.gif'/> Loading...</p>");
+        $("#beadpoint"+identificator).html("<p><img src='/images/loader.gif'/> Loading...</p>");
         //$(this).parent().css("background-color","#d1ffc0");
         var parent_ids = $(this).parent().data("beadpoints");
         var active_array = $.merge([identificator], parent_ids);
         //$(this).data("beadpoints", [identificator]);
-        $.getScript("/bead_point_load.js?bead_id="+identificator+"&beads_in_path="+active_array);
+        if ($(this).parent().attr("class")=="bead_point_container") {
+          var initializer = "true";
+        }
+        else {
+          var initializer = "false";
+        }
+        $.getScript("/bead_point_load.js?bead_id="+identificator+"&beads_in_path="+active_array+"&initialize="+initializer);
       }
     });
     

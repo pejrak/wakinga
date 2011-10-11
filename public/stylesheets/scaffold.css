@@ -343,15 +343,20 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 .bead_point {
-  /*float: left;*/
+  float: left;
 /*  height: 30px; */
   width: 120px;
   border: 1px solid #FFF;
-  padding-left: 10px;
+  
   /*background-color: #D8D8D8;*/
 }
 
+.bead_point_container {
+  clear: both;
+}
+
 .bead_group {
+  clear: both;
   padding-left: 10px;
 }
 

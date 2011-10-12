@@ -7,9 +7,7 @@ $(identifier).html("<p></p>")
 
 //iterate through interests found associated with the selected bead
 <% @users_interests_containing_selected_bead_array.each do |i| %>
-  $(identifier).append("<%=raw escape_javascript(link_to(image_tag('/images/right_indicator.png',:border=>0,:title=>'enter interest',:class=>'interest_redirector'),interest_path(i))) %><div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/bead', :collection => Interest.find_by_id(i).beads - [@bead]) %></div>");
-  $("#"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>").data("beadpoints", <%= @beads_in_path.to_json %>);
-  $(identifier).append("<div class='beadpoint_operators' id='beadpoint_operators_<%=raw escape_javascript(i.to_s) %>'>(<%=raw escape_javascript(pluralize(Interest.find(i).memorized_post_content(true, current_user).size, 'memory')) %>) [ <%=raw escape_javascript(link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(i))) %> | <%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border => 0, :title => 'remove'), Interest.find(i), :confirm => 'Are you sure?', :method => :delete)) %> ]</div><br />");
+  $(identifier).append("<div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/interest', :object => Interest.find(i)) %></div>");
 <% end %>
 
 //append the interest creator container

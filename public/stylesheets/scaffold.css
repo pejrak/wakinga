@@ -349,7 +349,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 .bead_chain {
-  background-color: #F40026;
+  /*background-color: #F40026;*/
   /*border-top: 1px solid #000000;*/
 }
 
@@ -390,6 +390,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
+    width:30%;
 }
 
 .main_operators {

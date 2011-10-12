@@ -12,11 +12,14 @@
 <% end %>
 
 <% content_for :experiment do %>                
-<p><%# debug(@user_parent_beads_array) %></p>
+<div class="left_spacer">
 <h2>interest browser</h2>
   <% @parent_beads_array.each do |bead| %>
     <div class="bead_point_container" data-id="<%= bead.id %>"><%= render :partial => 'shared/bead', :object => bead %></div>
   <% end %>
+</div>
+<div class="right_spacer">
+</div>
 <% end %>
 
 <h2>my interests<span class="title_operator"><%= link_to image_tag('add.png', :border => false) + ' add new', new_interest_path %></span></h2>

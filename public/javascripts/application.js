@@ -21,8 +21,8 @@ $(document).ready(function() {
   });
 
   //interest preview effects
-    $(".preview_slot").hover(
-      function () {
+    $(".preview_slot").live({
+      mouseenter: function () {
         var identificator = $(this).attr("data-id");
         $(".slot_full").show();
 	$(".preview_slot").css("background-color","transparent");
@@ -31,10 +31,10 @@ $(document).ready(function() {
         $(".slot_full").html("<p><img src='/images/loader.gif'/> Loading...</p>");
 	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
-      function () {
+      mouseleave: function () {
         $(".interest_operators").fadeOut();
       }
-    );
+    });
     //generic operator preview
     $.getScript("/javascripts/preview_ops.js");
     $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);

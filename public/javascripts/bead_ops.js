@@ -43,4 +43,15 @@
       }
     });
 
+  $("#search").live({
+    keyup: function() {
+      var search_criteria = $("#search").serialize();
+      var key_count = (search_criteria.length - 7);
+      var parent_bead_id = $("#dynamic_beads").attr("data-id")
+      if (key_count > 1) {
+        $.getScript("/beads.js?"+search_criteria+"&parent_bead_id="+parent_bead_id);
+      }
+    }
+  });
+
 });

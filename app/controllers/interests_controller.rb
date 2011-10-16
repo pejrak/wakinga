@@ -101,29 +101,36 @@ before_filter :authenticate_user!
   end
 
   def add_single_bead
-    @interest = Interest.find(params[:id])
     if params[:bead_id]
-      bead = Bead.find(params[:bead_id])
+      @bead = Bead.find(params[:bead_id])
     elsif params[:noun_id]
       @noun = Noun.find(params[:noun_id])
-      (Bead.where('UPPER(beads.title) = UPPER(?)',@noun.title)==[])? (bead = Bead.create(:title => @noun.title.titleize, :description => 'Newly activated bead.', :parent_bead => 0)) && (@noun.update_attributes(:b_active => 1)) : (bead = Bead.where('UPPER(beads.title) = UPPER(?)',@noun.title).first)
+      (Bead.where('UPPER(beads.title) = UPPER(?)',@noun.title)==[])? (@bead = Bead.create(:title => @noun.title.titleize, :description => 'Newly activated bead.', :parent_bead => 0)) && (@noun.update_attributes(:b_active => 1)) : (@bead = Bead.where('UPPER(beads.title) = UPPER(?)',@noun.title).first)
     end
-    
-    if @interest.beads.include?(bead)
+    #if the @interest instance is coming from the edit interest form
+    unless params[:parent_bead_id]
+      @interest = Interest.find(params[:id])
+      if @interest.beads.include?(@bead)
       flash[:notice] = 'The bead is already added.'
-    else
-      #here I am limiting the number of allowed beads in interest... to 4
-      if @interest.beads.size < 4
-        @interest.beads << bead
       else
-
-        flash[:notice] = 'You can only add up to 4 beads to an interest.'
+        #here I am limiting the number of allowed beads in interest... to 4
+        if @interest.beads.size < 4
+          @interest.beads << @bead
+        else
+          flash[:notice] = 'You can only add up to 4 beads to an interest.'
+        end
       end
-      
-    end
-   
-    respond_to do |format|
-	  format.html { redirect_to edit_interest_path(@interest) }
+      respond_to do |format|
+        format.html { redirect_to edit_interest_path(@interest) }
+      end
+    else
+      @parent_bead = Bead.find(params[:parent_bead_id])
+      @new_interest = Interest.create(:title => @parent_bead.title+' -new', :last_visit_at => Time.now, :user_id => current_user.id, :i_private => 0)
+      @new_interest.beads << @parent_bead
+      @new_interest.beads << @bead
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

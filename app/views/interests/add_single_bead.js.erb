@@ -1,0 +1,2 @@
+var identificator = "<%= raw escape_javascript(@parent_bead.id.to_s) %>"
+$.getScript("/bead_point_load.js?bead_id="+identificator+"&initialize=true");

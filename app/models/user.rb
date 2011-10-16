@@ -37,6 +37,11 @@ has_one :user_preference, :dependent => :destroy
     :limit => 5)
   end
 
+  def users_interests_with_selected_bead(selected_bead) 
+    #returns array of interest ids having the selected bead
+    return BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['interests.user_id = ? AND beads.id = ?', self.id, selected_bead.id]).map(&:interest_id)
+  end
+
 #take all interests of current user
 #selected user is the trustee
 #do not offer interests that are already trusted to the trustee

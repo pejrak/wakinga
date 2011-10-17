@@ -129,7 +129,7 @@ before_filter :authenticate_user!
       @new_interest.beads << @parent_bead
       @new_interest.beads << @bead
       respond_to do |format|
-        format.js
+        format.js { render "/bead_point_load.js?bead_id=#{@parent_bead.id.to_s}&initialize=true" }
       end
     end
   end

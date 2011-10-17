@@ -7,7 +7,7 @@ before_filter :authenticate_user!, :except => [:new, :edit, :create, :update, :d
       @interest = Interest.find(params[:interest_id])
       @bead = []
     elsif params[:parent_bead_id]
-      @interest = []
+      @interest = Interest.where(:user_id => current_user.id).first
       @bead = Bead.find(params[:parent_bead_id])
     end
     @beads = Bead.search(params[:search])

@@ -1,4 +1,4 @@
-<h2><%= @interest.title %> (<%= (@interest.post_count_unread > 0)? h(@interest.post_count_unread.to_s + ' new / ') : '' %><%= @interest.post_count %>)</h2>
+<h2>showing interest (<%= (@interest.post_count_unread > 0)? h(@interest.post_count_unread.to_s + ' new / ') : '' %><%= @interest.post_count %>)</h2>
   <% @interest.beads.each do |beader| %>
   o <span class="text_emphasizer"><%= beader.title %></span>
   <% end %>
@@ -12,5 +12,3 @@
 	<br /><h3>You trust this interest to</h3>
 	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.trusts %>
 <% end %>
-
-<%# debug(@interest.nearest_beads_combination(3)) %>

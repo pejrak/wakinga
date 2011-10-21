@@ -110,7 +110,7 @@ h3 {
   margin-top: 5px;
   margin-bottom: 0px;
   font-weight: normal;
-  font-style: italic;
+/*  font-style: italic; */
   color: #F40026;
 }
 h2 {
@@ -280,9 +280,15 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     padding: 6px;
     border-left: #2CA200 solid 2px;
 }
-.activated_post p {
+.message_body {
     font-size: 12px;
 }
+
+.post_record {
+  font-size: 8px;
+  color: #282828;
+}
+
 .private_activated_post {
 /*    background-image: url(/images/bg_red_fade_vert.png);
     background-position: top;

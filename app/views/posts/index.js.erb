@@ -1,5 +1,5 @@
 <% unless @dynamic_posts.empty? %>
-  $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'message'), '#', :remote => true, :class => 'post_show')) %>").show();
+  $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'open message'), '#', :remote => true, :class => 'post_show')) %>").show();
   $('.post_show').click(function() {
     refreshPosts();
     $(".dynamic#buffer").slideUp();
@@ -15,5 +15,5 @@
 function refreshPosts() {
   $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
   $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
-  $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'message')) %>");
+  $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'open message')) %>");
 }

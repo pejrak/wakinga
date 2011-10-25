@@ -2,22 +2,24 @@ class PostsController < ApplicationController
 before_filter :authenticate_user! #, :except => [:show, :index]
 
   def index
-    @interest = Interest.find(params[:interest_id])
-    @previous_visit_record = Time.at(params[:previous_visit_record].to_i)
+    @interest = Interest.find(params[:iid])
+    @previous_visit_record = Time.at(params[:pvr].to_i)
     if params[:full_refresh] != 'false'
       @dynamic_posts = []
     elsif params[:full_refresh] == 'false'
       (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 1
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
-    if @interest
+    if @interest && params[:lt] == 'openmessages'
       @memorized_content = @interest.memorized_post_content(true,@interest.user).paginate(:per_page => 10, :page => params[:page])
       @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
+    elsif @interest && params[:lt] == 'archivemessages'
+      @message_content = @interest.memorized_post_content(true,@interest.user).paginate(:per_page => 10, :page => params[:page])
     end
   end
 
   def dynamic_load
-    @interest = Interest.find(params[:interest_id])
+    @interest = Interest.find(params[:iid])
     @memorized_content = @interest.memorized_post_content(true,@interest.user).paginate(:per_page => 10, :page => params[:page])
     @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
     if request.xhr?

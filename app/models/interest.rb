@@ -165,22 +165,22 @@ class Interest < ActiveRecord::Base
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 
-  def memorized_post_content_public(memorability,user)
+  def memorized_post_content_public(memorability,user,unload='complete')
     Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => [:beads_posts, :memorizations],
-        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.p_private <> ?", beads, user, memorability, true],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication <> ? AND posts.p_private <> ?", beads, user, memorability, unload, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'posts.updated_at DESC')
   end
 
-  def memorized_post_content_private(memorability,selected_user)
+  def memorized_post_content_private(memorability,selected_user,unload='complete')
     loaded_trustors = trustors(selected_user)
     Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => [:beads_posts, :memorizations],
-        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND posts.p_private = ? AND posts.user_id IN (?)", beads, selected_user, memorability, true, loaded_trustors],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication <> ? AND posts.p_private = ? AND posts.user_id IN (?)", beads, selected_user, memorability, unload, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'posts.updated_at DESC')

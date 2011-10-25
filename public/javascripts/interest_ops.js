@@ -22,6 +22,20 @@ $(document).ready(function() {
       $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });
+    $(".stream_operators").live({
+      mouseover: function () {
+        $(this).css("background-color","#d1ffc0");
+      },
+      mouseout: function () {
+        $(this).css("background-color","#CCC");
+      },
+      click: function() {
+        var interest_identificator = $(this).parent().attr("data-id");
+        var identificator = $(this).attr("id");
+        $(this).parent().data("load",identificator);
+        prepPosts();
+      }
+    });
 });
 
 function updatePosts(c) {
@@ -33,7 +47,7 @@ function updatePosts(c) {
   if ($("#messagerefresh").length > 0) {
     $("#messagerefresh").remove();
   }
-  $.getScript("/posts.js?interest_id=" + interest_id + "&after=" + after + "&full_refresh=false&previous_visit_record=" + previous_visit);
+  $.getScript("/posts.js?iid=" + interest_id + "&after=" + after + "&full_refresh=false&pvr=" + previous_visit);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
   if (c == undefined) {
@@ -64,6 +78,8 @@ jQuery.fn.submitWithAjax = function() {
 function prepPosts() {
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
+  var load_type = $("#catcher").data("load");
   $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
-  $.getScript("/posts.js?interest_id=" + interest_id + "&full_refresh=true&previous_visit_record=" + previous_visit);
+  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr=" + previous_visit+"&lt=" + load_type);
+  alert(load_type);
 }

@@ -160,8 +160,8 @@ class Interest < ActiveRecord::Base
 
   end
 
-  def memorized_post_content(memorability,selected_user)
-    content = memorized_post_content_public(memorability,user) + memorized_post_content_private(memorability,selected_user)
+  def memorized_post_content(memorability,selected_user,unload='complete')
+    content = memorized_post_content_public(memorability,user,unload) + memorized_post_content_private(memorability,selected_user,unload)
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 
@@ -169,7 +169,7 @@ class Interest < ActiveRecord::Base
     Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => [:beads_posts, :memorizations],
-        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication <> ? AND posts.p_private <> ?", beads, user, memorability, unload, true],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private <> ?", beads, user, memorability, unload, true],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'posts.updated_at DESC')
@@ -180,14 +180,14 @@ class Interest < ActiveRecord::Base
     Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :joins => [:beads_posts, :memorizations],
-        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication <> ? AND posts.p_private = ? AND posts.user_id IN (?)", beads, selected_user, memorability, unload, true, loaded_trustors],
+        :conditions => ["beads_posts.bead_id IN (?) AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", beads, selected_user, memorability, unload, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'posts.updated_at DESC')
   end
 
 
-  def dynamic_post_content(time_at, selected_user)
+  def dynamic_post_content(time_at, selected_user,unload='complete')
     loaded_trustors = trustors(selected_user)
     Post.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
@@ -202,7 +202,7 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ? AND posts.p_private = ? AND posts.user_id IN (?)",beads, time_at, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :order => 'created_at DESC') - memorized_post_content(true,user) - memorized_post_content(false,user)
+        :order => 'created_at DESC') - memorized_post_content(true,user,unload) - memorized_post_content(false,user,unload)
   end
 
   def conditional_post_content(user,beads,time_at,memorability)

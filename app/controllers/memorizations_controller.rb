@@ -63,6 +63,7 @@ class MemorizationsController < ApplicationController
     end
   end
  
+
   def mark_for_archival
     @memorization = Memorization.find(params[:id])
     if @memorization.update_attributes(:status_indication => 'archive', :change_record => (@memorization.change_record + Memorization::MEMORY_ARCHIVED))

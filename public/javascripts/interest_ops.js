@@ -47,7 +47,11 @@ function updatePosts(c) {
   if ($("#messagerefresh").length > 0) {
     $("#messagerefresh").remove();
   }
-  $.getScript("/posts.js?iid=" + interest_id + "&after=" + after + "&full_refresh=false&pvr=" + previous_visit);
+  if ($("#catcher").data("load")==undefined) {
+    $("#catcher").data("load", "openmessages");
+  }
+  var load_type = $("#catcher").data("load");
+  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
   if (c == undefined) {
@@ -80,6 +84,6 @@ function prepPosts() {
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
   var load_type = $("#catcher").data("load");
   $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
-  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr=" + previous_visit+"&lt=" + load_type);
-  alert(load_type);
+  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type);
+  //alert(load_type);
 }

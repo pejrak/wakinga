@@ -74,7 +74,7 @@ class Interest < ActiveRecord::Base
 
   #this is content that shows in the middle area, that is not memorized or burned
   def post_content(selected_user)
-    content = post_content_all(selected_user) - memorized_post_content(true,selected_user) - memorized_post_content(false,selected_user)
+    content = post_content_all(selected_user) - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 

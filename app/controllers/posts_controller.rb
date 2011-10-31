@@ -10,7 +10,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 1
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
-    if @interest && params[:lt] == 'openmessages'
+    if @interest && params[:lt] != 'archivedmessages'
       show_options = ['archive','complete']
       @memorized_content = @interest.memorized_post_content(true,@interest.user,show_options).paginate(:per_page => 10, :page => params[:page])
       @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])

@@ -11,6 +11,11 @@
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
+
+<% if @message_content.total_pages > 1 %>
+  $(".dynamic#pagedmessages").html("<%= pageless(@message_content.total_pages,('/dynamic_load'+'?iid='+@interest.id.to_s)) %>");
+<% end %>
+
 // function for refresh of the message contents  
 function refreshPosts() {
   $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");

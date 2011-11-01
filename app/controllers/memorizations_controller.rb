@@ -14,6 +14,7 @@ class MemorizationsController < ApplicationController
   def create
     @memorization = Memorization.new(params[:memorization])
     @memorization.change_record = Memorization::MEMORY_START
+    @memorization.status_indication = 'open'
     if @memorization.save
       flash[:notice] = "Successfully created memorization."
       redirect_to @memorization

@@ -1,11 +1,8 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
 $(document).ready(function() {
     $("#new_post").submitWithAjax();
     $(function() {
         var c=0;
-        setTimeout("updatePosts(0)", 1000);
+        setTimeout("updatePosts(0)", 500);
         $.getScript("/javascripts/message_ops.js");
     });
     $(function() {
@@ -51,7 +48,14 @@ function updatePosts(c) {
     $("#catcher").data("load", "openmessages");
   }
   var load_type = $("#catcher").data("load");
-  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type);
+//check if this is the first refresh
+  if (c==0) {
+    var initial_load = 1;
+  }
+  else {
+    var initial_load = 0;
+  }
+  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&il="+initial_load);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
   if (c == undefined) {
@@ -84,6 +88,6 @@ function prepPosts() {
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
   var load_type = $("#catcher").data("load");
   $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
-  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type);
+  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type+"&il=1");
   //alert(load_type);
 }

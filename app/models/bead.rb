@@ -27,6 +27,11 @@ has_many :users, :through => :interests
     end
   end
 
+  #returns array of interest ids having the selected bead
+  def all_interests_with_this_bead
+    return BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['beads.id = ?', self.id]).map(&:interest_id).uniq
+  end
+
   def post_ids
     posts.find(:all, :select => 'distinct posts.id as post_id')
   end

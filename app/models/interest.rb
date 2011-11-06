@@ -45,7 +45,7 @@ class Interest < ActiveRecord::Base
     beads.map(&:id)
   end
 
-  #function to find interests with the same beads
+  #function to find interests with the same beads for interest owner
 
   def users_sharing_the_same_interest
     other_interests = Interest.where('interests.user_id <> ? AND interests.i_private <> ?', self.user_id, true)
@@ -118,17 +118,17 @@ class Interest < ActiveRecord::Base
 
   #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads
   #this function is reused across trust building as well as displaying preview of interests
-	def compare_beads_with_other_interests(interests)
-		matching_interests = []
+  def compare_beads_with_other_interests(interests)
+    matching_interests = []
     b2 = beads.map(&:id).sort
-		interests.each do |i|
-			b1 = i.beads.map(&:id).sort
-			if b1 == b2
-				matching_interests << i
-			end
-		end
-		return matching_interests
-	end
+    interests.each do |i|
+      b1 = i.beads.map(&:id).sort
+      if b1 == b2
+        matching_interests << i
+      end
+    end
+    return matching_interests
+  end
 
   def live_message_content(selected_user)
     loaded_post_ids = memorized_post_content(true,selected_user).map(&:id)

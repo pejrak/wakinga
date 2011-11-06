@@ -14,8 +14,8 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     end
     if @interest && params[:lt] == 'openmessages' 
       show_options = ['archive','complete']
-      @memorized_content = @interest.memorized_post_content(true,@interest.user,show_options).paginate(:per_page => 10, :page => params[:page])
-      @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
+      @memorized_content = @interest.memorized_post_content(true,@interest.user,show_options).paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+      @message_content = @interest.post_content(current_user).paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
     elsif @interest && params[:lt] == 'archivedmessages'
       @memorized_content = []
       show_options = ['action','']
@@ -28,8 +28,8 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 ##the same as under index
     if @interest && params[:lt] == 'openmessages' 
       show_options = ['archive','complete']
-      @memorized_content = @interest.memorized_post_content(true,@interest.user,show_options).paginate(:per_page => 10, :page => params[:page])
-      @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
+      @memorized_content = @interest.memorized_post_content(true,@interest.user,show_options).paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+      @message_content = @interest.post_content(current_user).paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
     elsif @interest && params[:lt] == 'archivedmessages'
       @memorized_content = []
       show_options = ['action','']

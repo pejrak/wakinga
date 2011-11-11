@@ -43,7 +43,7 @@ class Interest < ActiveRecord::Base
   end
 
   def other_matching_interests
-    self.compare_beads_with_other_interests(Interest.where('interests.user_id = ? AND interests.id <> ?', user.id, self.id))
+    self.compare_beads_with_other_interests(Interest.where('interests.id <> ?', self.id))
   end
 
   #function to find interests with the same beads for interest owner
@@ -64,7 +64,7 @@ class Interest < ActiveRecord::Base
   end
 
   def post_count_unread(selected_user)
-    property_source = preference_for(selected_user)
+    property_source = preference_for(selected_user).first
     last_visit_at = ((property_source.present?)? property_source.last_visit_at : selected_user.last_sign_in_at)
     BeadsPost.find(:all, :select => ['DISTINCT post_id'], :joins => :post, :group => 'post_id', :conditions => ["bead_id IN (?) AND posts.created_at > ?", beads, last_visit_at], :having => ['count(distinct bead_id) = ?', beads.count]).count
   end
@@ -86,17 +86,17 @@ class Interest < ActiveRecord::Base
 
   #find all offered trusts for the current interest
 
-  def incoming_unconfirmed_trusts
+  def incoming_unconfirmed_trusts(selected_user)
     #load all incoming trusts for owner of this interest
-    all_incoming_trusts = Trust.find_all_by_trustee_id(self.user_id)
+    all_incoming_trusts = Trust.find_all_by_trustee_id(selected_user.id)
     #load the interests on which the trusts are build
     all_trusted_interests = Interest.where(:id => all_incoming_trusts.map(&:interest_id))
     #compare each interest with the current interest and return the ones that are matching
     identical_trusted_interests = compare_beads_with_other_interests(all_trusted_interests)
     if trustees.present?
-      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?) AND trusts.trustor_id NOT IN (?)', self.user_id, identical_trusted_interests.map(&:id), trustees)
+      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?) AND trusts.trustor_id NOT IN (?)', selected_user.id, identical_trusted_interests.map(&:id), trustees)
     else
-      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?)', self.user_id, identical_trusted_interests.map(&:id))
+      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?)', selected_user.id, identical_trusted_interests.map(&:id))
     end
 
   end

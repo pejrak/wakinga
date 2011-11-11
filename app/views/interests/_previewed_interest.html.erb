@@ -3,8 +3,8 @@
   o <span class="text_emphasizer"><%= beader.title %></span>
   <% end %>
   <% unless @interest.preference_for(current_user).empty? %>
-    <h3><%= (@interest.preference_for(current_user).i_private == true)? 'private interest' : '' %></h3>
-    <p>last visit <%= time_ago_in_words(@interest.preference_for(current_user).last_visit_at) %> ago</p>
+    <h3><%= (@interest.preference_for(current_user).first.i_private == true)? 'private interest' : '' %></h3>
+    <p>last visit <%= time_ago_in_words(@interest.preference_for(current_user).first.last_visit_at) %> ago</p>
   <% end %>
   with <%= @interest.memorized_post_content(true,current_user).size %> memories<br />
   you share it with <%= pluralize(@shared_by_this_many_users, 'mind') %>

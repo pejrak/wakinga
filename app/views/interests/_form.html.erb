@@ -3,8 +3,8 @@
   <p>
     <%# f.label :title %>
     <%= f.hidden_field :title %>
-    <%= character_count('interest_title', Interest::MAX_TITLE_LENGTH, Interest::MAX_TITLE_LENGTH - 5) %>
-    <%= f.check_box :i_private %><%= f.label 'Private interest' %>
+    <%# character_count('interest_title', Interest::MAX_TITLE_LENGTH, Interest::MAX_TITLE_LENGTH - 5) %>
+    <%# check_box :i_private %><%# label 'Private interest' %>
   </p>
   <% if params[:action] != 'new' then %>
   <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true, :style => 'display:none' %>

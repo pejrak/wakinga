@@ -62,9 +62,9 @@ beads: <% @interest.beads.each do |beader| %>
 	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.trusts %>
 <% end %>
 <%# debug(@interest.trusts.map(&:trustee_id)) %>
-<% if @interest.preference_for(current_user) != [] and @interest.incoming_unconfirmed_trusts.present? %>
+<% if @interest.preference_for(current_user) != [] and @interest.incoming_unconfirmed_trusts(current_user).present? %>
         <h2>Trusts from</h2><br />
-	<%= render :partial => 'trusts/incoming_trust', :collection => @interest.incoming_unconfirmed_trusts %>
+	<%= render :partial => 'trusts/incoming_trust', :collection => @interest.incoming_unconfirmed_trusts(current_user) %>
 <% end %>
 
 <% end %>

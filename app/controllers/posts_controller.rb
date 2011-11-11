@@ -19,7 +19,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     elsif @interest && params[:lt] == 'archivedmessages'
       @memorized_content = []
       show_options = ['action','']
-      @message_content = @interest.memorized_post_content(true,current_user, show_options).paginate(:per_page => 10, :page => params[:page])
+      @message_content = @interest.memorized_post_content(true,current_user, show_options).paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
     end
   end
 
@@ -124,6 +124,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
    if Memorization.where(:post_id => @post, :user_id => current_user).empty?
      @memorization = Memorization.new
      @memorization.post_id = @post.id
+     @memorization.status_indication = "open"
      @memorization.memorable = true
      @memorization.user_id = current_user.id
      @memorization.change_record = Memorization::MEMORY_START

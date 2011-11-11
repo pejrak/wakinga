@@ -8,12 +8,11 @@ before_filter :authenticate_user!
   def show
     @interest = Interest.find(params[:id])
     unless @interest.preference_for(current_user).empty?
-      @previous_visit_record = @interest.last_visit_at
-      @interest.preference_for(current_user).update_attribute(:last_visit_at, Time.now)
+      @previous_visit_record = @interest.preference_for(current_user).first.last_visit_at
+      @interest.preference_for(current_user).first.update_attribute(:last_visit_at, Time.now)
     else
       @previous_visit_record = current_user.last_sign_in_at
     end
-    @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
     if session[:loaded_interests].present?
     #put cookie stored interests 
     inter_load = session[:loaded_interests]
@@ -28,10 +27,10 @@ before_filter :authenticate_user!
       session[:loaded_interests] = []
       session[:loaded_interests] << @interest.id
     end
-	respond_to do |format|
-	  format.html # show.html.erb
-	  format.xml  { render :xml => @interest }
-	end
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @interest }
+    end
   end
 
   def new
@@ -51,27 +50,20 @@ before_filter :authenticate_user!
 
   def edit
     @interest = Interest.find(params[:id])
-    if @interest.user == current_user
-      @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
-#      @search = Bead.search(params[:search]) - (@parent_beads + @interest.beads)
-#      @beads = @search - (@parent_beads + @interest.beads)
-    else
-        redirect_to :back
-        flash[:notice] = 'That is not your interest.'
-    end
+    @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
   end
 
   def create
-	@interest = Interest.new(params[:interest])
-	@interest.user = current_user
-	@interest.last_visit_at = Time.now
-	respond_to do |format|
-	  if @interest.save
-		format.html { redirect_to edit_interest_path(@interest) }
-	  else
-		format.html { render :action => "new" }
-	  end
-	end
+    @interest = Interest.new(params[:interest])
+    @interest.user = current_user
+    @interest.last_visit_at = Time.now
+    respond_to do |format|
+      if @interest.save
+        format.html { redirect_to edit_interest_path(@interest) }
+      else
+        format.html { render :action => "new" }
+      end
+    end
   end
 
   def update
@@ -80,7 +72,9 @@ before_filter :authenticate_user!
     respond_to do |format|
     if @interest.beads.present?
       if @interest.update_attributes(params[:interest])
-      format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
+        @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
+        format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
+      
       else
       format.html { render :action => "edit" }
       end
@@ -127,7 +121,7 @@ before_filter :authenticate_user!
       end
     else
       @parent_bead = Bead.find(params[:parent_bead_id])
-      @new_interest = Interest.create(:title => @parent_bead.title+' -new', :last_visit_at => Time.now, :user_id => current_user.id, :i_private => 0)
+      @new_interest = Interest.create(:title => @parent_bead.title+' -new')
       @new_interest.beads << @parent_bead
       @new_interest.beads << @bead
       redirect_to edit_interest_path(@new_interest)

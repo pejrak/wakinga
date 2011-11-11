@@ -17,11 +17,12 @@
 <div id="interest" data-id="<%= @interest.id %>">
   <%# debug(@previous_visit_record) %>
 <br />  
-<%= (current_user == @interest.user)? link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(@interest)) : (link_to('adpopt', adopt_interest_path(@interest)))  %> beads: <% @interest.beads.each do |beader| %>
+<%# (current_user == @interest.user)? link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(@interest)) : (link_to('adpopt', adopt_interest_path(@interest)))  %> 
+beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
 
-<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <span class="post_size"><%= pluralize(@interest.post_content(@interest.user).size.to_s, 'open message') %></span></h2>
+<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <span class="post_size"><%= pluralize(@interest.post_content(current_user).size.to_s, 'open message') %></span></h2>
   <div class="content_create_message" style="display:none">
     <%= render 'posts/form' %>
   </div>
@@ -39,8 +40,8 @@
 
 <% content_for :rightside do %>
   <%# debug(@interest.nearest_beads_combination(3)) %>
-  <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,@interest.user).size.to_s, 'memory') %></h2>
-<% if @interest.memorized_post_content(true,@interest.user).size > 10 %>
+  <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,current_user).size.to_s, 'memory') %></h2>
+<% if @interest.memorized_post_content(true,current_user).size > 10 %>
   <p><i> quick memory search</i></p>
   <p>
     <%= text_field_tag :memorysearch, params[:search] %>
@@ -56,12 +57,12 @@
 
 <% content_for :leftside do %>
 <div class="activated_post_container"></div>
-<% if current_user == @interest.user and @interest.trusts.present? %>
+<% if @interest.preference_for(current_user) != [] && @interest.trusts.present? %>
 	<h2>You trust this interest to</h2><br />
 	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.trusts %>
 <% end %>
 <%# debug(@interest.trusts.map(&:trustee_id)) %>
-<% if current_user == @interest.user and @interest.incoming_unconfirmed_trusts.present? %>
+<% if @interest.preference_for(current_user) != [] and @interest.incoming_unconfirmed_trusts.present? %>
         <h2>Trusts from</h2><br />
 	<%= render :partial => 'trusts/incoming_trust', :collection => @interest.incoming_unconfirmed_trusts %>
 <% end %>

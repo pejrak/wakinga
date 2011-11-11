@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  interest_id: 1
+  last_visit_at: 2011-11-10 03:04:17
+  i_private: false
+
+two:
+  user_id: 1
+  interest_id: 1
+  last_visit_at: 2011-11-10 03:04:17
+  i_private: false

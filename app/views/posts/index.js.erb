@@ -20,5 +20,5 @@
 function refreshPosts() {
   $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
   $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
-  $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(@interest.user).size.to_s, 'open message')) %>");
+  $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(current_user).size.to_s, 'open message')) %>");
 }

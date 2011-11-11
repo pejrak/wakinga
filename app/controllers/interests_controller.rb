@@ -7,11 +7,13 @@ before_filter :authenticate_user!
 
   def show
     @interest = Interest.find(params[:id])
-    @previous_visit_record = @interest.last_visit_at
-    @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
-    if current_user == @interest.user
-      @interest.update_attribute(:last_visit_at, Time.now)
+    unless @interest.preference_for(current_user).empty?
+      @previous_visit_record = @interest.last_visit_at
+      @interest.preference_for(current_user).update_attribute(:last_visit_at, Time.now)
+    else
+      @previous_visit_record = current_user.last_sign_in_at
     end
+    @message_content = @interest.post_content(current_user).paginate(:per_page=> 10, :page => params[:page])
     if session[:loaded_interests].present?
     #put cookie stored interests 
     inter_load = session[:loaded_interests]

@@ -10,12 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111007163518) do
+ActiveRecord::Schema.define(:version => 20111110020608) do
 
   create_table "admins", :force => true do |t|
-    t.string   "email",                                              :null => false
-    t.string   "encrypted_password",   :limit => 128,                :null => false
-    t.string   "password_salt",                                      :null => false
+    t.string   "email",                               :default => "", :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "password_salt",                       :default => "", :null => false
     t.string   "reset_password_token"
     t.integer  "failed_attempts",                     :default => 0
     t.string   "unlock_token"
@@ -74,13 +74,9 @@ ActiveRecord::Schema.define(:version => 20111007163518) do
   end
 
   create_table "interests", :force => true do |t|
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
-    t.string   "feed_url"
-    t.datetime "last_visit_at"
-    t.boolean  "i_private"
   end
 
   create_table "memorizations", :force => true do |t|
@@ -128,6 +124,15 @@ ActiveRecord::Schema.define(:version => 20111007163518) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "trustor_id"
+  end
+
+  create_table "user_interest_preferences", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "interest_id"
+    t.datetime "last_visit_at"
+    t.boolean  "i_private"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_preferences", :force => true do |t|

@@ -80,19 +80,19 @@ module ApplicationHelper
     return javascript_tag(function) # append the function as script tag
   end
 
-	def outgoing_trusts
-		Trust.where(:interest_id => current_user.interests)
-	end
+  def outgoing_trusts
+    Trust.where(:trustor_id => current_user.id)
+  end
 
-	def incoming_trusts
-		unconfirmed_incoming_trusts = []
-    all_incoming_trusts = Trust.where(:trustee_id => current_user)
+  def incoming_trusts
+    unconfirmed_incoming_trusts = []
+    all_incoming_trusts = Trust.where(:trustee_id => current_user.id)
     all_incoming_trusts.each do |t|
       if t.confirmed? == false
         unconfirmed_incoming_trusts << t
       end
     end
     return unconfirmed_incoming_trusts
-	end
+  end
 
 end

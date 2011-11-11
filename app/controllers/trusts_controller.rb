@@ -50,10 +50,6 @@ class TrustsController < ApplicationController
       end
   end
 
-#  def edit
-#    @trust = Trust.find(params[:id])
-#  end
-
   def update
     @trust = Trust.find(params[:id])
     if @trust.update_attributes(params[:trust])

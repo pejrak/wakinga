@@ -5,7 +5,8 @@ class Interest < ActiveRecord::Base
   has_many :beads_posts, :through => :beads
   has_many :trusts, :dependent => :destroy
   has_many :trustees, :through => :trusts
-  belongs_to :user
+  has_many :user_interest_preferences, :dependent => :destroy
+  ##belongs_to :user
 
   MAX_TITLE_LENGTH = 50
   COMBINATION_SUGGESTION_SIZE = 10
@@ -22,6 +23,10 @@ class Interest < ActiveRecord::Base
   #    "#{id}-#{title}"
   #  end
 
+  #find the user preference for the interest
+  def preference_for(selected_user)
+    user_interest_preferences.where(:user_id => selected_user.id)
+  end
 
   #extract all bead ids from beads in the interest
 
@@ -41,15 +46,10 @@ class Interest < ActiveRecord::Base
     self.compare_beads_with_other_interests(Interest.where('interests.user_id = ? AND interests.id <> ?', user.id, self.id))
   end
 
-  def contain_ids
-    beads.map(&:id)
-  end
-
   #function to find interests with the same beads for interest owner
 
   def users_sharing_the_same_interest
-    other_interests = Interest.where('interests.user_id <> ? AND interests.i_private <> ?', self.user_id, true)
-    self.compare_beads_with_other_interests(other_interests).map(&:user_id)
+    self.user_interest_preferences.map(&:user_id)
   end
 
   #return number of all posts within the interest,
@@ -63,15 +63,15 @@ class Interest < ActiveRecord::Base
     BeadsPost.find(:all, :select => ['DISTINCT post_id'], :group => 'post_id', :conditions => ["bead_id IN (?)", considered_beads], :having => ['count(distinct bead_id) = ?', beads.count + 1]).count
   end
 
-
-  def post_count_unread
+  def post_count_unread(selected_user)
+    property_source = preference_for(selected_user)
+    last_visit_at = ((property_source.present?)? property_source.last_visit_at : selected_user.last_sign_in_at)
     BeadsPost.find(:all, :select => ['DISTINCT post_id'], :joins => :post, :group => 'post_id', :conditions => ["bead_id IN (?) AND posts.created_at > ?", beads, last_visit_at], :having => ['count(distinct bead_id) = ?', beads.count]).count
   end
 
 
   #load all posts within beads of the current interest
   #refers to bead ids that were extracted in the bead_ids
-
   #this is content that shows in the middle area, that is not memorized or burned
   def post_content(selected_user)
     content = post_content_all(selected_user) - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
@@ -81,22 +81,7 @@ class Interest < ActiveRecord::Base
   #this function finds all trustors for the selected user
 
   def trustors(selected_user)
-    prot_trustors = []
-    prot_trustors << selected_user.id
-    all_trusts_for_selected_user = Trust.find_all_by_trustee_id(selected_user.id)
-    if all_trusts_for_selected_user.present?
-    interest_beads_load = self.beads.map(&:id).sort
-        all_trusts_for_selected_user.each do |t|
-      trusted_beads_load = t.interest.beads.map(&:id).sort
-            if trusted_beads_load == interest_beads_load
-              prot_trustors << t.trustor.id
-            end
-        end
-    return prot_trustors.uniq
-    else return nil
-
-    end
-
+    return self.trusts.where(:trustee_id => selected_user.id).map(&:trustor_id).uniq << selected_user.id
   end
 
   #find all offered trusts for the current interest
@@ -161,7 +146,7 @@ class Interest < ActiveRecord::Base
   end
 
   def memorized_post_content(memorability,selected_user,unload='complete')
-    content = memorized_post_content_public(memorability,user,unload) + memorized_post_content_private(memorability,selected_user,unload)
+    content = memorized_post_content_public(memorability,selected_user,unload) + memorized_post_content_private(memorability,selected_user,unload)
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 
@@ -202,7 +187,7 @@ class Interest < ActiveRecord::Base
         :conditions => ["beads_posts.bead_id IN (?) AND posts.created_at > ? AND posts.p_private = ? AND posts.user_id IN (?)",beads, time_at, true, loaded_trustors],
         :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :order => 'created_at DESC') - memorized_post_content(true,user,unload) - memorized_post_content(false,user,unload)
+        :order => 'created_at DESC') - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
   end
 
   def conditional_post_content(user,beads,time_at,memorability)

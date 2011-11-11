@@ -1,4 +1,6 @@
-<% content_for :leftside do %><div class="activated_post_container"></div><% end %>
+<% content_for :leftside do %>
+  <div class="slot_full"></div>
+<% end %>
 
 <%= content_for :middletop do %>
   <h1><span class="heading_subtelize">Bead:</span> <%= @bead.title %></h1>
@@ -16,7 +18,7 @@
 <br />
 <%# link_to 'View or search all beads', beads_path %>
 <div>
-  <%# render :partial => @bead.posts.where(:p_private => false).limit(50) %>
+  <%= render :partial => 'shared/interest', :collection => @bead.interests %>
 </div>
 <br />
 <% content_for :rightside do %>
@@ -24,7 +26,7 @@
 <p>
 Associated messages: <%= @bead.beads_posts_count %> <br />
 Associated interests: <%= @bead.interests.count %> <br />
-Last activity: <%= (@bead.posts.last.present?)? time_ago_in_words(@bead.posts.last.created_at)+' ago':'None' %><br />
+Last activity: <%= (@bead.beads_posts.last.post.present?)? time_ago_in_words(@bead.beads_posts.last.post.created_at)+' ago':'None' %><br />
 </p>
 <% end %>
 

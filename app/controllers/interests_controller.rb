@@ -35,9 +35,7 @@ before_filter :authenticate_user!
 
   def new
     @interest = Interest.new
-    @interest.user = current_user
     @interest.title = 'new interest'
-    @interest.last_visit_at = Time.now
     if @interest.save
       redirect_to edit_interest_path(@interest)
     else
@@ -55,8 +53,6 @@ before_filter :authenticate_user!
 
   def create
     @interest = Interest.new(params[:interest])
-    @interest.user = current_user
-    @interest.last_visit_at = Time.now
     respond_to do |format|
       if @interest.save
         format.html { redirect_to edit_interest_path(@interest) }
@@ -74,7 +70,6 @@ before_filter :authenticate_user!
       if @interest.update_attributes(params[:interest])
         @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
         format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
-      
       else
       format.html { render :action => "edit" }
       end
@@ -151,14 +146,11 @@ before_filter :authenticate_user!
 
    def adopt
      @interest = Interest.find(params[:id])
-     @adopted_interest = Interest.new(:user_id => current_user.id, :title => "Adopted interest - rename", :last_visit_at => Time.now, :i_private => false)
-     @adopted_interest.beads = @interest.beads
-     if @adopted_interest.save
-       flash[:notice] = 'The interest was adopted.'
-     else flash[:notice] = 'Something went wrong.'
+     unless @interest.preference_for(current_user)
+     @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
+     redirect_to interest_path(@interest)
+     else redirect_to root_path
      end
-     redirect_to root_path
-     
    end
 
 #preview action enables you to view the interest details with javascript

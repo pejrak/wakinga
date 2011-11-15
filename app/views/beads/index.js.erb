@@ -1,14 +1,14 @@
 // first load the beads
 <% unless @beads.empty? %>
 	$("#dynamic_beads").html("<i><%=raw escape_javascript('click the bead to add it') %></i>");
-	$("#dynamic_beads").append("<%=raw escape_javascript(render(:partial => 'shared/searched_bead', :collection => @beads, :locals => {:interest_id => @interest.id, :parent_bead_id => @bead.id})) %>");
+	$("#dynamic_beads").append("<%=raw escape_javascript(render(:partial => 'shared/searched_bead', :collection => @beads, :locals => {:interest_id => @interest.id})) %>");
 <% else %>
 	$("#dynamic_beads").html("<i><%=raw escape_javascript('no result in active beads') %></i>");
 <% end %>
 // then load the nouns for concepts
 <% unless @nouns.empty? %>
 	$("#dynamic_nouns").html("<i><%=raw escape_javascript('click the concept to activate it and it') %></i>");
-	$("#dynamic_nouns").append("<%=raw escape_javascript(render(:partial => 'shared/searched_noun', :collection => @nouns, :locals => {:interest_id => @interest.id, :parent_bead_id => @bead.id})) %>");
+	$("#dynamic_nouns").append("<%=raw escape_javascript(render(:partial => 'shared/searched_noun', :collection => @nouns, :locals => {:interest_id => @interest.id})) %>");
 <% else %>
 //show message for nouns
 	$("#dynamic_nouns").html("<i><%=raw escape_javascript('end of extended search...') %></i>");

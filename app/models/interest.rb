@@ -28,12 +28,6 @@ class Interest < ActiveRecord::Base
     user_interest_preferences.where(:user_id => selected_user.id)
   end
 
-  #extract all bead ids from beads in the interest
-
-  def self.that_are_public
-    self.where(:i_private => false)
-  end
-  
   def title_with_beads
     title_concat = title + " ("
     self.beads.each do |b|
@@ -46,7 +40,21 @@ class Interest < ActiveRecord::Base
     self.compare_beads_with_other_interests(Interest.where('interests.id <> ?', self.id))
   end
 
-  #function to find interests with the same beads for interest owner
+  #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads
+  #this function is reused across trust building as well as displaying preview of interests
+  def compare_beads_with_other_interests(interests)
+    matching_interests = []
+    b2 = beads.map(&:id).sort
+    interests.each do |i|
+      b1 = i.beads.map(&:id).sort
+      if b1 == b2
+        matching_interests << i
+      end
+    end
+    return matching_interests
+  end
+
+  #function to find users with the same adopted interest
 
   def users_sharing_the_same_interest
     self.user_interest_preferences.map(&:user_id)
@@ -99,20 +107,6 @@ class Interest < ActiveRecord::Base
       return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?)', selected_user.id, identical_trusted_interests.map(&:id))
     end
 
-  end
-
-  #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads
-  #this function is reused across trust building as well as displaying preview of interests
-  def compare_beads_with_other_interests(interests)
-    matching_interests = []
-    b2 = beads.map(&:id).sort
-    interests.each do |i|
-      b1 = i.beads.map(&:id).sort
-      if b1 == b2
-        matching_interests << i
-      end
-    end
-    return matching_interests
   end
 
   def live_message_content(selected_user)

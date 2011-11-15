@@ -1,3 +1,3 @@
-<h3><%= link_to(searched_bead.title, :controller => 'interests', :action => 'add_single_bead', :id => interest_id, :bead_id => searched_bead.id, :parent_bead_id => parent_bead_id) %> ( <%= h(searched_bead.beads_posts_count) %> posts )</h3>
+<h3><%= link_to(searched_bead.title, :controller => 'interests', :action => 'add_single_bead', :id => interest_id, :bead_id => searched_bead.id) %> ( <%= h(searched_bead.beads_posts_count) %> posts )</h3>
 <%= h(searched_bead.description) %>
 <hr />

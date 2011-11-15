@@ -9,7 +9,7 @@ has_many :authentications
 has_many :trusts, :dependent => :destroy, :foreign_key => 'trustor_id'
 has_many :trusts, :dependent => :destroy, :foreign_key => 'trustee_id'
 has_one :user_preference, :dependent => :destroy
-
+has_many :user_interest_preferences, :dependent => :destroy
 # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable

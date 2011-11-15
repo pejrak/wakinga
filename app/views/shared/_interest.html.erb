@@ -1,4 +1,5 @@
 <div class="preview_slot" data-id="<%= interest.id %>">
+<%= debug(interest.preference_for(current_user).empty?) %>
 <h3><%= (interest.preference_for(current_user))? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %>
   <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest'), interest %>
   (<%= (interest.preference_for(current_user))? h(interest.post_count_unread(current_user).to_s + ' new / ') : '' %><%= pluralize(interest.memorized_post_content(true,current_user).size, 'memory') %>)

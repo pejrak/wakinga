@@ -3,12 +3,18 @@
 var identifier = '#beadpoint<%=raw escape_javascript(@bead.id.to_s) %>'
 var parent_bead_point_data = $(identifier).parent().data("beadpoints");
 var parent_identifier = $(identifier).parent().attr("data-id");
-$(identifier).html("<p></p>")
+$(identifier).html("<h3>adopted interests</h3>");
 
 //iterate through interests found associated with the selected bead
 <% @users_interests_containing_selected_bead_array.each do |i| %>
   $(identifier).append("<div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/interest', :object => Interest.find(i)) %></div>");
 <% end %>
 
+$(identifier).append("<h3>free for adoption</h3>");
+
+<% @interests_containing_selected_bead_array.each do |i| %>
+  $(identifier).append("<div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/interest', :object => Interest.find(i)) %></div>");
+<% end %>
+
 //append the interest creator container
-$(identifier).append("<div class='bead_point' id='"+parent_identifier+"addbead' data-id='"+parent_identifier+"'><%=raw escape_javascript(render :partial => 'shared/add_interest', :object => @bead) %></div>");
+$(identifier).append("<%=raw escape_javascript(link_to('add new '+ @bead.title + ' interest', new_interest_path)) %>");

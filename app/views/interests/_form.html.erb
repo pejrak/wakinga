@@ -48,7 +48,7 @@
     <%= content_for :leftside do %>
       <% if @interest.other_matching_interests.present? %>
         <h2>you already have it!</h2>
-        <%= render :partial => @interest.other_matching_interests %>
+        <%= render :partial => 'shared/interest', :collection => @interest.other_matching_interests %>
       <% end %>
 
 

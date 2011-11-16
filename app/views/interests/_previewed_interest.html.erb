@@ -9,7 +9,8 @@
   with <%= @interest.memorized_post_content(true,current_user).size %> memories<br />
   you share it with <%= pluralize(@shared_by_this_many_users, 'mind') %>
   </p>
-<% unless @interest.preference_for(current_user).empty? and @interest.trusts.empty? %>
+<% unless @interest.preference_for(current_user).empty? && @interest.outgoing_trusts_for(current_user).empty? %>
 	<br /><h3>You trust this interest to</h3>
-	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.trusts %>
+<%= debug(@interest.outgoing_trusts_for(current_user)) %>
+	<%= render :partial => 'trusts/outgoing_trust', :collection => @interest.outgoing_trusts_for(current_user) %>
 <% end %>

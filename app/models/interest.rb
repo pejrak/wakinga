@@ -92,6 +92,10 @@ class Interest < ActiveRecord::Base
     return self.trusts.where(:trustee_id => selected_user.id).map(&:trustor_id).uniq << selected_user.id
   end
 
+  def outgoing_trusts_for(selected_user)
+    self.trusts.where(:trustee_id => selected_user.id)
+  end
+
   #find all offered trusts for the current interest
 
   def incoming_unconfirmed_trusts(selected_user)

@@ -146,10 +146,10 @@ before_filter :authenticate_user!
 
    def adopt
      @interest = Interest.find(params[:id])
-     unless @interest.preference_for(current_user)
+     if @interest.preference_for(current_user).empty?
      @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
      redirect_to interest_path(@interest)
-     else redirect_to root_path
+     else redirect_to :back
      end
    end
 

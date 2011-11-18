@@ -5,6 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @users_prefered_interests = @user.users_prefered_interests
   end
 
 	def index

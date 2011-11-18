@@ -4,7 +4,6 @@ class Interest < ActiveRecord::Base
   has_many :beads_interests, :dependent => :destroy
   has_many :beads_posts, :through => :beads
   has_many :trusts, :dependent => :destroy
-  has_many :trustees, :through => :trusts
   has_many :user_interest_preferences, :dependent => :destroy
   ##belongs_to :user
 
@@ -29,7 +28,7 @@ class Interest < ActiveRecord::Base
   end
 
   def title_with_beads
-    title_concat = title + " ("
+    title_concat = " ("
     self.beads.each do |b|
       title_concat = title_concat + "/" + b.title
     end
@@ -92,25 +91,32 @@ class Interest < ActiveRecord::Base
     return self.trusts.where(:trustee_id => selected_user.id).map(&:trustor_id).uniq << selected_user.id
   end
 
-  def outgoing_trusts_for(selected_user)
-    self.trusts.where(:trustee_id => selected_user.id)
+  def trustees(selected_user)
+    return self.trusts.where(:trustor_id => selected_user.id).map(&:trustee_id).uniq
+  end
+
+  def trusts_from(selected_trustor)
+    self.trusts.where(:trustor_id => selected_trustor.id)
   end
 
   #find all offered trusts for the current interest
 
-  def incoming_unconfirmed_trusts(selected_user)
-    #load all incoming trusts for owner of this interest
-    all_incoming_trusts = Trust.find_all_by_trustee_id(selected_user.id)
-    #load the interests on which the trusts are build
-    all_trusted_interests = Interest.where(:id => all_incoming_trusts.map(&:interest_id))
-    #compare each interest with the current interest and return the ones that are matching
-    identical_trusted_interests = compare_beads_with_other_interests(all_trusted_interests)
-    if trustees.present?
-      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?) AND trusts.trustor_id NOT IN (?)', selected_user.id, identical_trusted_interests.map(&:id), trustees)
-    else
-      return Trust.where('trusts.trustee_id = ? AND trusts.interest_id IN (?)', selected_user.id, identical_trusted_interests.map(&:id))
-    end
+  def trusts_to(selected_trustee)
+    self.trusts.where(:trustee_id => selected_trustee.id)
+  end
 
+  def unconfirmed_trusts_from(selected_user)
+    users_trustors = trustors(selected_user) - [selected_user.id]
+    users_trustees = trustees(selected_user)
+    unbound_trustees = users_trustees - users_trustors
+    return trusts.where(:trustor_id => selected_user, :trustee_id => unbound_trustees)
+  end
+
+  def unconfirmed_trusts_to(selected_user)
+    users_trustors = trustors(selected_user) - [selected_user.id]
+    users_trustees = trustees(selected_user)
+    unbound_trustors = users_trustors - users_trustees
+    return trusts.where(:trustor_id => unbound_trustors, :trustee_id => selected_user)
   end
 
   def live_message_content(selected_user)

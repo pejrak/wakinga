@@ -81,14 +81,14 @@ before_filter :authenticate_user!
   end
 
   def destroy
-	@interest = Interest.find(params[:id])
-  @interest.destroy
-
-	respond_to do |format|
-	  format.html { redirect_to(root_path) }
-
-    flash[:notice] = 'Interest removed.'
-	end
+    @interest = Interest.find(params[:id])
+    unless @interest.preference_for(current_user).empty?
+      @interest.preference_for(current_user).destroy_all
+    end
+      respond_to do |format|
+      format.html { redirect_to(root_path) }
+      flash[:notice] = 'Interest abandoned.'
+    end
   end
 
   def add_single_bead
@@ -147,10 +147,9 @@ before_filter :authenticate_user!
    def adopt
      @interest = Interest.find(params[:id])
      if @interest.preference_for(current_user).empty?
-     @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
-     redirect_to interest_path(@interest)
-     else redirect_to :back
+       @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
      end
+     redirect_to interest_path(@interest)
    end
 
 #preview action enables you to view the interest details with javascript

@@ -42,12 +42,19 @@ has_many :user_interest_preferences, :dependent => :destroy
     return BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['interests.user_id = ? AND beads.id = ?', self.id, selected_bead.id]).map(&:interest_id)
   end
 
+  def users_prefered_interests
+    users_public_interest_preferences = user_interest_preferences.where(:i_private => false).map(&:interest_id)
+    return Interest.where(:id => users_public_interest_preferences)
+  end
+
 #take all interests of current user
 #selected user is the trustee
 #do not offer interests that are already trusted to the trustee
-	def interests_for_trust(trustee)
-		return interests - interests.joins(:trusts).where('trusts.trustee_id = ?',trustee)
-	end
+  def interests_for_trust(trustee)
+    offered_interests = Trust.where('trusts.trustor_id = ? AND trustee_id = ?', self.id, trustee.id).map(&:interest_id)
+    interest_ids_to_offer = user_interest_preferences.map(&:interest_id) - offered_interests
+    return Interest.where(:id => interest_ids_to_offer)
+  end
 
   def good_memories
     memorizations.where(:memorable => true)

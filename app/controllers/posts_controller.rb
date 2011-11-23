@@ -25,7 +25,8 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def dynamic_load
     @interest = Interest.find(params[:iid])
-##the same as under index
+    @previous_visit_record = Time.now
+#the same as under index
     if @interest && params[:lt] == 'openmessages' 
       show_options = ['archive','complete']
       @memorized_content = @interest.memorized_post_content(true,current_user,show_options).paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
@@ -34,7 +35,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @memorized_content = []
       show_options = ['action','']
       @message_content = @interest.memorized_post_content(true,current_user, show_options).paginate(:per_page => 10, :page => params[:page])
-    end    
+    end
     if request.xhr?
       render :partial => 'post', :collection => @message_content
     end

@@ -21,7 +21,7 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
     comments.where('created_at > ?', user.last_sign_in_at)
   end
 
-  def live_message(selected_user,previous_visit_record)
+  def live_message(selected_user,previous_visit_record=Time.now)
     loaded_associated_memorization = self.memorizations.where(:memorable => true, :user_id => selected_user.id).first
     if self.comments and loaded_associated_memorization
       if self.comments.where('comments.updated_at > ?', loaded_associated_memorization.updated_at).present?

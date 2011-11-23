@@ -7,9 +7,9 @@ before_filter :authenticate_user!
 
   def show
     @interest = Interest.find(params[:id])
-    unless @interest.preference_for(current_user).empty?
-      @previous_visit_record = @interest.preference_for(current_user).first.last_visit_at
-      @interest.preference_for(current_user).first.update_attribute(:last_visit_at, Time.now)
+    if @interest.preference_for(current_user)
+      @previous_visit_record = @interest.preference_for(current_user).last_visit_at
+      @interest.preference_for(current_user).update_attribute(:last_visit_at, Time.now)
     else
       @previous_visit_record = current_user.last_sign_in_at
     end
@@ -82,8 +82,8 @@ before_filter :authenticate_user!
 
   def destroy
     @interest = Interest.find(params[:id])
-    unless @interest.preference_for(current_user).empty?
-      @interest.preference_for(current_user).destroy_all
+    if @interest.preference_for(current_user)
+      @interest.preference_for(current_user).destroy
     end
       respond_to do |format|
       format.html { redirect_to(root_path) }
@@ -146,7 +146,7 @@ before_filter :authenticate_user!
 
    def adopt
      @interest = Interest.find(params[:id])
-     if @interest.preference_for(current_user).empty?
+     unless @interest.preference_for(current_user)
        @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
      end
      redirect_to interest_path(@interest)
@@ -181,7 +181,7 @@ before_filter :authenticate_user!
     @interest = Interest.find(params[:id])
     memory_array = @interest.memorized_post_content(true,current_user).map(&:id)
     @search_results = Post.search(params[:memorysearch],memory_array)
-    @previous_visit_record = @interest.last_visit_at
+    @previous_visit_record = @interest.preference_for(current_user).last_visit_at
     respond_to do |format|
       format.js
     end
@@ -199,7 +199,7 @@ before_filter :authenticate_user!
 
   def switch_privacy
     @interest = Interest.find(params[:id])
-    @user_preference = @interest.preference_for(current_user).first
+    @user_preference = @interest.preference_for(current_user)
 
     (@user_preference.i_private == false)? @user_preference.i_private = true : @user_preference.i_private = false
     if @user_preference.save

@@ -24,7 +24,7 @@ class Interest < ActiveRecord::Base
 
   #find the user preference for the interest
   def preference_for(selected_user)
-    user_interest_preferences.where(:user_id => selected_user.id)
+    user_interest_preferences.where(:user_id => selected_user.id).first
   end
 
   def title_with_beads
@@ -71,7 +71,7 @@ class Interest < ActiveRecord::Base
   end
 
   def post_count_unread(selected_user)
-    property_source = preference_for(selected_user).first
+    property_source = preference_for(selected_user)
     last_visit_at = ((property_source.present?)? property_source.last_visit_at : selected_user.last_sign_in_at)
     BeadsPost.find(:all, :select => ['DISTINCT post_id'], :joins => :post, :group => 'post_id', :conditions => ["bead_id IN (?) AND posts.created_at > ?", beads, last_visit_at], :having => ['count(distinct bead_id) = ?', beads.count]).count
   end

@@ -2,7 +2,7 @@
   <%= f.error_messages %>
   <p>
     <%= f.text_area :content, :size => "35x5"%>
-    <%= f.check_box :p_private, :checked => ((@interest.preference_for(current_user).empty?)? false : @interest.preference_for(current_user).first.i_private) %><%= f.label 'Private message' %>
+    <%= f.check_box :p_private, :checked => ((@interest.preference_for(current_user))? @interest.preference_for(current_user).i_private : false ) %><%= f.label 'Private message' %>
   </p>
   <%= character_count('post_content', Post::MAX_CONTENT_LENGTH, Post::MAX_CONTENT_LENGTH - 20) %>
   <%= fields_for :beads_posts do |bead_fields| %>

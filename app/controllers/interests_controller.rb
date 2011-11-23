@@ -197,4 +197,17 @@ before_filter :authenticate_user!
     end
   end
 
+  def switch_privacy
+    @interest = Interest.find(params[:id])
+    @user_preference = @interest.preference_for(current_user).first
+
+    (@user_preference.i_private == false)? @user_preference.i_private = true : @user_preference.i_private = false
+    if @user_preference.save
+      redirect_to @interest
+    else
+      flash[:notice] = 'Unable to switch.'
+      redirect_to root_path
+    end
+  end
+
 end

@@ -6,7 +6,7 @@
     <h3><%= (@interest.preference_for(current_user).i_private == true)? 'private interest' : '' %></h3>
     <p>last visit <%= time_ago_in_words(@interest.preference_for(current_user).last_visit_at) %> ago</p>
   <% end %>
-  with <%= @interest.memorized_post_content(true,current_user).size %> memories<br />
+  with <%= pluralize(@interest.memorized_post_content(true,current_user,'other').size, 'memory') %><br />
   you share it with <%= pluralize(@shared_by_this_many_users, 'mind') %>
   
 <% unless @interest.trusts_from(current_user).empty? %>

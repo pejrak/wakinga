@@ -36,6 +36,9 @@ before_filter :authenticate_user!
   def new
     @interest = Interest.new
     @interest.title = 'new interest'
+    if params[:parent_bead_id]
+      @interest.beads << Bead.find(params[:parent_bead_id])
+    end
     if @interest.save
       redirect_to edit_interest_path(@interest)
     else

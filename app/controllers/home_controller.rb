@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 
   def bead_point_load
     @bead = Bead.find(params[:bead_id])
-    initializer = params[:initialize].to_s
+    #initializer = params[:initialize].to_s
     @user_interest_preferences = current_user.user_interest_preferences
     #now I load the beads that are associated to the selected bead in the user's adopted interests
     @users_interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest, :user_interest_preferences], :conditions => ['beads.id = ? AND user_interest_preferences.user_id = ?', @bead.id, current_user.id]).map(&:interest_id)

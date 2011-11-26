@@ -2,10 +2,6 @@
   <div class="slot_full"></div>
 <% end %>
 
-<%= content_for :middletop do %>
-  <h1><span class="heading_subtelize">Bead:</span> <%= @bead.title %></h1>
-<% end %>
-
 <h2><%= @bead.title %>
 
 <% if current_admin %>
@@ -18,6 +14,7 @@
 <br />
 <%# link_to 'View or search all beads', beads_path %>
 <div>
+  <h2>related interests</h2>
   <%= render :partial => 'shared/interest', :collection => @bead.interests %>
 </div>
 <br />

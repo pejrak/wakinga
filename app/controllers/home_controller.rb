@@ -13,12 +13,12 @@ class HomeController < ApplicationController
     @bead = Bead.find(params[:bead_id])
     #initializer = params[:initialize].to_s
     @user_interest_preferences = current_user.user_interest_preferences
-    #now I load the beads that are associated to the selected bead in the user's adopted interests
-    @users_interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest, :user_interest_preferences], :conditions => ['beads.id = ? AND user_interest_preferences.user_id = ?', @bead.id, current_user.id]).map(&:interest_id)
-    @interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['beads.id = ?', @bead.id]).map(&:interest_id) - @users_interests_containing_selected_bead_array
+    #now I load the interests that are associated to the selected bead in the user's adopted interests
+    @users_interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest, :user_interest_preferences], :conditions => ['beads.id = ? AND user_interest_preferences.user_id = ? AND interests.i_seal = true', @bead.id, current_user.id]).map(&:interest_id)
+    @interests_containing_selected_bead_array = BeadsInterest.find(:all, :joins => [:bead, :interest], :conditions => ['beads.id = ? AND interests.i_seal = true', @bead.id]).map(&:interest_id) - @users_interests_containing_selected_bead_array
 
     @users_interests_containing_selected_bead_array = @users_interests_containing_selected_bead_array.sort_by { |i| -Interest.find(i).memorized_post_content(true,current_user).size }
-    @interests_containing_selected_bead_array = @interests_containing_selected_bead_array.first(7).sort_by { |i| -Interest.find(i).post_content(current_user).size }
+    @interests_containing_selected_bead_array = @interests_containing_selected_bead_array.first(3).sort_by { |i| -Interest.find(i).post_content(current_user).size }
 
     respond_to do | format |
       format.js

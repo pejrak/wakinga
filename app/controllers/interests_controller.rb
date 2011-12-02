@@ -71,6 +71,7 @@ before_filter :authenticate_user!
     respond_to do |format|
     if @interest.beads.present?
       if @interest.update_attributes(params[:interest])
+        @interest.update_attribute(:i_seal, true)
         @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
         format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
       else
@@ -88,7 +89,10 @@ before_filter :authenticate_user!
     if @interest.preference_for(current_user)
       @interest.preference_for(current_user).destroy
     end
-      respond_to do |format|
+    if @interest.i_seal == false
+      @interest.destroy
+    end
+    respond_to do |format|
       format.html { redirect_to(root_path) }
       flash[:notice] = 'Interest abandoned.'
     end
@@ -147,13 +151,14 @@ before_filter :authenticate_user!
     end
   end
 
-   def adopt
-     @interest = Interest.find(params[:id])
-     unless @interest.preference_for(current_user)
-       @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
-     end
-     redirect_to interest_path(@interest)
+  def adopt
+    
+   @interest = Interest.find(params[:id])
+   unless @interest.preference_for(current_user)
+     @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
    end
+   redirect_to interest_path(@interest)
+  end
 
 #preview action enables you to view the interest details with javascript
 
@@ -182,7 +187,7 @@ before_filter :authenticate_user!
   
   def memory_search
     @interest = Interest.find(params[:id])
-    memory_array = @interest.memorized_post_content(true,current_user).map(&:id)
+    memory_array = @interest.memorized_post_content(true,current_user,'other').map(&:id)
     @search_results = Post.search(params[:memorysearch],memory_array)
     @previous_visit_record = @interest.preference_for(current_user).last_visit_at
     respond_to do |format|

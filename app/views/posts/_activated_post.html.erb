@@ -12,11 +12,11 @@
 
     <%= (activated_post.good_memory(current_user).status_indication == 'complete')? image_tag('/images/complete.png', :border => 0, :title => 'marked as complete') : '' %>
 
-    <%# (activated_post.good_memory(current_user).status_indication == 'archive')? image_tag('/images/archived.png', :border => 0, :title => 'marked as archived') : '' %>
+    <%= (activated_post.good_memory(current_user).status_indication == 'archive')? image_tag('/images/archived.png', :border => 0, :title => 'marked as archived') : '' %>
 
     <%= (activated_post.good_memory(current_user).status_indication != 'action')? link_to(image_tag('/images/to_action.png', :border => 0, :title => 'mark for action'),mark_for_action_memorization_path(activated_post.good_memory(current_user).id), :remote => true) : link_to(image_tag('/images/to_complete.png', :border => 0, :title => 'mark as complete'),mark_for_completion_memorization_path(activated_post.good_memory(current_user).id), :remote => true) %>
 
-    <%# (activated_post.good_memory(current_user).status_indication != 'archive')? link_to(image_tag('/images/archive.png', :border => 0, :title => 'mark for archival'),mark_for_archival_memorization_path(activated_post.good_memory(current_user).id), :remote => true) : link_to(image_tag('/images/to_complete.png', :border => 0, :title => 'mark as complete'),mark_for_completion_memorization_path(activated_post.good_memory(current_user).id), :remote => true) %>
+    <%= (activated_post.good_memory(current_user).status_indication != 'archive')? link_to(image_tag('/images/archive.png', :border => 0, :title => 'mark for archival'),mark_for_archival_memorization_path(activated_post.good_memory(current_user).id), :remote => true) : link_to(image_tag('/images/to_complete.png', :border => 0, :title => 'mark as complete'),mark_for_completion_memorization_path(activated_post.good_memory(current_user).id), :remote => true) %>
 
   <% end %>
   <%= simple_format(auto_link(activated_post.content, :target => '_blank'), :class => 'message_body') %> <br />

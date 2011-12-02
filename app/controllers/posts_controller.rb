@@ -158,6 +158,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
      @memorization = Memorization.new
      @memorization.change_record = Memorization::MEMORY_BURN
      @memorization.post_id = @post.id
+     @memorization.status_indication = 'burn'
      @memorization.memorable = false
      @memorization.user_id = current_user.id
      respond_to do | format |

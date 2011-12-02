@@ -36,7 +36,7 @@ class Interest < ActiveRecord::Base
   end
 
   def other_matching_interests
-    self.compare_beads_with_other_interests(Interest.where('interests.id <> ?', self.id))
+    self.compare_beads_with_other_interests(Interest.where('interests.id <> ? AND i_seal = true', self.id))
   end
 
   #function to compare the beads contained in other interests(that are passed as an argument) and returns all of the selected interests containing the same beads

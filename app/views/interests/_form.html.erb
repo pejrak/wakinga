@@ -16,9 +16,11 @@
           <%= simple_format(added_bead.description) %>
     	<% end %>
   <% end %>
+        <% unless @interest.other_matching_interests.present? %>
     <%= f.submit 'save' %>
+        <% end %>
 <% end %>
-        <%= button_to('cancel',:action => 'destroy', :id => @interest.id) %>
+        <%= button_to('cancel',@interest, :method => :delete, :confirm => 'do you want to abandon this interest?') %>
 
 <% if params[:action] == 'new' then %>
   <p>Create interest first.</p>
@@ -47,16 +49,9 @@
 <% if @interest.beads.present? %>
     <%= content_for :leftside do %>
       <% if @interest.other_matching_interests.present? %>
-        <h2>you already have it!</h2>
+        <h2>this interest already exists</h2>
         <%= render :partial => 'shared/interest', :collection => @interest.other_matching_interests %>
       <% end %>
-
-
-  <% if @interest.beads.size > 0 && @interest.beads.size < 4 %>
-    <h3><%= link_to('show suggestions', load_suggestions_interest_path(@interest), :remote => true) %></h3>
-      <p>based on your bead selection, you could adopt some of these popular combinations</p>      
-      <% end %>
-    <div class="suggestions" style="display:none;"><img src='/images/loader.gif'/> Loading suggestions...</div>        
     <% end %>
   <%= content_for :rightside do %>
 

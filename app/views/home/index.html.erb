@@ -1,10 +1,11 @@
 <% content_for :head do %>
-  <%= javascript_include_tag "bead_ops" %>
+  <%= javascript_include_tag "bead_ops", "message_ops" %>
 <% end %>
 
 <% content_for :leftside do %>
   <%= render :partial => current_user %>
-    <% if incoming_trusts.present? %>
+  <div class="activated_post_container"></div>
+  <% if incoming_trusts.present? %>
       <h2>incoming trusts</h2>
       <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
     <% end %>
@@ -19,10 +20,6 @@
   <% end %>
   <%# render :partial => @interests %>
 <% content_for :rightside do %>
-  <p><i>full memory search</i></p>
-  <p>
-    <%= text_field_tag :mindsearch, params[:search] %>
-  </p>
   <div class="dynamic" id="recalls">
   </div>
     <h2>beads</h2>
@@ -32,5 +29,13 @@
   <div id="content_top_beads_overall" style="display: none"></div>
   <h2><%= link_to 'recently added', load_with_ajax_path(:load_type => 'recent_beads'), :remote => true, :class => 'a_loader' %></h2>
   <div id="content_recent_beads" style="display: none"><%= render :partial => recent_beads %></div>
+
+<% end %>
+
+<% content_for :middletop do %>
+    <p><i>full memory search</i></p>
+  <p>
+    <%= text_field_tag :mindsearch, params[:search] %>
+  </p>
 
 <% end %>

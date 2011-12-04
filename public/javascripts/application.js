@@ -2,6 +2,14 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 $(document).ready(function() {
+  $("#mindsearch").keyup(function() {
+    var search_criteria = $("#mindsearch").serialize();
+    var key_count = (search_criteria.length - 11);
+    if (key_count > 2) {
+      $(".dynamic#recalls").html("<p><img src='/images/loader.gif'/> Searching...</p>");
+      $.getScript("/mind_search.js?"+search_criteria);
+    }
+  });
     //initiate sliders and hiders for content effects
     $('.slider').click(function() {
       $('.content_'+$(this).attr('id')).slideToggle('slow');

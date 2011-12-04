@@ -17,6 +17,9 @@ class Interest < ActiveRecord::Base
 
 
 
+  def parent_beads
+    self.beads.where(:parent_bead => true)
+  end
   #creating named url of /interests/id-name
   #  def to_param
   #    "#{id}-#{title}"

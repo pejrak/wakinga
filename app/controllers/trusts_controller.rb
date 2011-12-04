@@ -29,7 +29,7 @@ class TrustsController < ApplicationController
     @offered_trust = Trust.find(params[:id])
     binding_interest = @offered_trust.interest
     @my_trust = Trust.new(:trustee_id => @offered_trust.trustor.id, :interest_id => binding_interest.id, :trustor_id => current_user.id)
-    if binding_interest.preference_for(current_user).empty?
+    unless binding_interest.preference_for(current_user).present?
       @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => binding_interest.id, :i_private => false, :last_visit_at => Time.now)
     end
     if @my_trust.save

@@ -52,6 +52,10 @@ before_filter :authenticate_user!
   def edit
     @interest = Interest.find(params[:id])
     @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
+    if @interest.i_seal == true
+      redirect_to root_path
+      flash[:notice] = 'The interest is sealed already.'
+    end
   end
 
   def create
@@ -69,7 +73,7 @@ before_filter :authenticate_user!
     @interest = Interest.find(params[:id])
 
     respond_to do |format|
-    if @interest.beads.present?
+    if @interest.parent_beads.present?
       if @interest.update_attributes(params[:interest])
         @interest.update_attribute(:i_seal, true)
         @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
@@ -79,7 +83,7 @@ before_filter :authenticate_user!
       end
     else
       format.html { redirect_to(:action => "edit") }
-      flash[:notice] = 'You will need to select some beads.'
+      flash[:notice] = 'You will need to select some parent beads.'
     end
     end
   end

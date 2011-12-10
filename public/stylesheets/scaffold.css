@@ -132,6 +132,13 @@ h1 {
 .heading_subtelize {
     color: #585858;
 }
+.defloater {
+    clear: both;
+}
+.leftfloater{
+    float:left;
+}
+
 h1 a {
     color: #FFF;
 }
@@ -368,6 +375,12 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 /*bead dot styling within post*/
 .beads_slot {
 
+}
+.beader {
+    float: left;
+    width: 120px;
+    height: 110px;
+    padding: 4px;
 }
 
 .bead_point {

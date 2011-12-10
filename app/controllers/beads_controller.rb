@@ -3,14 +3,17 @@ before_filter :authenticate_admin!, :except => [:show, :index]
 before_filter :authenticate_user!, :except => [:new, :edit, :create, :update, :destroy]
 
   def index
+    @current_beads = []
     if params[:interest_id]
       @interest = Interest.find(params[:interest_id])
       @bead = []
+      @current_beads = @interest.beads
+
     elsif params[:parent_bead_id]
       @interest = Interest.first
       @bead = Bead.find(params[:parent_bead_id])
     end
-    @beads = Bead.search(params[:search])
+    @beads = Bead.search(params[:search]) - @current_beads
     @nouns = Noun.search(params[:search])
     respond_to do |format|
       format.js

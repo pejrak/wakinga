@@ -9,39 +9,27 @@
   <% if params[:action] != 'new' then %>
   <%= f.collection_select :bead_ids, @interest.beads.all, :id, :title, {}, :multiple => true , :prompt => true, :style => 'display:none' %>
 	
-	<h2>with selected beads</h2>
+	<h2>with selected concepts</h2>
 	<p>with <%= pluralize @interest.post_count, 'message' %></p>
 	<% @interest.beads.each do |added_bead| %>
-        <h3><%= link_to(image_tag('/images/delete.png', :border => 0), :action => 'remove_single_bead', :bead_id => added_bead.id) %> <%= h(added_bead.title) %></h3>
-          <%= simple_format(added_bead.description) %>
+        <div class="beader"><h3><%= link_to(image_tag('/images/delete.png', :border => 0), :action => 'remove_single_bead', :bead_id => added_bead.id) %> <%= h(added_bead.title) %></h3>
+          <%= h(truncate(added_bead.description,:length=>100,:separator=>' ')) %>
+        </div>
     	<% end %>
   <% end %>
+        <div class="defloater">
+          
+        </div>
         <% unless @interest.other_matching_interests.present? %>
-    <%= f.submit 'save' %>
+    <%= f.submit 'save', :class => 'leftfloater' %>
         <% end %>
 <% end %>
-        <%= button_to('cancel',@interest, :method => :delete, :confirm => 'do you want to abandon this interest?') %>
-
+        <%= button_to('cancel',@interest,:class => 'leftfloater', :method => :delete, :confirm => 'do you want to abandon this interest?') %>
+        <div class="defloater"></div>
 <% if params[:action] == 'new' then %>
   <p>Create interest first.</p>
 <% else %>
-  <h2>parent beads</h2>
-
-  <% @parent_beads.each do |pb| %>
-        <h3><%= link_to(pb.title, :action => 'add_single_bead', :bead_id => pb.id) %> ( <%= pluralize h(pb.beads_posts_count), 'message' %> )</h3>
-        <%= h(pb.description) %>
-  <% end %>
-
-  <h3>search and add beads:</h3>
-
   
-    <p>
-      <%= text_field_tag :search, params[:search] %>
-    </p>
-
-    <div id="dynamic_beads" data-id="<%= @interest.id %>"><%= 'enter search criteria' %></div>
-    <div id="dynamic_nouns"></div>
-
     
 
 
@@ -52,6 +40,17 @@
         <h2>this interest already exists</h2>
         <%= render :partial => 'shared/interest', :collection => @interest.other_matching_interests %>
       <% end %>
+<div class="defloater"></div>
+  <h3>search and add concepts:</h3>
+
+
+    <p>
+      <%= text_field_tag :search, params[:search] %>
+    </p>
+
+    <div id="dynamic_beads" data-id="<%= @interest.id %>"><%= 'enter search criteria' %></div>
+    <div id="dynamic_nouns"></div>
+
     <% end %>
   <%= content_for :rightside do %>
 
@@ -59,7 +58,9 @@
     <% if @interest.users_sharing_the_same_interest.present? %>
         <h2>there is <%= pluralize(@interest.users_sharing_the_same_interest.size, 'mind') %> sharing this interest</h2>
     <% end %>
-  <% end %>
+
+
+    <% end %>
 <% end %>
 
 <% end %>

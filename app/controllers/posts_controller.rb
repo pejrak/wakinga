@@ -1,4 +1,4 @@
-class PostsController < ApplicationController
+  class PostsController < ApplicationController
 before_filter :authenticate_user! #, :except => [:show, :index]
 
   def index
@@ -175,7 +175,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @post = Post.find(params[:id])
     if params.has_key?(:indicator) 
       @refresh_indicator = true
-    else  @refresh_indicator = false
+    else @refresh_indicator = false
     end
     loaded_memorization = @post.memorizations.where(:user_id => current_user, :memorable => true).first
     if loaded_memorization && @refresh_indicator == false

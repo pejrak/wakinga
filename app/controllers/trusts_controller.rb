@@ -1,4 +1,7 @@
 class TrustsController < ApplicationController
+before_filter :authenticate_admin!, :except => [:show, :new, :edit, :create, :update, :destroy, :confirm, ]
+before_filter :authenticate_user!, :except => [:index]
+
   def index
     @trusts = Trust.all
   end

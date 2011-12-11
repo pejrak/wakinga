@@ -1,7 +1,6 @@
 class UserPreferencesController < ApplicationController
-  def index
-    @user_preferences = UserPreference.all
-  end
+before_filter :authenticate_admin!, :except => [:show, :new, :edit, :create, :update, :destroy]
+before_filter :authenticate_user!, :except => [:index]
 
   def show
     @user_preference = current_user.user_preference

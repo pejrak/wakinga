@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate_user!, :except => :index
-	before_filter :authenticate_admin!, :except => [:show, :mind_search]
+  before_filter :authenticate_user!, :except => [:index, :receive_mail]
+	before_filter :authenticate_admin!, :except => [:show, :mind_search, :receive_mail]
 
   def show
     @user = User.find(params[:id])
@@ -18,6 +18,19 @@ class UsersController < ApplicationController
     CustomUserMailer.send_summary(@user).deliver
     flash[:notice] = "sent daily summary to #{@user.email}"
     render '/home/admin'
+  end
+
+  def receive_mail
+    @params = params
+    @inbound_mail = Request.new(:r_description => params["text"],
+                      :r_title => params["from"],
+                      :r_type => "email_inbound")
+    respond_to do |format|
+      if @inbound_mail.save && request.post?
+        flash[:notice] = 'email recorded successfully'
+        format.xml { render :xml => @inbound_mail, :status => :created }
+      end
+    end
   end
 
   def mind_search

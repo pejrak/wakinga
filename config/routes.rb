@@ -16,6 +16,7 @@ Mindbase::Application.routes.draw do
   resources :users do 
     member do
       get 'send_summary', 'mind_search'
+      post 'receive_mail'
     end
   end
 
@@ -30,6 +31,7 @@ Mindbase::Application.routes.draw do
   match "/admin" => "home#admin"
   match "/dynamic_load" => "posts#dynamic_load"
   match "/mind_search" => "users#mind_search"
+  match "/receive_mail" => "users#receive_mail"
   
   resources :requests
 

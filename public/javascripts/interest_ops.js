@@ -24,10 +24,14 @@ $(document).ready(function() {
         $(this).css("background-color","#d1ffc0");
       },
       mouseout: function () {
-        $(this).css("background-color","#CCC");
+          var identificator = $(this).attr("id");
+          var loaded_type = $("#catcher").data("load");
+          if (identificator != loaded_type) {
+              $(this).css("background-color","#CCC");
+          }
       },
       click: function() {
-        var interest_identificator = $(this).parent().attr("data-id");
+        //var interest_identificator = $(this).parent().attr("data-id");
         var identificator = $(this).attr("id");
         $(this).parent().data("load",identificator);
         prepPosts();

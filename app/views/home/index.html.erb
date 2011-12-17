@@ -35,7 +35,7 @@
 <% content_for :middletop do %>
     <p><i>full memory search</i></p>
   <p>
-    <%= text_field_tag :mindsearch, params[:search] %>
+    <%= text_field_tag :mindsearch, params[:search], :placeholder => "search..." %>
   </p>
 
 <% end %>

@@ -11,6 +11,11 @@
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
+  var loaded_type = $("#catcher").data("load");
+  var loader_button = document.getElementById(loaded_type);
+  $(".stream_operators").css("background-color","#ccc");
+  $(loader_button).css("background-color","#d1ffc0");
+  
 
 <% if @message_content.total_pages > 1 && @initial_load == 1 %>
   $(".dynamic#pagedmessages").html("<%=raw escape_javascript(pageless(@message_content.total_pages,('/dynamic_load?iid='+@interest.id.to_s+'&lt='+@load_type))) %>");

@@ -22,16 +22,16 @@ class UsersController < ApplicationController
 
   def receive_mail
     @params = params
-    email = params["from"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i) {|m| m.to_s}
-    to_email = params["to"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i) {|m| m.to_s}
-    candidate_interest_id = to_email.to_s.match(/^(.*?)@/) {|m| m.to_s}
+    email = params["from"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
+    to_email = params["to"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i)
+    candidate_interest_id = to_email[0].to_s.match(/^(.*?)@/)
     text = params["text"]
-    @interest = Interest.find_by_id(candidate_interest_id)
-    @user = User.find_by_email(email)
+    @interest = Interest.find_by_id(candidate_interest_id[0])
+    @user = User.find_by_email(email[0])
     if @interest && @user # && request.post?
-        @duplicate_post = Post.find_all_by_content_and_user_id(text.truncate(320),@user.id)
+        @duplicate_post = Post.find_all_by_content_and_user_id(text[0].truncate(320),@user.id)
       if  @duplicate_post.empty?
-        @new_message = Post.new(:content => text.truncate(320),
+        @new_message = Post.new(:content => text[0].truncate(320),
                         :user_id => @user.id,
                         :p_private => true)
         @new_message.beads = @interest.beads

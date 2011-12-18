@@ -22,14 +22,39 @@ class UsersController < ApplicationController
 
   def receive_mail
     @params = params
-    @inbound_mail = Request.new(:r_description => params["text"],
-                      :r_title => params["from"],
-                      :r_type => "email_inbound")
-    respond_to do |format|
-      if @inbound_mail.save && request.post?
-        flash[:notice] = 'email recorded successfully'
-        format.xml { render :xml => @inbound_mail, :status => :created }
+    email = params["from"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i) {|m| m.to_s}
+    to_email = params["to"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i) {|m| m.to_s}
+    candidate_interest_id = to_email.match(/^(.*?)@/) {|m| m.to_s}
+    text = params["text"]
+    @interest = Interest.find_by_id(candidate_interest_id)
+    @user = User.find_by_email(email)
+    if @interest && @user && request.post?
+        @duplicate_post = Post.find_all_by_content_and_user_id(text.truncate(320),@user.id)
+      if  @duplicate_post.empty?
+        @new_message = Post.new(:content => text.truncate(320),
+                        :user_id => @user.id,
+                        :p_private => true)
+        @new_message.beads = @interest.beads
+
+        respond_to do |format|
+          if @new_message.save
+            @memorization = Memorization.new(:post_id => @new_message.id, :memorable => true, :user_id => @user.id, :change_record => Memorization::MEMORY_AUTHORED, :status_indication => 'open')
+            @memorization.save
+            flash[:notice] = 'email recorded successfully'
+            format.xml { render :xml => @new_message, :status => :created }
+          end
+        end
+      else
+        respond_to do |format|
+        flash[:notice] = 'duplicate record detected'
+            format.xml { render :xml => "new_message", :status => :unprocessable_entity }
+        end
       end
+    else 
+      respond_to do |format|
+        flash[:notice] = 'author or interest not found'
+            format.xml { render :xml => "new_message", :status => :unprocessable_entity }
+        end
     end
   end
 

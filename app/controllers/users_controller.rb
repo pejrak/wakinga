@@ -29,9 +29,9 @@ class UsersController < ApplicationController
     @interest = Interest.find_by_id(candidate_interest_id[0])
     @user = User.find_by_email(email[0])
     if @interest && @user # && request.post?
-        @duplicate_post = Post.find_all_by_content_and_user_id(text[0].truncate(320),@user.id)
+        @duplicate_post = Post.find_all_by_content_and_user_id(text.truncate(320),@user.id)
       if  @duplicate_post.empty?
-        @new_message = Post.new(:content => text[0].truncate(320),
+        @new_message = Post.new(:content => text.truncate(320),
                         :user_id => @user.id,
                         :p_private => true)
         @new_message.beads = @interest.beads

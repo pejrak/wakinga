@@ -11,11 +11,14 @@ class Interest < ActiveRecord::Base
   COMBINATION_SUGGESTION_SIZE = 10
   MAX_INITIAL_DISPLAYED_MESSAGES = 50
   MAX_MEMORY = 500
+  EMAIL_ADDRESS_SUFFIX = '@mail.wakinga.com'
 
   #validations
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
 
-
+  def email_address
+    return self.id.to_s + Interest::EMAIL_ADDRESS_SUFFIX
+  end
 
   def parent_beads
     self.beads.where(:parent_bead => true)

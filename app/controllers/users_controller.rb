@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @params = params
     email = params["from"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i) {|m| m.to_s}
     to_email = params["to"].match(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i) {|m| m.to_s}
-    candidate_interest_id = to_email.to_s.match(/^(.*?)@/) {|m| m.to_s}
+    candidate_interest_id = to_email.to_s.match(/^(.*?)@/i) {|m| m.to_s}
     text = params["text"]
     @interest = Interest.find_by_id(candidate_interest_id)
     @user = User.find_by_email(email)

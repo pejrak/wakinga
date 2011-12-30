@@ -9,7 +9,13 @@
       <h2>incoming trusts</h2>
       <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
     <% end %>
-  <div class="slot_full"></div>
+
+  <h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %></h2>
+  <div class="content_create_message" style="display:none">
+    <%= render 'shared/post_form' %>
+  </div>
+
+      <div class="slot_full"></div>
 
 <% end %>
 

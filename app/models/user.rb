@@ -47,6 +47,11 @@ has_many :user_interest_preferences, :dependent => :destroy
     return Interest.where(:id => users_public_interest_preferences)
   end
 
+  def users_prefered_interests_all
+    users_all_interest_preferences = user_interest_preferences.map(&:interest_id)
+    return Interest.where(:id => users_all_interest_preferences).sort_by { |i| -Interest.find(i).memorized_post_content(true,self).size }
+  end
+
 #take all interests of current user
 #selected user is the trustee
 #do not offer interests that are already trusted to the trustee

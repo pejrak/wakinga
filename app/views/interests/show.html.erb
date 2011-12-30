@@ -16,7 +16,8 @@
 
 <div id="interest" data-id="<%= @interest.id %>">
   <%# debug(@previous_visit_record) %>
-<br />  
+email: <%= link_to(@interest.email_address, ('mailto:'+@interest.email_address),:title => 'you can send email to this interest') %>
+  <br />
 <%# (current_user == @interest.user)? link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(@interest)) : (link_to('adpopt', adopt_interest_path(@interest)))  %> 
 beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>

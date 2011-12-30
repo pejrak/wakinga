@@ -186,6 +186,10 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     color: #262626;
 }
 
+.text_light {
+    color: #D8D8D8;
+}
+
 .text_emphasizer {
     color: #F40026;
 }

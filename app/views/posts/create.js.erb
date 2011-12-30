@@ -1,3 +1,6 @@
+if ($('#interest').length > 0) {
 prepPosts();
-$("#interest").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
+}
+
+$("#new_post").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $("#new_post")[0].reset();

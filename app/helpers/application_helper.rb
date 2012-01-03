@@ -38,7 +38,6 @@ module ApplicationHelper
 
   def interests_with_live_messages(selected_user_id)
     loaded_live_messages = live_messages(selected_user_id)
-    loaded_interests = Interest.find_all_by_user_id(selected_user_id) 
     loaded_live_messages.each do |lm|
       puts "here goes the magic"
     end
@@ -80,6 +79,15 @@ module ApplicationHelper
     return javascript_tag(function) # append the function as script tag
   end
 
+  def user_tag(selected_user)
+    preloaded_trustees_for_selected_user = selected_user.trustees
+    if preloaded_trustees_for_selected_user.include?(current_user.id)
+      return online_indicator(selected_user)
+    #else return 'stat_'
+    end
+  end
+
+
   def outgoing_trusts
     Trust.where(:trustor_id => current_user.id)
   end
@@ -93,6 +101,16 @@ module ApplicationHelper
       end
     end
     return unconfirmed_incoming_trusts
+  end
+
+  private
+
+  def online_indicator(selected_user)
+    if selected_user.online?
+      return image_tag('/images/status_online.png',:title=>"Last seen #{time_ago_in_words(selected_user.updated_at)} ago.")
+    else
+      return image_tag('/images/status_offline.png',:title=>"Last seen #{time_ago_in_words(selected_user.updated_at)} ago.")
+    end
   end
 
 end

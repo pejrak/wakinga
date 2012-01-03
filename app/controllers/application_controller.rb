@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
 before_filter :authenticate_user!
+after_filter :user_activity
 
   helper :all # include all helpers, all the time
 
@@ -13,4 +14,11 @@ before_filter :authenticate_user!
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password").
   # filter_parameter_logging :password
+
+  private
+
+  def user_activity
+    current_user.try :touch
+  end
+  
 end

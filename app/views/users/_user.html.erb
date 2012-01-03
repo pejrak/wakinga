@@ -1,4 +1,4 @@
-<h2><i><%= link_to_unless_current(user.username,user) %></i></h2>
+<h2><%= user_tag(user) %><i><%= link_to_unless_current(user.username,user) %></i></h2>
 <%# image_tag( avatar_url(user), :class => 'user_avatar') %><br />
 <span class="user_details">member since: <i><%= time_ago_in_words(user.created_at) %> ago</i><br />
 messages: <i><%= user.posts.count %></i><br />

@@ -27,6 +27,14 @@ has_many :user_interest_preferences, :dependent => :destroy
   validates_length_of :email, :within => 6..100 #r@a.wk
   validates_uniqueness_of :email, :case_sensitive => false
 
+  def online?
+    updated_at > 10.minutes.ago
+  end
+
+  def trustees
+    Trust.where(:trustor_id => self.id).map(&:trustee_id).uniq
+  end
+
   def rating_on_beads
     BeadsPost.find(:all,
     :select => 'bead_id, beads.title, sum(posts.rating) as rating_sum',

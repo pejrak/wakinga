@@ -1,5 +1,5 @@
 <div class="item_with_operators" data-id="trust_<%= outgoing_trust.id %>">
-<h3><%= link_to(outgoing_trust.trustee.username, user_path(outgoing_trust.trustee)) %>
+<h3><%= user_tag(outgoing_trust.trustee) %><%= link_to(outgoing_trust.trustee.username, user_path(outgoing_trust.trustee)) %>
 ( <%= (outgoing_trust.confirmed?)? 'confirmed' : 'unconfirmed' %> )
 <span class="operators" id="operators_trust_<%= outgoing_trust.id %>" style="display: none">[<%= link_to 'untrust', outgoing_trust, :confirm => "Are you sure you don't want to trust #{outgoing_trust.trustee.username} on this interest? \n\r -confirm", :method => :delete %>]</span></h3>
 </div>

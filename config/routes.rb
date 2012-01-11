@@ -32,6 +32,7 @@ Mindbase::Application.routes.draw do
   match "/dynamic_load" => "posts#dynamic_load"
   match "/mind_search" => "users#mind_search"
   match "/receive_mail" => "users#receive_mail"
+  match "/guest_login" => "authentications#guest_login"
   
   resources :requests
 

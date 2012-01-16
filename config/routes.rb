@@ -64,7 +64,7 @@ Mindbase::Application.routes.draw do
   resources :posts do
     member do
       post 'memorize', 'forget', 'burn'
-      get 'activate'
+      get 'activate', 'switch_privacy'
     end
   end
 

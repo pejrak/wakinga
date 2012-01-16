@@ -185,4 +185,18 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     end
   end
 
+  def switch_privacy
+    @post = Post.find(params[:id])
+    (@post.p_private == false)? @post.p_private = true : @post.p_private = false
+    if @post.save
+      flash[:notice] = "Switched privacy to #{@post.p_private}."
+      respond_to do | format |
+        format.js
+      end
+    else
+      flash[:notice] = 'Unable to switch.'
+      redirect_to root_path
+    end
+  end
+
 end

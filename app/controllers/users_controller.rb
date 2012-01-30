@@ -61,6 +61,7 @@ class UsersController < ApplicationController
   def mind_search
     memory_array = current_user.good_memories.map(&:post_id)
     @search_results = Post.search(params[:mindsearch],memory_array)
+    @user_search_results = User.search(params[:mindsearch])
     @previous_visit_record = current_user.last_sign_in_at
     respond_to do |format|
       format.js

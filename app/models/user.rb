@@ -27,6 +27,11 @@ has_many :user_interest_preferences, :dependent => :destroy
   validates_length_of :email, :within => 6..100 #r@a.wk
   validates_uniqueness_of :email, :case_sensitive => false
 
+# user search called here:
+  def self.search(search)
+    find(:all, :limit => 10, :conditions => ['(UPPER(users.username) LIKE UPPER(?) OR  UPPER(users.email) LIKE UPPER(?))', "%#{search}%", "%#{search}%"], :order => 'users.username ASC')
+  end
+
   def online?
     updated_at > 10.minutes.ago
   end

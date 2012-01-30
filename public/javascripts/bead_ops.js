@@ -39,7 +39,7 @@
         var identificator = $(this).attr("data-id");
 //        $(".bead_operators").hide();
         $(this).css("background-color","transparent");
-        $("#beadpoint"+identificator).remove();
+        //$("#beadpoint"+identificator).remove();
       }
     });
 

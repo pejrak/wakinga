@@ -15,7 +15,7 @@ $(identifier).html("<h3>adopted interests</h3>");
 <% end %>
 
 <% unless @interests_containing_selected_bead_array.empty? %>
-  $(identifier).append("<h3>free for adoption</h3>");
+    $(identifier).append("<div class='defloater'></div><h3>free for adoption</h3>");
 
   <% @interests_containing_selected_bead_array.each do |i| %>
     $(identifier).append("<div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/interest', :object => Interest.find(i)) %></div>");

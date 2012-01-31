@@ -1,6 +1,6 @@
 desc "Task for distribution of wakinga daily"
 task :cron => :environment do
-  User.all.each do |u|
+  User.where('role <> ?', 'guest').each do |u|
     if u.user_preference && u.memorizations
     @preload_messages = []
     u.user_interest_preferences.each do |i|

@@ -15,7 +15,7 @@ has_many :user_interest_preferences, :dependent => :destroy
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :username, :email, :password, :password_confirmation, :login, :remember_me
+  attr_accessible :username, :email, :password, :password_confirmation, :login, :remember_me, :role
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'

@@ -39,9 +39,13 @@
 <% end %>
 
 <% content_for :middletop do %>
+  <% unless current_user.role == 'guest'  %>
     <p><i>full memory search</i></p>
   <p>
     <%= text_field_tag :mindsearch, params[:search], :placeholder => "search..." %>
   </p>
+  <% else %>
+  <p><i>complex search disabled for guests</i></p>
+  <% end %>
 
 <% end %>

@@ -388,7 +388,8 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 .bead_point {
-  float: left;
+/*  float: left;*/
+
   border: 1px solid #FFF;
   padding: 5px;
 }
@@ -396,9 +397,9 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 .bead_chain {
   /*background-color: #F40026;*/
   /*border-top: 1px solid #000000;*/
-  float:left;
-  width: 180px;
-  height: 60px;
+/*  float:left;*/
+/*  width: 180px;*/
+/*  height: 60px;*/
 }
 .bead_chain_terminator {
     clear: both;

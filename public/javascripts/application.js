@@ -32,12 +32,12 @@ $(document).ready(function() {
     $(".preview_slot").live({
       mouseenter: function () {
         var identificator = $(this).attr("data-id");
-        $(".slot_full").show();
+//        $(".slot_full").show();
 	$(".preview_slot").css("background-color","transparent");
         $(this).css("background-color","#E6E6E6");
         $("#interest_operators_"+identificator).show();
-        $(".slot_full").html("<p><img src='/images/loader.gif'/> Loading...</p>");
-	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
+//        $(".slot_full").html("<p><img src='/images/loader.gif'/> Loading...</p>");
+//	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
       },
       mouseleave: function () {
         $(".interest_operators").fadeOut();

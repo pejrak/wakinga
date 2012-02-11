@@ -34,7 +34,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     elsif @interest && params[:lt] == 'archivedmessages'
       @memorized_content = []
       show_options = ['action','']
-      @message_content = @interest.memorized_post_content(true,current_user, show_options).paginate(:per_page => 10, :page => params[:page])
+      @message_content = @interest.memorized_post_content(true,current_user, show_options).paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
     end
     if request.xhr?
       render :partial => 'post', :collection => @message_content

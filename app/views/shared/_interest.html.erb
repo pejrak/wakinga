@@ -5,14 +5,14 @@
     <span class="text_emphasizer">o </span><span class="text_deemphasizer"><%= beader.title %></span>
   <% end %>
   
-  <div class="text_emphasizer"><%= (interest.preference_for(current_user).present?)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %>
+  <span class="text_emphasizer"><%= (interest.preference_for(current_user).present?)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %>
   
   (<%= (interest.preference_for(current_user))? h(interest.post_count_unread(current_user).to_s + ' new / ') : '' %><%= pluralize(interest.memorized_post_content(true,current_user,'other').size, 'memory') %>)
   <% if interest.preference_for(current_user).present? %>
   <%= (interest.preference_for(current_user).i_private==true)? image_tag('/images/private.png', :border => 0, :title => 'private interest') : '' %>
     <span class="interest_operators" id="interest_operators_<%= interest.id %>" style="display:none">[ <%= link_to(image_tag('/images/private.png',:border => 0, :title => 'switch privacy'), switch_privacy_interest_path(interest)) %> | <%= link_to(image_tag('/images/remove.png',:border => 0, :title => 'remove from adopted interests'), interest, :confirm => 'Are you sure?', :method => :delete) %> ]</span>
   <% end %>
-  </div>
+  </span>
   <%= (interest.live_message_content(current_user).size > 0)? content_tag(:p, pluralize(interest.live_message_content(current_user).size, 'live message'), :class => 'text_emphasizer') : '' %>
 
 </div>

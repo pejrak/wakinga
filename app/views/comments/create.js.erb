@@ -1,3 +1,5 @@
+$(".comments_content_container").append("<br /><%=raw escape_javascript(image_tag('/images/loader.gif'))%>Loading...")
 $("#new_comment").after('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $(".comments_content_container").html("<%=raw escape_javascript(render(@post.comments)) %>");
 $("#new_comment")[0].reset();
+$("#flash_notice").fadeOut(3000);

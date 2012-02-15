@@ -21,6 +21,9 @@ $(identifier).html("<h3>adopted interests</h3>");
     $(identifier).append("<div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/interest', :object => Interest.find(i)) %></div>");
   <% end %>
 <% end %>
-
+<% unless current_user.role == 'guest' %>
 //append the interest creator container
 $(identifier).append("<div class='bead_chain_terminator'><%=raw escape_javascript(link_to('add new '+ @bead.title + ' interest', new_interest_path + '?parent_bead_id=' + @bead.id.to_s)) %> or<br /><%=raw escape_javascript(link_to('view other associated interests', @bead)) %></div>");
+<% else %>
+$(identifier).append("<div class='bead_chain_terminator'><p class='text_emphasizer'>guests can't add new interests</div>")
+<% end %>

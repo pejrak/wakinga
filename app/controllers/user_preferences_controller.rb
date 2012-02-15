@@ -25,11 +25,11 @@ before_filter :authenticate_user!, :except => [:index]
   end
 
   def edit
-    @user_preference = UserPreference.find(params[:id])
+    @user_preference = current_user.user_preference
   end
 
   def update
-    @user_preference = UserPreference.find(params[:id])
+    @user_preference = current_user.user_preference
     if @user_preference.update_attributes(params[:user_preference])
       redirect_to current_user, :notice  => "Successfully updated user preference."
     else
@@ -38,8 +38,8 @@ before_filter :authenticate_user!, :except => [:index]
   end
 
   def destroy
-    @user_preference = UserPreference.find(params[:id])
+    @user_preference = current_user.user_preference
     @user_preference.destroy
-    redirect_to user_preferences_url, :notice => "Successfully destroyed user preference."
+    redirect_to root_path, :notice => "Successfully destroyed user preference."
   end
 end

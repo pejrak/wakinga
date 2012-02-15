@@ -38,14 +38,18 @@ before_filter :authenticate_user!
     @interest.title = 'new interest'
     if params[:parent_bead_id]
       @interest.beads << Bead.find(params[:parent_bead_id])
-    end
-    if @interest.save
-      redirect_to edit_interest_path(@interest)
-    else
-      respond_to do |format|
-        format.html
-        format.xml  { render :xml => @interest }
+
+      if @interest.save
+        redirect_to edit_interest_path(@interest)
+      else
+        respond_to do |format|
+          format.html
+          format.xml  { render :xml => @interest }
+        end
       end
+    else
+      redirect_to root_path
+      flash[:notice] = 'You need to create interest with parent bead.'
     end
   end
 
@@ -148,10 +152,17 @@ before_filter :authenticate_user!
   def remove_single_bead
     @interest = Interest.find(params[:id])
     bead = Bead.find(params[:bead_id])
+    unless bead.parent_bead == true && @interest.beads.find_all_by_parent_bead(true).count <= 1
     @interest.beads.delete(bead)
-	flash[:notice] = 'Bead removed.'
-    respond_to do |format|
-	  format.html { redirect_to edit_interest_path(@interest) }
+      flash[:notice] = 'Bead removed.'
+      respond_to do |format|
+      format.html { redirect_to edit_interest_path(@interest) }
+      end
+    else
+      flash[:notice] = 'You cannot remove the last parent concept.'
+      respond_to do |format|
+      format.html { redirect_to edit_interest_path(@interest) }
+      end
     end
   end
 

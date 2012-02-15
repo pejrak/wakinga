@@ -7,6 +7,7 @@ before_filter :authenticate_user!
     @comment.user = current_user
       if @comment.save
         respond_to do | format |
+          flash[:notice] = "Comment added."
           format.js {render :layout => false}
         end
       end

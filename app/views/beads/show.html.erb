@@ -23,7 +23,7 @@
 <p>
 Associated messages: <%= @bead.beads_posts_count %> <br />
 Associated interests: <%= @bead.interests.count %> <br />
-Last activity: <%= (@bead.beads_posts.last.post.nil?)? 'None' : time_ago_in_words(@bead.beads_posts.last.post.created_at)+' ago' %><br />
+Last activity: <%= (@bead.beads_posts.empty?)? 'None' : time_ago_in_words(@bead.beads_posts.last.post.created_at)+' ago' %><br />
 </p>
 <% end %>
 

@@ -1,6 +1,4 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
+//complex search for memories and minds
 $(document).ready(function() {
   $("#mindsearch").keyup(function() {
     var search_criteria = $("#mindsearch").serialize();
@@ -18,7 +16,7 @@ $(document).ready(function() {
     $('.hider').click(function() {
       $('.content_'+$(this).attr('id')).toggle();
   });
-
+//search for concepts
   $("#search").keyup(function() {
     var search_criteria = $("#search").serialize();
     var key_count = (search_criteria.length - 7);
@@ -26,6 +24,15 @@ $(document).ready(function() {
     if (key_count > 1) {
         $.getScript("/beads.js?"+search_criteria+"&interest_id="+interest_id);
     }
+  });
+  //comment post-add loader
+  $("body").delegate("#comment_body", "keypress", function(e) {
+      code=(e.keyCode ? e.keyCode : e.which);
+      if (code == 13) {
+          //test if this event is entered# alert("enter was pressed");
+          $(".comments_content_container").append("<p><img src='/images/loader.gif'/> Adding comment...</p>");
+          $("#comment_body").hide();
+      }
   });
 
   //interest preview effects

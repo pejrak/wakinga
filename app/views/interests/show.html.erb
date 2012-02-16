@@ -32,10 +32,7 @@ beads: <% @interest.beads.each do |beader| %>
   
 <%#= render :partial => @interest.post_content %>
   <div class="dynamic" id="buffer" style="display: none"></div>
-<span class="timestamp" id="catcher" data-id="<%= @interest.id %>" data-time="<%= Time.now.to_i %>">
-  <div class="stream_operators" id="openmessages">view all open</div>
-  <div class="stream_operators" id="archivedmessages">view archive</div>
-</span>
+
 
 <div class="dynamic" id="postcontent" data-time="<%= @previous_visit_record.to_i %>">
   <div class="post" data-time="<%= Time.now.to_i %>"><img src='/images/loader.gif'/> Loading messages...</div>
@@ -46,11 +43,13 @@ beads: <% @interest.beads.each do |beader| %>
 <% content_for :rightside do %>
   <%# debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,current_user).size.to_s, 'memory') %></h2>
-<% if @interest.memorized_post_content(true,current_user).size > 10 %>
-  <p><i> quick memory search</i></p>
-  <p>
+  <span class="timestamp" id="catcher" data-id="<%= @interest.id %>" data-time="<%= Time.now.to_i %>">
+    <div class="stream_operators" id="openmessages">view all open</div>
+    <div class="stream_operators" id="archivedmessages">view archive</div>
+  </span>
+  <% if @interest.memorized_post_content(true,current_user).size > 10 %>
+  <div class="defloater"><br /><i>quick memory search</i></div>
     <%= text_field_tag :memorysearch, params[:search], :placeholder => 'search...' %>
-  </p>
   <div class="dynamic" id="recalls">
   </div>
 <% end %>

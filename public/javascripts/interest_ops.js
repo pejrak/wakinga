@@ -34,6 +34,8 @@ $(document).ready(function() {
         //var interest_identificator = $(this).parent().attr("data-id");
         var identificator = $(this).attr("id");
         $(this).parent().data("load",identificator);
+        $(".dynamic#postcontent").prepend("<p><img src='/images/loader.gif'/> Switching message stream...</p>");
+        $(".dynamic#memories").prepend("<p><img src='/images/loader.gif'/> Switching memory stream...</p>");
         prepPosts();
       }
     });

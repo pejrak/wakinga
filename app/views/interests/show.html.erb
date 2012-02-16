@@ -47,9 +47,10 @@ beads: <% @interest.beads.each do |beader| %>
     <div class="stream_operators" id="openmessages">view all open</div>
     <div class="stream_operators" id="archivedmessages">view archive</div>
   </span>
-  <% if @interest.memorized_post_content(true,current_user).size > 10 %>
-  <div class="defloater"><br /><i>quick memory search</i></div>
+  <div class="defloater"><% if @interest.memorized_post_content(true,current_user).size > 10 %>
+  <br /><i>quick memory search</i>
     <%= text_field_tag :memorysearch, params[:search], :placeholder => 'search...' %>
+  </div>
   <div class="dynamic" id="recalls">
   </div>
 <% end %>

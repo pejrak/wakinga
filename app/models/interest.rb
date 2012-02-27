@@ -5,7 +5,6 @@ class Interest < ActiveRecord::Base
   has_many :beads_posts, :through => :beads
   has_many :trusts, :dependent => :destroy
   has_many :user_interest_preferences, :dependent => :destroy
-  ##belongs_to :user
 
   MAX_TITLE_LENGTH = 50
   COMBINATION_SUGGESTION_SIZE = 10

@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   #associations
 validates :content, :presence => true, :length => { :minimum => 5, :maximum => MAX_CONTENT_LENGTH }
 
-  has_many :comments, :dependent => :destroy
+  has_many :comments, :dependent => :destroy, :order => 'created_at ASC'
   has_many :beads_posts, :dependent => :destroy
   has_many :beads, :through => :beads_posts
   has_many :memorizations, :dependent => :destroy
@@ -25,12 +25,13 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   def display_time_at
     gm = self.good_memories.count
     bm = self.bad_memories.count
-    lifespan = Time.now - self.created_at
-    unless (gm - bm) == 0
-      shift = lifespan / (gm - bm)
-      return (self.created_at.to_datetime + shift).to_i
+    lifespan = (Time.now.to_i - self.created_at.to_i)
+    unless gm == 0
+      shift = (lifespan * (bm + 1)) / gm
+      return (Time.now.to_i - shift)
     else
-      return self.created_at.to_i
+      shift = lifespan * (bm + 1)
+      return (Time.now.to_i - shift)
     end
   end
 

@@ -45,7 +45,7 @@ function updatePosts(c) {
   var t;
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
-  var after = $(".post:first").attr("data-time");
+  var after = $(".lastpost#stamper").attr("data-time");
   //if message refresh is visible, remove it, so that it does not display during timed refresh
   if ($("#messagerefresh").length > 0) {
     $("#messagerefresh").remove();

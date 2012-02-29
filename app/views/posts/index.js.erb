@@ -13,9 +13,14 @@
   }
   var loaded_type = $("#catcher").data("load");
   var loader_button = document.getElementById(loaded_type);
+
   $(".stream_operators").css("background-color","#ccc");
   $(loader_button).css("background-color","#d1ffc0");
   
+<% if @most_recent_message %>
+  var last_message_time = <%=raw @most_recent_message.created_at.to_i %>;
+  $(".lastpost#stamper").attr("data-time",last_message_time);
+<% end %>
 
 <% if @message_content.total_pages > 1 && @initial_load == 1 %>
   $(".dynamic#pagedmessages").html("<%=raw escape_javascript(pageless(@message_content.total_pages,('/dynamic_load?iid='+@interest.id.to_s+'&lt='+@load_type))) %>");

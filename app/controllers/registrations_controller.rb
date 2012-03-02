@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
     if session[:omniauth] or verify_recaptcha
       super
       session[:omniauth] = nil unless @user.new_record?
+      @user.update_attribute(:role,'regular')
       @new_user_preference = UserPreference.create(:user_id => @user.id, :messages_per_page => 30, :subscription_preference => 'Weekly')
     else
       flash[:alert] = "There was an error with the details provided below."

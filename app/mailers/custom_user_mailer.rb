@@ -5,9 +5,9 @@ class CustomUserMailer < ActionMailer::Base
 
   def send_summary(user)
     @user = user
-    if u.user_preference && u.memorizations
+    if @user.user_preference && @user.memorizations
     @preload_messages = []
-    u.user_interest_preferences.each do |i|
+    @user.user_interest_preferences.each do |i|
       @preload_messages << Interest.find(i.interest_id).live_message_content(u).map(&:id)
       @preload_messages << Interest.find(i.interest_id).dynamic_post_content(1.day.ago, u).map(&:id)
     end

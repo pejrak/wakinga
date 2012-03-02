@@ -4,7 +4,7 @@ task :cron => :environment do
   User.where('role = ? AND last_sign_in_at < ?','guest',1.day.ago).each do |g|
     g.destroy
   end
-  User.where('role <> ?', 'guest').each do |u|
+  User.where('role = ?', 'regular').each do |u|
     if u.user_preference && u.memorizations
     @preload_messages = []
     u.user_interest_preferences.each do |i|

@@ -20,6 +20,7 @@ class AuthenticationsController < ApplicationController
     else
       user = User.new
       user.apply_omniauth(omniauth)
+      user.role = 'regular'
       if user.save
         flash[:notice] = "Signed in successfully."
         sign_in_and_redirect(:user, user)

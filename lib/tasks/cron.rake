@@ -1,5 +1,6 @@
 desc "Task for distribution of wakinga daily"
 task :cron => :environment do
+
   User.where('role = ? AND last_sign_in_at < ?','guest',1.day.ago).each do |g|
     g.destroy
   end

@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
 has_many :posts, :dependent => :destroy
 has_many :comments, :dependent => :destroy
-has_many :interests, :dependent => :destroy
-has_many :beads_interests, :through => :interests
 has_many :beads_posts, :through => :posts
 has_many :memorizations
 has_many :authentications

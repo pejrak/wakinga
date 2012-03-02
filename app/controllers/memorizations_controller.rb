@@ -2,6 +2,7 @@ class MemorizationsController < ApplicationController
 
   def mark_for_action
     @memorization = Memorization.find(params[:id])
+    
     if @memorization.update_attributes(:status_indication => 'action', :change_record => (@memorization.change_record + Memorization::MEMORY_MARKED_ACTION))
       flash[:notice] = 'Marked for future action.'
       respond_to do | format |

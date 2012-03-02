@@ -67,4 +67,8 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
     memorizations.where(:memorable=>true)
   end
 
+  def memory_updated_at(selected_user)
+    Memorization.find_by_user_id_and_post_id(selected_user.id, self.id).updated_at.to_i
+  end
+
 end

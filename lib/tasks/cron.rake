@@ -9,7 +9,7 @@ task :cron => :environment do
     @preload_messages = []
     u.user_interest_preferences.each do |i|
       @preload_messages << i.interest.live_message_content(u).map(&:id)
-      @preload_messages << i.interest.find(i.interest_id).dynamic_post_content(1.day.ago, u).map(&:id)
+      @preload_messages << i.interest.dynamic_post_content(1.day.ago, u).map(&:id)
     end
     @messages = Post.find_all_by_id(@preload_messages.uniq)
     if u.memorizations.count > 0 && u.user_preference.subscription_preference != 'None' && @messages.size > 0

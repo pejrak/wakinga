@@ -8,8 +8,8 @@ class CustomUserMailer < ActionMailer::Base
     if @user.user_preference && @user.memorizations
     @preload_messages = []
     @user.user_interest_preferences.each do |i|
-      @preload_messages << Interest.find(i.interest_id).live_message_content(u).map(&:id)
-      @preload_messages << Interest.find(i.interest_id).dynamic_post_content(1.day.ago, u).map(&:id)
+      @preload_messages << i.interest.live_message_content(@user).map(&:id)
+      @preload_messages << i.interest.dynamic_post_content(1.day.ago, @user).map(&:id)
     end
     @messages = Post.find_all_by_id(@preload_messages.uniq)
     if @messages.size > 0

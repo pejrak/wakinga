@@ -477,7 +477,9 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 #flash_notice {
     color: #F40026;
 }
-
+#flash_alert {
+    color: #F40026;
+}
 .field_with_errors {
   padding: 2px;
   background-color: #F83251;

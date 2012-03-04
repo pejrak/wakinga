@@ -52,5 +52,5 @@ $(document).ready(function() {
     });
     //generic operator preview
     $.getScript("/javascripts/preview_ops.js");
-    $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
+    $("#flash_notice, #flash_error, .flash_dynamic, #flash_alert").fadeOut(7000);
 });

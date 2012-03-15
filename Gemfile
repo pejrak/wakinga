@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', "3.0.9"
 gem 'devise', "~>1.4.2"
 gem 'recaptcha', :require => 'recaptcha/rails'
 gem 'mysql2', "0.2.6", :group => :development
@@ -8,8 +8,10 @@ gem "nifty-generators", :group => :development
 gem 'pg', :group => :production
 gem 'will_paginate', "~>3.0.0"
 #gem 'kaminari'
-gem 'taps', :group => :development
+#gem 'taps', :group => :development
 gem 'omniauth'
+gem 'omniauth-twitter'
+
 
 # :development do
 #gem 'sqlite3-ruby', :require => 'sqlite3'
@@ -17,8 +19,8 @@ gem 'omniauth'
 
 #gems for rhoconnect
 
-#gem 'rhoconnect', '3.0.0'
-#gem 'rhoconnect-rb'
+gem 'rhoconnect', '3.0.0'
+gem 'rhoconnect-rb'
 #gem 'sinatra', '~> 1.2'
 
 # Bundle edge Rails instead:

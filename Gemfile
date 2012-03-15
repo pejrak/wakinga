@@ -15,6 +15,11 @@ gem 'omniauth'
 #gem 'sqlite3-ruby', :require => 'sqlite3'
 #end
 
+#gems for rhoconnect
+
+gem 'rhoconnect', '3.0.0'
+gem 'rhoconnect-rb'
+#gem 'sinatra', '~> 1.2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

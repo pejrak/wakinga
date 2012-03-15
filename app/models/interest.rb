@@ -1,5 +1,7 @@
 class Interest < ActiveRecord::Base
 
+  include Rhoconnect::Resource
+
   has_many :beads, :through => :beads_interests
   has_many :beads_interests, :dependent => :destroy
   has_many :beads_posts, :through => :beads
@@ -14,6 +16,10 @@ class Interest < ActiveRecord::Base
 
   #validations
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
+
+  def partition
+    :app
+  end
 
   def email_address
     return self.id.to_s + Interest::EMAIL_ADDRESS_SUFFIX

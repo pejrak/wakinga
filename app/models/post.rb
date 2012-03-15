@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
-#validates :title, :presence => true, :length => { :minimum => 2, :maximum => 50 }
+
+  include Rhoconnect::Resource
 
 
   MAX_CONTENT_LENGTH = 320
@@ -11,6 +12,10 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   has_many :beads, :through => :beads_posts
   has_many :memorizations, :dependent => :destroy
   belongs_to :user
+
+  def partition
+    :app
+  end
   
 # memory search called here:
   def self.search(search,memory_array)

@@ -10,7 +10,7 @@ has_one :user_preference, :dependent => :destroy
 has_many :user_interest_preferences, :dependent => :destroy
 # Include default devise modules. Others available are:
   # :token_authenticatable, :lockable, :confirmable, :timeoutable and :registerable, :activatable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :login, :remember_me, :role
@@ -24,6 +24,10 @@ has_many :user_interest_preferences, :dependent => :destroy
 
   validates_length_of :email, :within => 6..100 #r@a.wk
   validates_uniqueness_of :email, :case_sensitive => false
+  
+  def as_json(options={})
+    super(:only => [:email, :username, :role] )
+  end
 
 # user search called here:
   def self.search(search)

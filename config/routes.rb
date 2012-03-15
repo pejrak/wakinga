@@ -68,6 +68,8 @@ Mindbase::Application.routes.draw do
     end
   end
 
+  resources :tokens,:only => [:create, :destroy]
+
   root :to => "home#index" 
 
   namespace :user do
@@ -77,7 +79,7 @@ Mindbase::Application.routes.draw do
   namespace :admin do
     root :to => "home#admin"
   end
-
+  
 
 
   # The priority is based upon order of creation:

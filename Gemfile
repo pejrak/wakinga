@@ -17,8 +17,8 @@ gem 'omniauth'
 
 #gems for rhoconnect
 
-gem 'rhoconnect', '3.0.0'
-gem 'rhoconnect-rb'
+#gem 'rhoconnect', '3.0.0'
+#gem 'rhoconnect-rb'
 #gem 'sinatra', '~> 1.2'
 
 # Bundle edge Rails instead:

@@ -9,8 +9,8 @@ gem 'pg', :group => :production
 gem 'will_paginate', "~>3.0.0"
 #gem 'kaminari'
 #gem 'taps', :group => :development
-gem 'omniauth'
-gem 'omniauth-twitter'
+gem 'omniauth', '0.2.6'
+#gem 'omniauth-twitter'
 
 
 # :development do

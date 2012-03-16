@@ -18,7 +18,11 @@ class Interest < ActiveRecord::Base
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
 
   def partition
-    :app
+    "spontain"
+  end
+
+  def self.rhoconnect_query(partition)
+    User.find_by_username(partition).users_prefered_interests
   end
 
   def email_address

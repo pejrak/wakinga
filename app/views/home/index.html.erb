@@ -10,7 +10,7 @@
       <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
     <% end %>
 
-  <h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %></h2>
+  <h2><%= link_to image_tag('add.png', :border => false) + ' create message', "#", :remote => :true, :class => 'hider', :id => 'create_message' %></h2>
   <div class="content_create_message" style="display:none">
     <%= render 'shared/post_form' %>
   </div>

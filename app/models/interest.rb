@@ -8,7 +8,7 @@ class Interest < ActiveRecord::Base
   has_many :trusts, :dependent => :destroy
   has_many :user_interest_preferences, :dependent => :destroy
 
-  MAX_TITLE_LENGTH = 50
+  MAX_TITLE_LENGTH = 250
   COMBINATION_SUGGESTION_SIZE = 10
   MAX_INITIAL_DISPLAYED_MESSAGES = 50
   MAX_MEMORY = 500
@@ -17,13 +17,13 @@ class Interest < ActiveRecord::Base
   #validations
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
 
-  def partition
-    "spontain"
-  end
-
-  def self.rhoconnect_query(partition)
-    User.find_by_username(partition).users_prefered_interests
-  end
+#  def partition
+#    "spontain"
+#  end
+#
+#  def self.rhoconnect_query(partition)
+#    User.find_by_username(partition).users_prefered_interests
+#  end
 
   def email_address
     return self.id.to_s + Interest::EMAIL_ADDRESS_SUFFIX
@@ -43,11 +43,11 @@ class Interest < ActiveRecord::Base
   end
 
   def title_with_beads
-    title_concat = " ("
+    title_concat = ""
     self.beads.each do |b|
-      title_concat = title_concat + "/" + b.title
+      title_concat = title_concat + " ." + b.title
     end
-    return title_concat + ")"
+    return title_concat + ""
   end
 
   def other_matching_interests

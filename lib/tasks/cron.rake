@@ -1,8 +1,13 @@
 desc "Task for distribution of wakinga daily"
 task :cron => :environment do
 
+  #cleanup guests
   User.where('role = ? AND last_sign_in_at < ?','guest',1.day.ago).each do |g|
     g.destroy
+  end
+  #cleanup unsealed interests
+  Interest.where('i_seal = ? AND created_at < ?',false,1.day.ago).each do |i|
+    i.destroy
   end
   User.where(:role => 'regular').each do |u|
     if u.user_preference && u.memorizations

@@ -4,11 +4,11 @@ before_filter :authenticate_user!
   def index
     @interests = current_user.users_prefered_interests
     respond_to do |format|
-      format.html {redirect_to root_path}
+      #format.html {redirect_to root_path}
       format.json {render :json => @interests}
       #format.xml  { render :xml => @interests }
     end
-    redirect_to root_path
+    # redirect_to root_path
   end
 
   def show

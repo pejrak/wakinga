@@ -201,4 +201,23 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     end
   end
 
+  def load_per_user_interest
+    users_interests = current_user.users_prefered_interests_all
+    @posts = []
+    users_interests.each do |i|
+      interload = i.post_content_all(current_user)
+      if interload != nil
+        interload.each {|p|
+          p['interest_id'] = i.id
+          @posts << p
+        }
+      end
+
+
+    end
+    respond_to do |format|
+      format.json {render :json => @posts}
+    end
+  end
+
 end

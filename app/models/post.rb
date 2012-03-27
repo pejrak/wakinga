@@ -13,10 +13,8 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   has_many :memorizations, :dependent => :destroy
   belongs_to :user
 
-  def partition
-    :app
-  end
-  
+  #attr_accessor :interest_id
+
 # memory search called here:
   def self.search(search,memory_array)
     find(:all, :include => :comments, :limit => 10, :conditions => ['posts.id IN (?) AND (UPPER(posts.content) LIKE UPPER(?) OR  UPPER(comments.body) LIKE UPPER(?))', memory_array, "%#{search}%", "%#{search}%"], :order => 'posts.updated_at DESC')

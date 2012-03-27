@@ -21,8 +21,14 @@ class Interest < ActiveRecord::Base
 #    "spontain"
 #  end
 #
-#  def self.rhoconnect_query(partition)
-#    User.find_by_username(partition).users_prefered_interests
+
+#  def as_json (options={})
+#    {
+#      :id => id,
+#      :title => title,
+#      :created_at => created_at,
+#      :updated_at => updated_at
+#    }
 #  end
 
   def email_address

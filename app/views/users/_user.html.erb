@@ -1,17 +1,21 @@
-<h2><%= user_tag(user) %><i><%= link_to_unless_current(user.username,user) %></i></h2>
-<%# image_tag( avatar_url(user), :class => 'user_avatar') %><br />
-<span class="user_details">member since: <i><%= time_ago_in_words(user.created_at) %> ago</i><br />
-messages: <i><%= user.posts.count %></i><br />
-memorized/(by others): <i><%= user.good_memories.count %>/<%= user.good_memories_by_others.count %></i><br />
-burnt/(by others): <i><%= user.burned_memories.count %>/<%= user.burned_memories_by_others.count %></i>
-<br />
+<h2><%= user_tag(user) %><i><%= link_to_unless_current(user.username,user) %></i>
+
 <% if user == current_user %>
 
 <% if current_user.user_preference %>
-  <%= link_to('update preferences', current_user.user_preference) %>
+  <%= link_to(image_tag('/images/edit.png', :alt => 'update preferences', :title => 'update preferences', :border => 0), current_user.user_preference) %>
 <% else %>
   <%= link_to('create preferences', new_user_preference_path) %>
 <% end %>
 
 <% end %>
+
+</h2>
+<%# image_tag( avatar_url(user), :class => 'user_avatar') %><br />
+<span class="user_details">
+messages: <i><%= user.posts.count %></i><br />
+memorized/(by others): <i><%= user.good_memories.count %>/<%= user.good_memories_by_others.count %></i><br />
+burnt/(by others): <i><%= user.burned_memories.count %>/<%= user.burned_memories_by_others.count %></i>
+<br />
+
 </span>

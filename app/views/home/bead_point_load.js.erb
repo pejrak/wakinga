@@ -23,7 +23,7 @@ $(identifier).html("<h3>adopted interests</h3>");
 <% end %>
 <% unless current_user.role == 'guest' %>
 //append the interest creator container
-$(identifier).append("<div class='bead_chain_terminator'><%=raw escape_javascript(link_to('add new '+ @bead.title + ' interest', new_interest_path + '?parent_bead_id=' + @bead.id.to_s)) %> or<br /><%=raw escape_javascript(link_to('view other associated interests', @bead)) %></div>");
+$(identifier).append("<div class='bead_chain_terminator'><%=raw escape_javascript(link_to(image_tag('/images/add_interest.png',:title => 'add new '+ @bead.title + ' interest', :border=>0, :alt => 'add new '+ @bead.title + ' interest'), new_interest_path + '?parent_bead_id=' + @bead.id.to_s)) %> <%=raw escape_javascript(link_to(image_tag('/images/list_interests.png', :title => 'view other associated interests', :alt => 'view other associated interests'), @bead)) %></div>");
 <% else %>
 $(identifier).append("<div class='bead_chain_terminator'><p class='text_emphasizer'>guests can't add new interests</div>")
 <% end %>

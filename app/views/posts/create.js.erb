@@ -1,6 +1,7 @@
 if ($('#interest').length > 0) {
-prepPosts();
+  prepPosts();
 }
-
+$("#post_submit").show();
+$("#postsubmission").remove();
 $("#new_post").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $("#new_post")[0].reset();

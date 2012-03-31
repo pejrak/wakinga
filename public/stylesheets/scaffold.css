@@ -207,6 +207,22 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     margin-right: 5px;
 }
 
+.enter_interest_icon {
+    position: relative;
+    top:4px;
+}
+
+.new_message_count {
+    background-color: #F83251;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+    color: #ffffff;
+    padding: 0px 2px;
+    margin-right: 3px;
+
+}
+
 .title_operator {
     font-size: 12px;
     margin-left: 5px;
@@ -403,10 +419,13 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 .bead_chain_terminator {
     clear: both;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .bead_point_container {
   clear: both;
+/*  border-left: */
   /*padding-left: 10px*/
 }
 
@@ -442,7 +461,15 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
-    width:100%;
+/*    width:100%;*/
+}
+.space_filler {
+    height:100%;
+/*    width:100px;*/
+    background-color: #ffffff;
+    color: #ffffff;
+    min-width: 10px;
+/*    float: left;*/
 }
 
 .main_operators {

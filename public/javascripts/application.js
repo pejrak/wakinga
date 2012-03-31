@@ -39,16 +39,19 @@ $(document).ready(function() {
     $(".preview_slot").live({
       mouseenter: function () {
         var identificator = $(this).attr("data-id");
-//        $(".slot_full").show();
 	$(".preview_slot").css("background-color","transparent");
         $(this).css("background-color","#E6E6E6");
-        $("#interest_operators_"+identificator).show();
-//        $(".slot_full").html("<p><img src='/images/loader.gif'/> Loading...</p>");
-//	$.getScript("/interests/" + identificator + "/preview.js?full_refresh=true");
+        $(".interest_operators",this).show();
+        //$("#interest_operators_"+identificator).show();
       },
       mouseleave: function () {
         $(".interest_operators").fadeOut();
       }
+    });
+    //handle effect after post submission
+    $("#post_submit").click(function() {
+       $(".content_create_message").append("<p id='postsubmission'><img src='/images/loader.gif'/> Adding message...</p>");
+       $(this).hide();
     });
     //generic operator preview
     $.getScript("/javascripts/preview_ops.js");

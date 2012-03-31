@@ -1,18 +1,18 @@
 <div class="preview_slot" data-id="<%= interest.id %>">
 
-  <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest'), interest %>
+  <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest', :class => 'enter_interest_icon'), interest %>
   <% interest.beads.each do |beader| %>
     <span class="text_emphasizer">o </span><span class="text_deemphasizer"><%= beader.title %></span>
   <% end %>
   
   <span class="text_emphasizer"><%= (interest.preference_for(current_user).present?)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %>
   
-  (<%= (interest.preference_for(current_user))? h(interest.post_count_unread(current_user).to_s + ' new / ') : '' %><%= pluralize(interest.memorized_post_content(true,current_user,'other').size, 'memory') %>)
+  (<%= (interest.preference_for(current_user) && interest.post_count_unread(current_user) > 0)? content_tag(:span, h(interest.post_count_unread(current_user).to_s + ' new'), :class=>'new_message_count') : '' %><%= pluralize(interest.memorized_post_content(true,current_user,'other').size, 'memory') %>)
   <% if interest.preference_for(current_user).present? %>
   <%= (interest.preference_for(current_user).i_private==true)? image_tag('/images/private.png', :border => 0, :title => 'private interest') : '' %>
     <span class="interest_operators" id="interest_operators_<%= interest.id %>" style="display:none">[ <%= link_to(image_tag('/images/private.png',:border => 0, :title => 'switch privacy'), switch_privacy_interest_path(interest)) %> | <%= link_to(image_tag('/images/remove.png',:border => 0, :title => 'remove from adopted interests'), interest, :confirm => 'Are you sure?', :method => :delete) %> ]</span>
   <% end %>
   </span>
   <%= (interest.live_message_content(current_user).size > 0)? content_tag(:p, pluralize(interest.live_message_content(current_user).size, 'live message'), :class => 'text_emphasizer') : '' %>
-
+  <%# content_tag(:div,"f",:class=>"space_filler") %>
 </div>

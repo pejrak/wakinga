@@ -2,11 +2,11 @@
     //bead hover and activate effects
     $(".bead_point").live({
       mouseenter: function () {
-        var identificator = $(this).attr("data-id");
+        //var identificator = $(this).attr("data-id");
         $(this).css("background-color","#d1ffc0");
       },
       mouseleave: function () {
-        var identificator = $(this).attr("data-id");
+        //var identificator = $(this).attr("data-id");
         $(this).css("background-color","transparent");
       },
       click: function() {
@@ -16,12 +16,20 @@
         var active_array = $.merge([identificator], parent_ids);
         //$(this).data("beadpoints", [identificator]);
         if ($(this).parent().attr("class")=="bead_point_container") {
+
           var initializer = "true";
           if ($(".bead_group#beadpoint"+identificator).length==0) {
+            $(this).parent().css("border","solid 3px #b0f097");
+            $(this).parent().css("border-top","solid 10px #b0f097");
+
             $(this).after("<div class='bead_group' id='beadpoint"+identificator+"' data-id="+identificator+"></div>");
+            $("#beadpoint"+identificator).html("<p><img src='/images/loader.gif'/> Loading...</p>");
+            $.getScript("/bead_point_load.js?bead_id="+identificator+"&beads_in_path="+active_array+"&initialize="+initializer);
           }
-          $("#beadpoint"+identificator).html("<p><img src='/images/loader.gif'/> Loading...</p>");
-          $.getScript("/bead_point_load.js?bead_id="+identificator+"&beads_in_path="+active_array+"&initialize="+initializer);
+          else {
+            $("#beadpoint"+identificator).remove();
+            $(this).parent().css("border","none");
+          }
         }
         else {
           var initializer = "false";

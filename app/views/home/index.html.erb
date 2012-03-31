@@ -10,13 +10,12 @@
       <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
     <% end %>
 
-  <h2><%= link_to image_tag('add.png', :border => false) + ' create message', "#", :remote => :true, :class => 'hider', :id => 'create_message' %></h2>
+  <h2><%= link_to image_tag('add.png', :border => false) + ' create message', root_path, :remote => true, :class => 'hider', :id => 'create_message' %></h2>
   <div class="content_create_message" style="display:none">
     <%= render 'shared/post_form' %>
   </div>
 
       <div class="slot_full"></div>
-
 <% end %>
 
 <h2>browse interests<span class="title_operator"><%# link_to image_tag('add.png', :border => false) + ' add new', new_interest_path %></span></h2>

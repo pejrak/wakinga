@@ -209,6 +209,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       if interload != nil
         interload.each {|p|
           p['interest_id'] = i.id
+          p['username'] = p.user.username
           @posts << p
         }
       end

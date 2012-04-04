@@ -1,7 +1,7 @@
 Mindbase::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
-config.gem 'redis'
-ENV["REDISTOGO_URL"] = 'redis://redistogo:09dc95ff6cb116f976edc99febf47922@pike.redistogo.com:9393'
+#config.gem 'redis'
+#ENV["REDISTOGO_URL"] = 'redis://redistogo:09dc95ff6cb116f976edc99febf47922@pike.redistogo.com:9393'
 
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development

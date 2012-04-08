@@ -19,6 +19,7 @@
                 vertical-align: middle;
                 background-color:#262626;
                 height:50px;
+                border-bottom: #D8D8D8 2px solid;
         }
 	#header p {
 		padding:.4em 0 0 0;
@@ -37,7 +38,7 @@
     .tab_stripe {
         width:100%;
 
-        padding:5px 2px 0px 0px;
+/*        padding:5px 2px 0px 0px;*/
         clear:both;
         background-color:#D8D8D8;
     }
@@ -232,6 +233,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     vertical-align: middle;
     float:left;
     height:inherit;
+    padding: 3px;
 }
 .current_tab {
     background-color: #FFF;
@@ -402,25 +404,39 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     height: 110px;
     padding: 4px;
 }
-
+/*interest browser styling*/
 .bead_point {
-/*  float: left;*/
-
   border: 1px solid #FFF;
   padding: 5px;
 }
 
 .bead_chain {
-  /*background-color: #F40026;*/
-  /*border-top: 1px solid #000000;*/
-/*  float:left;*/
-/*  width: 180px;*/
-/*  height: 60px;*/
+  clear:both;
 }
 .bead_chain_terminator {
     clear: both;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.extender_header {
+    float:left;
+    color: #F40026;
+    padding: 0px 3px;
+
+}
+.extender_stripe {
+    width:100%;
+    padding: 4px 0px;
+}
+.extender_line {
+/*    width: 100%;*/
+    overflow:hidden;
+    height: 2px;
+/*    margin-left: 30px;*/
+    background-color: #b0f097;
+    position: relative;
+    top:4px;
 }
 
 .bead_point_container {

@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
 belongs_to :post
 belongs_to :user
 
-  MAX_BODY_LENGTH = 120
+  MAX_BODY_LENGTH = 300
   validates :body, :presence => true, :length => { :minimum => 1, :maximum => MAX_BODY_LENGTH }
 
   def new?(selected_user)

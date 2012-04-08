@@ -3,9 +3,9 @@
 var identifier = '#beadpoint<%=raw escape_javascript(@bead.id.to_s) %>'
 var parent_bead_point_data = $(identifier).parent().data("beadpoints");
 var parent_identifier = $(identifier).parent().attr("data-id");
-$(identifier).html("<h3>no adopted interests</h3>");
+$(identifier).html("<div class='extender_stripe'><div class='extender_header'>no adopted interests</div><div class='extender_line'></div></div>");
 <% unless @users_interests_containing_selected_bead_array.empty? %>
-$(identifier).html("<h3>adopted interests</h3>");
+$(identifier).html("<div class='extender_stripe'><div class='extender_header'>adopted interests</div><div class='extender_line'></div></div>");
 
 
 //iterate through interests found associated with the selected bead
@@ -15,7 +15,7 @@ $(identifier).html("<h3>adopted interests</h3>");
 <% end %>
 
 <% unless @interests_containing_selected_bead_array.empty? %>
-    $(identifier).append("<div class='defloater'></div><h3>free for adoption</h3>");
+    $(identifier).append("<div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>free for adoption</div><div class='extender_line'></div></div>");
 
   <% @interests_containing_selected_bead_array.each do |i| %>
     $(identifier).append("<div class='bead_chain' id='"+parent_identifier+"beadgroup<%=raw escape_javascript(@bead.id.to_s) %>' ><%=raw escape_javascript(render :partial => 'shared/interest', :object => Interest.find(i)) %></div>");
@@ -23,7 +23,7 @@ $(identifier).html("<h3>adopted interests</h3>");
 <% end %>
 <% unless current_user.role == 'guest' %>
 //append the interest creator container
-$(identifier).append("<div class='bead_chain_terminator'><%=raw escape_javascript(link_to(image_tag('/images/add_interest.png',:title => 'add new '+ @bead.title + ' interest', :border=>0, :alt => 'add new '+ @bead.title + ' interest'), new_interest_path + '?parent_bead_id=' + @bead.id.to_s)) %> <%=raw escape_javascript(link_to(image_tag('/images/list_interests.png', :title => 'view other associated interests', :alt => 'view other associated interests'), @bead)) %></div>");
+$(identifier).append("<div class='bead_chain_terminator'><%=raw escape_javascript(link_to(image_tag('/images/add_interest.png',:title => 'add new '+ @bead.title + ' interest', :border=>0, :alt => 'add new '+ @bead.title + ' interest'), new_interest_path + '?parent_bead_id=' + @bead.id.to_s)) %> <%=raw escape_javascript(link_to(image_tag('/images/list_interests.png', :title => 'view other associated interests', :border => 0, :alt => 'view other associated interests'), @bead)) %></div>");
 <% else %>
-$(identifier).append("<div class='bead_chain_terminator'><p class='text_emphasizer'>guests can't add new interests</div>")
+$(identifier).append("<div class='bead_chain_terminator'><p class='text_emphasizer'>guests can't add new interests</p></div>");
 <% end %>

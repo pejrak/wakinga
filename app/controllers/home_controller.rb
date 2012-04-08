@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
-  before_filter :authenticate_user!, :except => [:admin]
-  before_filter :authenticate_admin!, :except => [:index, :load_with_ajax, :bead_point_load]
+  before_filter :authenticate_user!, :except => [:admin, :about]
+  before_filter :authenticate_admin!, :except => [:index, :load_with_ajax, :bead_point_load, :about]
   def index
     #serves to clean up empty interests
     Interest.all.each { |i| (i.beads == [])? i.destroy : i}    

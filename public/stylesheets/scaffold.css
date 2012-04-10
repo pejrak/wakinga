@@ -408,6 +408,8 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 .bead_point {
   border: 1px solid #FFF;
   padding: 5px;
+  overflow: hidden;
+  z-index: 1;
 }
 
 .bead_chain {
@@ -441,6 +443,8 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .bead_point_container {
   clear: both;
+  overflow: visible;
+  z-index: 2;
 /*  border-left: */
   /*padding-left: 10px*/
 }

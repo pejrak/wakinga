@@ -82,7 +82,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       if @post.save
         @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id, :change_record => Time.now.to_s + Memorization::MEMORY_AUTHORED, :status_indication => 'open')
         @memorization.save
-        flash[:notice] = 'CREATED.'
+        flash[:notice] = "Message sent to interest."#<a href=\"/interests/#{@interest.id}\">#{@interest.title_with_beads}</a>"
         format.html {redirect_to @interest}
         format.js {render :layout => false}
       else

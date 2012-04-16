@@ -1,7 +1,10 @@
 <% if @refresh_indicator == false %>
-  $(".activated_post_container").html("<%=raw escape_javascript(render(:partial => 'activated_post', :object => @post)) %>");
+  $(".activated_post_container").html("<div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>message preview</div><div class='extender_line'></div></div><%=raw escape_javascript(render(:partial => 'activated_post', :object => @post)) %>");
+  if ($('#interest').length == 0) {
+    $('.beads_slot').html("<%=raw escape_javascript(render :partial => 'shared/interest', :object => @post.related_interest) %>");
+  }
 <% elsif @refresh_indicator == true %>
-  $(".comments_content_container").html("<%=raw escape_javascript(render(:partial => @post.comments)) %>");
+  $(".comments_content_conactivated_posttainer").html("<%=raw escape_javascript(render(:partial => @post.comments)) %>");
 <% end %>
   if ($(".activated_post").length > 0) {
     var postid = $('.activated_post').attr('data-id');

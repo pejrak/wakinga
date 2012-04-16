@@ -96,6 +96,13 @@ has_many :user_interest_preferences, :dependent => :destroy
     posts.sum('rating')
   end
 
+
+  #load all live memories, those having recently added comments to them
+  def live_memories
+    having_active_memories = memorizations.joins(:comments).where('memorizations.memorable = ? AND comments.updated_at > memorizations.updated_at', true).map(&:post_id)
+    return Post.where(:id => having_active_memories)
+  end
+
 #  def to_param
 #    "#{id}-#{username.parameterize}"
 #  end

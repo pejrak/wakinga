@@ -20,6 +20,7 @@
 
   <% end %>
   <%= simple_format(auto_link(activated_post.content, :target => '_blank'), :class => 'message_body') %> <br />
+
   <span class="beads_slot" id="p<%= activated_post.id %>">
       <span class="bead_spot_full_p<%= activated_post.id %>">
       <% activated_post.beads.each do |beadlink| %>
@@ -27,6 +28,7 @@
       <% end %>
       </span>
     </span>
+  
 </div>
 </div>
 

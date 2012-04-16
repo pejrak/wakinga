@@ -3,6 +3,7 @@ class Memorization < ActiveRecord::Base
 
   belongs_to :post
   belongs_to :user
+  has_many :comments, :through => :post
   #strings fo memorization record handling
   MEMORY_AUTHORED = ": Authored.\n"
   MEMORY_START = ": Memorized.\n"

@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   include Rhoconnect::Resource
 
 
-  MAX_CONTENT_LENGTH = 320
+  MAX_CONTENT_LENGTH = 620
   #associations
 validates :content, :presence => true, :length => { :minimum => 5, :maximum => MAX_CONTENT_LENGTH }
 
@@ -72,6 +72,19 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
 
   def memory_updated_at(selected_user)
     Memorization.find_by_user_id_and_post_id(selected_user.id, self.id).updated_at.to_i
+  end
+
+  def related_interest
+    matching_interests = []
+    b2 = beads.map(&:id).sort
+    Interest.where(:i_seal=>true).each do |i|
+      b1 = i.beads.map(&:id).sort
+      if b1 == b2
+        matching_interests << i
+      end
+    end
+    return matching_interests.first
+
   end
 
 end

@@ -142,7 +142,14 @@ class Interest < ActiveRecord::Base
 
   def live_message_content(selected_user)
     loaded_post_ids = memorized_post_content(true,selected_user).map(&:id)
-    return Post.find(:all, :include => [:comments,:memorizations], :conditions => ['comments.updated_at > memorizations.updated_at AND memorizations.memorable = ? AND memorizations.user_id = ? AND posts.id IN (?)', true, selected_user.id, loaded_post_ids])
+    return Post.find(
+      :all,
+      :include => [:comments,:memorizations],
+      :conditions => ['comments.updated_at > memorizations.updated_at AND memorizations.memorable = ? AND memorizations.user_id = ? AND posts.id IN (?)',
+        true,
+        selected_user.id,
+        loaded_post_ids]
+    )
   end
 
   def post_content_all(selected_user)

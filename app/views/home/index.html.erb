@@ -4,17 +4,32 @@
 
 <% content_for :leftside do %>
   <%= render :partial => current_user %>
-  <div class="activated_post_container"></div>
-  <% if incoming_trusts.present? %>
-      <h2>incoming trusts</h2>
-      <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
-    <% end %>
+  
 
-  <h2><%= link_to image_tag('add.png', :border => false) + ' create message', root_path, :remote => true, :class => 'hider', :id => 'create_message' %></h2>
-  <div class="content_create_message" style="display:none">
+<%= link_to image_tag('add.png', :border => false) + 'new message', '#', :class => 'hider', :id => 'create_message', :title => 'Create a new message' %>
+
+<% if current_user.live_memories.present? %>
+    | <%= link_to content_tag(:span, (pluralize(current_user.live_memories.count,'live message')), :class => 'new_message_count'), '#', :class => 'hider', :id => 'live_memories' %>
+<% end %>
+
+<div class="content_create_message" style="display:none">
     <%= render 'shared/post_form' %>
   </div>
 
+  <div class="content_live_memories" style="display:none">
+    <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>showing live messages</div><div class='extender_line'></div></div><br />
+
+    <%= render :partial => current_user.live_memories %>
+  </div>
+  <div class="activated_post_container"></div>
+
+
+
+  <% if incoming_trusts.present? %>
+    <h2>incoming trusts</h2>
+    <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
+  <% end %>
+  
       <div class="slot_full"></div>
 <% end %>
 

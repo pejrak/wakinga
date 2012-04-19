@@ -39,9 +39,9 @@
 </div>
     <div class="comments_form_container">
     <%= form_for([activated_post, activated_post.comments.build], :remote => true) do |f| %>
-          <%= f.text_field(:body, :size => "25x2") %>
+          <span style="float:left"><%= f.submit "add" %></span><%= f.text_area(:body, :cols => 20, :rows => 2) %>
       <%= character_count('comment_body', Comment::MAX_BODY_LENGTH, Comment::MAX_BODY_LENGTH - 20) %>
-        <%# f.submit "add" %>
+        
     <% end %>
   </div>
 </div>

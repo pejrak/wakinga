@@ -8,14 +8,15 @@ $(document).ready(function() {
       $.getScript("/mind_search.js?"+search_criteria);
     }
   });
+
     //initiate sliders and hiders for content effects
     $('.slider').click(function() {
       $('.content_'+$(this).attr('id')).slideToggle('slow');
-  });
+    });
 
     $('.hider').click(function() {
       $('.content_'+$(this).attr('id')).toggle();
-  });
+    });
 //search for concepts
   $("#search").keyup(function() {
     var search_criteria = $("#search").serialize();
@@ -26,14 +27,13 @@ $(document).ready(function() {
     }
   });
   //comment post-add loader
-  $("body").delegate("#comment_body", "keypress", function(e) {
-      code=(e.keyCode ? e.keyCode : e.which);
-      if (code == 13) {
-          //test if this event is entered# alert("enter was pressed");
-          $(".comments_content_container").append("<p><img src='/images/loader.gif'/> Adding comment...</p>");
-          $("#comment_body").hide();
-      }
+  $("body").delegate("#comment_submit", "click", function(e) {
+    //test if this event is entered# alert("enter was pressed");
+    $(".comments_content_container").append("<p><img src='/images/loader.gif'/> Adding comment...</p>");
+    $(".comments_form_container").hide();
   });
+  // comment auto-resize, bound to the additional js file, jquery.autosize-min.js
+  //$("#comment_body").autosize();
 
   //interest preview effects
     $(".preview_slot").live({
@@ -55,5 +55,7 @@ $(document).ready(function() {
     });
     //generic operator preview
     $.getScript("/javascripts/preview_ops.js");
+
     $("#flash_notice, #flash_error, .flash_dynamic, #flash_alert").fadeOut(7000);
 });
+    //$("body").delegate("#flash_notice, #flash_error, .flash_dynamic, #flash_alert", "click", function(e) {

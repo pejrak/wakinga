@@ -14,14 +14,9 @@
 <% end %>
 
 <div id="interest" data-id="<%= @interest.id %>">
-  
 email: <%= link_to(@interest.email_address, ('mailto:'+@interest.email_address),:title => 'you can send email to this interest') %>
   <br />
-beads: <% @interest.beads.each do |beader| %>
-  | <%= link_to beader.title, beader %>
-  <% end %>
-
-<h2><%= link_to image_tag('add.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <span class="post_size"><%= pluralize(@interest.post_content(current_user).size.to_s, 'open message') %></span></h2>
+<h2><%= link_to image_tag('/images/add_message.png', :border => false) + ' create message', '#', :remote => true, :class => 'hider', :id => 'create_message' %> | <span class="post_size"><%= pluralize(@interest.post_content(current_user).size.to_s, 'open message') %></span></h2>
   <div class="content_create_message" style="display:none">
     <%= render 'posts/form' %>
   </div>

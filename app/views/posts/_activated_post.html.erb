@@ -23,7 +23,7 @@
     <%= simple_format(activated_post.good_memory(current_user).change_record, :class => 'content_post_record', :style => "display:none;") %>
 
   <% end %>
-    <%= link_to(image_tag('/images/record.png', :border => 0), '#', :class => 'hider', :id => 'affiliatememories', :title => 'Click to show or hide the affiliated minds memories') %>
+    <%= link_to(activated_post.other_memorizers(current_user).count, '#', :class => 'hider', :id => 'affiliatememories', :title => 'Click to show or hide the affiliated minds memories') %>
     <div class="content_affiliatememories" style="display:none">
 <% activated_post.other_memorizers(current_user).each do |u| %>
     <%= user_tag(u) %><i><%= link_to_unless_current(u.username,u) %></i>

@@ -4,4 +4,6 @@ if ($('#interest').length > 0) {
 $("#post_submit").show();
 $("#postsubmission").remove();
 $("#new_post").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
-$("#post_content").val('');
+<% unless @failure %>
+  $("#post_content").val('');
+<% end %>

@@ -6,6 +6,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @previous_visit_record = Time.at(params[:pvr].to_i)
     @initial_load = params[:il].to_i
     @load_type = params[:lt]
+    puts "preloaded interest - #{@interest.id}, last visited #{@previous_visit_record}"
     if params[:full_refresh] != 'false'
       @dynamic_posts = []
     elsif params[:full_refresh] == 'false'
@@ -18,10 +19,12 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @raw_message_content = @interest.post_content(current_user)
       @most_recent_message = @raw_message_content.first
       @message_content = @raw_message_content.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+    puts "preloaded post content"
     elsif @interest && params[:lt] == 'archivedmessages'
       @memorized_content = []
       show_options = ['action','']
       @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+    puts "preloaded post content"
     end
   end
 
@@ -83,7 +86,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
         )
     else
       @interest = Interest.find(params[:beads_posts][:interest_id])
-      @post = Post.create!(params[:post])
+      @post = Post.new(params[:post])
     end
     @post.user = current_user
     @post.beads = @interest.beads
@@ -108,8 +111,9 @@ before_filter :authenticate_user! #, :except => [:show, :index]
         format.html {redirect_to @interest}
         format.js {render :layout => false}
       else
-        flash[:notice] = 'FAILED.'
-        render :action => 'new'
+        flash[:notice] = 'Unable to submit the message.'
+        @failure = true
+        format.js {render :layout => false}
       end
     end
   end

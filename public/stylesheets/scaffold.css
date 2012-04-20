@@ -687,3 +687,10 @@ input#user_submit {
     padding-top: 5px;
 	margin-bottom: 10px;
 }
+#affiliatememories {
+    background-image: url(/images/users_list.png);
+    background-repeat: none;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+}

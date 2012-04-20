@@ -8,5 +8,14 @@
   <%= fields_for :beads_posts do |bead_fields| %>
     <%= bead_fields.hidden_field(:interest_id, :value => @interest.id) %>
   <% end %>
+
+  <div class="memory_contribution">
+      <% @interest.trustors(current_user).each do |trustor| %>
+        <%= content_tag(:div, User.find(trustor).username, :class=>'mind_selection mind_unselected', :data_id => trustor, :title => "Select your trusted "+User.find(trustor).username+" to send this message to their mind" ) unless trustor == current_user.id %>
+
+    <% end %>
+
+  </div>
+  <div class="defloater"></div>
   <p><%= f.submit "Send" %></p>
 <% end %>

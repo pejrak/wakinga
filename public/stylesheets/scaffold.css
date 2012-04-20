@@ -513,6 +513,19 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 	margin-bottom: 15px;
 }
 
+.mind_selection {
+padding: 3px;
+margin-top: 3px;
+float: left;
+margin-right: 3px;
+}
+.mind_unselected {
+background-color: #CCC;
+}
+.mind_selected {
+background-color: #d1ffc0;
+}
+
 .dynamic#buffer {
     background-color: #011d62;
     padding: 5px;

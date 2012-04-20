@@ -12,6 +12,7 @@ class Memorization < ActiveRecord::Base
   MEMORY_ARCHIVED = ": Moved to archive. \n"
   MEMORY_BURN = ": Burned. \n"
   MEMORY_REVIEW = ": Reviewed. \n"
+  MEMORY_GIVEN = ": Shared from author.\n"
 
 
 end

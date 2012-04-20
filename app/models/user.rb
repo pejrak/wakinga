@@ -99,8 +99,13 @@ has_many :user_interest_preferences, :dependent => :destroy
 
   #load all live memories, those having recently added comments to them
   def live_memories
-    having_active_memories = memorizations.joins(:comments).where('memorizations.memorable = ? AND comments.updated_at > memorizations.updated_at', true).map(&:post_id)
-    return Post.where(:id => having_active_memories)
+    memes = memorizations.joins(:comments).where('memorizations.memorable = ? AND comments.updated_at > memorizations.updated_at', true).map(&:post_id) | memorizations.joins(:post).where('memorizations.updated_at = memorizations.created_at AND memorizations.user_id <> posts.user_id').map(&:post_id)
+    return Post.where(:id => memes)
+  end
+
+  def posts_with_new_memories
+    memes = memorizations.joins(:post).where('memorizations.updated_at = memorizations.created_at AND memorizations.user_id <> posts.user_id').map(&:post_id) | memorizations.joins(:comments).where('memorizations.memorable = ? AND comments.updated_at > memorizations.updated_at', true).map(&:post_id)
+    return memes
   end
 
 #  def to_param

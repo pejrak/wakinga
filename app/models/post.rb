@@ -48,8 +48,8 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
     if self.comments and loaded_associated_memorization
       if self.comments.where('comments.updated_at > ?', loaded_associated_memorization.updated_at).present?
         return true
-      elsif  previous_visit_record < self.updated_at && loaded_associated_memorization.updated_at > previous_visit_record
-        return true
+#      elsif previous_visit_record < self.updated_at and #loaded_associated_memorization.updated_at > previous_visit_record
+#        return true
       else
         return false
       end

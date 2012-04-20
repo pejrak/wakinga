@@ -49,6 +49,23 @@ $(document).ready(function() {
         $(".interest_operators").fadeOut();
       }
     });
+    //operators for mind selection on message sending
+
+    //the first is to change background and add to the selected array
+    $("body").delegate(".mind_selection.mind_unselected","click", function() {
+      $(this).removeClass("mind_unselected");
+      $(this).addClass("mind_selected");
+      var identificator = $(this).attr("data_id");
+      $(".memory_contribution").append("<input name='selected_minds[]' value="+identificator+" type='hidden' id='trustor"+identificator+"' />");
+    });
+    //the second is to change background and remove from selected array
+    $("body").delegate(".mind_selection.mind_selected","click", function() {
+      $(this).removeClass("mind_selected");
+      $(this).addClass("mind_unselected");
+      var identificator = $(this).attr("data_id");
+      $("#trustor"+identificator).remove();
+    });    
+
     //handle effect after post submission
     $("#post_submit").click(function() {
        $(".content_create_message").append("<p id='postsubmission'><img src='/images/loader.gif'/> Adding message...</p>");
@@ -58,5 +75,5 @@ $(document).ready(function() {
     $.getScript("/javascripts/preview_ops.js");
 
     $("#flash_notice, #flash_error, .flash_dynamic, #flash_alert").fadeOut(7000);
+//end of document load
 });
-    //$("body").delegate("#flash_notice, #flash_error, .flash_dynamic, #flash_alert", "click", function(e) {

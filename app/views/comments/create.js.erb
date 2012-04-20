@@ -2,4 +2,4 @@ $("#new_comment").after('<div id="flash_notice"><%= escape_javascript(flash.dele
 $(".comments_content_container").html("<%=raw escape_javascript(render(@post.comments)) %>");
 $("#new_comment")[0].reset();
 $(".comments_form_container").show();
-$("#comment_body").autosize();
+

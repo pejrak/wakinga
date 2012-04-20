@@ -39,6 +39,7 @@ $(document).ready(function() {
         prepPosts();
       }
     });
+
 });
 
 function updatePosts(c) {

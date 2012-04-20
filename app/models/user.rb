@@ -99,7 +99,7 @@ has_many :user_interest_preferences, :dependent => :destroy
 
   #load all live memories, those having recently added comments to them
   def live_memories
-    memes = memorizations.joins(:comments).where('memorizations.memorable = ? AND comments.updated_at > memorizations.updated_at', true).map(&:post_id) | memorizations.joins(:post).where('memorizations.updated_at = memorizations.created_at AND memorizations.user_id <> posts.user_id').map(&:post_id)
+    memes = memorizations.joins(:comments).where('memorizations.memorable = ? AND comments.updated_at > memorizations.updated_at', true).map(&:post_id) | memorizations.joins(:post).where('memorizations.updated_at = memorizations.created_at AND memorizations.user_id <> posts.user_id AND memorizations.memorable = ?', true).map(&:post_id)
     return Post.where(:id => memes)
   end
 

@@ -52,6 +52,9 @@ $(document).ready(function() {
     //operators for mind selection on message sending
 
     //the first is to change background and add to the selected array
+    $("body").delegate(".mind_selection","mouseover", function(){
+      $(this).css("cursor","hand");
+    });
     $("body").delegate(".mind_selection.mind_unselected","click", function() {
       $(this).removeClass("mind_unselected");
       $(this).addClass("mind_selected");

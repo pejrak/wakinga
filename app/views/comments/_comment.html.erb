@@ -1,5 +1,12 @@
 <%= div_for comment do %>
-  
+<% unless comment.body == 'comment_deleted' %>
     <div class="comment_indentor<%= (comment.new?(current_user))? '_new' : '' %>"></div><%= simple_format(auto_link(comment.body, :target => "_blank"), :class => 'comment_body') %><br />
-    <span class="heading_subtelize"><%= time_ago_in_words(comment.created_at) %> ago by <strong><%= link_to(comment.user.username,comment.user) %></strong></span>
+    <span class="heading_subtelize"><%= time_ago_in_words(comment.created_at) %> ago by <strong><%= link_to(comment.user.username,comment.user) %></strong>
+    <% if comment.user == current_user %>
+      &nbsp;(<%= link_to('x', comment, :method => :delete, :confirm => 'remove comment?', :remote => :true) %>)
+    <% end %>
+    </span>
+<% else %>
+    <div class="deleted_comment" title="comment deleted by <%= comment.user.username %>, <%= time_ago_in_words(comment.updated_at) %> ago"></div>
+<% end %>
 <% end %>

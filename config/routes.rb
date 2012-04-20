@@ -46,6 +46,7 @@ Mindbase::Application.routes.draw do
   resources :enrollments
 
   resources :beads_posts
+  resources :comments
   resources :interests do resources :beads_interests
     
   end

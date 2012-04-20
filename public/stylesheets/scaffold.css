@@ -370,9 +370,17 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 /*  background-color: #b7ffb4;*/
 /*  border-bottom: black 1px dotted;*/
 }
+.deleted_comment {
+    width: 5px;
+    height: 5px;
+    background-color: #585858;
+}
 
 .comment_body {
   display: inline;
+}
+#comment_body {
+    width: 90%; line-height: 1;
 }
 
 .comments_form_container {

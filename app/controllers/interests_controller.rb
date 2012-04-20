@@ -86,8 +86,9 @@ before_filter :authenticate_user!
     if @interest.parent_beads.present?
       if @interest.update_attributes(params[:interest])
         @interest.update_attribute(:i_seal, true)
+        @interest.update_attribute(:title, @interest.title_with_beads)
         @user_interest_preferrence = UserInterestPreference.create(:user_id => current_user.id, :interest_id => @interest.id, :i_private => false, :last_visit_at => Time.now)
-        format.html { redirect_to(@interest, :notice => 'Interest was successfully updated.') }
+        format.html { redirect_to(@interest, :notice => 'Interest was successfully set up.') }
       else
       format.html { render :action => "edit" }
       end

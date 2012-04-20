@@ -1,0 +1,4 @@
+var post_identifier = <%=raw @post.id %>;
+// $(".post#"+post_identifier).html("<p><img src='/images/loader.gif'/> Removing comment...</p>");
+$("#interest").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
+$.getScript("/posts/" + post_identifier + "/activate.js?indicator=true");

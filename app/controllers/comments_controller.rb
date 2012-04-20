@@ -17,9 +17,21 @@ before_filter :authenticate_user!
       flash[:notice] = "Cooling off."
     end
 	end
+
+  def show
+    @comment = Comment.find(params[:id])
+    flash[:notice] = 'View comments and messages through the interests.'
+    redirect_to :back
+  end
+  
 	def destroy 
-		@post = Post.find(params[:post_id]) 
-		@comment = @post.comments.find(params[:id]) 
-		@comment.destroy redirect_to post_path(@post) 
+		@comment = Comment.find(params[:id])
+    @post = @comment.post
+		@comment.update_attribute(:body, 'comment_deleted')
+    flash[:notice] = 'Removed.'
+    respond_to do |format|
+      format.js {render :layout => false}
+    end
+    #redirect_to post_path(@post)
 	end 
 end

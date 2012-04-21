@@ -98,10 +98,9 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
 
   def other_memorizers(selected_user)
     other_memorizer_ids = self.good_memorizations_of_other_than(selected_user).map(&:user_id)
-
-    related_trustors = self.related_interest.other_trustors(selected_user)
-    if related_trustors
-      other_memorizer_ids = self.memorizations.where(:user_id => related_trustors, :memorable => true).map(&:user_id)
+    if self.related_interest
+      related_trustors = self.related_interest.other_trustors(selected_user)
+      (related_trustors)? other_memorizer_ids = self.memorizations.where(:user_id => related_trustors, :memorable => true).map(&:user_id) : other_memorizer_ids = []
       return User.find(other_memorizer_ids)
     else
       return []

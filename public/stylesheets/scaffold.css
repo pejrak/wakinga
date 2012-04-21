@@ -688,8 +688,8 @@ input#user_submit {
 	margin-bottom: 10px;
 }
 #affiliatememories {
-    background-image: url(/images/users_list.png);
-    background-repeat: none;
+/*    background-image: url(/images/users_list.png);
+    background-repeat: none; */
     width: 20px;
     height: 20px;
     padding: 2px;

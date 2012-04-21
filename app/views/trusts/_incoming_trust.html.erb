@@ -1,5 +1,5 @@
-<h3>from <%= user_tag(incoming_trust.trustor) %><%= link_to(incoming_trust.trustor.username, user_path(incoming_trust.trustor)) %>, <%= (incoming_trust.confirmed?)? 'confirmed' : link_to('confirm?', confirm_trust_path(incoming_trust)) %>
- (<%= link_to 'x', incoming_trust, :confirm => "Are you sure you don't want to trust #{incoming_trust.trustor.username} on this interest? \n\r -confirm", :method => :delete %>)
+<h3>from <%= user_tag(incoming_trust.trustor) %><%= link_to(incoming_trust.trustor.username, user_path(incoming_trust.trustor)) %>, <%= (incoming_trust.confirmed?)? 'confirmed' : link_to('confirm?', confirm_trust_path(incoming_trust), :remote => true) %>
+ (<%= link_to 'x', incoming_trust, :confirm => "Are you sure you don't want to trust #{incoming_trust.trustor.username} on this interest? \n\r -confirm", :method => :delete, :remote => true %>)
 
 </h3>
 

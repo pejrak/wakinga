@@ -29,7 +29,7 @@ before_filter :authenticate_user!, :except => [:index]
     else
       flash[:notice] = "Trust already exists."
     end
-    redirect_to @trust.interest
+    redirect_to @trust.interest, :format => :js
   end
 
   def confirm
@@ -41,10 +41,10 @@ before_filter :authenticate_user!, :except => [:index]
     end
     if @my_trust.save
         flash[:notice] = "Trust was confirmed."
-        redirect_to binding_interest
+        redirect_to binding_interest, :format => :js
       else
         flash[:notice] = "Something went wrong when sealing the trust."
-        redirect_to :back
+        redirect_to binding_interest, :format => :js
       end
   end
 
@@ -53,8 +53,6 @@ before_filter :authenticate_user!, :except => [:index]
     if @trust.update_attributes(params[:trust])
       flash[:notice] = "Successfully updated trust."
       redirect_to home_path
-    else
-      render :action => 'edit'
     end
   end
 
@@ -63,7 +61,7 @@ before_filter :authenticate_user!, :except => [:index]
 	@interest = @trust.interest
     @trust.destroy
     flash[:notice] = "Successfully destroyed trust."
-    redirect_to @interest
+    redirect_to @interest, :format => :js
   end
 
   def propose
@@ -72,7 +70,10 @@ before_filter :authenticate_user!, :except => [:index]
     @trust.trustee_id = params[:trustee_id]
     @trust.interest_id = params[:interest_id]
     if @trust.save
-      redirect_to @interest
+      respond_to do |format|
+        format.js {render @interest}
+      end
     end
+
   end
 end

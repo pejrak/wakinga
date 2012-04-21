@@ -6,6 +6,8 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @previous_visit_record = Time.at(params[:pvr].to_i)
     @initial_load = params[:il].to_i
     @load_type = params[:lt]
+      @raw_message_content = @interest.post_content(current_user)
+      @raw_memory_content = @interest.memorized_post_content(true,current_user,'other')
     puts "preloaded interest - #{@interest.id}, last visited #{@previous_visit_record}"
     if params[:full_refresh] != 'false'
       @dynamic_posts = []
@@ -14,16 +16,17 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
     if @interest && params[:lt] == 'streammessages'
-      @raw_message_content = @interest.post_content(current_user)
       @message_content_size = @raw_message_content.size
       @most_recent_message = @raw_message_content.first
       @message_content = @raw_message_content.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
-    puts "preloaded messages"
+      @message_content_type = 'messages'
+      puts "preloaded messages"
     elsif @interest && params[:lt] == 'streammemories'
       show_options = ['archive','complete']
       @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
       @message_content_size = @message_content.size
-    puts "preloaded memories"
+      @message_content_type = 'memories'
+      puts "preloaded memories"
     end
   end
 
@@ -86,7 +89,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @post = Post.new(params[:post])
     end
     @post.user = current_user
-    @post.beads = @interest.beads
+    @post.interests << @interest
     #if there are minds selected to share the memory
     if params[:selected_minds]
       array_of_minds = params[:selected_minds]
@@ -96,13 +99,13 @@ before_filter :authenticate_user! #, :except => [:show, :index]
         puts "verification started to contain #{mind} within #{@interest.trustors(current_user)}"
         if @interest.trustors(current_user).include?(mind.to_i)
           puts "mind: #{mind} verified, creating memory"
-          Memorization.create(:post_id => @post.id, :user_id => mind, :memorable => true, :change_record =>  Time.now.to_s + Memorization::MEMORY_GIVEN, :status_indication => 'open')
+          Memorization.create(:post_id => @post.id, :user_id => mind, :memorable => true, :change_record =>  Time.now.to_s + Memorization::MEMORY_GIVEN, :status_indication => 'action')
         end
       end
     end
     respond_to do |format|
       if @post.save
-        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id, :change_record => Time.now.to_s + Memorization::MEMORY_AUTHORED, :status_indication => 'open')
+        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id, :change_record => Time.now.to_s + Memorization::MEMORY_AUTHORED, :status_indication => 'action')
         @memorization.save
         flash[:notice] = "Message sent to interest."#<a href=\"/interests/#{@interest.id}\">#{@interest.title_with_beads}</a>"
         format.html {redirect_to @interest}

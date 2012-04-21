@@ -11,10 +11,15 @@
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
   var loaded_type = $("#catcher").data("load");
+  var loaded_filters = $("#catcher").data("filter");
+
   var loader_button = document.getElementById(loaded_type);
+  var filter_button = document.getElementById(loaded_filter);
 
   $(".stream_operators").css("background-color","#ccc");
   $(loader_button).css("background-color","#d1ffc0");
+
+  $(".filter_operators").css("background-color","#ccc");
   
 <% if @most_recent_message %>
   var last_message_time = <%=raw @most_recent_message.created_at.to_i %>;
@@ -28,5 +33,9 @@
 // function for refresh of the message contents  
 function refreshPosts() {
   $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
-  $(".post_size").html("<%=raw escape_javascript(pluralize(@message_content_size.to_s, 'open message')) %>");
+
+
+// function for refresh of the message size indicators
+  $(".messages_size").html("<%=raw escape_javascript(@raw_message_content.size.to_s) %>");
+  $(".memories_size").html("<%=raw escape_javascript(@raw_memory_content.size.to_s) %>");
 }

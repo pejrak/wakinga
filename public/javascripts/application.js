@@ -55,32 +55,40 @@ $(document).ready(function() {
     $(".comments_content_container").append("<p><img src='/images/loader.gif'/> Adding comment...</p>");
     $(".comments_form_container").hide();
   });
-  // comment auto-resize, bound to the additional js file, jquery.autosize-min.js
-  //$("#comment_body").autosize();
+  // comment auto-resize, bound to the additional js file, 
+
+//interest browser back - nav
+$("body").delegate(".interest_browser_switch", "click", function() {
+  $(this).remove();
+  $("#interestbrowser").show();
+});
+
+$("body").delegate(".interest_browser_switch", "mouseover", function() {
+  $(this).css("background-color","#d1ffc0");
+});
+$("body").delegate(".interest_browser_switch", "mouseout", function() {
+  $(this).css("background-color","#d8d8d8");
+});
+
 
   //interest preview effects
     $(".preview_slot").live({
       mouseenter: function () {
-        //var identificator = $(this).attr("data-id");
 	$(".preview_slot").css("background-color","transparent");
         $(this).css("background-color","#E6E6E6");
         $(".interest_operators",this).show();
-        //$("#interest_operators_"+identificator).show();
       },
       mouseleave: function () {
         $(".interest_operators").fadeOut();
       },
       click: function () {
         var identificator = $(this).attr("data-id");
-//        $(".bead_operators").hide();
         $(this).css("background-color","transparent");
-        //$("#beadpoint"+identificator).remove();
         $.getScript("/interests/"+identificator);
       }
 
     });
     //operators for mind selection on message sending
-
     //the first is to change background and add to the selected array
     $("body").delegate(".mind_selection","mouseover", function(){
       $(this).css("cursor","hand");
@@ -113,7 +121,12 @@ $(document).ready(function() {
     });
     //generic operator preview
     //$.getScript("/javascripts/preview_ops.js");
-
+    //generic operator preview
+    $("body").delegate(".item_with_operators","hover",function() {
+      $(".operators").hide();
+      var identificator = $(this).attr("data-id");
+      $("#operators_" + identificator).show();
+    });
     $("#flash_notice, #flash_error, .flash_dynamic, #flash_alert").fadeOut(7000);
 //end of document load
 });

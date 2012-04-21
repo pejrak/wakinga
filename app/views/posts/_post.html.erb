@@ -6,11 +6,6 @@
         </span>
     </h3>
     <%= content_tag(:div, :class => 'post_activator', :id => 'post_activator_' + post.id.to_s, :style => 'display: none') do %><%= link_to( activate_post_path(post), :remote => true)  do %> &lt; <% end %><% end %>
-    <span class="text_emphasizer" style="display:none">
-      good memories <%= post.good_memories.count %><br />
-      bad memories <%= post.bad_memories.count %><br />
-      display_time_at <%= post.display_time_at %>
-    </span>
     <%= simple_format(auto_link(post.content, :target => "_blank")) %>
       <div class="post_foot">
 

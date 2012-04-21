@@ -232,8 +232,9 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 .interest_tab {
     vertical-align: middle;
     float:left;
-    height:inherit;
+    height:17px;
     padding: 3px;
+    
 }
 .current_tab {
     background-color: #FFF;
@@ -252,11 +253,24 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 .stream_operators {
-  float:left;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
   padding: 6px;
   background-color: #CCC;
-  border: 2px solid #FFF;
+  margin-bottom: 3px; 
+
 }
+
+.interest_browser_switch {
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+  padding: 6px;
+  background-color: #CCC;
+
+}
+
 .dynamic#postcontent {
   clear:both;
 }

@@ -4,11 +4,8 @@ before_filter :authenticate_user!
   def index
     @interests = current_user.users_prefered_interests
     respond_to do |format|
-      #format.html {redirect_to root_path}
       format.json {render :json => @interests}
-      #format.xml  { render :xml => @interests }
     end
-    # redirect_to root_path
   end
 
   def show
@@ -33,6 +30,9 @@ before_filter :authenticate_user!
       session[:loaded_interests] = []
       session[:loaded_interests] << @interest.id
     end
+    @messages_size = @interest.post_content(current_user).size
+    @memories_size = @interest.memorized_post_content(true,current_user,'other').size
+    @tabs = session[:loaded_interests]
     respond_to do |format|
       format.js
       #format.xml  { render :xml => @interest }

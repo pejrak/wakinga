@@ -5,7 +5,7 @@
     <span class="text_emphasizer">o </span><span class="text_deemphasizer"><%= beader.title %></span>
   <% end %>
   
-  <span class="text_emphasizer"><%= (interest.preference_for(current_user).present?)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest)) %>
+  <span class="text_emphasizer"><%= (interest.preference_for(current_user).present?)? '' : (link_to image_tag('/images/add.png', :border => false, :class => 'adopt_interest', :alt => 'Adopt', :title => 'adopt this interest'), adopt_interest_path(interest), :remote => true) %>
   
   (<%= (interest.preference_for(current_user) && interest.post_count_unread(current_user) > 0)? content_tag(:span, h(interest.post_count_unread(current_user).to_s + ' new'), :class=>'new_message_count') : '' %><%= pluralize(interest.memorized_post_content(true,current_user,'other').size, 'memory') %>)
   <% if interest.preference_for(current_user).present? %>

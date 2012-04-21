@@ -25,7 +25,7 @@ before_filter :authenticate_user!
     session[:loaded_interests] = []
     # purify the cookied interests that are not found
     inter_load.each {|i| (Interest.where(:id=>i)==[])? (inter_load.delete(i)) : ""}
-    (inter_load.size > 5)? (session[:loaded_interests] = inter_load.drop(1)) : (session[:loaded_interests] = inter_load)
+    (inter_load.size > 4)? (session[:loaded_interests] = inter_load.drop(1)) : (session[:loaded_interests] = inter_load)
       unless session[:loaded_interests].include?(@interest.id)
         session[:loaded_interests] << @interest.id
       end
@@ -128,10 +128,10 @@ before_filter :authenticate_user!
       flash[:notice] = 'The bead is already added.'
       else
         #here I am limiting the number of allowed beads in interest... to 4
-        if @interest.beads.size < 4
+        if @interest.beads.size < 2
           @interest.beads << @bead
         else
-          flash[:notice] = 'You can only add up to 4 beads to an interest.'
+          flash[:notice] = 'You can only add up to 2 concepts to an interest.'
         end
       end
       respond_to do |format|
@@ -219,13 +219,8 @@ before_filter :authenticate_user!
   end
   
   def remove_tab
-    @current_interest = Interest.find(params[:current_interest_id])
     session[:loaded_interests].delete(params[:id].to_i)
-    if params[:current_interest_id] == params[:id] || session[:loaded_interests] == []
-      redirect_to root_path
-    else 
-      redirect_to @current_interest
-    end
+    redirect_to root_path
   end
 
   def switch_privacy

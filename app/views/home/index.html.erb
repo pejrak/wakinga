@@ -2,10 +2,16 @@
   <%= javascript_include_tag "bead_ops", "message_ops" %>
 <% end %>
 
+<%= content_for :tabs do %>
+  <% session[:loaded_interests].each do |i| %>
+    <div class="interest_tab previous_tab"><span class="interest_tab_title"><%= link_to(interest_path(i)) do %><%= Interest.find(i).title %><% end %></span><%= link_to(image_tag('/images/remove.png',:border => 0,:title=>'remove tab'),remove_tab_interest_path(i),:class=>'tab_remove') %></div>
+  <% end %>
+<% end %>
+
+
 <% content_for :leftside do %>
   <%= render :partial => current_user %>
   
-
 <%= link_to image_tag('add_message.png', :border => false), new_post_path, :remote => true, :class => 'slider', :id => 'create_message', :title => 'Create a new message' %>
 
 <% if current_user.live_memories.present? %>

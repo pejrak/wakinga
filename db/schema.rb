@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120316220258) do
+ActiveRecord::Schema.define(:version => 20120421093500) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -78,6 +78,13 @@ ActiveRecord::Schema.define(:version => 20120316220258) do
     t.datetime "updated_at"
     t.string   "title"
     t.boolean  "i_seal",     :default => false
+  end
+
+  create_table "interests_posts", :force => true do |t|
+    t.integer  "interest_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "memorizations", :force => true do |t|

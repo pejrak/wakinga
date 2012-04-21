@@ -11,6 +11,8 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   has_many :beads_posts, :dependent => :destroy
   has_many :beads, :through => :beads_posts
   has_many :memorizations, :dependent => :destroy
+  has_many :interests_posts, :dependent => :destroy
+  has_many :interests, :through => :interests_posts
   belongs_to :user
 
   def partition

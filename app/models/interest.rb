@@ -7,6 +7,8 @@ class Interest < ActiveRecord::Base
   has_many :beads_posts, :through => :beads
   has_many :trusts, :dependent => :destroy
   has_many :user_interest_preferences, :dependent => :destroy
+  has_many :interests_posts, :dependent => :destroy
+  has_many :posts, :through => :interests_posts
 
   MAX_TITLE_LENGTH = 250
   COMBINATION_SUGGESTION_SIZE = 10
@@ -109,11 +111,11 @@ class Interest < ActiveRecord::Base
   #this function finds all trustors for the selected user
 
   def trustors(selected_user)
-    return self.trusts.where(:trustee_id => selected_user.id).map(&:trustor_id).uniq << selected_user.id
+    other_trustors(selected_user) << selected_user.id
   end
 
   def other_trustors(selected_user)
-    trustors(selected_user) - [selected_user.id]
+    return self.trusts.where(:trustee_id => selected_user.id).map(&:trustor_id).uniq
   end
 
   def trustees(selected_user)
@@ -160,11 +162,10 @@ class Interest < ActiveRecord::Base
     #load trusts that are associated with interests containing the same beads combination as the current interest
     loaded_trustors = trustors(selected_user)
     
-    public_posts = Post.find(:all,
+    public_posts = self.posts.find(:all,
         :select => 'DISTINCT posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
-        :joins => :beads_posts,
-        :conditions => ["beads_posts.bead_id IN (?) AND posts.p_private <> ?", beads, true],
-        :having => ['count(distinct beads_posts.bead_id) = ?', beads.count],
+        
+        :conditions => ["interests_posts.interest_id IN (?) AND posts.p_private <> ?", self.id, true],
         :group => 'posts.id, posts.title, posts.content, posts.created_at, posts.updated_at, posts.user_id, posts.p_private',
         :order => 'posts.updated_at DESC')
     if loaded_trustors.present?

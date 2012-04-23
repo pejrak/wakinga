@@ -74,15 +74,15 @@ before_filter :authenticate_user! #, :except => [:show, :index]
   end
 
   def create
-    if params[:beads_posts]
-      @interest = Interest.find(params[:beads_posts][:interest_id])
-      @post = Post.create!(params[:post])
-    elsif params[:post][:interest_id]
+    if params[:post][:interest_id]
       @interest = Interest.find(params[:post][:interest_id])
       @post = Post.new(
         :content => params[:post][:content],
         :p_private => params[:post][:p_private]
         )
+    else
+      @interest = Interest.find(params[:beads_posts][:interest_id])
+      @post = Post.create!(params[:post])
     end
     @post.user = current_user
     @post.beads = @interest.beads

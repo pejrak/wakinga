@@ -346,6 +346,11 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     background-repeat: repeat-x;*/
 }
 
+#post_content {
+    width: 90%; line-height: 1;
+    
+}
+
 .private_true {
     margin-left: 4px
 }

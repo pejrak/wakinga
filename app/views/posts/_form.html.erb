@@ -1,7 +1,7 @@
 <%= form_for Post.new, :remote => true do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.text_area :content, :size => "35x5"%>
+    <%= f.text_area :content, :rows => 1 %>
     <%= f.check_box :p_private, :checked => ((@interest.preference_for(current_user))? @interest.preference_for(current_user).i_private : false ) %><%= f.label 'Private message' %>
   </p>
   <%= character_count('post_content', Post::MAX_CONTENT_LENGTH, Post::MAX_CONTENT_LENGTH - 20) %>

@@ -74,9 +74,17 @@ before_filter :authenticate_user! #, :except => [:show, :index]
   end
 
   def create
-    @post = Post.create!(params[:post])
+    if params[:beads_posts][:interest_id]
+      @interest = Interest.find(params[:beads_posts][:interest_id])
+      @post = Post.create!(params[:post])
+    elsif params[:post][:interest_id]
+      @interest = Interest.find(params[:post][:interest_id])
+      @post = Post.new(
+        :content => params[:post][:content],
+        :p_private => params[:post][:p_private]
+        )
+    end
     @post.user = current_user
-    @interest = Interest.find(params[:beads_posts][:interest_id])
     @post.beads = @interest.beads
     respond_to do |format|
       if @post.save
@@ -201,6 +209,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     end
   end
 
+  #mobile app specific actions
   def load_per_user_interest
     users_interests = current_user.users_prefered_interests_all
     @posts = []
@@ -213,12 +222,14 @@ before_filter :authenticate_user! #, :except => [:show, :index]
           @posts << p
         }
       end
-
-
     end
     respond_to do |format|
       format.json {render :json => @posts}
     end
+  end
+
+  def mobile_create
+
   end
 
 end

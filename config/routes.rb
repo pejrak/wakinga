@@ -33,7 +33,7 @@ Mindbase::Application.routes.draw do
   match "/mind_search" => "users#mind_search"
   match "/receive_mail" => "users#receive_mail"
   match "/guest_login" => "authentications#guest_login"
-  match "/load_per_user_interest" => "posts#load_per_user_interest"
+
   match "/about" => "home#about"
   
   resources :requests
@@ -71,8 +71,11 @@ Mindbase::Application.routes.draw do
     end
   end
 
+  #mobile app backend routes
   resources :tokens,:only => [:create, :destroy]
+  match "/load_per_user_interest" => "posts#load_per_user_interest"
 
+  #root routes
   root :to => "home#index" 
 
   namespace :user do

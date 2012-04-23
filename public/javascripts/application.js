@@ -8,7 +8,8 @@ $(document).ready(function() {
       $.getScript("/mind_search.js?"+search_criteria);
     }
   });
-
+    //auto expand handler for message creation
+    $("#post_content").autogrow();
     //initiate sliders and hiders for content effects
     $('.slider').click(function() {
       $('.content_'+$(this).attr('id')).slideToggle('slow');

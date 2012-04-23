@@ -13,6 +13,10 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   has_many :memorizations, :dependent => :destroy
   belongs_to :user
 
+  def partition
+    lambda { self.user.username }
+  end
+
   #attr_accessor :interest_id
 
 # memory search called here:

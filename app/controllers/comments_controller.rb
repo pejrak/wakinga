@@ -3,12 +3,16 @@ before_filter :authenticate_user!
 	def create
 		if params[:post_id]
       @post = Post.find(params[:post_id])
+      @comment = @post.comments.new(params[:comment])
     else
       @post = Post.find(params[:comment][:post_id])
+      @comment = @post.comments.new
+      @comment.body = params[:comment][:body]
+      @comment.post = params[:comment][:post_id]
     end
     (current_user.comments.last)? comment_separator = current_user.comments.last.created_at.to_i : comment_separator = 0
     if (Time.now.to_i - comment_separator) > 5
-      @comment = @post.comments.new(params[:comment])
+      
       @comment.user = current_user
       if @comment.save
         respond_to do | format |

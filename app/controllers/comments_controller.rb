@@ -42,10 +42,9 @@ before_filter :authenticate_user!
       interload = i.post_content_all(current_user)
       if interload != nil
         interload.each {|p|
-          comments_interload = []
-          comments_interload = p.comments.each {|c| c['username'] = c.user.username}
-          unless comments_interload == []
-            @comments << comments_interload
+          p.comments.each do |c|
+            c['username'] = c.user.username
+            @comments << c
           end
         }
         

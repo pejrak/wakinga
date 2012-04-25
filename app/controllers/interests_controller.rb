@@ -70,6 +70,7 @@ before_filter :authenticate_user!
 
   def create
     @interest = Interest.new(params[:interest])
+
     respond_to do |format|
       if @interest.save
         format.html { redirect_to edit_interest_path(@interest) }

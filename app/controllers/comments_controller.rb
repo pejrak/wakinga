@@ -33,5 +33,26 @@ before_filter :authenticate_user!
       format.js {render :layout => false}
     end
     #redirect_to post_path(@post)
-	end 
+	end
+
+  def load_comments_per_memories
+    users_interests = current_user.users_prefered_interests_all
+    @comments = []
+    users_interests.each do |i|
+      interload = i.post_content_all(current_user)
+      if interload != nil
+        interload.each {|p|
+          comments_interload = []
+          comments_interload = p.comments.each {|c| c['username'] = c.user.username}
+          unless comments_interload == []
+            @comments << comments_interload
+          end
+        }
+        
+      end
+    end
+    respond_to do |format|
+      format.json {render :json => @comments}
+    end
+  end
 end

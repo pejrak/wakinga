@@ -74,6 +74,8 @@ Mindbase::Application.routes.draw do
   #mobile app backend routes
   resources :tokens,:only => [:create, :destroy]
   match "/load_per_user_interest" => "posts#load_per_user_interest"
+  match "/load_comments_per_memories" => "comments#load_comments_per_memories"
+
 
   #root routes
   root :to => "home#index" 

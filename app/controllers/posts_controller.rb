@@ -227,9 +227,4 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       format.json {render :json => @posts}
     end
   end
-
-  def mobile_create
-
-  end
-
 end

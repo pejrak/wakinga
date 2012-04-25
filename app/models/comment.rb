@@ -8,9 +8,9 @@ class Comment < ActiveRecord::Base
   MAX_BODY_LENGTH = 300
   validates :body, :presence => true, :length => { :minimum => 1, :maximum => MAX_BODY_LENGTH }
 
-#  def partition
-#    :app
-#  end
+  def partition
+    lambda { self.user.username }
+  end
 
   def new?(selected_user)
 #    loaded_post_memorization = post.memorizations.where(:memorable => true, :user_id => selected_user.id).first

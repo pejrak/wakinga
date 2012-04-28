@@ -112,6 +112,10 @@ class Interest < ActiveRecord::Base
     return self.trusts.where(:trustee_id => selected_user.id).map(&:trustor_id).uniq << selected_user.id
   end
 
+  def other_trustors(selected_user)
+    trustors - selected_user.id
+  end
+
   def trustees(selected_user)
     return self.trusts.where(:trustor_id => selected_user.id).map(&:trustee_id).uniq
   end

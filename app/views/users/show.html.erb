@@ -16,18 +16,35 @@
 <% end %>
 
 <% content_for :leftside do %>
-<div class="user_trusts">		
-	<%= render :partial => current_user %>
+		
+  <%= render :partial => current_user %>
+
+<div class="user_trusts">
+  <% if incoming_trusts.present? %>
+    <%= link_to(content_tag(:h2, 'list of incoming trusts ('+ incoming_trusts.size.to_s+')'), '#', :class => 'hider', :id => 'incoming_trusts' ) %>
+    <div class="content_incoming_trusts" style="display:none">
+    <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
+    </div>
+  <% end %>
+
+  <% if outgoing_trusts.present? %>
+    <%= link_to(content_tag(:h2, 'list of your trusts ('+ outgoing_trusts.size.to_s+')'), '#', :class => 'hider', :id => 'outgoing_trusts' ) %>
+    <div class="content_outgoing_trusts" style="display:block">
+    <% trusted_interests.each do |i| %>
+      <h3>
+        <% i.beads.each do |beader| %>
+          <span class="text_emphasizer">o </span><span class="text_deemphasizer"><%= beader.title %></span>
+        <% end %>
+        <div class="defloater"> </div>
+        <%= render :partial => i.trusts_from(current_user) %>
+      </h3>
+      <div class="defloater"> </div>
 
 
-	<% if outgoing_trusts.present? %>	
-		<h2>list of your trusts</h2>
-		<%= render :partial => outgoing_trusts %>
-	<% end %>
-	<% if incoming_trusts.present? %>
-		<h2>list of incoming trusts</h2>
-		<%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
-	<% end %>
+    <% end %>
+    </div>
+  <% end %>
+
 </div>
 
 	<% if current_user.authentications.present? %>

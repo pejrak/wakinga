@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     Interest.all.each { |i| (i.beads == [])? i.destroy : i}    
     @parent_beads_array = Bead.find_all_by_parent_bead(true)
     #i sort the array of returned beads by the number of interests they contain
-
+    @previous_visit_record = Time.now
     @parent_beads_array = @parent_beads_array.sort_by {|bead| -BeadsInterest.find(:all, :joins => [:bead, :interest, :user_interest_preferences], :conditions => ['beads.id = ? AND user_interest_preferences.user_id = ? AND interests.i_seal = true', bead.id, current_user.id]).size}
   end
 

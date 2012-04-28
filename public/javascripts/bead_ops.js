@@ -6,8 +6,10 @@
         $(this).css("background-color","#d1ffc0");
       },
       mouseleave: function () {
-        //var identificator = $(this).attr("data-id");
-        $(this).css("background-color","transparent");
+        var identificator = $(this).attr("data-id");
+        if ($(".bead_group#beadpoint"+identificator).length==0) {
+            $(this).css("background-color","transparent");
+        }
       },
       click: function() {
       var identificator = $(this).attr("data-id");
@@ -19,7 +21,7 @@
 
           var initializer = "true";
           if ($(".bead_group#beadpoint"+identificator).length==0) {
-            $(this).parent().css("border","solid 3px #b0f097");
+            $(this).parent().css("border-bottom","solid 3px #b0f097");
             $(this).parent().css("border-top","solid 10px #b0f097");
 
             $(this).after("<div class='bead_group' id='beadpoint"+identificator+"' data-id="+identificator+"></div>");

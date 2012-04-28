@@ -436,7 +436,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .extender_header {
     float:left;
-    color: #F40026;
+    color: #BDBDBD;
     padding: 0px 3px;
 
 }
@@ -449,7 +449,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     overflow:hidden;
     height: 2px;
 /*    margin-left: 30px;*/
-    background-color: #b0f097;
+    background-color: #F2F2F2;
     position: relative;
     top:4px;
 }
@@ -511,6 +511,23 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 .user_trusts {
 	margin-bottom: 15px;
+}
+.trust {
+    float:left;
+    margin-left: 3px;
+    height: 20px;
+    vertical-align: bottom;
+}
+.trust span {
+    vertical-align: bottom;
+    clear: both;
+}
+
+.trust.confirmed {
+    background-color: #d1ffc0;
+}
+.trust.unconfirmed {
+    background-color: #F2F2F2;
 }
 
 .mind_selection {

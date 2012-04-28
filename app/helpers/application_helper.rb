@@ -92,6 +92,12 @@ module ApplicationHelper
     Trust.where(:trustor_id => current_user.id)
   end
 
+  def trusted_interests
+    ids = Trust.where(:trustor_id => current_user.id).map(&:interest_id).uniq
+    return Interest.where(:id => ids)
+    
+  end
+
   def incoming_trusts
     unconfirmed_incoming_trusts = []
     all_incoming_trusts = Trust.where(:trustee_id => current_user.id)

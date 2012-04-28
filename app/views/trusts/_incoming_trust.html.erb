@@ -1,8 +1,9 @@
-	<h3>from <%= user_tag(incoming_trust.trustor) %><%= link_to(incoming_trust.trustor.username, user_path(incoming_trust.trustor)) %></h3>
-
-<% incoming_trust.interest.beads.each do |beader| %>
-  o <span class="text_emphasizer"><%= beader.title %></span>
-<% end %>
-
-<%= (incoming_trust.confirmed?)? 'confirmed' : link_to('confirm?', confirm_trust_path(incoming_trust)) %>
+<h3>from <%= user_tag(incoming_trust.trustor) %><%= link_to(incoming_trust.trustor.username, user_path(incoming_trust.trustor)) %>, <%= (incoming_trust.confirmed?)? 'confirmed' : link_to('confirm?', confirm_trust_path(incoming_trust)) %>
  (<%= link_to 'x', incoming_trust, :confirm => "Are you sure you don't want to trust #{incoming_trust.trustor.username} on this interest? \n\r -confirm", :method => :delete %>)
+
+</h3>
+
+<%= render :partial => 'shared/interest', :object => incoming_trust.interest %>
+
+
+

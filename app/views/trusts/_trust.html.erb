@@ -1,10 +1,4 @@
-<%= div_for trust do %>
-	<h3><%= link_to('trusted interest', interest_path(trust.interest)) %> to <%= user_tag(trust.trustee) %> <%= link_to(trust.trustee.username, user_path(trust.trustee)) %></h3>
-
-<% trust.interest.beads.each do |beader| %>
-  o <span class="text_emphasizer"><%= beader.title %></span>
-<% end %>
-
-<%= (trust.confirmed?)? 'confirmed' : 'not confirmed' %> (<%= link_to 'x', trust, :confirm => 'Are you sure?', :method => :delete %>)
-<%# debug(trust.trusts_by_trustee_to_me) %>
-<% end %>
+<div class="trust<%= (trust.confirmed?)? ' confirmed' : ' unconfirmed' %>" title="this trust is<%= (trust.confirmed?)? ' confirmed' : ' unconfirmed' %>">
+	<span><%= user_tag(trust.trustee) %> <%= link_to(trust.trustee.username, user_path(trust.trustee)) %>
+          (<%= link_to 'x', trust, :confirm => 'Are you sure to break this trust?', :method => :delete, :title => 'click to break the trust' %>)</span>
+</div>

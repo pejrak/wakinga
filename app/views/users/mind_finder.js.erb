@@ -1,0 +1,16 @@
+<% unless @user_search_results.empty? %>
+	$(".found_minds").html("<div id='mindsearchres'><%=raw escape_javascript(render :partial => 'shared/user', :collection => @user_search_results, :interest => @interest) %></div>");
+	$("#mindsearchres").prepend("<i><%=raw escape_javascript('found ') %><%= escape_javascript(pluralize(@user_search_results.size,'mind')) %></i><%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border=>0,:title=>'clear results'),'#',:class=>'clear_recalls',:remote=>true)) %>");
+	$("#mindsearchres").append("<br /><i><%=raw escape_javascript('end of mind search') %></i>");
+<% else %>
+	$(".found_minds").html("<br /><i><%=raw escape_javascript('no mind found') %></i>");
+<% end %>
+
+  $(document).ready(function() {
+
+    //clear search results for memory recall
+    $('.clear_recalls').click(function() {
+      $(".found_minds").html("<p>Cleared results.</p>");
+    });
+  
+  });

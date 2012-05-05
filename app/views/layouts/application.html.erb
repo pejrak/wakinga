@@ -34,8 +34,7 @@
 			<div class="col3">
 				<!-- Column 3 start -->
                                 <% if user_signed_in? %>
-                                  <p>Signed in as <strong><%= link_to current_user.email, user_path(current_user) %><%# current_user.email %></strong>. Not you?
-                                  <%= link_to "Sign out", destroy_user_session_path %></p>
+                                  <p>Signed in as <strong><%= link_to current_user.email, user_path(current_user) %><%# current_user.email %></strong> > <%= link_to "Sign out", destroy_user_session_path %></p>
                                 <% else %>
                                   <p><%= link_to "Sign up", new_user_registration_path %></p>
                                 <% end %>

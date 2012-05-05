@@ -1,0 +1,7 @@
+<div class="item_with_operators" data-id="trustee_<%= user.id %>">
+<h3>
+  <%= user_tag(user) %><%= link_to_unless_current(user.username,user) %>
+  <span class="operators" id="operators_trustee_<%= user.id %>" style="display: none">[<%= (user == current_user || current_user.trusts.where(:interest_id => @interest.id, :trustee_id => user.id))? 'trusted' : link_to('trust', trusts_path(:trust => {:trustee_id => user.id, :interest_id=> @interest.id}), :method => :post ) %>]</span>
+</h3>
+
+</div>

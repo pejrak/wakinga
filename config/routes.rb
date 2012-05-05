@@ -13,7 +13,12 @@ Mindbase::Application.routes.draw do
   devise_for :users, :controllers => { :registrations => 'registrations' }
   devise_for :admins
 
-  resources :users do 
+  resources :users do
+    resources :trusts do
+      member do
+        post 'propose'
+      end
+    end
     member do
       get 'send_summary', 'mind_search'
       post 'receive_mail'
@@ -31,6 +36,7 @@ Mindbase::Application.routes.draw do
   match "/admin" => "home#admin"
   match "/dynamic_load" => "posts#dynamic_load"
   match "/mind_search" => "users#mind_search"
+  match "/mind_finder" => "users#mind_finder"
   match "/receive_mail" => "users#receive_mail"
   match "/guest_login" => "authentications#guest_login"
 

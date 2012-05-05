@@ -8,14 +8,25 @@ $(document).ready(function() {
       $.getScript("/mind_search.js?"+search_criteria);
     }
   });
+  //quick user search
+  $("body").delegate("#mindfinder","keyup", function() {
+    var search_criteria = $("#mindfinder").serialize();
+    //var search_criteria_length = $("#mindfinder").val().length;
+    var key_count = $("#mindfinder").val().length;
+    if (key_count > 2) {
+      $(".found_minds").html("<p><img src='/images/loader.gif'/> Searching...</p>");
+      var interest_id = $("#interest").attr("data-id");
+      $.getScript("/mind_finder.js?"+search_criteria+"&iid="+interest_id);
+    }
+  });
     //auto expand handler for message creation
     $("#post_content").autogrow();
     //initiate sliders and hiders for content effects
-    $('.slider').click(function() {
+    $('body').delegate(".slider","click", function() {
       $('.content_'+$(this).attr('id')).slideToggle('slow');
     });
 
-    $('.hider').click(function() {
+    $('body').delegate(".hider","click", function() {
       $('.content_'+$(this).attr('id')).toggle();
     });
 //search for concepts

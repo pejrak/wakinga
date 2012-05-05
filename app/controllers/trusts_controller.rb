@@ -2,30 +2,34 @@ class TrustsController < ApplicationController
 before_filter :authenticate_admin!, :except => [:show, :new, :edit, :create, :update, :destroy, :confirm, ]
 before_filter :authenticate_user!, :except => [:index]
 
-  def index
-    @trusts = Trust.all
-  end
+#  def index
+#    @trusts = Trust.all
+#  end
 
-  def show
-    @trust = Trust.find(params[:id])
-  end
+#  def show
+#    @trust = Trust.find(params[:id])
+#  end
 
-  def new
-    @trust = Trust.new
-  end
+#  def new
+#    @trust = Trust.new
+#  end
 
   def create
-    @trust = Trust.new(params[:trust])
+    @trust = Trust.new
+    @trust.interest = Interest.find(params[:trust][:interest_id])
+    @trust.trustee = User.find(params[:trust][:trustee_id])
     @trust.trustor = current_user
-    if @trust.save
-	if @trust.confirmed? == true
-      flash[:notice] = "Successfully bound trust."
-	else flash[:notice] = "Trust proposed."
-	end
-      redirect_to @trust.interest
+    duplicate_exists = Trust.where(:interest_id => @trust.interest, :trustor_id => @trust.trustor, :trustee_id => @trust.trustee)
+    if !duplicate_exists && @trust.save
+      if @trust.confirmed? == true
+        flash[:notice] = "Successfully bound trust."
+      else
+        flash[:notice] = "Trust proposed."
+      end
     else
-      render :action => 'new'
+      flash[:notice] = "Trust already exists."
     end
+    redirect_to @trust.interest
   end
 
   def confirm
@@ -60,5 +64,15 @@ before_filter :authenticate_user!, :except => [:index]
     @trust.destroy
     flash[:notice] = "Successfully destroyed trust."
     redirect_to @interest
+  end
+
+  def propose
+    @trust = Trust.new
+    @trust.trustor_id = current_user.id
+    @trust.trustee_id = params[:trustee_id]
+    @trust.interest_id = params[:interest_id]
+    if @trust.save
+      redirect_to @interest
+    end
   end
 end

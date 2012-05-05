@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:index, :receive_mail]
-	before_filter :authenticate_admin!, :except => [:show, :mind_search, :receive_mail]
+	before_filter :authenticate_admin!, :except => [:show, :mind_search, :receive_mail, :mind_finder]
 
   def show
     @user = User.find(params[:id])
@@ -63,6 +63,14 @@ class UsersController < ApplicationController
     @search_results = Post.search(params[:mindsearch],memory_array)
     @user_search_results = User.search(params[:mindsearch])
     @previous_visit_record = current_user.last_sign_in_at
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def mind_finder
+    @user_search_results = User.search(params[:mindfinder])
+    @interest = Interest.find(params[:iid])
     respond_to do |format|
       format.js
     end

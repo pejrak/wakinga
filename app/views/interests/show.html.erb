@@ -7,7 +7,6 @@
   <h1><span class="heading_subtelize"><%# (@interest.i_private)? 'Private interest:' : 'Interest:' %> <%# @interest.title %></span></h1>
 <% end %>
 
-<%# debug(session) %>
 <%= content_for :tabs do %>
   <% session[:loaded_interests].each do |i| %>
     <div class="interest_tab<%= (@interest.id == i)? ' current_tab':' previous_tab' %>"><span class="interest_tab_title"><%= link_to(interest_path(i)) do %><% Interest.find(i).beads.each do |b| %>o <%= b.title %> <% end %><% end %></span><%= link_to(image_tag('/images/remove.png',:border => 0,:title=>'remove tab'),(remove_tab_interest_path(i)+'?current_interest_id='+@interest.id.to_s),:class=>'tab_remove') %></div>
@@ -15,11 +14,9 @@
 <% end %>
 
 <div id="interest" data-id="<%= @interest.id %>">
-  <%# debug(@previous_visit_record) %>
   
 email: <%= link_to(@interest.email_address, ('mailto:'+@interest.email_address),:title => 'you can send email to this interest') %>
   <br />
-<%# (current_user == @interest.user)? link_to(image_tag('/images/edit.png',:border => 0, :title => 'edit'), edit_interest_path(@interest)) : (link_to('adpopt', adopt_interest_path(@interest)))  %> 
 beads: <% @interest.beads.each do |beader| %>
   | <%= link_to beader.title, beader %>
   <% end %>
@@ -29,19 +26,14 @@ beads: <% @interest.beads.each do |beader| %>
     <%= render 'posts/form' %>
   </div>
 </div>
-  
-<%#= render :partial => @interest.post_content %>
-  <div class="dynamic" id="buffer" style="display: none"></div>
-
-
+<div class="dynamic" id="buffer" style="display: none"></div>
 <div class="dynamic" id="postcontent" data-time="<%= @previous_visit_record.to_i %>">
-  <img src='/images/loader.gif'/> Loading messages...
+  <img src='/images/loader.gif' alt="loader"/> Loading messages...
 </div>
 
 <div class="dynamic" id="pagedmessages"></div>
 
 <% content_for :rightside do %>
-  <%# debug(@interest.nearest_beads_combination(3)) %>
   <h2 class="memory_post_size"><%= pluralize(@interest.memorized_post_content(true,current_user).size.to_s, 'memory') %></h2>
   <div class="lastpost" id="stamper" data-time="<%= Time.now.to_i %>"></div>
   <div class="timestamp" id="catcher" data-id="<%= @interest.id %>" data-time="<%= Time.now.to_i %>">
@@ -72,6 +64,14 @@ beads: <% @interest.beads.each do |beader| %>
 <% if @interest.preference_for(current_user) and @interest.unconfirmed_trusts_to(current_user).present? %>
         <h2>Trusts from</h2><br />
 	<%= render :partial => 'trusts/incoming_trust', :collection => @interest.unconfirmed_trusts_to(current_user) %>
+<% end %>
+<% if @interest.preference_for(current_user) %>
+  <%= link_to(image_tag('/images/add_trust.png',:border=>0), '#', :class => 'hider', :id => 'trust_builder', :title => 'click to search for minds to build the trusts with') %>
+  <div class="content_trust_builder" style="display: none;">
+    Mind search <br />
+    <input id="mindfinder" name="mindfinder" type="text" />
+  <div class="found_minds">Start typing the username...</div>
+  </div>
 <% end %>
 
 <% end %>

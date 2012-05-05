@@ -20,7 +20,7 @@ before_filter :authenticate_user!, :except => [:index]
     @trust.trustee = User.find(params[:trust][:trustee_id])
     @trust.trustor = current_user
     duplicate_exists = Trust.where(:interest_id => @trust.interest, :trustor_id => @trust.trustor, :trustee_id => @trust.trustee)
-    if !duplicate_exists && @trust.save
+    if duplicate_exists.empty? && @trust.save
       if @trust.confirmed? == true
         flash[:notice] = "Successfully bound trust."
       else

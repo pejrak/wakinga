@@ -56,12 +56,13 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     end
   end
   def new
-    @interest = Interest.find(params[:id])
-    @post = Post.new(:bead_ids => @interest.beads.all)
-
+    unless params[:interest_id]
+      @interest = current_user.users_prefered_interests_all.first
+    else
+      @interest = Interest.find(params[:interest_id])
+    end
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @post }
+      format.js
     end
   end
 

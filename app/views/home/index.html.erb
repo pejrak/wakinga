@@ -6,7 +6,7 @@
   <%= render :partial => current_user %>
   
 
-<%= link_to image_tag('add.png', :border => false) + 'new message', '#', :class => 'hider', :id => 'create_message', :title => 'Create a new message' %>
+<%= link_to image_tag('add.png', :border => false) + 'new message', new_post_path, :remote => true, :class => 'slider', :id => 'create_message', :title => 'Create a new message' %>
 
 <% if current_user.live_memories.present? %>
     | <%= link_to content_tag(:span, (pluralize(current_user.live_memories.count,'live message')), :class => 'new_message_count'), '#', :class => 'hider', :id => 'live_memories' %>

@@ -78,7 +78,14 @@ $(document).ready(function() {
       $(this).addClass("mind_unselected");
       var identificator = $(this).attr("data_id");
       $("#trustor"+identificator).remove();
-    });    
+    });
+
+    //handle the trustor load for message creation
+    $("body").delegate("#beads_posts_interest_id", "change", function(){
+       var interest_id = $(this).val();
+       $(".memory_contribution").html("<p id='trustorload'><img src='/images/loader.gif'/> Loading trustors...</p>");
+       $.getScript("/posts/new?interest_id="+interest_id);
+    });
 
     //handle effect after post submission
     $("#post_submit").click(function() {

@@ -1,12 +1,20 @@
 <%= form_for Post.new, :remote => true do |f| %>
   <%= f.error_messages %>
   <p>
+  <%= fields_for :beads_posts do |bead_fields| %>
+  <h3>select interest</h3>
+    <%= bead_fields.collection_select(:interest_id, current_user.users_prefered_interests_all, :id, :title_with_beads) %>
+  <% end %>
+  </p>
+  <p>
     <%= f.text_area :content, :rows => 1 %>
     <%= f.check_box :p_private, :checked => true %><%= f.label 'Private message' %>
   </p>
   <%= character_count('post_content', Post::MAX_CONTENT_LENGTH, Post::MAX_CONTENT_LENGTH - 20) %>
-  <%= fields_for :beads_posts do |bead_fields| %>
-    <%= bead_fields.collection_select(:interest_id, current_user.users_prefered_interests_all, :id, :title_with_beads) %>
-  <% end %>
+
+  <div class="memory_contribution">
+    
+  </div>
+  <div class="defloater"></div>
   <p><%= f.submit "Send" %></p>
 <% end %>

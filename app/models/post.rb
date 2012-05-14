@@ -80,14 +80,32 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
 
   def related_interest
     matching_interests = []
-    b2 = beads.map(&:id).sort
+    b2 = beads.map(&:id)
     Interest.where(:i_seal=>true).each do |i|
-      b1 = i.beads.map(&:id).sort
+      b1 = i.beads.map(&:id)
       if b1 == b2
         matching_interests << i
       end
     end
     return matching_interests.first
+
+  end
+
+  def good_memorizations_of_other_than(selected_user)
+    self.memorizations.where('user_id <> ? AND memorable = ?', selected_user.id, true)
+
+  end
+
+  def other_memorizers(selected_user)
+    other_memorizer_ids = self.good_memorizations_of_other_than(selected_user).map(&:user_id)
+
+    related_trustors = self.related_interest.other_trustors(selected_user)
+    if related_trustors
+      other_memorizer_ids = self.memorizations.where(:user_id => related_trustors, :memorable => true).map(&:user_id)
+      return User.find(other_memorizer_ids)
+    else
+      return []
+    end
 
   end
 

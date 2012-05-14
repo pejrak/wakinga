@@ -113,7 +113,7 @@ class Interest < ActiveRecord::Base
   end
 
   def other_trustors(selected_user)
-    trustors - selected_user.id
+    trustors(selected_user) - [selected_user.id]
   end
 
   def trustees(selected_user)

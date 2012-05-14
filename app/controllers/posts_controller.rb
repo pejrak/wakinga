@@ -200,10 +200,12 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @refresh_indicator = true
     else @refresh_indicator = false
     end
+
     loaded_memorization = @post.memorizations.where(:user_id => current_user, :memorable => true).first
     if loaded_memorization && @refresh_indicator == false
       loaded_memorization.update_attributes(:updated_at => Time.now)
     end
+
     respond_to do | format |
       format.js
     end

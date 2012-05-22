@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_filter :authenticate_user!, :except => [:admin, :about]
-  before_filter :authenticate_admin!, :except => [:index, :load_with_ajax, :bead_point_load, :about]
+  before_filter :authenticate_admin!, :except => [:index, :load_with_ajax, :bead_point_load, :about, :dynamic_call]
   def index
     #serves to clean up empty interests
     Interest.all.each { |i| (i.beads == [])? i.destroy : i}    
@@ -40,6 +40,13 @@ class HomeController < ApplicationController
       :order => 'post_counter DESC',
       :limit => 10)
     end
+    respond_to do | format |
+      format.js
+    end
+  end
+
+  def dynamic_call
+    @interest = Interest.find(params[:iid])
     respond_to do | format |
       format.js
     end

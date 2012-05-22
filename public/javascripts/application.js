@@ -1,11 +1,22 @@
 //complex search for memories and minds
 $(document).ready(function() {
+  var timer = null;
   $("#mindsearch").keyup(function() {
+    $(".dynamic#recalls").html("");
     var search_criteria = $("#mindsearch").serialize();
     var key_count = (search_criteria.length - 11);
     if (key_count > 2) {
-      $(".dynamic#recalls").html("<p><img src='/images/loader.gif'/> Searching...</p>");
-      $.getScript("/mind_search.js?"+search_criteria);
+        if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(function() {
+            searchContent(search_criteria)
+        }, 1000);
+      function searchContent(search_criteria) {
+        $(".dynamic#recalls").html("<p><img src='/images/loader.gif'/> Searching...</p>");
+        $.getScript("/mind_search.js?"+search_criteria);
+      }
+      
     }
   });
   //quick user search
@@ -58,7 +69,15 @@ $(document).ready(function() {
       },
       mouseleave: function () {
         $(".interest_operators").fadeOut();
+      },
+      click: function () {
+        var identificator = $(this).attr("data-id");
+//        $(".bead_operators").hide();
+        $(this).css("background-color","transparent");
+        //$("#beadpoint"+identificator).remove();
+        $.getScript("/dynamic_call.js?iid="+identificator);
       }
+
     });
     //operators for mind selection on message sending
 

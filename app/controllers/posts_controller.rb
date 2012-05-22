@@ -44,6 +44,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     if request.xhr?
       render :partial => 'post', :collection => @message_content
     end
+    puts "reloaded dynamic post content"
   end
 
   def show

@@ -3,10 +3,11 @@ $(".leftslot").html("<h2>filters</h2><div class='timestamp' id='catcher' data-id
     <div class='stream_operators' id='streammemories'>memories</div> \
   </div> \
   ");
-$("#middleactive").html("<div id='interest'></div> \
+  $("#middleactive").html("<div id='interest'></div><h2><%=raw escape_javascript(link_to image_tag('/images/add_message.png', :border => false) + ' create message', new_post_path, :remote => true, :class => 'hider', :id => 'create_message') %></h2> \
+  <div class='content_create_message' style='display:none'><%=raw escape_javascript(render 'posts/form') %></div> \
   <div class='dynamic' id='buffer' style='display: none'></div> \
   <div class='dynamic' id='postcontent' data-time='<%=raw @previous_visit_record.to_i %>'> \
-  <img src='/images/loader.gif' alt='loader'/> Loading messages...</div> \
+    <img src='/images/loader.gif' alt='loader'/> Loading messages...</div> \
   <div class='dynamic' id='pagedmessages'></div> \
   <div class='lastpost' id='stamper' data-time='<%=raw Time.now.to_i %>'></div> \
   ");
@@ -17,5 +18,12 @@ $("#rightactive").html("<div class='activated_post_container'></div> \
     <div class='dynamic' id='recalls'></div> \
   </div> \
 ");
+<% if @interest.preference_for(current_user) %>
+  $("#rightactive").append("<%=raw escape_javascript(link_to(image_tag('/images/add_trust.png',:border=>0), '#', :class => 'hider', :id => 'trust_builder', :title => 'click to search for minds to build the trusts with')) %> \
+    <div class='content_trust_builder' style='display: none;'>Mind search <br /> \
+    <input id='mindfinder' name='mindfinder' type='text' /> \
+  <div class='found_minds'>Start typing the username...</div></div>");
+<% end %>
+
 $("#interestbrowser").hide();
 updatePosts(0);

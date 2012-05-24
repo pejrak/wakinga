@@ -1,10 +1,9 @@
 class Interest < ActiveRecord::Base
 
-  include Rhoconnect::Resource
+  #include Rhoconnect::Resource
 
   has_many :beads, :through => :beads_interests
   has_many :beads_interests, :dependent => :destroy
-#  has_many :beads_posts, :through => :beads
   has_many :trusts, :dependent => :destroy
   has_many :user_interest_preferences, :dependent => :destroy
   has_many :interests_posts, :dependent => :destroy
@@ -18,20 +17,6 @@ class Interest < ActiveRecord::Base
 
   #validations
   validates_length_of :title, :within => 2..MAX_TITLE_LENGTH
-
-#  def partition
-#    "spontain"
-#  end
-#
-
-#  def as_json (options={})
-#    {
-#      :id => id,
-#      :title => title,
-#      :created_at => created_at,
-#      :updated_at => updated_at
-#    }
-#  end
 
   def email_address
     return self.id.to_s + Interest::EMAIL_ADDRESS_SUFFIX
@@ -85,7 +70,7 @@ class Interest < ActiveRecord::Base
   #return number of all posts within the interest,
   #refers to bead ids that were extracted in the bead_ids
   def post_count
-    BeadsPost.find(:all, :select => ['DISTINCT post_id'], :group => 'post_id', :conditions => ["bead_id IN (?)", beads], :having => ['count(distinct bead_id) = ?', beads.count]).count
+    self.interests_posts.count
   end
 
   def estimated_post_count(additional_bead)

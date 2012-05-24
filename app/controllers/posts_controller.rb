@@ -13,18 +13,17 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 3
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
-    if @interest && params[:lt] == 'openmessages' 
-      show_options = ['archive','complete']
-      @memorized_content = @interest.memorized_post_content(true,current_user,show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+    if @interest && params[:lt] == 'streammessages'
       @raw_message_content = @interest.post_content(current_user)
+      @message_content_size = @raw_message_content.size
       @most_recent_message = @raw_message_content.first
       @message_content = @raw_message_content.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
-    puts "preloaded post content"
-    elsif @interest && params[:lt] == 'archivedmessages'
-      @memorized_content = []
-      show_options = ['action','']
+    puts "preloaded messages"
+    elsif @interest && params[:lt] == 'streammemories'
+      show_options = ['archive','complete']
       @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
-    puts "preloaded post content"
+      @message_content_size = @message_content.size
+    puts "preloaded memories"
     end
   end
 
@@ -32,13 +31,10 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @interest = Interest.find(params[:iid])
     @previous_visit_record = Time.now
 #the same as under index
-    if @interest && params[:lt] == 'openmessages' 
-      show_options = ['archive','complete']
-      @memorized_content = @interest.memorized_post_content(true,current_user,show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+    if @interest && params[:lt] == 'streammessages'
       @message_content = @interest.post_content(current_user).sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
-    elsif @interest && params[:lt] == 'archivedmessages'
-      @memorized_content = []
-      show_options = ['action','']
+    elsif @interest && params[:lt] == 'streammemories'
+      show_options = ['archive','complete']
       @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
     end
     if request.xhr?

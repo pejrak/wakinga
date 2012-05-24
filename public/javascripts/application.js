@@ -61,7 +61,7 @@ $(document).ready(function() {
   //interest preview effects
     $(".preview_slot").live({
       mouseenter: function () {
-        var identificator = $(this).attr("data-id");
+        //var identificator = $(this).attr("data-id");
 	$(".preview_slot").css("background-color","transparent");
         $(this).css("background-color","#E6E6E6");
         $(".interest_operators",this).show();
@@ -75,7 +75,7 @@ $(document).ready(function() {
 //        $(".bead_operators").hide();
         $(this).css("background-color","transparent");
         //$("#beadpoint"+identificator).remove();
-        $.getScript("/dynamic_call.js?iid="+identificator);
+        $.getScript("/interests/"+identificator);
       }
 
     });
@@ -112,7 +112,7 @@ $(document).ready(function() {
        $(this).hide();
     });
     //generic operator preview
-    $.getScript("/javascripts/preview_ops.js");
+    //$.getScript("/javascripts/preview_ops.js");
 
     $("#flash_notice, #flash_error, .flash_dynamic, #flash_alert").fadeOut(7000);
 //end of document load

@@ -52,17 +52,17 @@
 <div class="colmask threecol">
 	<div class="colmid">
 		<div class="colleft">
-			<div class="col1">
+			<div class="col1" id="middleactive">
 				<!-- Column 1 start -->
                                 <%= yield %>
 				<!-- Column 1 end -->
 			</div>
-			<div class="col2">
+			<div class="col2" id="leftactive">
 				<!-- Column 2 start -->
                                 <%= yield :leftside %>
 				<!-- Column 2 end -->
 			</div>
-			<div class="col3">
+			<div class="col3" id="rightactive">
 				<!-- Column 3 start -->
                                 <%= yield :rightside %>
 				<!-- Column 3 end -->

@@ -6,7 +6,6 @@
   });
 <% else %>
   refreshPosts();
-  $(".memory_post_size").html("<%=raw escape_javascript(pluralize(@interest.memorized_post_content(true,current_user).size.to_s, 'memory')) %>");
 <% end %>
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
@@ -29,6 +28,5 @@
 // function for refresh of the message contents  
 function refreshPosts() {
   $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
-  $(".dynamic#memories").html("<%=raw escape_javascript(render(@memorized_content)) %>");
-  $(".post_size").html("<%=raw escape_javascript(pluralize(@interest.post_content(current_user).size.to_s, 'open message')) %>");
+  $(".post_size").html("<%=raw escape_javascript(pluralize(@message_content_size.to_s, 'open message')) %>");
 }

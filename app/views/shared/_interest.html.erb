@@ -1,6 +1,6 @@
 <div class="preview_slot" data-id="<%= interest.id %>">
 
-  <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest', :class => 'enter_interest_icon'), interest %>
+  <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest', :class => 'enter_interest_icon'), interest_path(interest), :remote => true %>
   <% interest.beads.each do |beader| %>
     <span class="text_emphasizer">o </span><span class="text_deemphasizer"><%= beader.title %></span>
   <% end %>

@@ -2,8 +2,8 @@ $(document).ready(function() {
     $("#new_post").submitWithAjax();
     $(function() {
         var c=0;
-        setTimeout("updatePosts(0)", 500);
-        $.getScript("/javascripts/message_ops.js");
+        //setTimeout("updatePosts(0)", 500);
+        //$.getScript("/javascripts/message_ops.js");
     });
     $(function() {
       $(".activated_post_container").jScroll();
@@ -34,8 +34,7 @@ $(document).ready(function() {
         //var interest_identificator = $(this).parent().attr("data-id");
         var identificator = $(this).attr("id");
         $(this).parent().data("load",identificator);
-        $(".dynamic#postcontent").prepend("<p><img src='/images/loader.gif'/> Switching message stream...</p>");
-        $(".dynamic#memories").prepend("<p><img src='/images/loader.gif'/> Switching memory stream...</p>");
+        $(".dynamic#postcontent").prepend("<p><img src='/images/loader.gif'/> Switching.</p>");
         prepPosts();
       }
     });
@@ -52,7 +51,7 @@ function updatePosts(c) {
     $("#messagerefresh").remove();
   }
   if ($("#catcher").data("load")==undefined) {
-    $("#catcher").data("load", "openmessages");
+    $("#catcher").data("load","streammessages");
   }
   var load_type = $("#catcher").data("load");
 //check if this is the first refresh

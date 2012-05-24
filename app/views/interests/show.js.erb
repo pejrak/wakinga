@@ -1,0 +1,21 @@
+$(".leftslot").html("<h2>filters</h2><div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
+    <div class='stream_operators' id='streammessages'>messages</div> \
+    <div class='stream_operators' id='streammemories'>memories</div> \
+  </div> \
+  ");
+$("#middleactive").html("<div id='interest'></div> \
+  <div class='dynamic' id='buffer' style='display: none'></div> \
+  <div class='dynamic' id='postcontent' data-time='<%=raw @previous_visit_record.to_i %>'> \
+  <img src='/images/loader.gif' alt='loader'/> Loading messages...</div> \
+  <div class='dynamic' id='pagedmessages'></div> \
+  <div class='lastpost' id='stamper' data-time='<%=raw Time.now.to_i %>'></div> \
+  ");
+$("#interest").attr("data-id",<%=raw @interest.id %>);
+
+$("#rightactive").html("<div class='activated_post_container'></div> \
+  <div class='defloater'> \
+    <div class='dynamic' id='recalls'></div> \
+  </div> \
+");
+$("#interestbrowser").hide();
+updatePosts(0);

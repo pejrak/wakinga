@@ -34,8 +34,8 @@ before_filter :authenticate_user!
       session[:loaded_interests] << @interest.id
     end
     respond_to do |format|
-      format.html
-      format.xml  { render :xml => @interest }
+      format.js
+      #format.xml  { render :xml => @interest }
     end
   end
 

@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
 
-  include Rhoconnect::Resource
+  #include Rhoconnect::Resource
 
 
   MAX_CONTENT_LENGTH = 620
@@ -15,9 +15,9 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   has_many :interests, :through => :interests_posts
   belongs_to :user
 
-  def partition
-    lambda { self.user.username }
-  end
+#  def partition
+#    lambda { self.user.username }
+#  end
 
   #attr_accessor :interest_id
 

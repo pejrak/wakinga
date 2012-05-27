@@ -19,24 +19,35 @@ $(document).ready(function() {
       $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });
-    $(".stream_operators").live({
-      mouseover: function () {
-        $(this).css("background-color","#d1ffc0");
-      },
-      mouseout: function () {
-          var identificator = $(this).attr("id");
-          var loaded_type = $("#catcher").data("load");
-          if (identificator != loaded_type) {
-              $(this).css("background-color","#CCC");
-          }
-      },
-      click: function() {
-        //var interest_identificator = $(this).parent().attr("data-id");
+    $("body").delegate(".stream_operator,.filter_operator", "click", function() {
         var identificator = $(this).attr("id");
-        $(this).parent().data("load",identificator);
-        $(".dynamic#postcontent").prepend("<p><img src='/images/loader.gif'/> Switching.</p>");
+        var loaded_set = $("#catcher").data("load");
+        var selected_operator_class = $(this).attr("class");
+        var operator_type = selected_operator_class.substr(0, selected_operator_class.length - 9);
+        loaded_set[operator_type] = identificator;
+        if (identificator == "streammessages") {
+          loaded_set["filter"] = "filterall";
+        }
+        if (identificator == "streammemories") {
+          loaded_set["filter"] = "filteractive";
+        }
+        $(".dynamic#postcontent").prepend("<p><img src='/images/loader.gif'/> Switching...</p>");
         prepPosts();
-      }
+    });
+
+    $("body").delegate(".stream_operator, .filter_operator", "mouseout", function() {
+        var identificator = $(this).attr("id");
+        var loaded_set = $("#catcher").data("load");
+        var selected_operator_class = $(this).attr("class");
+        var operator_type = selected_operator_class.substr(0, selected_operator_class.length - 9);
+        if (identificator != loaded_set[operator_type]) {
+          $(this).css("background-color","#CCC");
+        }
+    });
+
+
+    $("body").delegate(".stream_operator, .filter_operator", "mouseover", function() {
+      $(this).css("background-color","#d1ffc0");
     });
 
 });
@@ -51,9 +62,10 @@ function updatePosts(c) {
     $("#messagerefresh").remove();
   }
   if ($("#catcher").data("load")==undefined) {
-    $("#catcher").data("load","streammessages");
+    $("#catcher").data("load",{"stream":"streammessages","filter":"filterall"});
   }
-  var load_type = $("#catcher").data("load");
+  var load_type = $("#catcher").data("load")["stream"];
+  var filter_type = $("#catcher").data("load")["filter"];
 //check if this is the first refresh
   if (c==0) {
     var initial_load = 1;
@@ -61,7 +73,7 @@ function updatePosts(c) {
   else {
     var initial_load = 0;
   }
-  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&il="+initial_load);
+  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&ft"+filter_type+"&il="+initial_load);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
   if (c == undefined) {
@@ -92,8 +104,9 @@ jQuery.fn.submitWithAjax = function() {
 function prepPosts() {
   var interest_id = $("#interest").attr("data-id");
   var previous_visit = $(".dynamic#postcontent").attr("data-time");
-  var load_type = $("#catcher").data("load");
+  var load_type = $("#catcher").data("load")["stream"];
+  var filter_type = $("#catcher").data("load")["filter"];
   $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
-  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type+"&il=1");
+  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type+"&ft"+filter_type+"&il=1");
   //alert(load_type);
 }

@@ -152,7 +152,17 @@ class Interest < ActiveRecord::Base
     else private_posts = []
     end
     return private_posts + public_posts
+  end
 
+  def post_content_private(selected_user)
+    loaded_trustors = trustors(selected_user)
+    if loaded_trustors.present?
+      private_posts = self.posts.find(:all,
+        :conditions => ["posts.p_private = ? AND posts.user_id IN (?)", true, loaded_trustors],
+        :order => 'posts.updated_at DESC')
+    else private_posts = []
+    end
+    return private_posts
   end
 
   def memorized_post_content(memorability,selected_user,unload='complete')

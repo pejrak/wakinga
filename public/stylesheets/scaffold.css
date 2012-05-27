@@ -252,13 +252,24 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     font-size:12px;
 }
 
-.stream_operators {
+.stream_operator {
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
   padding: 6px;
   background-color: #CCC;
   margin-bottom: 3px; 
+
+}
+
+.filter_operator {
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+  padding: 6px;
+  background-color: #CCC;
+  margin: 3px;
+  float: left;
 
 }
 

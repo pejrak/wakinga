@@ -7,15 +7,15 @@ $(".tab_stripe").html("");
 <% end %>
 
 $(".leftslot").html("<div class='interest_browser_switch' title='display the interest browser'>Back</div><div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div><br /><div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
-    <div class='stream_operators' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
-    <div class='stream_operators' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
+    <div class='stream_operator' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
+    <div class='stream_operator' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
   </div> \
   ");
 
 
-$("#middleactive").html("<div id='interest'></div><h2><%=raw escape_javascript(link_to image_tag('/images/add_message.png', :border => false) + ' create message', new_post_path, :remote => true, :class => 'hider', :id => 'create_message') %></h2> \
+$("#middleactive").html("<h2><%=raw escape_javascript(link_to image_tag('/images/add_message.png', :border => false) + ' create message', new_post_path, :remote => true, :class => 'hider', :id => 'create_message') %></h2> \
   <div class='content_create_message' style='display:none'><%=raw escape_javascript(render 'posts/form') %></div> \
-  <div class='dynamic' id='buffer' style='display: none'></div> \
+  <div class='filters_container' id='interest'></div><div class='dynamic' id='buffer' style='display: none'></div> \
   <div class='defloater'> \
     <div class='dynamic' id='recalls'></div> \
   </div> \

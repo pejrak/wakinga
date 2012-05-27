@@ -16,12 +16,20 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
     if @interest && params[:lt] == 'streammessages'
+      @message_content_private = @interest.post_content_private(current_user).sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
       @message_content_size = @raw_message_content.size
       @most_recent_message = @raw_message_content.first
       @message_content = @raw_message_content.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
       @message_content_type = 'messages'
       puts "preloaded messages"
     elsif @interest && params[:lt] == 'streammemories'
+      if params[:ft] == 'filteractive'
+        show_options = ['archive','complete']
+      elsif params[:ft] == 'filterarchive'
+        show_options = ['open','active','']
+      else
+        show_options = ['archive','complete','active']
+      end
       show_options = ['archive','complete']
       @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
       @message_content_size = @message_content.size

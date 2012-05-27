@@ -10,16 +10,20 @@
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
-  var loaded_type = $("#catcher").data("load");
-  var loaded_filters = $("#catcher").data("filter");
-
-  var loader_button = document.getElementById(loaded_type);
+  var loaded_stream = $("#catcher").data("load")["stream"];
+  var loaded_filter = $("#catcher").data("load")["filter"];
+  var loader_button = document.getElementById(loaded_stream);
+  if (loaded_stream == 'streammessages') {
+  $(".filters_container").html("<div class='filter_operator' id='filterall'>All(<span id='filterallcount'><%=raw escape_javascript(@raw_message_content.size.to_s) %></span>)</div><div class='filter_operator' id='filterprivate'>Private(<span id='filterprivatecount'><%=raw escape_javascript(@message_content_private.size.to_s) %></span>)</div>");
+  }
+  if (loaded_stream == 'streammemories') {
+    $(".filters_container").html("<div class='filter_operator' id='filteractive'>Active(<span id='filteractivecount'></span>)</div><div class='filter_operator' id='filterarchive'>Archive(<span id='filterarchivecount'></span>)</div>");
+  }
   var filter_button = document.getElementById(loaded_filter);
-
-  $(".stream_operators").css("background-color","#ccc");
+  $(".stream_operator,.filter_operator").css("background-color","#ccc");
   $(loader_button).css("background-color","#d1ffc0");
+  $(filter_button).css("background-color","#d1ffc0");
 
-  $(".filter_operators").css("background-color","#ccc");
   
 <% if @most_recent_message %>
   var last_message_time = <%=raw @most_recent_message.created_at.to_i %>;
@@ -33,8 +37,6 @@
 // function for refresh of the message contents  
 function refreshPosts() {
   $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
-
-
 // function for refresh of the message size indicators
   $(".messages_size").html("<%=raw escape_javascript(@raw_message_content.size.to_s) %>");
   $(".memories_size").html("<%=raw escape_javascript(@raw_memory_content.size.to_s) %>");

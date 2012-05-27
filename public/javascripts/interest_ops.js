@@ -73,7 +73,7 @@ function updatePosts(c) {
   else {
     var initial_load = 0;
   }
-  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&ft"+filter_type+"&il="+initial_load);
+  $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&ft="+filter_type+"&il="+initial_load);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
   if (c == undefined) {
@@ -107,6 +107,6 @@ function prepPosts() {
   var load_type = $("#catcher").data("load")["stream"];
   var filter_type = $("#catcher").data("load")["filter"];
   $("#flash_notice, #flash_error, .flash_dynamic").fadeOut(6000);
-  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type+"&ft"+filter_type+"&il=1");
+  $.getScript("/posts.js?iid=" + interest_id + "&full_refresh=true&pvr="+previous_visit+"&lt="+load_type+"&ft="+filter_type+"&il=1");
   //alert(load_type);
 }

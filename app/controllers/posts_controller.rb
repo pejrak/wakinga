@@ -6,8 +6,9 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @previous_visit_record = Time.at(params[:pvr].to_i)
     @initial_load = params[:il].to_i
     @load_type = params[:lt]
-      @raw_message_content = @interest.post_content(current_user)
-      @raw_memory_content = @interest.memorized_post_content(true,current_user,'other')
+    @raw_message_content = @interest.post_content(current_user)
+    @raw_memory_content = @interest.memorized_post_content(true,current_user,'other')
+    @most_recent_message = @raw_message_content.first
     puts "preloaded interest - #{@interest.id}, last visited #{@previous_visit_record}"
     if params[:full_refresh] != 'false'
       @dynamic_posts = []
@@ -16,23 +17,26 @@ before_filter :authenticate_user! #, :except => [:show, :index]
       @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
     end
     if @interest && params[:lt] == 'streammessages'
-      @message_content_private = @interest.post_content_private(current_user).sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
-      @message_content_size = @raw_message_content.size
-      @most_recent_message = @raw_message_content.first
-      @message_content = @raw_message_content.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+      @message_content_private = @interest.post_content_private(current_user)
+      #@message_content_size = @raw_message_content.size
+      @message_content_all = @raw_message_content
+      if params[:ft] == 'filterall'
+        @message_content = @message_content_all.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+      elsif params[:ft] == 'filterprivate'
+        @message_content = @message_content_private.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+      end
       @message_content_type = 'messages'
       puts "preloaded messages"
     elsif @interest && params[:lt] == 'streammemories'
+      archive_filter = ['open','action']
+      active_filter = ['archive','complete']
+      @archive_memories = @interest.memorized_post_content(true,current_user,archive_filter)
+      @active_memories = @interest.memorized_post_content(true,current_user,active_filter)
       if params[:ft] == 'filteractive'
-        show_options = ['archive','complete']
+        @message_content = @active_memories.sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
       elsif params[:ft] == 'filterarchive'
-        show_options = ['open','active','']
-      else
-        show_options = ['archive','complete','active']
+        @message_content = @archive_memories.sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
       end
-      show_options = ['archive','complete']
-      @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
-      @message_content_size = @message_content.size
       @message_content_type = 'memories'
       puts "preloaded memories"
     end
@@ -42,12 +46,35 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @interest = Interest.find(params[:iid])
     @previous_visit_record = Time.now
 #the same as under index
+    @raw_message_content = @interest.post_content(current_user)
+
     if @interest && params[:lt] == 'streammessages'
-      @message_content = @interest.post_content(current_user).sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+      #@message_content_size = @raw_message_content.size
+      @message_content_all = @raw_message_content.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+      if params[:ft] == 'filterall'
+        @message_content = @message_content_all
+      elsif params[:ft] == 'filterprivate'
+        @message_content_private = @interest.post_content_private(current_user).sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])
+        @message_content = @message_content_private
+      end
+      @message_content_type = 'messages'
+      puts "preloaded messages"
     elsif @interest && params[:lt] == 'streammemories'
-      show_options = ['archive','complete']
-      @message_content = @interest.memorized_post_content(true,current_user, show_options).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+      @raw_memory_content = @interest.memorized_post_content(true,current_user,'other')
+      archive_filter = ['open','action']
+      active_filter = ['archive','complete']
+      @archive_memories = @interest.memorized_post_content(true,current_user,archive_filter).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+      @active_memories = @interest.memorized_post_content(true,current_user,active_filter).sort_by { |p| -p.memory_updated_at(current_user) }.paginate(:per_page => current_user.user_preference.messages_per_page, :page => params[:page])
+      if params[:ft] == 'filteractive'
+        @message_content = @active_memories
+      elsif params[:ft] == 'filterarchive'
+        @message_content = @archive_memories
+      end
+      @message_content_type = 'memories'
+      puts "preloaded memories"
     end
+
+    #end of same
     if request.xhr?
       render :partial => 'post', :collection => @message_content
     end
@@ -160,7 +187,7 @@ before_filter :authenticate_user! #, :except => [:show, :index]
    if Memorization.where(:post_id => @post, :user_id => current_user).empty?
      @memorization = Memorization.new
      @memorization.post_id = @post.id
-     @memorization.status_indication = "open"
+     @memorization.status_indication = "action"
      @memorization.memorable = true
      @memorization.user_id = current_user.id
      @memorization.change_record = Time.now.to_s + Memorization::MEMORY_START

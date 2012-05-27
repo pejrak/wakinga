@@ -13,12 +13,12 @@
   var loaded_stream = $("#catcher").data("load")["stream"];
   var loaded_filter = $("#catcher").data("load")["filter"];
   var loader_button = document.getElementById(loaded_stream);
-  if (loaded_stream == 'streammessages') {
-  $(".filters_container").html("<div class='filter_operator' id='filterall'>All(<span id='filterallcount'><%=raw escape_javascript(@raw_message_content.size.to_s) %></span>)</div><div class='filter_operator' id='filterprivate'>Private(<span id='filterprivatecount'><%=raw escape_javascript(@message_content_private.size.to_s) %></span>)</div>");
-  }
-  if (loaded_stream == 'streammemories') {
-    $(".filters_container").html("<div class='filter_operator' id='filteractive'>Active(<span id='filteractivecount'></span>)</div><div class='filter_operator' id='filterarchive'>Archive(<span id='filterarchivecount'></span>)</div>");
-  }
+  <% if @message_content_type == 'messages' %>
+  $(".filters_container").html("<div class='filter_operator' id='filterall'>All (<span id='filterallcount'><%=raw escape_javascript(@raw_message_content.size.to_s) %></span>)</div><div class='filter_operator' id='filterprivate'>Private (<span id='filterprivatecount'><%=raw escape_javascript(@message_content_private.size.to_s) %></span>)</div>");
+  <% end %>
+  <% if @message_content_type == 'memories' %>
+    $(".filters_container").html("<div class='filter_operator' id='filteractive'>Active (<span id='filteractivecount'><%=raw escape_javascript(@active_memories.size.to_s) %></span>)</div><div class='filter_operator' id='filterarchive'>Archive (<span id='filterarchivecount'><%=raw escape_javascript(@archive_memories.size.to_s) %></span>)</div>");
+  <% end %>
   var filter_button = document.getElementById(loaded_filter);
   $(".stream_operator,.filter_operator").css("background-color","#ccc");
   $(loader_button).css("background-color","#d1ffc0");

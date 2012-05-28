@@ -2,20 +2,23 @@ $(".tab_stripe").html("");
 <% @tabs.each do |i| %>
   $(".tab_stripe").append("<div class='<%=raw escape_javascript((@interest.id == i)? 'interest_tab current_tab':'interest_tab previous_tab') %>'> \
   <span class='interest_tab_title'><%=raw escape_javascript(link_to(Interest.find(i).title, interest_path(i),:remote=>true))%></span> \
-  <%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border => 0,:title=>'remove tab'),(remove_tab_interest_path(i)+'?current_interest_id='+@interest.id.to_s),:class=>'tab_remove')) %> \
+  <%=raw escape_javascript(link_to(image_tag('/images/remove_small.png',:border => 0,:title=>'remove tab'),(remove_tab_interest_path(i)+'?current_interest_id='+@interest.id.to_s),:class=>'tab_remove')) %> \
   </div>");
 <% end %>
+$(".tab_stripe").append("<span class='interest_tab_terminator'></span>");
 
-$(".leftslot").html("<%=raw escape_javascript(render 'shared/interest_browser_switch') %><div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div><br /><div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
-    <div class='stream_operator' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
-    <div class='stream_operator' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
-  </div> \
-  ");
+$(".leftslot").html("<%=raw escape_javascript(render 'shared/interest_browser_switch') %>");
 
 
 $("#middleactive").html("<h2><%=raw escape_javascript(link_to image_tag('/images/add_message.png', :border => false) + ' create message', new_post_path, :remote => true, :class => 'hider', :id => 'create_message') %></h2> \
   <div class='content_create_message' style='display:none'><%=raw escape_javascript(render 'posts/form') %></div> \
-  <div class='filters_container' id='interest'></div><div class='dynamic' id='buffer' style='display: none'></div> \
+    <div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
+    <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div> \
+    <div class='defloater'></div><div class='stream_operator' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
+    <div class='stream_operator' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
+    </div> \
+    <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Filters</div><div class='extender_line'></div></div> \
+    <div class='defloater'></div><div class='filters_container' id='interest'></div><div class='dynamic' id='buffer' style='display: none'></div> \
   <div class='defloater'> \
     <div class='dynamic' id='recalls'></div> \
   </div> \

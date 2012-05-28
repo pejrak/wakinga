@@ -5,8 +5,8 @@
 <%= content_for :tabs do %>
   <% if session[:loaded_interests] %>
   <% session[:loaded_interests].each do |i| %>
-    <div class="interest_tab previous_tab"><span class="interest_tab_title"><%= link_to(interest_path(i), :remote => true) do %><%= Interest.find(i).title %><% end %></span><%= link_to(image_tag('/images/remove.png',:border => 0,:title=>'remove tab'),remove_tab_interest_path(i),:class=>'tab_remove') %></div>
-  <% end %>
+    <div class="interest_tab previous_tab"><span class="interest_tab_title"><%= link_to(interest_path(i), :remote => true) do %><%= Interest.find(i).title %><% end %></span><%= link_to(image_tag('/images/remove_small.png',:border => 0,:title=>'remove tab', :class=>'tab_closeout'),remove_tab_interest_path(i),:class=>'tab_remove') %></div>
+  <% end %><span class='interest_tab_terminator'></span>
   <% end %>
 <% end %>
 

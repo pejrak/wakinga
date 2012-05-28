@@ -6,7 +6,7 @@ $(".tab_stripe").html("");
   </div>");
 <% end %>
 
-$(".leftslot").html("<div class='interest_browser_switch' title='display the interest browser'>Browse interests</div><div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div><br /><div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
+$(".leftslot").html("<%=raw escape_javascript(render 'shared/interest_browser_switch') %><div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div><br /><div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
     <div class='stream_operator' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
     <div class='stream_operator' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
   </div> \

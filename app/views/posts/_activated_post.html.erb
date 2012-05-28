@@ -28,18 +28,11 @@
 
     <div class="content_affiliatememories" style="display:none">
 <% activated_post.other_memorizers(current_user).each do |u| %>
-    <%= user_tag(u) %><i><%= link_to_unless_current(u.username,u) %></i>
+    <span title="<%= u.username+' has the memory marked for '+u.memory_record_on(activated_post) %>" class="<%= u.memory_record_on(activated_post) %>"><%= user_tag(u) %><i><%= link_to_unless_current(u.username,u) %></i></span>
 <% end %>
     </div>
   <br />
-  <span class="beads_slot" id="p<%= activated_post.id %>">
-      <span class="bead_spot_full_p<%= activated_post.id %>">
-      <% activated_post.beads.each do |beadlink| %>
-        o <%= link_to beadlink.title, beadlink %>
-      <% end %>
-      </span>
-    </span>
-  
+  <%= render :partial => 'shared/interest', :object => activated_post.related_interest %>
 </div>
 </div>
 

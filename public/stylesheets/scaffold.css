@@ -19,7 +19,6 @@
                 vertical-align: middle;
                 background-color:#262626;
                 height:63px;
-                border-bottom: #D8D8D8 2px solid;
         }
 	#header p {
 		padding:.4em 0 0 0;
@@ -234,17 +233,26 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     float:left;
     height:17px;
     padding: 3px;
-    
+    border-right: #BBB 1px solid;
 }
 .current_tab {
+    border-top: #BBB 1px solid;
     background-color: #FFF;
-    border-right: #F83251 2px solid;
-    
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-weight: bold;
 }
 
 .previous_tab {
-    background-color: #D8D8D8;
-    border-right: #262626 2px solid;
+    background-color: #282828;
+    border-bottom: #BBB 1px solid;
+    color: #FFF;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.previous_tab a {
+    color: #CCC;
 }
 
 .interest_tab_title {
@@ -252,33 +260,19 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     font-size:12px;
 }
 
-.stream_operator {
-    -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    -moz-border-radius: 3px;
+.stream_operator, #live_memories, .interest_browser_switch {
+  border-radius: 3px;
   padding: 6px;
   background-color: #CCC;
-  margin-bottom: 3px; 
-
+  margin-bottom: 3px;
 }
 
 .filter_operator {
-    -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    -moz-border-radius: 3px;
+  border-radius: 3px;
   padding: 6px;
   background-color: #CCC;
   margin: 3px;
   float: left;
-
-}
-
-.interest_browser_switch {
-    -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    -moz-border-radius: 3px;
-  padding: 6px;
-  background-color: #CCC;
 
 }
 
@@ -294,9 +288,6 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
         font-size: 11px;
         padding: 5px;
         border-bottom: #D8D8D8 2px solid;
-/*    background-image: url(/images/bg_grey_fade_vert.png);
-    background-position: top;
-    background-repeat: repeat-x;*/
 }
 
 .live_message {
@@ -392,8 +383,6 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 .comment {
   font-size: 11px;
   padding: 5px;
-/*  background-color: #b7ffb4;*/
-/*  border-bottom: black 1px dotted;*/
 }
 .deleted_comment {
     width: 5px;
@@ -410,7 +399,6 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .comments_form_container {
     padding: 5px;
-/*    background-color: #b7ffb4;*/
 }
 .comment_indentor {
     background-color:#BDBDBD;
@@ -511,9 +499,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .preview_slot {
     padding: 2px 3px 4px;
-    -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    -moz-border-radius: 3px;
+    border-radius: 3px;
 /*    width:100%;*/
 }
 .space_filler {
@@ -663,8 +649,7 @@ input#user_submit {
 .authentication .remove:hover {
   color: #CCC;
   background-color: #F83251;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
 
 .authentication img {
@@ -704,7 +689,7 @@ input#user_submit {
 .clean_from_top {
     clear: both;
     padding-top: 5px;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 #affiliatememories {
 /*    background-image: url(/images/users_list.png);
@@ -713,3 +698,5 @@ input#user_submit {
     height: 20px;
     padding: 2px;
 }
+
+

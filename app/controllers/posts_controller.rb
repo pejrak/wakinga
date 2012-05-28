@@ -125,7 +125,15 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     end
     @post.user = current_user
     @post.interests << @interest
+    respond_to do |format|
+      if @post.save
+        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id, :change_record => Time.now.to_s + Memorization::MEMORY_AUTHORED, :status_indication => 'action')
+        @memorization.save
+        flash[:notice] = "Message sent to interest."#<a href=\"/interests/#{@interest.id}\">#{@interest.title_with_beads}</a>"
+        format.html {redirect_to @interest}
+        format.js {render :layout => false}
     #if there are minds selected to share the memory
+
     if params[:selected_minds]
       array_of_minds = params[:selected_minds]
       puts "researching minds submitted #{params[:selected_minds]}"
@@ -134,17 +142,12 @@ before_filter :authenticate_user! #, :except => [:show, :index]
         puts "verification started to contain #{mind} within #{@interest.trustors(current_user)}"
         if @interest.trustors(current_user).include?(mind.to_i)
           puts "mind: #{mind} verified, creating memory"
-          Memorization.create(:post_id => @post.id, :user_id => mind, :memorable => true, :change_record =>  Time.now.to_s + Memorization::MEMORY_GIVEN, :status_indication => 'action')
+          Memorization.create(:post_id => @post.id, :user_id => mind.to_i, :memorable => true, :change_record =>  Time.now.to_s + Memorization::MEMORY_GIVEN, :status_indication => 'action')
         end
       end
     end
-    respond_to do |format|
-      if @post.save
-        @memorization = Memorization.new(:post_id => @post.id, :memorable => true, :user_id => current_user.id, :change_record => Time.now.to_s + Memorization::MEMORY_AUTHORED, :status_indication => 'action')
-        @memorization.save
-        flash[:notice] = "Message sent to interest."#<a href=\"/interests/#{@interest.id}\">#{@interest.title_with_beads}</a>"
-        format.html {redirect_to @interest}
-        format.js {render :layout => false}
+
+
       else
         flash[:notice] = 'Unable to submit the message.'
         @failure = true

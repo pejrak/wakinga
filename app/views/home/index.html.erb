@@ -12,9 +12,7 @@
 
 
 <% content_for :leftside do %>
-<% if current_user.live_memories.present? %>
-    | <%= link_to content_tag(:span, current_user.live_memories.count, :title => (pluralize(current_user.live_memories.count,'live message')), :class => 'new_message_count'), '#', :class => 'hider', :id => 'live_memories' %>
-<% end %>
+
 
 
 <%# memory search %>
@@ -27,13 +25,22 @@
   <p><i>complex search disabled for guests</i></p>
 <% end %>
 
-<div id="interestbrowser">
+<div id="interestbrowser" style='display:none'>
   <% @parent_beads_array.each do |bead| %>
     <div class="bead_point_container" data-id="<%= bead.id %>"><%= render :partial => 'shared/bead', :object => bead %></div>
   <% end %>
 </div>
     
-  <div class="leftslot"></div>
+<div class="leftslot">
+
+<%= render 'shared/interest_browser_switch' %>
+
+<% if current_user.live_memories.present? %>
+<div class='hider' id='live_memories' title="Live memories are your memorized messages which have been responded to or added since you have last accessed the related interest.">Live memories (<span class='live_memories_size'><%= current_user.live_memories.count %></span>)</div>
+<% end %>
+
+</div>
+
 <% end %>
 
 

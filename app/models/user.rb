@@ -96,6 +96,15 @@ has_many :user_interest_preferences, :dependent => :destroy
     posts.sum('rating')
   end
 
+  def memory_record_on(selected_post)
+    preloaded = Memorization.find_by_post_id_and_user_id(selected_post.id,self.id)
+    if preloaded.nil?
+      result = "other"
+    else
+      result = preloaded.status_indication
+    end
+    return result
+  end
 
   #load all live memories, those having recently added comments to them
   def live_memories

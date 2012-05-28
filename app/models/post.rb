@@ -81,16 +81,8 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   end
 
   def related_interest
-    matching_interests = []
-    b2 = beads.map(&:id)
-    Interest.where(:i_seal=>true).each do |i|
-      b1 = i.beads.map(&:id)
-      if b1 == b2
-        matching_interests << i
-      end
-    end
-    return matching_interests.first
-
+    mapped_interest_id = self.interests_posts.map(&:interest_id).first
+    return Interest.find(mapped_interest_id)
   end
 
   def good_memorizations_of_other_than(selected_user)
@@ -99,7 +91,7 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   end
 
   def other_memorizers(selected_user)
-    other_memorizer_ids = self.good_memorizations_of_other_than(selected_user).map(&:user_id)
+    #other_memorizer_ids = self.good_memorizations_of_other_than(selected_user).map(&:user_id)
     if self.related_interest
       related_trustors = self.related_interest.other_trustors(selected_user)
       (related_trustors)? other_memorizer_ids = self.memorizations.where(:user_id => related_trustors, :memorable => true).map(&:user_id) : other_memorizer_ids = []

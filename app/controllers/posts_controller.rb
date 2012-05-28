@@ -136,12 +136,8 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
     if params[:selected_minds]
       array_of_minds = params[:selected_minds]
-      puts "researching minds submitted #{params[:selected_minds]}"
       array_of_minds.each do |mind|
-        puts "entering array of minds, searching for mind: #{mind}"
-        puts "verification started to contain #{mind} within #{@interest.trustors(current_user)}"
         if @interest.trustors(current_user).include?(mind.to_i)
-          puts "mind: #{mind} verified, creating memory"
           Memorization.create(:post_id => @post.id, :user_id => mind.to_i, :memorable => true, :change_record =>  Time.now.to_s + Memorization::MEMORY_GIVEN, :status_indication => 'action')
         end
       end

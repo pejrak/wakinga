@@ -63,10 +63,10 @@ $("body").delegate(".interest_browser_switch", "click", function() {
   $("#interestbrowser").show();
 });
 
-$("body").delegate(".interest_browser_switch,#live_memories", "mouseover", function() {
+$("body").delegate(".interest_browser_switch,#live_memories,#action_memories", "mouseover", function() {
   $(this).css("background-color","#d1ffc0");
 });
-$("body").delegate(".interest_browser_switch,#live_memories", "mouseout", function() {
+$("body").delegate(".interest_browser_switch,#live_memories,#action_memories", "mouseout", function() {
   $(this).css("background-color","#d8d8d8");
 });
 

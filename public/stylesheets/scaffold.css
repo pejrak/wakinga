@@ -18,7 +18,7 @@
 		width:100%;
                 vertical-align: middle;
                 background-color:#262626;
-                height:63px;
+                height:66px;
         }
 	#header p {
 		padding:.4em 0 0 0;
@@ -275,7 +275,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   top: 3px;
 }
 
-#live_memories, .interest_browser_switch {
+#action_memories, #live_memories, .interest_browser_switch {
   border-radius: 3px;
   padding: 6px;
   background-color: #CCC;

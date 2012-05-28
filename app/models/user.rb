@@ -117,6 +117,10 @@ has_many :user_interest_preferences, :dependent => :destroy
     return memes
   end
 
+  def action_memories
+    return Post.find(:all, :include => :memorizations, :conditions => ['memorizations.memorable = ? AND memorizations.user_id = ? AND memorizations.status_indication IN (?) ',true,self.id,['action']], :order => 'posts.updated_at DESC')
+  end
+
 #  def to_param
 #    "#{id}-#{username.parameterize}"
 #  end

@@ -1,5 +1,5 @@
 <% if @refresh_indicator == false %>
-  $(".activated_post_container").html("<div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>message preview</div><div class='extender_line'></div></div><%=raw escape_javascript(render(:partial => 'activated_post', :object => @post)) %>");
+  $(".activated_post_container").html("<div class='defloater'></div><%=raw escape_javascript(render(:partial => 'activated_post', :object => @post)) %>");
   if ($('#interest').length == 0) {
     $('.beads_slot').append("<%=raw escape_javascript(link_to(image_tag('/images/go_indicator.png',:border=>0,:title=>'Go to interest'), interest_path(@post.related_interest))) %>");
   }

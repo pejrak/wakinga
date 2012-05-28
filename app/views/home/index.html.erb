@@ -39,15 +39,25 @@
 <div class='hider' id='live_memories' title="Live memories are your memorized messages which have been responded to or added since you have last accessed the related interest.">Live memories (<span class='live_memories_size'><%= current_user.live_memories.count %></span>)</div>
 <% end %>
 
+<% if current_user.action_memories.present? %>
+<div class='hider' id='action_memories' title="Action memories are your memorized messages which have been marked for action. You can disable this mark on each message, by previewing it and marking it for completion or archival.">Action memories (<span class='action_memories_size'><%= current_user.action_memories.count %></span>)</div>
+<% end %>
+
 </div>
 
 <% end %>
 
 
   <div class="content_live_memories" style="display:none">
-    <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>showing live messages</div><div class='extender_line'></div></div><br />
+    <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Live memories</div><div class='extender_line'></div></div><br />
     <%= render :partial => current_user.live_memories %>
   </div>
+
+  <div class="content_action_memories" style="display:none">
+    <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Action memories</div><div class='extender_line'></div></div><br />
+    <%= render :partial => current_user.action_memories %>
+  </div>
+
   <%= content_tag(:div, '', :class=>'dynamic',:id=>'recalls') %>
 
 <% content_for :rightside do %>

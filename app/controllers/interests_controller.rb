@@ -62,7 +62,7 @@ before_filter :authenticate_user!
   def edit
     @interest = Interest.find(params[:id])
     @parent_beads = Bead.where(:parent_bead => true) - @interest.beads
-    if @interest.i_seal == true
+    if @interest.i_seal == true && !current_admin
       redirect_to root_path
       flash[:notice] = 'The interest is sealed already.'
     end

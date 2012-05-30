@@ -235,11 +235,10 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 #action_memories, #live_memories, .interest_browser_switch {
   border-radius: 3px;
   padding: 6px;
-  background-color: #7FED56;
+  background-color: #CCC;
   margin-bottom: 5px;
-  font-size: 15px;
-  color: #FFF;
-  font-weight: bold;
+  font-size: 16px;
+  color: #000;
 }
 
 .stream_operator, .filter_operator {
@@ -739,3 +738,7 @@ box-shadow: 3px 3px 4px #CCC;*/
   top: 3px;
   display:none;
 }
+.leftslot {
+/*  background-color: #d1ffc0;
+  padding: 5px;
+*/}

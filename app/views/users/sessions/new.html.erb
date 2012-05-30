@@ -1,9 +1,11 @@
 <div class="no_top">
-  <h2>you can sign in as a <%= link_to('guest', guest_login_path) %>,</h2>
+<h2>you can sign in as a <%= link_to('guest', guest_login_path) %>,</h2>
 </div>
+<div class='defloater'></div>
 <div class="clean_from_top">
 <%= render :partial => 'shared/select_external_authentication' %>
 </div>
+<div class='defloater'></div>
 <div class="clean_from_top">
 <h2>or use your wakinga.com login</h2>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -23,3 +25,4 @@
 <%= render :partial => "devise/shared/links" %>
 
 </div>
+

@@ -17,7 +17,7 @@
 		float:left;
 		width:100%;
                 vertical-align: middle;
-                background-color:#262626;
+                background-color:#282828;
                 height:66px;
                 /* box-shadow: 0px 7px 7px 7px #282828; */
                 z-index: 100;
@@ -38,10 +38,14 @@
 	}
     .tab_stripe {
         width:100%;
-        background-color: #DDD;
-        height: 24px;
+        border-bottom: solid 1px #DDD;
+        height: 22px;
         clear:both;
+        background-color: #282828;
         z-index: 9;
+-moz-box-shadow: 3px 3px 5px #CCC;
+-webkit-box-shadow: 3px 3px 5px #CCC;
+box-shadow: 3px 3px 5px #CCC;
     }
 	/* common column settings */
 	.colright,
@@ -155,9 +159,6 @@ div.field, div.actions {
   margin-bottom: 5px;
 }
 
-div#paramsinspect {
-  color: #013ADF;
-}
 pre {
   background-color: #eee;
   padding: 10px;
@@ -186,7 +187,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     margin-top: 10px;
 }
 .text_deemphasizer {
-    color: #262626;
+    color: #282828;
 }
 
 .text_light {
@@ -231,62 +232,14 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     margin-left: 5px;
 }
 
-.interest_tab {
-    vertical-align: middle;
-    float:left;
-    height:17px;
-    padding: 3px;
-    border-right: #BBB 1px solid;
-    font-size: 14px;
-}
-.interest_tab a {
-font-size: 14px;
-}
-.current_tab {
-    border-top: #BBB 1px solid;
-    background-color: #FFF;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-    font-weight: bold;
-}
-
-.previous_tab {
-    background-color: #282828;
-    border-bottom: #BBB 1px solid;
-    color: #FFF;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-.previous_tab a {
-    color: #EEE;
-}
-
-.interest_tab_title {
-    padding:5px;
-    font-size:12px;
-}
-
-.interest_tab_terminator {
-    border-bottom: #BBB 1px solid;
-    width: 100%;
-}
-
-.current_tab .tab_closeout {
-  position: relative;
-  top: -3px;
-}
-.previous_tab .tab_closeout {
-  position: relative;
-  top: 3px;
-}
-
 #action_memories, #live_memories, .interest_browser_switch {
   border-radius: 3px;
   padding: 6px;
-  background-color: #CCC;
-  margin-bottom: 3px;
+  background-color: #7FED56;
+  margin-bottom: 5px;
   font-size: 15px;
+  color: #FFF;
+  font-weight: bold;
 }
 
 .stream_operator, .filter_operator {
@@ -297,6 +250,10 @@ font-size: 14px;
   float: left;
   font-size: 15px;
 
+}
+
+.stream_operator {
+  padding: 10px 6px 13px;
 }
 
 .dynamic#postcontent {
@@ -344,7 +301,7 @@ font-size: 14px;
 }
 .post_activator {
     background-color: #BDBDBD;
-    color: #262626;
+    color: #282828;
     font-size: 15px;
     padding: 4px 2px;
     float: left;
@@ -636,6 +593,7 @@ background-color: #d1ffc0;
 input, select, textarea {
   border: 2px solid #BDBDBD;
   background-color: #FFF;
+  padding: 5px;
 }
 
 input#user_submit {
@@ -707,7 +665,7 @@ input#user_submit {
     margin-left: 5px;
     margin-top: 20px;
     position: relative;
-}
+}t
 
 .clean_from_top {
     clear: both;
@@ -722,7 +680,62 @@ input#user_submit {
     padding: 2px;
 }
 #mindsearch {
-  width: 98%;
+  width: 94%;
 }
 
+.interest_tab {
+    vertical-align: middle;
+    float:left;
+    height:17px;
+    padding: 3px;
+    border-right: #BBB 1px solid;
+    font-size: 14px;
 
+}
+.interest_tab a {
+font-size: 14px;
+}
+.current_tab {
+    border-top: #BBB 1px solid;
+    background-color: #FFF;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    font-weight: bold;
+    height: 22px;
+
+}
+
+.previous_tab {
+    background-color: #282828;
+    border-bottom: #BBB 1px solid;
+    color: #FFF;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+/*-moz-box-shadow: 3px 3px 4px #CCC;
+-webkit-box-shadow: 3px 3px 4px #CCC;
+box-shadow: 3px 3px 4px #CCC;*/
+}
+
+.previous_tab a {
+    color: #EEE;
+}
+
+.interest_tab_title {
+    padding:5px;
+    font-size:12px;
+}
+
+.interest_tab_terminator {
+    border-bottom: #BBB 1px solid;
+    width: 100%;
+}
+
+.current_tab .tab_closeout {
+  position: relative;
+  top: -3px;
+}
+.previous_tab .tab_closeout {
+  position: relative;
+  top: 3px;
+  display:none;
+}

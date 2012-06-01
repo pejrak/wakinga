@@ -1,3 +1,12 @@
+/* layout spec definitions */
+#middleactive {
+margin-top: 10px;
+min-height: 300px;
+-moz-box-shadow: 0px 3px 5px #CCC;
+-webkit-box-shadow: 0px 3px 5px #CCC;
+box-shadow: 0px 3px 5px #CCC;  
+}
+
 /*division classes and elements*/
 	body {
 		margin:0;
@@ -70,23 +79,23 @@ box-shadow: 3px 3px 5px #CCC;
 				/* right column background colour */
 	}
 	.threecol .colmid {
-		right:30%;			/* width of the right column */
+		right:15%;			/* width of the right column */
 				/* center column background colour */
 	}
 	.threecol .colleft {
-		right:40%;			/* width of the middle column */
+		right:55%;			/* width of the middle column */
 			/* left column background colour */
 	}
 	.threecol .col1 {
-		width:38%;			/* width of center column content (column width minus padding on either side) */
+		width:53%;			/* width of center column content (column width minus padding on either side) */
 		left:101%;			/* 100% plus left padding of center column */
 	}
 	.threecol .col2 {
 		width:28%;			/* Width of left column content (column width minus padding on either side) */
-		left:33%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+		left:17%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
 	}
 	.threecol .col3 {
-		width:28%;			/* Width of right column content (column width minus padding on either side) */
+		width:13%;			/* Width of right column content (column width minus padding on either side) */
 		left:75%;			/* Please make note of the brackets here:
 						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 	}
@@ -233,8 +242,8 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 }
 
 #action_memories, #live_memories, .interest_browser_switch {
-  border-radius: 3px;
-  padding: 6px;
+  border-radius: 5px;
+  padding: 10px 10px 10px;
   background-color: #CCC;
   margin-bottom: 5px;
   font-size: 16px;
@@ -261,12 +270,17 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 /*post styling*/
 .post {
-        margin-top: 0px;
-        margin-bottom: 0px;
+        margin: 5px;
         color:black;
         font-size: 12px;
         padding: 5px;
         border-bottom: #D8D8D8 2px solid;
+        float: left;
+	width: 44%;
+
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
 }
 
 .live_message {
@@ -742,3 +756,6 @@ box-shadow: 3px 3px 4px #CCC;*/
 /*  background-color: #d1ffc0;
   padding: 5px;
 */}
+.welcome {
+  padding: 5px;
+}

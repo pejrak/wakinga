@@ -10,10 +10,7 @@
   <% end %>
 <% end %>
 
-
 <% content_for :leftside do %>
-
-
 
 <%# memory search %>
 <% unless current_user.role == 'guest'  %>
@@ -43,10 +40,18 @@
 <div class='hider' id='action_memories' title="Action memories are your memorized messages which have been marked for action. You can disable this mark on each message, by previewing it and marking it for completion or archival.">Action memories (<span class='action_memories_size'><%= current_user.action_memories.count %></span>)</div>
 <% end %>
 
+  <% if incoming_trusts.present? %>
+    <h2>incoming trusts</h2>
+    <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
+  <% end %>
+
 </div>
 
 <% end %>
-
+  <div class="welcome">
+    <h2>Welcome <%= (current_user.sign_in_count > 1)? "back, " : "" %><%= current_user.username %>!</h2>
+      <%= (current_user.sign_in_count > 1)? simple_format("See on your left, what is waiting or you (action memories) may have missed since your last log in (live memories).<br /><br />Browse interests to open messages or memories under each interest.") : simple_format("On your left, you can browse the available interests.<br /><br />You can also create new ones under each of the parent concepts.") %>
+  </div>
 
   <div class="content_live_memories" style="display:none">
     <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Live memories</div><div class='extender_line'></div></div><br />
@@ -62,10 +67,7 @@
 
 <% content_for :rightside do %>
   <div class="activated_post_container"></div>
-  <% if incoming_trusts.present? %>
-    <h2>incoming trusts</h2>
-    <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
-  <% end %>
+
 <% end %>
 
 <% content_for :middletop do %>

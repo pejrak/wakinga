@@ -1,0 +1,6 @@
+<div class = "bead_point<% if @user_parent_beads_array %><%= (@user_parent_beads_array.include?(bead.id))? ' bead_live' : '' %><% end %>" data-id = "<%= bead.id %>" >
+
+  <h3><span class="text_light"></span><span class="text_deemphasizer"><%= bead.title %></span> <span class="text_light">(<%= pluralize(bead.all_interests_with_this_bead.size, 'interest') %>)</span></h3>
+  <%# h(bead.description) %>
+
+</div>

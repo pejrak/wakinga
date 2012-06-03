@@ -1,11 +1,15 @@
+<div class="scroll">
 <div class='extender_stripe'>
-  <div class='extender_header'>Preview</div>
+  <div class='extender_header'>Message preview</div>
   <div class='extender_line'></div>
 </div>
 
+<h2><span class="heading_subtelize">sent <%= time_ago_in_words(activated_post.created_at) %> ago by </span><strong><%= link_to activated_post.user.username, activated_post.user %></strong></h2>
+
 <div class="activated_post" data-id="<%= activated_post.id %>">
 <div class="<%= (activated_post.p_private == true)? 'private' : 'public' %>_activated_post" data-time="<%= activated_post.created_at.to_i %>" data-id="<%= activated_post.id %>" id="activated_post_<%= activated_post.id.to_s %>">
-<br />
+  <h3><%= h(activated_post.title) %></h3>
+<%= simple_format(auto_link(activated_post.content, :target => '_blank'), :class => 'message_body') %> <br />
 
 <% if activated_post.good_memory(current_user) %>
   
@@ -48,3 +52,4 @@
         
     <% end %>
   </div>
+</div>

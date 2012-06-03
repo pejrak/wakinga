@@ -52,5 +52,5 @@ $("#rightactive").html("<div class='activated_post_container'></div>");
 
 
 $("#interestbrowser").hide();
-$(".interest_browser_switch > .hyper_shape").toggle();
+$(".interest_browser_switch > .hyper_shape").hide();
 updatePosts(0);

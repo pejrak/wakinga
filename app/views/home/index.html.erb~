@@ -49,7 +49,7 @@
 </div>
 
 <div class='operator_block'>
-<%= link_to(render('shared/more_switch'), "#", :remote=>:true) %>    
+<%= link_to(render('shared/more_switch'), current_user.user_preference) %>    
 </div>
 
 

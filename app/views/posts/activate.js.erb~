@@ -11,7 +11,7 @@
     //first clear left border on all posts
     $(".post").css("background-color","transparent");
     //display indicating border on the activated post
-    //$(".post#"+postid).css("background-color","#d1ffc0");
+    $(".post#"+postid).css("background-color","#d1ffc0");
   }
 $("#comment_body").autogrow();
 

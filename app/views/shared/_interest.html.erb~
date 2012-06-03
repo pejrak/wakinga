@@ -1,4 +1,4 @@
-<%= link_to("#", :remote=>:true) do %><div class="preview_slot activator" data-id="<%= interest.id %>">
+<%= link_to("#", :remote=>:true) do %><div class="preview_slot" data-id="<%= interest.id %>">
 
   <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest', :class => 'enter_interest_icon'), interest_path(interest), :remote => true %>
   <% interest.beads.each do |beader| %>

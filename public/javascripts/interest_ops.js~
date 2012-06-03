@@ -5,6 +5,9 @@ $(document).ready(function() {
         //setTimeout("updatePosts(0)", 500);
         //$.getScript("/javascripts/message_ops.js");
     });
+    $(function() {
+      $(".activated_post_container").jScroll();
+    });
 
   $("#memorysearch").keyup(function() {
     var search_criteria = $("#memorysearch").serialize();

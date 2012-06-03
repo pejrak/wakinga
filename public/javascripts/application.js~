@@ -68,10 +68,10 @@ $("body").delegate(".more_switch", "click", function() {
   $("#moreoptions").toggle();
 });
 
-$("body").delegate(".hyper_switch,#live_memories,#action_memories,.activator", "mouseover", function() {
+$("body").delegate(".hyper_switch,#live_memories,#action_memories", "mouseover", function() {
   $(this).css("background-color","#d1ffc0");
 });
-$("body").delegate(".hyper_switch,#live_memories,#action_memories,.activator", "mouseout", function() {
+$("body").delegate(".hyper_switch,#live_memories,#action_memories", "mouseout", function() {
   $(this).css("background-color","transparent");
 });
 

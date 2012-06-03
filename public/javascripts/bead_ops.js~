@@ -21,7 +21,7 @@
 
           var initializer = "true";
           if ($(".bead_group#beadpoint"+identificator).length==0) {
-            //$(this).parent().css("border-bottom","solid 3px #b0f097");
+            $(this).parent().css("border-bottom","solid 3px #b0f097");
             //$(this).parent().css("background-color","#EEEEEE");
 
             $(this).after("<div class='bead_group' id='beadpoint"+identificator+"' data-id="+identificator+"></div>");

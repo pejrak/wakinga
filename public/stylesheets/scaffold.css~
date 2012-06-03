@@ -436,7 +436,7 @@ box-shadow: 0px 0px 6px #CCC;
 }
 .comment_indentor {
     background-color:#BDBDBD;
-    width: 20px;
+    width: 10px;
     height: 3px;
 }
 .comment_indentor_new {

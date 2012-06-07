@@ -432,6 +432,13 @@ display: block;
   font-size: 11px;
   padding: 5px;
 }
+
+.comment_new {
+  color: #B0001C;
+}
+.comment_read {
+  color: #282828;
+}
 .deleted_comment {
     width: 5px;
     height: 5px;

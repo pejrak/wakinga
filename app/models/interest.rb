@@ -143,26 +143,35 @@ class Interest < ActiveRecord::Base
     loaded_trustors = trustors(selected_user)
     
     public_posts = self.posts.find(:all,
-        :conditions => ["posts.p_private <> ?", true],
+        :conditions => ["posts.p_private = ?", 0],
         :order => 'posts.updated_at DESC')
     if loaded_trustors.present?
       private_posts = self.posts.find(:all,
-        :conditions => ["posts.p_private = ? AND posts.user_id IN (?)", true, loaded_trustors],
+        :conditions => ["posts.p_private = ? AND posts.user_id IN (?)", 1, loaded_trustors],
         :order => 'posts.updated_at DESC')
     else private_posts = []
     end
-    return private_posts + public_posts
+    personal_posts = self.posts.find(:all,
+        :conditions => ["posts.p_private = ? AND posts.user_id = ?", 2, selected_user.id],
+        :order => 'posts.updated_at DESC')
+    return private_posts + public_posts + personal_posts
+  end
+
+  def post_content_personal(selected_user)
+    personal_posts = self.posts.find(:all,
+        :conditions => ["posts.p_private = ? AND posts.user_id = ?", 2, selected_user.id],
+        :order => 'posts.updated_at DESC')
   end
 
   def post_content_private(selected_user)
     loaded_trustors = trustors(selected_user)
     if loaded_trustors.present?
       private_posts = self.posts.find(:all,
-        :conditions => ["posts.p_private = ? AND posts.user_id IN (?)", true, loaded_trustors],
+        :conditions => ["posts.p_private <> ? AND posts.user_id IN (?)", 0, loaded_trustors],
         :order => 'posts.updated_at DESC') -
       self.posts.find(:all,
         :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND  memorizations.status_indication NOT IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", selected_user,"other", true, loaded_trustors],
+        :conditions => ["memorizations.user_id = ? AND  memorizations.status_indication NOT IN (?) AND posts.p_private <> ? AND posts.user_id IN (?)", selected_user.id,"other", 0, loaded_trustors],
         :order => 'posts.updated_at DESC')
     else private_posts = []
     end
@@ -170,7 +179,7 @@ class Interest < ActiveRecord::Base
   end
 
   def memorized_post_content(memorability,selected_user,unload='complete')
-    content = memorized_post_content_public(memorability,selected_user,unload) + memorized_post_content_private(memorability,selected_user,unload)
+    content = memorized_post_content_public(memorability,selected_user,unload) + memorized_post_content_private(memorability,selected_user,unload) + post_content_personal(selected_user)
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 

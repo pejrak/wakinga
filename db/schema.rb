@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421093500) do
+ActiveRecord::Schema.define(:version => 20120607165559) do
 
   create_table "admins", :force => true do |t|
     t.string   "email",                               :default => "", :null => false
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(:version => 20120421093500) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "rating"
-    t.boolean  "p_private",  :default => false
+    t.integer  "p_private",  :default => 0
   end
 
   create_table "requests", :force => true do |t|

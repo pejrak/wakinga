@@ -1,4 +1,4 @@
-<%= link_to("#", :remote=>:true) do %><div class="preview_slot activator" data-id="<%= interest.id %>">
+<div class="preview_slot activator" data-id="<%= interest.id %>">
 
   <%= link_to_unless_current (image_tag '/images/go_indicator.png', :border => 0, :title => 'enter interest', :class => 'enter_interest_icon'), interest_path(interest), :remote => true %>
   <% interest.beads.each do |beader| %>
@@ -16,4 +16,3 @@
   <%# (interest.live_message_content(current_user).size > 0)? content_tag(:p, pluralize(interest.live_message_content(current_user).size, 'live message'), :class => 'text_emphasizer') : '' %>
   <%# content_tag(:div,"f",:class=>"space_filler") %>
 </div>
-<% end %>

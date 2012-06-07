@@ -119,4 +119,10 @@ module ApplicationHelper
     end
   end
 
+  def parent_beads_array
+    @parent_beads_array = Bead.find_all_by_parent_bead(true)
+    #i sort the array of returned beads by the number of interests they contain
+    return @parent_beads_array.sort_by {|bead| -BeadsInterest.find(:all, :joins => [:bead, :interest, :user_interest_preferences], :conditions => ['beads.id = ? AND user_interest_preferences.user_id = ? AND interests.i_seal = true', bead.id, current_user.id]).size}
+  end
+
 end

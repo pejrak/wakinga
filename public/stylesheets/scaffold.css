@@ -96,8 +96,8 @@ box-shadow: 3px 3px 5px #CCC;
                 padding: 10px
 	}
 	.threecol .col3 {
-		width:13%;			/* Width of right column content (column width minus padding on either side) */
-		left:75%;			/* Please make note of the brackets here:
+		width:15%;			/* Width of right column content (column width minus padding on either side) */
+		left:72%;			/* Please make note of the brackets here:
 						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 	}
 	/* Footer styles */
@@ -310,34 +310,42 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
         color:black;
         font-size: 12px;
         padding: 5px;
-        border-bottom: #D8D8D8 2px solid;
         float: left;
 	width: 44%;
-
 -moz-box-shadow: 0px 0px 6px #CCC;
 -webkit-box-shadow: 0px 0px 6px #CCC;
 box-shadow: 0px 0px 6px #CCC;
 }
 
-.live_message {
-    border-left: #F83251 2px solid;
+.live_message, .live_message.action, .live_message.archive, .live_message.complete {
+-moz-box-shadow: 0px 0px 6px #F85A73;
+-webkit-box-shadow: 0px 0px 6px #F85A73;
+box-shadow: 0px 0px 6px #F85A73;
 }
 
 .action {
-    border-right: #282828 2px solid;
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
 }
 
 .archive {
-    border-right: #BDBDBD 2px solid;
+background-color: #EEEEEE;
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
 }
 
 .complete {
-    border-right: #2CA200 2px solid;
+-moz-box-shadow: 0px 0px 6px #2CA200;
+-webkit-box-shadow: 0px 0px 6px #2CA200;
+box-shadow: 0px 0px 6px #2CA200;
 }
 
 .post_operators {
     float: right;
     display: block;
+    height: 0px;
 }
 
 .post_foot {
@@ -359,6 +367,12 @@ box-shadow: 0px 0px 6px #CCC;
 
 .post img {
 	margin-right: 4px;
+}
+
+.post_body_content a {
+max-width: 90%;
+overflow: hidden;
+display: block;
 }
 
 .activated_post_container {

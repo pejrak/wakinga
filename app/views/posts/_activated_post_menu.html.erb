@@ -1,8 +1,3 @@
-
-<div class="activated_post" data-id="<%= activated_post.id %>">
-<div class="<%= (activated_post.p_private == true)? 'private' : 'public' %>_activated_post" data-time="<%= activated_post.created_at.to_i %>" data-id="<%= activated_post.id %>" id="activated_post_<%= activated_post.id.to_s %>">
-<br />
-
 <% if activated_post.good_memory(current_user) %>
   
     <%= (activated_post.good_memory(current_user).status_indication == 'action')? image_tag('/images/action.png', :border => 0, :title => 'marked for action') : '' %>
@@ -17,7 +12,8 @@
 
     | <%= link_to(image_tag('/images/record.png', :border => 0), '#', :class => 'hider', :id => 'post_record', :title => 'Click to show or hide the memory record', :remote => :true) %>
 
-  <% end %>
+<% end %>
+
     <%= link_to(image_tag('/images/users_list.png',:border => 0), '#', :class => 'hider', :id => 'affiliatememories', :title => ('Click to show or hide the affiliated minds memories ('+activated_post.other_memorizers(current_user).count.to_s+')'), :remote => :true) %>
     
     <%= (activated_post.good_memory(current_user))? simple_format(activated_post.good_memory(current_user).change_record, :class => 'content_post_record', :style => "display:none;") : '' %>
@@ -28,20 +24,3 @@
 <% end %>
     </div>
 
-</div>
-</div>
-
-<div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Reactions</div><div class='extender_line'></div></div><br />
-
-  <div class="comments_content_container">
-    <%= render :partial => activated_post.comments %>
-  </div>
-</div>
-    <div class="comments_form_container">
-    <%= form_for([activated_post, activated_post.comments.build], :remote => true) do |f| %>
-          <span style="float:left"><%= f.submit "add" %></span><%= f.text_area(:body, :rows => 1) %>
-      <%= character_count('comment_body', Comment::MAX_BODY_LENGTH, Comment::MAX_BODY_LENGTH - 20) %>
-        
-    <% end %>
-  </div>
-<%= render :partial => 'shared/interest', :object => activated_post.related_interest %>

@@ -73,17 +73,17 @@ function updatePosts(c) {
   $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&ft="+filter_type+"&il="+initial_load);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
-  if (c == undefined) {
-    var c = 0;
-  }
-  c=c+1;
-  if (c<10) {
-    t=setTimeout("updatePosts("+c+")", c*10000);
-  }
-  else {
-    clearTimeout(t);
-    $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>");
-  }
+  //if (c == undefined) {
+  //  var c = 0;
+  //}
+  //c=c+1;
+  //if (c<10) {
+  //  t=setTimeout("updatePosts("+c+")", c*10000);
+  //}
+  //else {
+  //  clearTimeout(t);
+  //  $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>");
+  //}
 }
 
 jQuery.ajaxSetup({

@@ -17,28 +17,27 @@ $("body").delegate(".post","mouseover",function(){
 
 
 $("body").delegate(".post","click",function(){
+  
+
   if ($(this).hasClass("expanded_post") == false) {
-  $(".post").animate({
-    width:"44%"
-  }, 500);
-  $("p",".post").animate({
-    fontSize:"12px"
-  }, 500);
-  $(".activated_post_container").remove();  
+  $(".post").animate({width:"44%"}, 500, function(){
+    $(".post").css("border","none");
+  });
+  $("p",".post").animate({fontSize:"12px"}, 500);
+  $(".activated_post_container").remove(); 
+  $(".post").removeClass("expanded_post");
+ 
 
-  $(this).animate({
-    width:"94%"
-  }, 500);
-  $("p",this).animate({
-    fontSize:"18px"
-  }, 500);
+  $(this).animate({width:"94%"}, 500, function(){
+    $(this).css("border","4px solid #d1ffc0");
+  });
+  $("p",this).animate({fontSize:"22px"}, 500);
   var identificator = $(this).attr("id");
-  $(this).toggleClass("expanded_post");
-
   $(this).append("<div class='activated_post_container'><p><img src='/images/loader.gif'/> Loading...</p></div>");
-
   $.getScript("/posts/" + identificator + "/activate.js");
+  $(this).toggleClass("expanded_post");
   }
+
 
 });
 

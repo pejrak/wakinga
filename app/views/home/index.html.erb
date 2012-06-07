@@ -25,7 +25,7 @@
 <%= render 'shared/interest_browser_switch' %>
 
 <div id="interestbrowser" style='display:none'>
-  <% @parent_beads_array.each do |bead| %>
+  <% parent_beads_array.each do |bead| %>
     <div class="bead_point_container" data-id="<%= bead.id %>"><%= render :partial => 'shared/bead', :object => bead %></div>
   <% end %>
 </div>

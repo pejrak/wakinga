@@ -75,8 +75,8 @@ class Interest < ActiveRecord::Base
 
   def post_count_unread(selected_user)
     property_source = preference_for(selected_user)
-    last_visit_at = ((property_source.present?)? property_source.last_visit_at : selected_user.last_sign_in_at)
-    self.interests_posts.find(:all, :conditions => ["interests_posts.created_at > ?", last_visit_at]).size
+    last_check_at = ((property_source.present?)? property_source.last_visit_at : selected_user.last_sign_in_at)
+    self.interests_posts.find(:all, :conditions => ["interests_posts.created_at > ?", last_check_at]).size
   end
 
 

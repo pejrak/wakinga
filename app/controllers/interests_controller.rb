@@ -33,9 +33,9 @@ before_filter :authenticate_user!
     @messages_size = @interest.post_content(current_user).size
     @memories_size = @interest.memorized_post_content(true,current_user,'other').size
     @tabs = session[:loaded_interests]
+    #render 'home/index', :format => :html, :layout => 'application'
     respond_to do |format|
-      format.js
-      #format.xml  { render :xml => @interest }
+      format.js {render :layout => 'application'}
     end
   end
 

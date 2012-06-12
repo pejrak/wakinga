@@ -404,6 +404,12 @@ display: block;
     
 }
 
+.privacy_ops_container {
+width: 100%
+padding: 15px;
+background-color: #CCC;
+}
+
 .private_true {
     margin-left: 4px
 }

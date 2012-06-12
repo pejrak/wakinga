@@ -2,8 +2,9 @@
   <%= f.error_messages %>
   <p>
     <%= f.text_area :content, :rows => 1 %>
-    <%= f.check_box :p_private, :checked => ((@interest.preference_for(current_user))? @interest.preference_for(current_user).i_private : false ) %><%= f.label 'Private message' %>
+    <%= f.hidden_field :p_private, :value => ((@interest.preference_for(current_user))? @interest.preference_for(current_user).i_private : 0 ) %>
   </p>
+  <%= content_tag(:div, "Private message", :class=> "privacy_ops_container") %>
   <%= character_count('post_content', Post::MAX_CONTENT_LENGTH, Post::MAX_CONTENT_LENGTH - 20) %>
   <%= fields_for :beads_posts do |bead_fields| %>
     <%= bead_fields.hidden_field(:interest_id, :value => @interest.id) %>

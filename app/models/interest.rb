@@ -161,6 +161,7 @@ class Interest < ActiveRecord::Base
     personal_posts = self.posts.find(:all,
         :conditions => ["posts.p_private = ? AND posts.user_id = ?", 2, selected_user.id],
         :order => 'posts.updated_at DESC')
+    return personal_posts
   end
 
   def post_content_private(selected_user)
@@ -171,7 +172,7 @@ class Interest < ActiveRecord::Base
         :order => 'posts.updated_at DESC') -
       self.posts.find(:all,
         :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND  memorizations.status_indication NOT IN (?) AND posts.p_private <> ? AND posts.user_id IN (?)", selected_user.id,"other", 0, loaded_trustors],
+        :conditions => ["memorizations.user_id = ? AND posts.p_private > ? AND posts.user_id IN (?)", selected_user.id, 0, loaded_trustors],
         :order => 'posts.updated_at DESC')
     else private_posts = []
     end

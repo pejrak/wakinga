@@ -187,7 +187,7 @@ class Interest < ActiveRecord::Base
   def memorized_post_content_public(memorability,user,unload='complete')
     self.posts.find(:all,
         :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private <> ?", user, memorability, unload, true],
+        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private < ?", user, memorability, unload, 1],
         :order => 'posts.updated_at DESC')
   end
 
@@ -195,7 +195,7 @@ class Interest < ActiveRecord::Base
     loaded_trustors = trustors(selected_user)
     self.posts.find(:all,
         :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", selected_user, memorability, unload, true, loaded_trustors],
+        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", selected_user, memorability, unload, 1, loaded_trustors],
         :order => 'posts.updated_at DESC')
   end
 
@@ -203,10 +203,10 @@ class Interest < ActiveRecord::Base
   def dynamic_post_content(time_at, selected_user,unload='complete')
     loaded_trustors = trustors(selected_user)
     self.posts.find(:all,
-        :conditions => ["posts.created_at > ? AND posts.p_private <> ?", time_at, true],
+        :conditions => ["posts.created_at > ? AND posts.p_private = 0", time_at, true],
         :order => 'created_at DESC') +
     self.posts.find(:all,
-        :conditions => ["posts.created_at > ? AND posts.p_private = ? AND posts.user_id IN (?)", time_at, true, loaded_trustors],
+        :conditions => ["posts.created_at > ? AND posts.p_private > ? AND posts.user_id IN (?)", time_at, 0, loaded_trustors],
         :order => 'created_at DESC') - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
   end
 

@@ -71,7 +71,7 @@ box-shadow: 3px 3px 5px #CCC;
 		position:relative;
 		padding:0 0 5px 0;	/* no left and right padding on columns, we just make them narrower instead
 						only padding top and bottom is included here, make it whatever value you need */
-		overflow:auto;
+		overflow:hidden;
 
 	}
 	/* 3 Column settings */
@@ -79,7 +79,7 @@ box-shadow: 3px 3px 5px #CCC;
 				/* right column background colour */
 	}
 	.threecol .colmid {
-		right:15%;			/* width of the right column */
+		right:17%;			/* width of the right column */
 				/* center column background colour */
 	}
 	.threecol .colleft {
@@ -90,16 +90,16 @@ box-shadow: 3px 3px 5px #CCC;
 		width:53%;			/* width of center column content (column width minus padding on either side) */
 		left:101%;
 
-                padding: 5px 5px 0px;			/* 100% plus left padding of center column */
+		/* 100% plus left padding of center column */
 	}
 	.threecol .col2 {
 		width:28%;			/* Width of left column content (column width minus padding on either side) */
-		left:17%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
-                padding: 10px
+		left:20%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+/*                padding: 10px*/
 	}
 	.threecol .col3 {
 		width:15%;			/* Width of right column content (column width minus padding on either side) */
-		left:72%;			/* Please make note of the brackets here:
+		left:73%;			/* Please make note of the brackets here:
 						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 	}
 	/* Footer styles */

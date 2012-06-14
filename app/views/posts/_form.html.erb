@@ -5,7 +5,7 @@
   <div class="privacy_ops_container personal_privacy">
     <%= f.text_area :content, :rows => 1 %>
     <%= f.hidden_field :p_private, :value => 2 %>
-    <div class="privacy_ops_indicator">Personal message</div>
+    <div class="privacy_ops_indicator" title="click me to change privacy of the new message.">Personal message</div>
   </div>
 
 
@@ -13,15 +13,16 @@
   <%= fields_for :beads_posts do |bead_fields| %>
     <%= bead_fields.hidden_field(:interest_id, :value => @interest.id) %>
   <% end %>
-  <% unless @interest.trustors(current_user).empty? %>
+  <div class="memory_contribution_container" style="display:none">
   <%= render :partial => 'shared/divider', :locals => {:divider => 'Share with'} %>
   <div class="memory_contribution">
+  <% unless @interest.trustors(current_user).empty? %>
+  
     <% @interest.trustors(current_user).each do |trustor| %>
-      <a href="#"><%= content_tag(:div, User.find(trustor).username, :class=>'mind_selection mind_unselected', :data_id => trustor, :title => "Select the people who trust you ("+User.find(trustor).username+") to add this message to their memory" ) unless trustor == current_user.id %></a>
+      <a href="#"><%= content_tag(:div, User.find(trustor).username, :class=>'mind_selection mind_unselected', :data_id => trustor, :title => "Select the person who trusts you ("+User.find(trustor).username+") to add this message to their memory" ) unless trustor == current_user.id %></a>
     <% end %>
-
-  </div>
   <% end %>
+  </div></div>
   <div class="defloater"></div>
   <p><%= f.submit "Send" %></p>
 <% end %>

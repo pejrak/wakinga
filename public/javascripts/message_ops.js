@@ -21,6 +21,7 @@ $("body").delegate(".privacy_ops_indicator","click",function(){
     $(parent_container).addClass("open_privacy");
     $("#post_p_private").val(0);
     $(this).html("Open message");
+    $(".memory_contribution_container").show();
   }
   else if ($(parent_container).hasClass("open_privacy")) {
     $(parent_container).removeClass("open_privacy");
@@ -33,6 +34,7 @@ $("body").delegate(".privacy_ops_indicator","click",function(){
     $(parent_container).addClass("personal_privacy");
     $("#post_p_private").val(2);
     $(this).html("Personal message");
+    $(".memory_contribution_container").hide();
   }
 });
 

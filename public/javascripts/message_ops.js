@@ -1,4 +1,41 @@
   $(document).ready(function() {
+    //message creation effects
+    jQuery.ajaxSetup({
+      'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
+    });
+    //submittal of post/messages form, making ajax request for the new messages
+jQuery.fn.submitWithAjax = function() {
+  this.submit(function() {
+    $.post(this.action, $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+}
+$("#new_post").submitWithAjax();
+
+//message privacy switching
+$("body").delegate(".privacy_ops_indicator","click",function(){
+  parent_container = $(this).parent();
+  if ($(parent_container).hasClass("personal_privacy")) {
+    $(parent_container).removeClass("personal_privacy");
+    $(parent_container).addClass("open_privacy");
+    $("#post_p_private").val(0);
+    $(this).html("Open message");
+  }
+  else if ($(parent_container).hasClass("open_privacy")) {
+    $(parent_container).removeClass("open_privacy");
+    $(parent_container).addClass("private_privacy");
+    $("#post_p_private").val(1);
+    $(this).html("Private message");
+  }
+  else if ($(parent_container).hasClass("private_privacy")) {
+    $(parent_container).removeClass("private_privacy");
+    $(parent_container).addClass("personal_privacy");
+    $("#post_p_private").val(2);
+    $(this).html("Personal message");
+  }
+});
+
 
     //message hover and activate effects
 $("body").delegate(".post","mouseout",function(){
@@ -37,8 +74,6 @@ $("body").delegate(".post","click",function(){
   $.getScript("/posts/" + identificator + "/activate.js");
   $(this).toggleClass("expanded_post");
   }
-
-
 });
 
 

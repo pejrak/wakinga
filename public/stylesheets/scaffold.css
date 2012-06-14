@@ -71,7 +71,7 @@ box-shadow: 3px 3px 5px #CCC;
 		position:relative;
 		padding:0 0 5px 0;	/* no left and right padding on columns, we just make them narrower instead
 						only padding top and bottom is included here, make it whatever value you need */
-		overflow:hidden;
+		overflow:auto;
 
 	}
 	/* 3 Column settings */
@@ -88,7 +88,9 @@ box-shadow: 3px 3px 5px #CCC;
 	}
 	.threecol .col1 {
 		width:53%;			/* width of center column content (column width minus padding on either side) */
-		left:101%;			/* 100% plus left padding of center column */
+		left:101%;
+
+                padding: 5px 5px 0px;			/* 100% plus left padding of center column */
 	}
 	.threecol .col2 {
 		width:28%;			/* Width of left column content (column width minus padding on either side) */
@@ -315,6 +317,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 -moz-box-shadow: 0px 0px 6px #CCC;
 -webkit-box-shadow: 0px 0px 6px #CCC;
 box-shadow: 0px 0px 6px #CCC;
+    border-radius: 4px;
 }
 
 .live_message, .live_message.action, .live_message.archive, .live_message.complete {
@@ -400,18 +403,42 @@ display: block;
 }
 
 #post_content {
-    width: 90%; line-height: 1;
+    width: 97%; line-height: 1;
     
 }
 
 .privacy_ops_container {
-width: 100%
-padding: 15px;
-background-color: #CCC;
+width: 94%;
+padding: 5px;
+
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
+    border-radius: 4px;
+}
+
+.personal_privacy {
+  background-color: #2CA200;
+  color: #FFFFFF;
+}
+
+.private_privacy {
+  background-color: #d1ffc0;
+  color: #282828;
+}
+
+.open_privacy {
+  background-color: #FFF;
+  color: #282828;
+}
+
+
+.privacy_ops_indicator {
+font-size: larger;
 }
 
 .private_true {
-    margin-left: 4px
+    margin-left: 4px;
 }
 
 .comments_placeholder {

@@ -83,9 +83,10 @@ class Interest < ActiveRecord::Base
   #load all posts within beads of the current interest
   #refers to bead ids that were extracted in the bead_ids
   #this is content that shows in the middle area, that is not memorized or burned
+
+  #returns all messages without user's memories
   def post_content(selected_user)
-    content = post_content_all(selected_user) - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
-	return content.sort_by{|p| - p.created_at.to_i}
+    return self.post_content_all_without_memories(selected_user)
   end
 
   #this function finds all trustors for the selected user
@@ -137,7 +138,7 @@ class Interest < ActiveRecord::Base
         loaded_post_ids]
     )
   end
-
+  #returns all messages (public, private and personal), used for counts only and as a superset
   def post_content_all(selected_user)
     #load trusts that are associated with interests containing the same beads combination as the current interest
     loaded_trustors = trustors(selected_user)
@@ -151,15 +152,30 @@ class Interest < ActiveRecord::Base
         :order => 'posts.updated_at DESC')
     else private_posts = []
     end
-    personal_posts = self.posts.find(:all,
-        :conditions => ["posts.p_private = ? AND posts.user_id = ?", 2, selected_user.id],
-        :order => 'posts.updated_at DESC')
-    return private_posts + public_posts + personal_posts
+    
+    return private_posts + public_posts
   end
 
-  def post_content_personal(selected_user)
+  #all messages without memories of the selected user
+  def post_content_all_without_memories(selected_user)
+    loaded_trustors = trustors(selected_user)
+    public_posts = self.posts.find(:all,
+        #:include => :memorizations,
+        :conditions => ["NOT EXISTS (SELECT * FROM memorizations WHERE memorizations.user_id = ? AND memorizations.post_id = posts.id) AND posts.p_private = ?",selected_user.id,0],
+        :order => 'posts.created_at DESC')
+    if loaded_trustors.present?
+      private_posts = self.posts.find(:all,
+        #:include => :memorizations,
+        :conditions => ["NOT EXISTS (SELECT * FROM memorizations WHERE memorizations.user_id = ? AND memorizations.post_id = posts.id) AND posts.p_private = ? AND posts.user_id IN (?)",selected_user.id,1, loaded_trustors],
+        :order => 'posts.created_at DESC')
+    else private_posts = []
+    end
+    return private_posts + public_posts
+  end
+
+  def xxxpost_content_private(selected_user)
     personal_posts = self.posts.find(:all,
-        :conditions => ["posts.p_private = ? AND posts.user_id = ?", 2, selected_user.id],
+        :conditions => ["posts.p_private = ? AND posts.user_id = ?", 1, selected_user.id],
         :order => 'posts.updated_at DESC')
     return personal_posts
   end
@@ -168,26 +184,23 @@ class Interest < ActiveRecord::Base
     loaded_trustors = trustors(selected_user)
     if loaded_trustors.present?
       private_posts = self.posts.find(:all,
-        :conditions => ["posts.p_private <> ? AND posts.user_id IN (?)", 0, loaded_trustors],
-        :order => 'posts.updated_at DESC') -
-      self.posts.find(:all,
-        :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND posts.p_private > ? AND posts.user_id IN (?)", selected_user.id, 0, loaded_trustors],
+        :conditions => ["NOT EXISTS (SELECT * FROM memorizations WHERE memorizations.user_id = ? AND memorizations.post_id = posts.id) AND posts.p_private = ? AND posts.user_id IN (?)", selected_user.id, 1, loaded_trustors],
         :order => 'posts.updated_at DESC')
     else private_posts = []
     end
     return private_posts
   end
 
+
   def memorized_post_content(memorability,selected_user,unload='complete')
-    content = memorized_post_content_public(memorability,selected_user,unload) + memorized_post_content_private(memorability,selected_user,unload) + post_content_personal(selected_user)
+    content = memorized_post_content_public(memorability,selected_user,unload) + memorized_post_content_private(memorability,selected_user,unload) + memorized_post_content_personal(memorability,selected_user,unload)
 	return content.sort_by{|p| - p.created_at.to_i}
   end
 
   def memorized_post_content_public(memorability,user,unload='complete')
     self.posts.find(:all,
         :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private < ?", user, memorability, unload, 1],
+        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ?", user, memorability, unload, 0],
         :order => 'posts.updated_at DESC')
   end
 
@@ -199,18 +212,26 @@ class Interest < ActiveRecord::Base
         :order => 'posts.updated_at DESC')
   end
 
+  def memorized_post_content_personal(memorability,selected_user,unload='complete')
+    self.posts.find(:all,
+        :include => :memorizations,
+        :conditions => ["posts.user_id = ? AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ?",selected_user, selected_user, memorability, unload, 2],
+        :order => 'posts.updated_at DESC')
+  end
 
-  def dynamic_post_content(time_at, selected_user,unload='complete')
+#retiring old functions
+
+  def xxxdynamic_post_content(time_at, selected_user,unload='complete')
     loaded_trustors = trustors(selected_user)
     self.posts.find(:all,
-        :conditions => ["posts.created_at > ? AND posts.p_private = 0", time_at, true],
+        :conditions => ["posts.created_at > ? AND posts.p_private = 0", time_at],
         :order => 'created_at DESC') +
     self.posts.find(:all,
         :conditions => ["posts.created_at > ? AND posts.p_private > ? AND posts.user_id IN (?)", time_at, 0, loaded_trustors],
         :order => 'created_at DESC') - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
   end
 
-  def conditional_post_content(user,beads,time_at,memorability)
+  def xxxconditional_post_content(user,beads,time_at,memorability)
     self.posts.find(:all,
         :include => :memorizations,
         :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND posts.created_at > ?", user, memorability, time_at],

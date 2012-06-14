@@ -1,12 +1,12 @@
-<% unless @dynamic_posts.empty? %>
-  $(".dynamic#buffer").html("<%=raw escape_javascript(link_to(pluralize(@dynamic_posts.size.to_s + ' new ', 'open message'), '#', :remote => true, :class => 'post_show')) %>").show();
-  $('.post_show').click(function() {
-    refreshPosts();
-    $(".dynamic#buffer").slideUp();
-  });
-<% else %>
-  refreshPosts();
-<% end %>
+// function for refresh of the message contents  
+function refreshPosts() {
+  $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
+// function for refresh of the message size indicators
+  $(".messages_size").html("<%=raw escape_javascript(@raw_message_content.size.to_s) %>");
+  $(".memories_size").html("<%=raw escape_javascript(@raw_memory_content.size.to_s) %>");
+}
+
+refreshPosts();
   if ($(".activated_post").length > 0) {
     $.getScript("/posts/" + $('.activated_post').attr('data-id') + "/activate.js?indicator=true");
   }
@@ -34,10 +34,4 @@
   $(".dynamic#pagedmessages").html("<%=raw escape_javascript(pageless(@message_content.total_pages,('/dynamic_load?iid='+@interest.id.to_s+'&lt='+@load_type))) %>");
 <% end %>
 
-// function for refresh of the message contents  
-function refreshPosts() {
-  $(".dynamic#postcontent").html("<%=raw escape_javascript(render(@message_content)) %>");
-// function for refresh of the message size indicators
-  $(".messages_size").html("<%=raw escape_javascript(@raw_message_content.size.to_s) %>");
-  $(".memories_size").html("<%=raw escape_javascript(@raw_memory_content.size.to_s) %>");
-}
+

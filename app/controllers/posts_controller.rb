@@ -10,15 +10,8 @@ before_filter :authenticate_user! #, :except => [:show, :index]
     @raw_memory_content = @interest.memorized_post_content(true,current_user,'other')
     @most_recent_message = @raw_message_content.first
     puts "preloaded interest - #{@interest.id}, last visited #{@previous_visit_record}"
-    if params[:full_refresh] != 'false'
-      @dynamic_posts = []
-    elsif params[:full_refresh] == 'false'
-      (params[:after].nil?) ? time_at = 0 : time_at = params[:after].to_i + 3
-      @dynamic_posts = @interest.dynamic_post_content(Time.at(time_at),current_user)
-    end
     if @interest && params[:lt] == 'streammessages'
       @message_content_private = @interest.post_content_private(current_user)
-      #@message_content_size = @raw_message_content.size
       @message_content_all = @raw_message_content
       if params[:ft] == 'filterall'
         @message_content = @message_content_all.sort_by { |p| -p.display_time_at }.paginate(:per_page=> current_user.user_preference.messages_per_page, :page => params[:page])

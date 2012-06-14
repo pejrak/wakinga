@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#new_post").submitWithAjax();
+
     $(function() {
         var c=0;
         //setTimeout("updatePosts(0)", 500);
@@ -84,18 +84,6 @@ function updatePosts(c) {
   //  clearTimeout(t);
   //  $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>");
   //}
-}
-
-jQuery.ajaxSetup({
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-})
-//submittal of post/messages form, making ajax request for the new messages
-jQuery.fn.submitWithAjax = function() {
-  this.submit(function() {
-    $.post(this.action, $(this).serialize(), null, "script");
-    return false;
-  })
-  return this;
 }
 
 function prepPosts() {

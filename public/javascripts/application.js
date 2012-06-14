@@ -31,7 +31,7 @@ $(document).ready(function() {
     }
   });
     //auto expand handler for message creation
-    $("#post_content").autogrow();
+    //$("#post_content").autogrow();
     //initiate sliders and hiders for content effects
     $('body').delegate(".slider","click", function() {
       $('.content_'+$(this).attr('id')).slideToggle('slow');
@@ -41,12 +41,22 @@ $(document).ready(function() {
       $('.content_'+$(this).attr('id')).toggle();
     });
 //search for concepts
-  $("#search").keyup(function() {
-    var search_criteria = $("#search").serialize();
-    var key_count = (search_criteria.length - 7);
+  $("body").delegate("#search","keyup",function() {
+    var search_criteria = $("#search").val();
+    var key_count = search_criteria.length;
     var interest_id = $("#dynamic_beads").attr("data-id")
     if (key_count > 1) {
-        $.getScript("/beads.js?"+search_criteria+"&interest_id="+interest_id);
+	if (timer) {
+            clearTimeout(timer);
+        }
+        timer = setTimeout(function() {
+            searchContent(search_criteria)
+        }, 800);
+      	function searchContent(search_criteria) {
+          $("#dynamic_beads").html("<p><img src='/images/loader.gif'/> Searching...</p>");
+          $.getScript("/beads.js?search="+search_criteria+"&interest_id="+interest_id);
+      	}
+        
     }
   });
   //comment post-add loader
@@ -168,16 +178,16 @@ $("body").delegate(".hyper_switch,#live_memories,#action_memories,.activator", "
       }
     });
 
-  $("#search").live({
-    keyup: function() {
-      var search_criteria = $("#search").serialize();
-      var key_count = (search_criteria.length - 7);
-      var parent_bead_id = $("#dynamic_beads").attr("data-id")
-      if (key_count > 1) {
-        $.getScript("/beads.js?"+search_criteria+"&parent_bead_id="+parent_bead_id);
-      }
-    }
-  });
+//  $("#search").live({
+//    keyup: function() {
+//      var search_criteria = $("#search").serialize();
+//      var key_count = (search_criteria.length - 7);
+//      var parent_bead_id = $("#dynamic_beads").attr("data-id")
+//      if (key_count > 1) {
+//        $.getScript("/beads.js?"+search_criteria+"&parent_bead_id="+parent_bead_id);
+//      }
+//    }
+//  });
 
 
     //generic operator preview

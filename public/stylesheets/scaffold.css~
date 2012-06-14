@@ -79,7 +79,7 @@ box-shadow: 3px 3px 5px #CCC;
 				/* right column background colour */
 	}
 	.threecol .colmid {
-		right:15%;			/* width of the right column */
+		right:17%;			/* width of the right column */
 				/* center column background colour */
 	}
 	.threecol .colleft {
@@ -88,16 +88,18 @@ box-shadow: 3px 3px 5px #CCC;
 	}
 	.threecol .col1 {
 		width:53%;			/* width of center column content (column width minus padding on either side) */
-		left:101%;			/* 100% plus left padding of center column */
+		left:101%;
+
+		/* 100% plus left padding of center column */
 	}
 	.threecol .col2 {
 		width:28%;			/* Width of left column content (column width minus padding on either side) */
-		left:17%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
-                padding: 10px
+		left:20%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+/*                padding: 10px*/
 	}
 	.threecol .col3 {
-		width:13%;			/* Width of right column content (column width minus padding on either side) */
-		left:75%;			/* Please make note of the brackets here:
+		width:15%;			/* Width of right column content (column width minus padding on either side) */
+		left:73%;			/* Please make note of the brackets here:
 						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 	}
 	/* Footer styles */
@@ -127,7 +129,6 @@ h3 {
   margin-top: 5px;
   margin-bottom: 0px;
   font-weight: normal;
-/*  font-style: italic; */
   color: #F40026;
 }
 h2 {
@@ -137,8 +138,8 @@ h2 {
   margin-top: 10px;
   font-size: 18px;
   font-weight: normal;
-/*  font-style: italic;*/
 }
+
 h1 {
   margin-top: 0px;
   margin-bottom: 0px;
@@ -191,6 +192,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 .wakinga_logo {
     float: left;
     margin: 0px;
+    margin-top: 12px;
 }
 
 .user_avatar {
@@ -203,6 +205,18 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 .text_light {
     color: #D8D8D8;
 }
+
+.help_text {
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #EEE;
+  margin-right: 10px;
+  margin-left: 1px;
+  padding: 5px
+}
+  
 
 .text_emphasizer {
     color: #F40026;
@@ -217,8 +231,9 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 /*interest styling*/
 .adopt_interest {
-    margin-top: 5px;
-    margin-right: 5px;
+  margin-right: 5px;
+  position:relative;
+  top:4px;
 }
 
 .enter_interest_icon {
@@ -228,9 +243,6 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
 
 .new_message_count {
     background-color: #F83251;
-    -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
-    -moz-border-radius: 3px;
     color: #ffffff;
     padding: 0px 2px;
     margin-right: 3px;
@@ -252,6 +264,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   margin-bottom: 3px;
   font-size: 16px;
   color: #282828;
+  cursor: pointer;
 }
 
 #action_memories {
@@ -310,34 +323,43 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
         color:black;
         font-size: 12px;
         padding: 5px;
-        border-bottom: #D8D8D8 2px solid;
         float: left;
 	width: 44%;
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
+    border-radius: 4px;
+}
 
+.live_message, .live_message.action, .live_message.archive, .live_message.complete {
+-moz-box-shadow: 0px 0px 6px #F85A73;
+-webkit-box-shadow: 0px 0px 6px #F85A73;
+box-shadow: 0px 0px 6px #F85A73;
+}
+
+.action {
 -moz-box-shadow: 0px 0px 6px #CCC;
 -webkit-box-shadow: 0px 0px 6px #CCC;
 box-shadow: 0px 0px 6px #CCC;
 }
 
-.live_message {
-    border-left: #F83251 2px solid;
-}
-
-.action {
-    border-right: #282828 2px solid;
-}
-
 .archive {
-    border-right: #BDBDBD 2px solid;
+background-color: #EEEEEE;
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
 }
 
 .complete {
-    border-right: #2CA200 2px solid;
+-moz-box-shadow: 0px 0px 6px #2CA200;
+-webkit-box-shadow: 0px 0px 6px #2CA200;
+box-shadow: 0px 0px 6px #2CA200;
 }
 
 .post_operators {
     float: right;
     display: block;
+    height: 0px;
 }
 
 .post_foot {
@@ -359,6 +381,12 @@ box-shadow: 0px 0px 6px #CCC;
 
 .post img {
 	margin-right: 4px;
+}
+
+.post_body_content a {
+max-width: 90%;
+overflow: hidden;
+display: block;
 }
 
 .activated_post_container {
@@ -386,12 +414,42 @@ box-shadow: 0px 0px 6px #CCC;
 }
 
 #post_content {
-    width: 90%; line-height: 1;
+    width: 97%; line-height: 1;
     
 }
 
+.privacy_ops_container {
+width: 94%;
+padding: 5px;
+
+-moz-box-shadow: 0px 0px 6px #CCC;
+-webkit-box-shadow: 0px 0px 6px #CCC;
+box-shadow: 0px 0px 6px #CCC;
+    border-radius: 4px;
+}
+
+.personal_privacy {
+  background-color: #2CA200;
+  color: #FFFFFF;
+}
+
+.private_privacy {
+  background-color: #d1ffc0;
+  color: #282828;
+}
+
+.open_privacy {
+  background-color: #FFF;
+  color: #282828;
+}
+
+
+.privacy_ops_indicator {
+font-size: larger;
+}
+
 .private_true {
-    margin-left: 4px
+    margin-left: 4px;
 }
 
 .comments_placeholder {
@@ -418,6 +476,13 @@ box-shadow: 0px 0px 6px #CCC;
   font-size: 11px;
   padding: 5px;
 }
+
+.comment_new {
+  color: #B0001C;
+}
+.comment_read {
+  color: #282828;
+}
 .deleted_comment {
     width: 5px;
     height: 5px;
@@ -436,7 +501,7 @@ box-shadow: 0px 0px 6px #CCC;
 }
 .comment_indentor {
     background-color:#BDBDBD;
-    width: 10px;
+    width: 20px;
     height: 3px;
 }
 .comment_indentor_new {

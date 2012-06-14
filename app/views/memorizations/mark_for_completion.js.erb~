@@ -1,5 +1,5 @@
 var post_identifier = <%=raw @memorization.post.id %>;
-$(".post#"+post_identifier).append("<p><img src='/images/loader.gif'/> Marking message complete...</p>");
+$(".post#"+post_identifier).append("<p><img src='/images/loader.gif'/> Marking message...</p>");
 $("#interest").after('<div class="flash_dynamic"><%= escape_javascript(flash.delete(:notice)) %></div>');
 $.getScript("/posts/" + post_identifier + "/activate.js");
 prepPosts();

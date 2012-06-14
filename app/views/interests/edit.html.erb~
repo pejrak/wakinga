@@ -1,0 +1,3 @@
+<h2>building interest</h2>
+
+<%= render 'form' %>

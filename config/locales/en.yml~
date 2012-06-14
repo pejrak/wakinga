@@ -7,7 +7,7 @@ en:
     user_preference_options: "<i>Options</i>\n Notifications will contain information on the new and live messages per interest you have under your mind profile. There will be no email when there are not new or live messages in your interest. \n <strong>Daily:</strong> Means you will get a daily email.\n <strong>Weekly:</strong> Means you will get a weekly email on Tuesday."
   interests:
     form:
-      interest_complete: "<p class='help_text'>Your interest is now combined of concepts. You can save it or remove the concepts to rebuild it.</p>"
+      interest_complete: "<p class='help_text'>This is your interest combined of concepts. You can now save it or remove the concepts to rebuild it.</p>"
       search_concept: "<h3>Search and add concept</h3>"
       interest_exists: "<h2>Interest already exists</h2><p class='help_text'>Click the (+) icon to adopt it.</p>"
       create_interest: "<p class='help_text'>Create interest first.</p>"

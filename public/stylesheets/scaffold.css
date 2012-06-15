@@ -89,17 +89,18 @@ box-shadow: 3px 3px 5px #CCC;
 	.threecol .col1 {
 		width:53%;			/* width of center column content (column width minus padding on either side) */
 		left:101%;
+                padding-left: 4px;
 
 		/* 100% plus left padding of center column */
 	}
 	.threecol .col2 {
 		width:28%;			/* Width of left column content (column width minus padding on either side) */
-		left:20%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+		left:19%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
 /*                padding: 10px*/
 	}
 	.threecol .col3 {
-		width:15%;			/* Width of right column content (column width minus padding on either side) */
-		left:73%;			/* Please make note of the brackets here:
+		width:16%;			/* Width of right column content (column width minus padding on either side) */
+		left:74%;			/* Please make note of the brackets here:
 						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 	}
 	/* Footer styles */

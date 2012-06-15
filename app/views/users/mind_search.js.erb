@@ -1,24 +1,24 @@
 <% unless @search_results.empty? %>
 	$(".dynamic#recalls").html("<%=raw escape_javascript(render(@search_results)) %>");
-	$(".dynamic#recalls").prepend("<i><%=raw escape_javascript('click to preview, found ') %><%= escape_javascript(pluralize(@search_results.size,'result')) %></i><%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border=>0,:title=>'clear results'),'#',:class=>'clear_recalls',:remote=>true)) %>");
-	$(".dynamic#recalls").append("<i><%=raw escape_javascript('end of results') %></i>");
+	$(".dynamic#recalls").prepend("<i><%=raw escape_javascript('Click to preview, found ') %><%= escape_javascript(pluralize(@search_results.size,'result')) %>.</i><%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border=>0,:title=>'clear results'),'#',:class=>'clear_recalls',:remote=>true)) %>");
+	$(".dynamic#recalls").append("<div class='defloater'></div><i>End of results.</i>");
 <% else %>
-	$(".dynamic#recalls").html("<i><%=raw escape_javascript('no memory found') %></i>");
+	$(".dynamic#recalls").html("<div class='defloater'></div><i>No memory found.</i>");
 <% end %>
 
 <% unless @user_search_results.empty? %>
 	$(".dynamic#recalls").append("<div id='mindsearchres'><%=raw escape_javascript(render(@user_search_results)) %></div>");
-	$("#mindsearchres").prepend("<i><%=raw escape_javascript('found ') %><%= escape_javascript(pluralize(@user_search_results.size,'mind')) %></i><%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border=>0,:title=>'clear results'),'#',:class=>'clear_recalls',:remote=>true)) %>");
-	$("#mindsearchres").append("<br /><i><%=raw escape_javascript('end of mind search') %></i>");
+	$("#mindsearchres").prepend("<i><%=raw escape_javascript('Found ') %><%= escape_javascript(pluralize(@user_search_results.size,'mind')) %></i><%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border=>0,:title=>'clear results'),'#',:class=>'clear_recalls',:remote=>true)) %>");
+	$("#mindsearchres").append("<div class='defloater'></div><i>Search complete.</i>");
 <% else %>
-	$(".dynamic#recalls").append("<br /><i><%=raw escape_javascript('no mind found') %></i>");
+	$(".dynamic#recalls").append("<div class='defloater'></div><i>End of results.</i>");
 <% end %>
 
   $(document).ready(function() {
 
     //clear search results for memory recall
     $('.clear_recalls').click(function() {
-      $(".dynamic#recalls").html("<p>Cleared results.</p>");
+      $(".dynamic#recalls").html("<div class='defloater'></div><i>Results cleared.</i>");
     });
   
   });

@@ -87,16 +87,6 @@ ActiveRecord::Schema.define(:version => 20120607165559) do
     t.datetime "updated_at"
   end
 
-  create_table "languages", :primary_key => "language_id", :force => true do |t|
-    t.string  "language_name",                                     :null => false
-    t.string  "language_short",     :limit => 3
-    t.string  "language_locale",    :limit => 10,                  :null => false
-    t.boolean "language_extended",                                 :null => false
-    t.integer "language_order",                   :default => 300, :null => false
-    t.boolean "language_in_use"
-    t.string  "language_continent", :limit => 0
-  end
-
   create_table "memorizations", :force => true do |t|
     t.integer  "post_id"
     t.integer  "user_id"
@@ -107,19 +97,6 @@ ActiveRecord::Schema.define(:version => 20120607165559) do
     t.text     "change_record"
   end
 
-  create_table "note", :primary_key => "note_id", :force => true do |t|
-    t.integer   "message_value_fid", :null => false
-    t.integer   "user_fid",          :null => false
-    t.timestamp "note_date_created", :null => false
-    t.text      "note_text",         :null => false
-  end
-
-  create_table "note_status", :primary_key => "note_status_id", :force => true do |t|
-    t.integer "user_fid",                        :null => false
-    t.integer "note_fid",                        :null => false
-    t.string  "note_status_value", :limit => 32, :null => false
-  end
-
   create_table "nouns", :force => true do |t|
     t.string   "title"
     t.boolean  "b_active"
@@ -127,36 +104,6 @@ ActiveRecord::Schema.define(:version => 20120607165559) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "payment", :primary_key => "payment_id", :force => true do |t|
-    t.integer  "user_fid",                                                            :null => false
-    t.integer  "payment_variable_symbol",                                             :null => false
-    t.datetime "payment_created_date",                                                :null => false
-    t.datetime "payment_confirmed_date",                                              :null => false
-    t.datetime "payment_start_date",                                                  :null => false
-    t.datetime "payment_end_date",                                                    :null => false
-    t.integer  "payment_days_duration",                                               :null => false
-    t.decimal  "payment_price_with_vat",               :precision => 10, :scale => 0, :null => false
-    t.decimal  "payment_price_no_vat",                 :precision => 10, :scale => 0, :null => false
-    t.integer  "payment_vat",                                                         :null => false
-    t.string   "payment_type",            :limit => 0,                                :null => false
-  end
-
-  create_table "phrases", :primary_key => "phrase_id", :force => true do |t|
-    t.string  "phrase_tag", :null => false
-    t.integer "project_id", :null => false
-  end
-
-  add_index "phrases", ["project_id"], :name => "fk_phrases_projects1"
-
-  create_table "phrases_values", :primary_key => "phrase_value_id", :force => true do |t|
-    t.integer "phrase_id",   :null => false
-    t.integer "language_id", :null => false
-    t.text    "value"
-  end
-
-  add_index "phrases_values", ["language_id"], :name => "fk_phrase_values_languages1"
-  add_index "phrases_values", ["phrase_id"], :name => "fk_phrase_values_phrases1"
 
   create_table "posts", :force => true do |t|
     t.string   "title"
@@ -167,26 +114,6 @@ ActiveRecord::Schema.define(:version => 20120607165559) do
     t.integer  "rating"
     t.integer  "p_private",  :default => 0
   end
-
-  create_table "projects", :primary_key => "project_id", :force => true do |t|
-    t.integer   "user_id",                                 :null => false
-    t.string    "project_name",                            :null => false
-    t.timestamp "project_created_timestamp",               :null => false
-    t.string    "project_secret"
-    t.string    "project_key",                             :null => false
-    t.string    "project_csv_delimiter",     :limit => 32
-    t.string    "project_csv_eol",           :limit => 32
-  end
-
-  add_index "projects", ["user_id"], :name => "fk_projects_users1"
-
-  create_table "projects_languages", :id => false, :force => true do |t|
-    t.integer "project_id",    :null => false
-    t.integer "language_id",   :null => false
-    t.boolean "main_language"
-  end
-
-  add_index "projects_languages", ["language_id"], :name => "fk_projects_has_languages_languages1"
 
   create_table "requests", :force => true do |t|
     t.string   "r_type"

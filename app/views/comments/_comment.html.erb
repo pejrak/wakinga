@@ -4,7 +4,7 @@
     
 <%= simple_format(auto_link(comment.body), :class => 'comment_text comment'+((comment.new?(current_user))? '_new' : '_read')) %>
     <div class="defloater"></div>
-    <span class="heading_subtelize"><%= time_ago_in_words(comment.created_at) %> ago by <strong><%= link_to(comment.user.username,comment.user) %></strong>
+    <span class="comment_foot"><i><%= time_ago_in_words(comment.created_at) %> ago by <strong><%= link_to(comment.user.username,comment.user) %></strong></i>
     <% if comment.user == current_user %>
       &nbsp;(<%= link_to('x', comment, :method => :delete, :confirm => 'remove comment?', :remote => :true) %>)
     <% end %>

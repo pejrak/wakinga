@@ -54,7 +54,7 @@
 
 
   <% if incoming_trusts.present? %>
-    <h2>incoming trusts</h2>
+    <%= render :partial => 'shared/divider', :locals => {:divider => 'Incoming trusts'} %>
     <%= render :partial => 'trusts/incoming_trust', :collection => incoming_trusts %>
   <% end %>
 

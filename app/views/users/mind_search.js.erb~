@@ -1,5 +1,4 @@
 <% unless @search_results.empty? %>
-	$(".dynamic#recalls").show();
 	$(".dynamic#recalls").html("<%=raw escape_javascript(render(@search_results)) %>");
 	$(".dynamic#recalls").prepend("<i><%=raw escape_javascript('Click to preview, found ') %><%= escape_javascript(pluralize(@search_results.size,'result')) %>.</i><%=raw escape_javascript(link_to(image_tag('/images/remove.png',:border=>0,:title=>'clear results'),'#',:class=>'clear_recalls',:remote=>true)) %>");
 	$(".dynamic#recalls").append("<div class='defloater'></div><i>End of results.</i>");

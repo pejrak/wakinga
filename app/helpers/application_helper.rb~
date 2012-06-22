@@ -61,6 +61,7 @@ module ApplicationHelper
     'maxCharsWarning': #{max_char_warning},
     'msgFontSize': '10px',
     'msgFontColor': '#CCC',
+    'msgFontFamily': 'Arial',
     'msgTextAlign': 'left',
     'msgWarningColor': '#F00',
     'msgAppendMethod': 'insertAfter'

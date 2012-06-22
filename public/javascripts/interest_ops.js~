@@ -1,12 +1,9 @@
 $(document).ready(function() {
-    $("#new_post").submitWithAjax();
+
     $(function() {
         var c=0;
         //setTimeout("updatePosts(0)", 500);
         //$.getScript("/javascripts/message_ops.js");
-    });
-    $(function() {
-      $(".activated_post_container").jScroll();
     });
 
   $("#memorysearch").keyup(function() {
@@ -62,7 +59,7 @@ function updatePosts(c) {
     $("#messagerefresh").remove();
   }
   if ($("#catcher").data("load")==undefined) {
-    $("#catcher").data("load",{"stream":"streammessages","filter":"filterall"});
+    $("#catcher").data("load",{"stream":"streammemories","filter":"filteraction"});
   }
   var load_type = $("#catcher").data("load")["stream"];
   var filter_type = $("#catcher").data("load")["filter"];
@@ -76,29 +73,17 @@ function updatePosts(c) {
   $.getScript("/posts.js?iid="+interest_id+"&after="+after+"&full_refresh=false&pvr="+previous_visit+"&lt="+load_type+"&ft="+filter_type+"&il="+initial_load);
   //reload message operations scripts, because they get disabled by running multiple layers of scripts before
   //iterating timeout count
-  if (c == undefined) {
-    var c = 0;
-  }
-  c=c+1;
-  if (c<10) {
-    t=setTimeout("updatePosts("+c+")", c*10000);
-  }
-  else {
-    clearTimeout(t);
-    $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>");
-  }
-}
-
-jQuery.ajaxSetup({
-  'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
-})
-//submittal of post/messages form, making ajax request for the new messages
-jQuery.fn.submitWithAjax = function() {
-  this.submit(function() {
-    $.post(this.action, $(this).serialize(), null, "script");
-    return false;
-  })
-  return this;
+  //if (c == undefined) {
+  //  var c = 0;
+  //}
+  //c=c+1;
+  //if (c<10) {
+  //  t=setTimeout("updatePosts("+c+")", c*10000);
+  //}
+  //else {
+  //  clearTimeout(t);
+  //  $("#interest").after("<div id='messagerefresh'><a href='#' data-remote='true' onClick='updatePosts(0)'><img src='/images/message_refresh.png' border = 0 />refresh messages</a></div>");
+  //}
 }
 
 function prepPosts() {

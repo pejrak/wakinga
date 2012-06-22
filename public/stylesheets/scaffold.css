@@ -268,8 +268,12 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   cursor: pointer;
 }
 
-#action_memories {
+#action_memories, #filteractive {
   border-left: 3px solid #282828;
+}
+
+#filterarchive {
+  border-left: 3px solid #CCCCCC;
 }
 
 #live_memories {
@@ -300,21 +304,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   font-size: 13px;
 }
 
-.stream_operator, .filter_operator {
-  border-radius: 3px;
-  padding: 6px;
-  background-color: #CCC;
-  margin: 3px;
-  float: left;
-  font-size: 15px;
-
-}
-
-.stream_operator {
-  padding: 10px 6px 13px;
-}
-
-.dynamic#postcontent {
+#postcontent {
   clear:both;
 }
 
@@ -676,8 +666,7 @@ background-color: #d1ffc0;
     padding: 3px;
 }
 #recalls {
-    border: solid 3px #EEEEEE;
-    display:none;
+/*    border: solid 3px #EEEEEE;*/
 }
 
 #notice {

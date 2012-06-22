@@ -89,17 +89,18 @@ box-shadow: 3px 3px 5px #CCC;
 	.threecol .col1 {
 		width:53%;			/* width of center column content (column width minus padding on either side) */
 		left:101%;
+                padding-left: 4px;
 
 		/* 100% plus left padding of center column */
 	}
 	.threecol .col2 {
 		width:28%;			/* Width of left column content (column width minus padding on either side) */
-		left:20%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
+		left:19%;			/* width of (right column) plus (center column left and right padding) plus (left column left padding) */
 /*                padding: 10px*/
 	}
 	.threecol .col3 {
-		width:15%;			/* Width of right column content (column width minus padding on either side) */
-		left:73%;			/* Please make note of the brackets here:
+		width:16%;			/* Width of right column content (column width minus padding on either side) */
+		left:74%;			/* Please make note of the brackets here:
 						(100% - left column width) plus (center column left and right padding) plus (left column left and right padding) plus (right column left padding) */
 	}
 	/* Footer styles */
@@ -153,7 +154,7 @@ h1 {
 .defloater {
     clear: both;
 }
-.leftfloater{
+.leftfloater {
     float:left;
 }
 
@@ -212,7 +213,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
     -moz-border-radius: 3px;
   border-radius: 3px;
   background-color: #EEE;
-  margin-right: 10px;
+  margin-right: 1px;
   margin-left: 1px;
   padding: 5px
 }
@@ -267,8 +268,12 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   cursor: pointer;
 }
 
-#action_memories {
+#action_memories, #filteractive {
   border-left: 3px solid #282828;
+}
+
+#filterarchive {
+  border-left: 3px solid #CCCCCC;
 }
 
 #live_memories {
@@ -299,21 +304,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   font-size: 13px;
 }
 
-.stream_operator, .filter_operator {
-  border-radius: 3px;
-  padding: 6px;
-  background-color: #CCC;
-  margin: 3px;
-  float: left;
-  font-size: 15px;
-
-}
-
-.stream_operator {
-  padding: 10px 6px 13px;
-}
-
-.dynamic#postcontent {
+#postcontent {
   clear:both;
 }
 
@@ -442,8 +433,18 @@ box-shadow: 0px 0px 6px #CCC;
   background-color: #FFF;
   color: #282828;
 }
-
-
+/*open message privacy*/
+.post.privacy_level_0 {
+  
+}
+/*private message privacy*/
+.post.privacy_level_1 {
+  
+}
+/*personal message privacy*/
+.post.privacy_level_2 {
+  
+}
 .privacy_ops_indicator {
 font-size: larger;
 }
@@ -455,6 +456,11 @@ font-size: larger;
 .comments_placeholder {
     border-top: #F40026 solid 1px;
     color: #F40026;
+}
+.comment_foot {
+    color: #BDBDBD;
+    margin-bottom: 0px;
+    margin-top: 5px;
 }
 .comments_frame {
 /*    padding: 10px;*/
@@ -645,12 +651,12 @@ background-color: #CCC;
 background-color: #d1ffc0;
 }
 
-.dynamic#buffer {
+#buffer {
     background-color: #011d62;
     padding: 5px;
     text-align: center;
 }
-.dynamic#buffer a {
+#buffer a {
     background-color: #011d62;
     color: white;
 }
@@ -659,8 +665,8 @@ background-color: #d1ffc0;
     background-color: #b0f097;
     padding: 3px;
 }
-.dynamic#recalls {
-    background-color: #F2F2F2;
+#recalls {
+    border: solid 3px #EEEEEE;
 }
 
 #notice {

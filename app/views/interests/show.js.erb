@@ -9,8 +9,8 @@ $(".tab_stripe").append("<span class='interest_tab_terminator'></span>");
 
 $(".leftslot").html("<div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
     <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div> \
-    <div class='defloater'></div><div class='stream_operator' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
-    <div class='stream_operator' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
+    <div class='defloater'></div><div class='stream_operator hyper_switch' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
+    <div class='stream_operator hyper_switch' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
     </div> \
     <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Filters</div><div class='extender_line'></div></div> \
     <div class='defloater'></div><div class='filters_container' id='interest'></div>");
@@ -20,7 +20,7 @@ $("#middleactive").html("<h2><%=raw escape_javascript(link_to image_tag('/images
   <div class='content_create_message' style='display:none'><%=raw escape_javascript(render 'posts/form') %></div> \
     <div class='dynamic' id='buffer' style='display: none'></div> \
   <div class='defloater'> \
-    <div class='dynamic' id='recalls'></div> \
+    <div class='dynamic' id='recalls' style='display: none'></div> \
   </div> \
   <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Content</div><div class='extender_line'></div></div> \
   <div class='dynamic' id='postcontent' data-time='<%=raw @previous_visit_record.to_i %>'> \

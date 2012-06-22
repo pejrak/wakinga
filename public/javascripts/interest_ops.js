@@ -59,7 +59,7 @@ function updatePosts(c) {
     $("#messagerefresh").remove();
   }
   if ($("#catcher").data("load")==undefined) {
-    $("#catcher").data("load",{"stream":"streammessages","filter":"filterall"});
+    $("#catcher").data("load",{"stream":"streammemories","filter":"filteractive"});
   }
   var load_type = $("#catcher").data("load")["stream"];
   var filter_type = $("#catcher").data("load")["filter"];

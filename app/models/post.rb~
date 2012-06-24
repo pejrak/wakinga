@@ -81,8 +81,7 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
   end
 
   def related_interest
-    mapped_interest_id = self.interests_posts.map(&:interest_id).first
-    return Interest.find(mapped_interest_id)
+    mapped_interest_id = self.interests.first
   end
 
   def good_memorizations_of_other_than(selected_user)

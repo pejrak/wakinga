@@ -259,7 +259,7 @@ a:hover { color: #fff; background-color:#F83251; text-decoration: none; }
   margin-top: 15px;
 }
 
-#action_memories, #live_memories, .hyper_switch {
+#action_memories, #live_memories, .hyper_switch, .filter_operator, .stream_operator {
   padding: 4px 10px 4px;
   margin-left: 10px;  
   margin-bottom: 3px;
@@ -433,17 +433,29 @@ box-shadow: 0px 0px 6px #CCC;
   background-color: #FFF;
   color: #282828;
 }
+
+.privacy_indicator {
+    float: left;
+    width:20px;
+    color: transparent;
+}
+
 /*open message privacy*/
-.post.privacy_level_0 {
+.privacy_level_0 {
+   width:0px;
   
 }
 /*private message privacy*/
-.post.privacy_level_1 {
-  
+.privacy_level_1 {
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url(/images/private.png);
 }
 /*personal message privacy*/
-.post.privacy_level_2 {
-  
+.privacy_level_2 {
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url(/images/personal.png);
 }
 .privacy_ops_indicator {
 font-size: larger;

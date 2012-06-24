@@ -30,6 +30,20 @@ validates :content, :presence => true, :length => { :minimum => 5, :maximum => M
     comments.where('created_at > ?', user.last_sign_in_at)
   end
 
+#privacy indicator
+  def privacy_indicator
+
+    if self.p_private == 0
+      return "open"
+    elsif self.p_private == 1
+      return "private"
+    elsif self.p_private == 2
+      return "personal"
+    else
+      return "unknown"
+    end
+  end
+
   #here, I define the algorithm for message display time shift
   def display_time_at
     gm = self.good_memories.count

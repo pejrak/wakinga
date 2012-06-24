@@ -1,4 +1,4 @@
-$(".tab_stripe").html("");
+$(".tab_stripe").html(" ");
 <% @tabs.each do |i| %>
   $(".tab_stripe").append("<div class='<%=raw escape_javascript((@interest.id == i)? 'interest_tab current_tab':'interest_tab previous_tab') %>'> \
   <span class='interest_tab_title'><%=raw escape_javascript(link_to(Interest.find(i).title_with_beads, interest_path(i),:remote=>true))%></span> \
@@ -9,8 +9,8 @@ $(".tab_stripe").append("<span class='interest_tab_terminator'></span>");
 
 $(".leftslot").html("<div class='timestamp' id='catcher' data-id='<%=raw @interest.id %>' data-time='<%=raw Time.now.to_i %>'> \
     <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Streams</div><div class='extender_line'></div></div> \
-    <div class='defloater'></div><div class='stream_operator hyper_switch' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
-    <div class='stream_operator hyper_switch' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
+    <div class='defloater'></div><div class='stream_operator' id='streammessages'>Messages (<span class='messages_size'><%=raw @messages_size %></span>)</div> \
+    <div class='stream_operator' id='streammemories'>Memories (<span class='memories_size'><%=raw @memories_size %></span>)</div> \
     </div> \
     <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Filters</div><div class='extender_line'></div></div> \
     <div class='defloater'></div><div class='filters_container' id='interest'></div>");

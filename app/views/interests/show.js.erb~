@@ -1,4 +1,4 @@
-$(".tab_stripe").html("");
+$(".tab_stripe").html(" ");
 <% @tabs.each do |i| %>
   $(".tab_stripe").append("<div class='<%=raw escape_javascript((@interest.id == i)? 'interest_tab current_tab':'interest_tab previous_tab') %>'> \
   <span class='interest_tab_title'><%=raw escape_javascript(link_to(Interest.find(i).title_with_beads, interest_path(i),:remote=>true))%></span> \
@@ -20,7 +20,7 @@ $("#middleactive").html("<h2><%=raw escape_javascript(link_to image_tag('/images
   <div class='content_create_message' style='display:none'><%=raw escape_javascript(render 'posts/form') %></div> \
     <div class='dynamic' id='buffer' style='display: none'></div> \
   <div class='defloater'> \
-    <div class='dynamic' id='recalls'></div> \
+    <div class='dynamic' id='recalls' style='display: none'></div> \
   </div> \
   <div class='defloater'></div><div class='extender_stripe'><div class='extender_header'>Content</div><div class='extender_line'></div></div> \
   <div class='dynamic' id='postcontent' data-time='<%=raw @previous_visit_record.to_i %>'> \

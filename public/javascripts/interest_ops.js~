@@ -16,7 +16,7 @@ $(document).ready(function() {
       $.getScript("/interests/"+interest_id+"/memory_search.js?"+search_criteria);
     }
   });
-    $("body").delegate(".stream_operator,.filter_operator", "click", function() {
+    $("body").delegate(".stream_operator", "click", function() {
         var identificator = $(this).attr("id");
         var loaded_set = $("#catcher").data("load");
         var selected_operator_class = $(this).attr("class");
@@ -59,7 +59,7 @@ function updatePosts(c) {
     $("#messagerefresh").remove();
   }
   if ($("#catcher").data("load")==undefined) {
-    $("#catcher").data("load",{"stream":"streammemories","filter":"filteraction"});
+    $("#catcher").data("load",{"stream":"streammemories","filter":"filteractive"});
   }
   var load_type = $("#catcher").data("load")["stream"];
   var filter_type = $("#catcher").data("load")["filter"];

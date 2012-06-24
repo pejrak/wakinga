@@ -1,4 +1,4 @@
-<div class="post <%= (post.live_message(current_user,@previous_visit_record))? 'live_message' : 'regular_message' %><%= (post.good_memory(current_user))? ' '+post.good_memory(current_user).status_indication : '' %> <%= 'privacy_level_'+post.p_private.to_s %>" data-time="<%= post.created_at.to_i %>" id="<%= post.id %>">
+<div class="post <%= (post.live_message(current_user,@previous_visit_record))? 'live_message' : 'regular_message' %><%= (post.good_memory(current_user))? ' '+post.good_memory(current_user).status_indication : '' %>" data-time="<%= post.created_at.to_i %>" id="<%= post.id %>">
 
 
 <div class="post_operators" id="<%= 'post_operators_'+post.id.to_s %>" style="display: none">
@@ -10,7 +10,7 @@
 
 <div class="post_foot">
 
-        <%= (post.p_private == 1)? image_tag('/images/bullet_red.png', :class => 'private_'+post.p_private.to_s, :border => 0, :title => 'this message is private'):'' %> <i><%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong><%= (post.comments.present?)? content_tag(:span, ', (' + post.comments.size.to_s  + ( (post.new_comments_since_last_login(current_user).size > 0)? ' -' + post.new_comments_since_last_login(current_user).size.to_s + ' new- ' : '' ) +  ' reactions)', :class => 'text_subtletize') : '' %></i>
+        <%= content_tag(:div,post.p_private.to_s, :class => 'privacy_indicator privacy_level_'+post.p_private.to_s, :title => 'privacy is '+post.privacy_indicator) %> <i><%= time_ago_in_words(post.created_at) %> ago by <strong><%= link_to post.user.username, post.user %></strong><%= (post.comments.present?)? content_tag(:span, ', (' + post.comments.size.to_s  + ( (post.new_comments_since_last_login(current_user).size > 0)? ' -' + post.new_comments_since_last_login(current_user).size.to_s + ' new- ' : '' ) +  ' reactions)', :class => 'text_subtletize') : '' %></i>
 
 </div>
 

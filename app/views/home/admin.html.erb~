@@ -24,7 +24,7 @@
   <br />
   beads_interests fabric #: <%= BeadsInterest.all.size %>
   <br />
-  posts fabric #: <%= InterestsPost.all.size %>
+  beads_posts fabric #: <%= InterestsPost.all.size %>
 </p>
 
 

@@ -1,0 +1,4 @@
+<%= div_for bead do %>
+<h3><%= link_to_unless_current bead.title, bead %> ( <%# pluralize h(bead.interests_posts.size), 'message' %>  )</h3>
+  <%= h(bead.description) %>
+<% end %>

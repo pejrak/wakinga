@@ -244,9 +244,15 @@ before_filter :authenticate_user! #, :except => [:show, :index]
 
   def switch_privacy
     @post = Post.find(params[:id])
-    (@post.p_private == false)? @post.p_private = true : @post.p_private = false
+    if @post.p_private == 0
+      @post.p_private = 2
+    elsif @post.p_private == 1
+      @post.p_private = 0
+    elsif @post.p_private == 2
+      @post.p_private = 1
+    end
     if @post.save
-      flash[:notice] = "Switched privacy to #{@post.p_private}."
+      flash[:notice] = "Switched privacy to #{@post.privacy_indicator}."
       respond_to do | format |
         format.js
       end

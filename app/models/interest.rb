@@ -206,36 +206,16 @@ class Interest < ActiveRecord::Base
 
   def memorized_post_content_private(memorability,selected_user,unload='complete')
     loaded_trustors = trustors(selected_user)
-    self.posts.find(:all,
-        :include => :memorizations,
+    self.posts.all(:include => :memorizations,
         :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ? AND posts.user_id IN (?)", selected_user, memorability, unload, 1, loaded_trustors],
         :order => 'posts.updated_at DESC')
   end
 
   def memorized_post_content_personal(memorability,selected_user,unload='complete')
-    self.posts.find(:all,
-        :include => :memorizations,
+    self.posts.all(:include => :memorizations,
         :conditions => ["posts.user_id = ? AND memorizations.user_id = ? AND memorizations.memorable = ? AND memorizations.status_indication NOT IN (?) AND posts.p_private = ?",selected_user, selected_user, memorability, unload, 2],
         :order => 'posts.updated_at DESC')
   end
 
-#retiring old functions
-
-  def xxxdynamic_post_content(time_at, selected_user,unload='complete')
-    loaded_trustors = trustors(selected_user)
-    self.posts.find(:all,
-        :conditions => ["posts.created_at > ? AND posts.p_private = 0", time_at],
-        :order => 'created_at DESC') +
-    self.posts.find(:all,
-        :conditions => ["posts.created_at > ? AND posts.p_private > ? AND posts.user_id IN (?)", time_at, 0, loaded_trustors],
-        :order => 'created_at DESC') - memorized_post_content(true,selected_user,'other') - memorized_post_content(false,selected_user,'other')
-  end
-
-  def xxxconditional_post_content(user,beads,time_at,memorability)
-    self.posts.find(:all,
-        :include => :memorizations,
-        :conditions => ["memorizations.user_id = ? AND memorizations.memorable = ? AND posts.created_at > ?", user, memorability, time_at],
-        :order => 'created_at DESC')
-  end
 
 end

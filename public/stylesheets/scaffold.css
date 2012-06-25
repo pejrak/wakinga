@@ -322,6 +322,11 @@ box-shadow: 0px 0px 6px #CCC;
     border-radius: 4px;
 }
 
+.hovered {
+  background-color: #d1ffc0;
+  cursor: pointer;
+}
+
 .live_message, .live_message.action, .live_message.archive, .live_message.complete {
 -moz-box-shadow: 0px 0px 6px #F85A73;
 -webkit-box-shadow: 0px 0px 6px #F85A73;
@@ -339,6 +344,11 @@ background-color: #EEEEEE;
 -moz-box-shadow: 0px 0px 6px #CCC;
 -webkit-box-shadow: 0px 0px 6px #CCC;
 box-shadow: 0px 0px 6px #CCC;
+}
+
+.archive .hovered {
+  background-color: #d1ffc0;
+  cursor: pointer;
 }
 
 .complete {

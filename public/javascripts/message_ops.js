@@ -43,7 +43,8 @@ $("body").delegate(".privacy_ops_indicator","click",function(){
 
     //message hover and activate effects
 $("body").delegate(".post","mouseout",function(){
-  $(this).css("background-color","transparent");
+  //$(this).css("background-color","transparent");
+  $(this).removeClass("hovered");
         $(".post_operators").hide();
 
 });
@@ -52,7 +53,8 @@ $("body").delegate(".post","mouseover",function(){
         var identificator = $(this).attr("id");
         $("#post_operators_"+identificator).show();
   if ($(this).hasClass("expanded_post") == false) {
-    $(this).css("background-color","#d1ffc0");
+    //$(this).css("background-color","#d1ffc0");
+    $(this).addClass("hovered");
   }
 });
 
